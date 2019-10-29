@@ -1,0 +1,26 @@
+{
+    ".custom-enter": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-enter-active": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-enter-to": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-leave": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-leave-active": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-leave-to": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ]
+}

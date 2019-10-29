@@ -1,0 +1,6 @@
+{
+    ".foo>div>li.bar": [
+        "ul.foo>component>li#a.bar",
+        "ul.foo>component>li#d.bar"
+    ]
+}

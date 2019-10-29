@@ -1,0 +1,6 @@
+{
+    ".foo>li.bar": [
+        "ul.foo>template>li#a.bar",
+        "ul.foo>template>li#d.bar"
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    ".foo": [
+        "div#example-2>transition>p#c",
+        "div#example-2>transition>p#d"
+    ]
+}

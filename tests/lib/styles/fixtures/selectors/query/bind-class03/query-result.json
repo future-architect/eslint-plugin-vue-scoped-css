@@ -1,0 +1,10 @@
+{
+    ".bar": [
+        "ul>li#b.{{ bar: true , }}",
+        "ul>li#d.{{ qux, bar, }}",
+        "ul>li#e.{{ quux, foo, 'bar': true, }}",
+        "ul>li#f.{{ grault, foo, bar: bar, }}",
+        "ul>li#g.{{ foo, ...garply, }}",
+        "ul>li#h.{{ [waldo]: true, }}"
+    ]
+}

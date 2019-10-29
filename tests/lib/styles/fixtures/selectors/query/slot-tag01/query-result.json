@@ -1,0 +1,14 @@
+{
+    ".foo>li.bar": [
+        "ul.foo>slot>li#a.bar",
+        "ul.foo>slot>li#d.bar"
+    ],
+    ".foo li.bar": [
+        "ul.foo>slot>li#a.bar",
+        "ul.foo>slot>li#d.bar"
+    ],
+    ".foo>div>li.bar": [],
+    ".foo>div": [
+        "ul.foo>slot>component"
+    ]
+}

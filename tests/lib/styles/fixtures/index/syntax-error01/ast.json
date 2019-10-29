@@ -1,0 +1,43 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 14
+        },
+        "end": {
+            "line": 6,
+            "column": 0
+        }
+    },
+    "start": 49,
+    "end": 67,
+    "range": [
+        49,
+        67
+    ],
+    "nodes": [],
+    "comments": [],
+    "errors": [
+        {
+            "type": "VCSSParsingError",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 15
+                },
+                "end": {
+                    "line": 5,
+                    "column": 15
+                }
+            },
+            "start": 65,
+            "end": 65,
+            "range": [
+                65,
+                65
+            ],
+            "message": "Unclosed block"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    ".foo li.qux": [
+        "ul.foo>li#c.qux",
+        "ul.foo>li#f.qux",
+        "ul.foo>li#g>ul>li#j.qux",
+        "ul.foo>li#g>ul>li#m.qux"
+    ]
+}

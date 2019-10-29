@@ -1,0 +1,20 @@
+{
+    ".custom-enter": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-enter-active": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-enter-to": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-leave": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-leave-active": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-leave-to": [
+        "div#example-2>transition>p#b"
+    ]
+}

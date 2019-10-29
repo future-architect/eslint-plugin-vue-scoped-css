@@ -1,0 +1,19 @@
+{
+    "*": [
+        "ul.foo",
+        "ul.foo>li#a.bar",
+        "ul.foo>li#b.baz",
+        "ul.foo>li#c.qux",
+        "ul.foo>li#d.bar",
+        "ul.foo>li#e.baz",
+        "ul.foo>li#f.qux",
+        "ul.foo>li#g",
+        "ul.foo>li#g>ul",
+        "ul.foo>li#g>ul>li#h.bar",
+        "ul.foo>li#g>ul>li#i.baz",
+        "ul.foo>li#g>ul>li#j.qux",
+        "ul.foo>li#g>ul>li#k.bar",
+        "ul.foo>li#g>ul>li#l.baz",
+        "ul.foo>li#g>ul>li#m.qux"
+    ]
+}

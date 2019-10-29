@@ -1,0 +1,48 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 50,
+            "end": 54,
+            "range": [
+                50,
+                54
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 6
+                },
+                "end": {
+                    "line": 5,
+                    "column": 10
+                }
+            },
+            "start": 56,
+            "end": 60,
+            "range": [
+                56,
+                60
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ]
+]

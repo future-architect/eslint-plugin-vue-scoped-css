@@ -1,0 +1,13 @@
+{
+    ".foo": [
+        "ul",
+        "ul>li#a",
+        "ul>li#b"
+    ],
+    ".bar": [
+        "ul",
+        "ul>li#a",
+        "ul>li#b"
+    ],
+    ".baz": []
+}

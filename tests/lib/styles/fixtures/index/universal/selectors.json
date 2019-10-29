@@ -1,0 +1,67 @@
+[
+    [
+        {
+            "type": "VCSSUniversalSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 1
+                }
+            },
+            "start": 50,
+            "end": 51,
+            "range": [
+                50,
+                51
+            ],
+            "value": "*",
+            "selector": "*"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 2
+                },
+                "end": {
+                    "line": 5,
+                    "column": 3
+                }
+            },
+            "start": 52,
+            "end": 53,
+            "range": [
+                52,
+                53
+            ],
+            "value": ">",
+            "selector": ">"
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 7
+                }
+            },
+            "start": 54,
+            "end": 57,
+            "range": [
+                54,
+                57
+            ],
+            "value": "div",
+            "selector": "div"
+        }
+    ]
+]

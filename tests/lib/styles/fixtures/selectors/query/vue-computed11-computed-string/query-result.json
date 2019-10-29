@@ -1,0 +1,9 @@
+{
+    ".foo": [
+        "ul>li#a.{classComp}",
+        "ul>li#b.{classComp2}"
+    ],
+    ".bar": [
+        "ul>li#c.{classComp3}"
+    ]
+}

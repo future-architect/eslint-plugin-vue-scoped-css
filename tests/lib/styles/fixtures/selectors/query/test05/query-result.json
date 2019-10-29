@@ -1,0 +1,6 @@
+{
+    "#g>>>.bar": [
+        "ul.foo>li#g>ul>li#h.bar",
+        "ul.foo>li#g>ul>li#k.bar"
+    ]
+}

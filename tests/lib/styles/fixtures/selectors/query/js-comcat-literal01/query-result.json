@@ -1,0 +1,12 @@
+{
+    ".foo-bar-baz": [
+        "div>div.{classes1}",
+        "div>div.{classes2}",
+        "div>div.{classes3}",
+        "div>div.{classes4}"
+    ],
+    ".bar-baz": [
+        "div>div.{classes4}"
+    ],
+    ".bar": []
+}

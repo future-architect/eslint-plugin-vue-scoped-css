@@ -1,0 +1,7 @@
+{
+    "#b": [
+        "ul>li#{idData}.bar",
+        "ul>li#{idComp}.qux",
+        "ul>li#{unknown}.corge"
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    ".bar": [
+        "ul>li#a.{classComp}",
+        "ul>li#b.{classComp2}"
+    ]
+}

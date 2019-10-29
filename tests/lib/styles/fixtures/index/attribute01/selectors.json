@@ -1,0 +1,167 @@
+[
+    [
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 12
+                }
+            },
+            "start": 50,
+            "end": 62,
+            "range": [
+                50,
+                62
+            ],
+            "attribute": "href",
+            "operator": "=",
+            "value": "foo",
+            "quoteMark": "\"",
+            "insensitiveFlag": null,
+            "selector": "[href=\"foo\"]"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 12
+                },
+                "end": {
+                    "line": 5,
+                    "column": 13
+                }
+            },
+            "start": 62,
+            "end": 63,
+            "range": [
+                62,
+                63
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 13
+                },
+                "end": {
+                    "line": 5,
+                    "column": 25
+                }
+            },
+            "start": 63,
+            "end": 75,
+            "range": [
+                63,
+                75
+            ],
+            "attribute": "href",
+            "operator": "=",
+            "value": "foo",
+            "quoteMark": "'",
+            "insensitiveFlag": null,
+            "selector": "[href='foo']"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 25
+                },
+                "end": {
+                    "line": 5,
+                    "column": 26
+                }
+            },
+            "start": 75,
+            "end": 76,
+            "range": [
+                75,
+                76
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 26
+                },
+                "end": {
+                    "line": 5,
+                    "column": 36
+                }
+            },
+            "start": 76,
+            "end": 86,
+            "range": [
+                76,
+                86
+            ],
+            "attribute": "href",
+            "operator": "=",
+            "value": "foo",
+            "quoteMark": null,
+            "insensitiveFlag": null,
+            "selector": "[href=foo]"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 36
+                },
+                "end": {
+                    "line": 5,
+                    "column": 37
+                }
+            },
+            "start": 86,
+            "end": 87,
+            "range": [
+                86,
+                87
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 37
+                },
+                "end": {
+                    "line": 5,
+                    "column": 43
+                }
+            },
+            "start": 87,
+            "end": 93,
+            "range": [
+                87,
+                93
+            ],
+            "attribute": "href",
+            "operator": null,
+            "value": null,
+            "quoteMark": null,
+            "insensitiveFlag": null,
+            "selector": "[href]"
+        }
+    ]
+]

@@ -1,0 +1,90 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 62,
+            "end": 66,
+            "range": [
+                62,
+                66
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 5
+                }
+            },
+            "start": 66,
+            "end": 67,
+            "range": [
+                66,
+                67
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 4
+                }
+            },
+            "start": 72,
+            "end": 76,
+            "range": [
+                72,
+                76
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 4
+                }
+            },
+            "start": 83,
+            "end": 87,
+            "range": [
+                83,
+                87
+            ],
+            "value": "baz",
+            "selector": ".baz"
+        }
+    ]
+]

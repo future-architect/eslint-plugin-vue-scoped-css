@@ -1,0 +1,113 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 6
+                },
+                "end": {
+                    "line": 5,
+                    "column": 10
+                }
+            },
+            "start": 56,
+            "end": 60,
+            "range": [
+                56,
+                60
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 11
+                },
+                "end": {
+                    "line": 5,
+                    "column": 12
+                }
+            },
+            "start": 61,
+            "end": 62,
+            "range": [
+                61,
+                62
+            ],
+            "value": ">",
+            "selector": ">"
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 13
+                },
+                "end": {
+                    "line": 5,
+                    "column": 17
+                }
+            },
+            "start": 63,
+            "end": 67,
+            "range": [
+                63,
+                67
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 0
+                },
+                "end": {
+                    "line": 8,
+                    "column": 4
+                }
+            },
+            "start": 73,
+            "end": 77,
+            "range": [
+                73,
+                77
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 8
+                },
+                "end": {
+                    "line": 9,
+                    "column": 12
+                }
+            },
+            "start": 88,
+            "end": 92,
+            "range": [
+                88,
+                92
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ]
+]
