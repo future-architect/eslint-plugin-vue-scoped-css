@@ -90,6 +90,7 @@ class HasParentNode<
  * The CSS Parsing Error.
  */
 export class VCSSParsingError extends Node<"VCSSParsingError"> {
+    public readonly message: string
     /**
      * constructor.
      * @param  {PostCSSDeclaration} node  The node.
@@ -106,9 +107,11 @@ export class VCSSParsingError extends Node<"VCSSParsingError"> {
         end: number,
         props: {
             lang: string
+            message: string
         },
     ) {
         super(node, "VCSSParsingError", loc, start, end, props.lang)
+        this.message = props.message
     }
 }
 
@@ -118,7 +121,7 @@ export class VCSSParsingError extends Node<"VCSSParsingError"> {
 export class VCSSStyleSheet extends Node<"VCSSStyleSheet"> {
     public nodes: VCSSNode[]
     public comments: VCSSCommentNode[]
-    public readonly errors: Node<string>[]
+    public readonly errors: VCSSParsingError[]
     /**
      * constructor.
      * @param  {PostCSSRoot} node  The node.
@@ -136,7 +139,7 @@ export class VCSSStyleSheet extends Node<"VCSSStyleSheet"> {
         props: {
             nodes?: VCSSNode[]
             comments?: VCSSCommentNode[]
-            errors?: Node<string>[]
+            errors?: VCSSParsingError[]
             lang: string
         },
     ) {

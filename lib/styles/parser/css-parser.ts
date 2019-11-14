@@ -84,9 +84,9 @@ export class CSSParser {
                 errorIndex,
                 {
                     lang: this.lang,
+                    message,
                 },
             )
-            ;(errorNode as any).message = message
 
             const startIndex = sourceCode.getIndexFromLoc(offsetLocation)
             const endIndex = startIndex + css.length

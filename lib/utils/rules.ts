@@ -2,6 +2,11 @@ import { Rule } from "../types"
 
 const baseRules = [
     {
+        rule: require("../rules/no-parsing-error"),
+        ruleName: "no-parsing-error",
+        ruleId: "vue-scoped-css/no-parsing-error",
+    },
+    {
         rule: require("../rules/no-unused-selector"),
         ruleName: "no-unused-selector",
         ruleId: "vue-scoped-css/no-unused-selector",

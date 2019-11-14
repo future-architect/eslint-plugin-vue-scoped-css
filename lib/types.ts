@@ -74,9 +74,10 @@ export interface RuleContext {
     parserServices: ParserServices
 }
 export type ReportDescriptor = {
-    loc?: SourceLocation
+    loc?: SourceLocation | { line: number; column: number }
     node?: AST.HasLocation
     messageId?: string
+    message?: string
     data?: { [key: string]: any }
 }
 export interface SourceCode {
