@@ -42,7 +42,7 @@ module.exports = {
   ],
   rules: {
     // override/add rules settings here, such as:
-    // 'vue-scoped-css/no-warning-html-comments': 'error'
+    // 'vue-scoped-css/no-unused-selector': 'error'
   }
 }
 ```
