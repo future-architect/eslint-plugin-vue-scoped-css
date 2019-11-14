@@ -28,6 +28,7 @@ Enforce all the rules in this category with:
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
+| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
 | [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
 | [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 

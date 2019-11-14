@@ -87,10 +87,8 @@ module.exports = {
     )
     fs.writeFileSync(
         testFile,
-        `"use strict"
-
-const RuleTester = require("eslint").RuleTester
-const rule = require("../../../dist/rules/${ruleId}")
+        `import { RuleTester } from "eslint"
+const rule = require("../../../lib/rules/${ruleId}")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),

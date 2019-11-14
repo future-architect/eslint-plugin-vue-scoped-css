@@ -2,6 +2,7 @@ import {
     LineAndColumnData,
     ReportDescriptor,
     RuleContext,
+    SourceLocation,
 } from "../../../types"
 import { StyleContext } from "../style"
 import { VCSSCommentNode } from "../../ast"
@@ -211,7 +212,7 @@ export class CommentDirectives {
         if (!loc) {
             return false
         }
-        const locStart = loc.start
+        const locStart = (loc as SourceLocation).start || loc
 
         const disableLine = this._disableLines[locStart.line]
         if (disableLine) {
