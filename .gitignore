@@ -1,1 +1,12 @@
-node_modules
+/node_modules
+/docs/.vuepress/dist
+/dist
+/.nyc_output
+/coverage
+
+# gh-pages
+/assets
+/rules
+/playground
+/404.html
+/index.html

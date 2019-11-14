@@ -1,0 +1,274 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 50,
+            "end": 54,
+            "range": [
+                50,
+                54
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 8
+                },
+                "end": {
+                    "line": 6,
+                    "column": 13
+                }
+            },
+            "start": 65,
+            "end": 70,
+            "range": [
+                65,
+                70
+            ],
+            "value": "foo-bar",
+            "selector": ".foo-bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 50,
+            "end": 54,
+            "range": [
+                50,
+                54
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 9
+                },
+                "end": {
+                    "line": 9,
+                    "column": 13
+                }
+            },
+            "start": 87,
+            "end": 91,
+            "range": [
+                87,
+                91
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 50,
+            "end": 54,
+            "range": [
+                50,
+                54
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSIDSelector",
+            "loc": {
+                "start": {
+                    "line": 12,
+                    "column": 9
+                },
+                "end": {
+                    "line": 12,
+                    "column": 13
+                }
+            },
+            "start": 108,
+            "end": 112,
+            "range": [
+                108,
+                112
+            ],
+            "value": "bar",
+            "selector": "#bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 8
+                },
+                "end": {
+                    "line": 15,
+                    "column": 12
+                }
+            },
+            "start": 128,
+            "end": 132,
+            "range": [
+                128,
+                132
+            ],
+            "value": "foobar",
+            "selector": ".foobar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 18,
+                    "column": 8
+                },
+                "end": {
+                    "line": 18,
+                    "column": 14
+                }
+            },
+            "start": 148,
+            "end": 154,
+            "range": [
+                148,
+                154
+            ],
+            "value": "foo__bar",
+            "selector": ".foo__bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSIDSelector",
+            "loc": {
+                "start": {
+                    "line": 21,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 4
+                }
+            },
+            "start": 163,
+            "end": 167,
+            "range": [
+                163,
+                167
+            ],
+            "value": "foo",
+            "selector": "#foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSIDSelector",
+            "loc": {
+                "start": {
+                    "line": 22,
+                    "column": 8
+                },
+                "end": {
+                    "line": 22,
+                    "column": 13
+                }
+            },
+            "start": 178,
+            "end": 183,
+            "range": [
+                178,
+                183
+            ],
+            "value": "foo-bar",
+            "selector": "#foo-bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 25,
+                    "column": 0
+                },
+                "end": {
+                    "line": 25,
+                    "column": 4
+                }
+            },
+            "start": 192,
+            "end": 196,
+            "range": [
+                192,
+                196
+            ],
+            "value": ":foo",
+            "nodes": []
+        }
+    ],
+    [
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 26,
+                    "column": 8
+                },
+                "end": {
+                    "line": 26,
+                    "column": 13
+                }
+            },
+            "start": 207,
+            "end": 212,
+            "range": [
+                207,
+                212
+            ],
+            "value": ":foo-bar",
+            "nodes": []
+        }
+    ]
+]

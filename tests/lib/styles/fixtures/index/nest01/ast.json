@@ -1,0 +1,696 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 14
+        },
+        "end": {
+            "line": 19,
+            "column": 0
+        }
+    },
+    "start": 49,
+    "end": 152,
+    "range": [
+        49,
+        152
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 18,
+                    "column": 1
+                }
+            },
+            "start": 50,
+            "end": 151,
+            "range": [
+                50,
+                151
+            ],
+            "selectorText": ".foo",
+            "rawSelectorText": ".foo",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 4
+                        }
+                    },
+                    "start": 50,
+                    "end": 54,
+                    "range": [
+                        50,
+                        54
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 4
+                                }
+                            },
+                            "start": 50,
+                            "end": 54,
+                            "range": [
+                                50,
+                                54
+                            ],
+                            "value": "foo",
+                            "selector": ".foo"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 3
+                        }
+                    },
+                    "start": 59,
+                    "end": 71,
+                    "range": [
+                        59,
+                        71
+                    ],
+                    "selectorText": "&>.bar",
+                    "rawSelectorText": "&>.bar",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 8
+                                }
+                            },
+                            "start": 59,
+                            "end": 65,
+                            "range": [
+                                59,
+                                65
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 59,
+                                    "end": 60,
+                                    "range": [
+                                        59,
+                                        60
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 4
+                                        }
+                                    },
+                                    "start": 60,
+                                    "end": 61,
+                                    "range": [
+                                        60,
+                                        61
+                                    ],
+                                    "value": ">",
+                                    "selector": ">"
+                                },
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 8
+                                        }
+                                    },
+                                    "start": 61,
+                                    "end": 65,
+                                    "range": [
+                                        61,
+                                        65
+                                    ],
+                                    "value": "bar",
+                                    "selector": ".bar"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                },
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 8,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 3
+                        }
+                    },
+                    "start": 74,
+                    "end": 88,
+                    "range": [
+                        74,
+                        88
+                    ],
+                    "selectorText": "& > .bar",
+                    "rawSelectorText": "& > .bar",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 10
+                                }
+                            },
+                            "start": 74,
+                            "end": 82,
+                            "range": [
+                                74,
+                                82
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 8,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 8,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 74,
+                                    "end": 75,
+                                    "range": [
+                                        74,
+                                        75
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 8,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 8,
+                                            "column": 5
+                                        }
+                                    },
+                                    "start": 76,
+                                    "end": 77,
+                                    "range": [
+                                        76,
+                                        77
+                                    ],
+                                    "value": ">",
+                                    "selector": ">"
+                                },
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 8,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 8,
+                                            "column": 10
+                                        }
+                                    },
+                                    "start": 78,
+                                    "end": 82,
+                                    "range": [
+                                        78,
+                                        82
+                                    ],
+                                    "value": "bar",
+                                    "selector": ".bar"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                },
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 10,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 3
+                        }
+                    },
+                    "start": 91,
+                    "end": 103,
+                    "range": [
+                        91,
+                        103
+                    ],
+                    "selectorText": "& .bar",
+                    "rawSelectorText": "& .bar",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 10,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 10,
+                                    "column": 8
+                                }
+                            },
+                            "start": 91,
+                            "end": 97,
+                            "range": [
+                                91,
+                                97
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 10,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 10,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 91,
+                                    "end": 92,
+                                    "range": [
+                                        91,
+                                        92
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 10,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 10,
+                                            "column": 4
+                                        }
+                                    },
+                                    "start": 92,
+                                    "end": 93,
+                                    "range": [
+                                        92,
+                                        93
+                                    ],
+                                    "value": " ",
+                                    "selector": " "
+                                },
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 10,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 10,
+                                            "column": 8
+                                        }
+                                    },
+                                    "start": 93,
+                                    "end": 97,
+                                    "range": [
+                                        93,
+                                        97
+                                    ],
+                                    "value": "bar",
+                                    "selector": ".bar"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                },
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 12,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 13,
+                            "column": 3
+                        }
+                    },
+                    "start": 106,
+                    "end": 117,
+                    "range": [
+                        106,
+                        117
+                    ],
+                    "selectorText": "&.bar",
+                    "rawSelectorText": "&.bar",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 12,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 12,
+                                    "column": 7
+                                }
+                            },
+                            "start": 106,
+                            "end": 111,
+                            "range": [
+                                106,
+                                111
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 12,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 12,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 106,
+                                    "end": 107,
+                                    "range": [
+                                        106,
+                                        107
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 12,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 12,
+                                            "column": 7
+                                        }
+                                    },
+                                    "start": 107,
+                                    "end": 111,
+                                    "range": [
+                                        107,
+                                        111
+                                    ],
+                                    "value": "bar",
+                                    "selector": ".bar"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                },
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 14,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 15,
+                            "column": 3
+                        }
+                    },
+                    "start": 120,
+                    "end": 133,
+                    "range": [
+                        120,
+                        133
+                    ],
+                    "selectorText": "& :hover",
+                    "rawSelectorText": "& :hover",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 14,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 14,
+                                    "column": 10
+                                }
+                            },
+                            "start": 120,
+                            "end": 128,
+                            "range": [
+                                120,
+                                128
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 14,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 14,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 120,
+                                    "end": 121,
+                                    "range": [
+                                        120,
+                                        121
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 14,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 14,
+                                            "column": 4
+                                        }
+                                    },
+                                    "start": 121,
+                                    "end": 122,
+                                    "range": [
+                                        121,
+                                        122
+                                    ],
+                                    "value": " ",
+                                    "selector": " "
+                                },
+                                {
+                                    "type": "VCSSSelectorPseudo",
+                                    "loc": {
+                                        "start": {
+                                            "line": 14,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 14,
+                                            "column": 10
+                                        }
+                                    },
+                                    "start": 122,
+                                    "end": 128,
+                                    "range": [
+                                        122,
+                                        128
+                                    ],
+                                    "value": ":hover",
+                                    "nodes": []
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                },
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 16,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 3
+                        }
+                    },
+                    "start": 136,
+                    "end": 149,
+                    "range": [
+                        136,
+                        149
+                    ],
+                    "selectorText": "&:hover",
+                    "rawSelectorText": "&:hover",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 16,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 16,
+                                    "column": 9
+                                }
+                            },
+                            "start": 136,
+                            "end": 143,
+                            "range": [
+                                136,
+                                143
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 16,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 16,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 136,
+                                    "end": 137,
+                                    "range": [
+                                        136,
+                                        137
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorPseudo",
+                                    "loc": {
+                                        "start": {
+                                            "line": 16,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 16,
+                                            "column": 9
+                                        }
+                                    },
+                                    "start": 137,
+                                    "end": 143,
+                                    "range": [
+                                        137,
+                                        143
+                                    ],
+                                    "value": ":hover",
+                                    "nodes": []
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                }
+            ]
+        }
+    ],
+    "comments": [],
+    "errors": []
+}

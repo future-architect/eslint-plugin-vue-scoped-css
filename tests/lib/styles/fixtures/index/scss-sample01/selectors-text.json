@@ -1,0 +1,58 @@
+[
+    [
+        "body"
+    ],
+    [
+        "nav"
+    ],
+    [
+        "nav",
+        " ",
+        "ul"
+    ],
+    [
+        "nav",
+        " ",
+        "li"
+    ],
+    [
+        "nav",
+        " ",
+        "a"
+    ],
+    [
+        "body"
+    ],
+    [
+        ".box"
+    ],
+    [
+        "%message-shared"
+    ],
+    [
+        "%equal-heights"
+    ],
+    [
+        ".message"
+    ],
+    [
+        ".success"
+    ],
+    [
+        ".error"
+    ],
+    [
+        ".warning"
+    ],
+    [
+        ".container"
+    ],
+    [
+        "article",
+        "[role=\"main\"]"
+    ],
+    [
+        "aside",
+        "[role=\"complementary\"]"
+    ]
+]

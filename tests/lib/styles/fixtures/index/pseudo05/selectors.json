@@ -1,0 +1,89 @@
+[
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 5
+                },
+                "end": {
+                    "line": 5,
+                    "column": 6
+                }
+            },
+            "start": 55,
+            "end": 56,
+            "range": [
+                55,
+                56
+            ],
+            "value": "a",
+            "selector": "a"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 11
+                },
+                "end": {
+                    "line": 5,
+                    "column": 29
+                }
+            },
+            "start": 61,
+            "end": 79,
+            "range": [
+                61,
+                79
+            ],
+            "value": ":not",
+            "nodes": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 21
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 23
+                        }
+                    },
+                    "start": 71,
+                    "end": 73,
+                    "range": [
+                        71,
+                        73
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 21
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 23
+                                }
+                            },
+                            "start": 71,
+                            "end": 73,
+                            "range": [
+                                71,
+                                73
+                            ],
+                            "value": "b",
+                            "selector": ".b"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+]

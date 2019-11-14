@@ -1,0 +1,9 @@
+{
+    ".bar": [
+        "ul>li#a.{classData}",
+        "ul>li#c.{classComp}",
+        "ul>li#e.{unknown}",
+        "ul>li#f.{['foo',classData,]}",
+        "ul>li#g.{classComp.unknownProp}"
+    ]
+}

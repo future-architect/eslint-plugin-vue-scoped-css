@@ -1,0 +1,46 @@
+[
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 1
+                }
+            },
+            "start": 50,
+            "end": 51,
+            "range": [
+                50,
+                51
+            ],
+            "value": "a",
+            "selector": "a"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 1
+                },
+                "end": {
+                    "line": 5,
+                    "column": 8
+                }
+            },
+            "start": 51,
+            "end": 58,
+            "range": [
+                51,
+                58
+            ],
+            "value": "::after",
+            "nodes": []
+        }
+    ]
+]

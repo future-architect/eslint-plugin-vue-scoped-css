@@ -1,0 +1,198 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 26
+        },
+        "end": {
+            "line": 8,
+            "column": 0
+        }
+    },
+    "start": 61,
+    "end": 82,
+    "range": [
+        61,
+        82
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 1
+                }
+            },
+            "start": 62,
+            "end": 81,
+            "range": [
+                62,
+                81
+            ],
+            "selectorText": ".foo",
+            "rawSelectorText": ".foo",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 4
+                        }
+                    },
+                    "start": 62,
+                    "end": 66,
+                    "range": [
+                        62,
+                        66
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 4
+                                }
+                            },
+                            "start": 62,
+                            "end": 66,
+                            "range": [
+                                62,
+                                66
+                            ],
+                            "value": "foo",
+                            "selector": ".foo"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 6,
+                            "column": 10
+                        }
+                    },
+                    "start": 71,
+                    "end": 79,
+                    "range": [
+                        71,
+                        79
+                    ],
+                    "selectorText": "& + &",
+                    "rawSelectorText": "& + &",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 7
+                                }
+                            },
+                            "start": 71,
+                            "end": 76,
+                            "range": [
+                                71,
+                                76
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 3
+                                        }
+                                    },
+                                    "start": 71,
+                                    "end": 72,
+                                    "range": [
+                                        71,
+                                        72
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                },
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 4
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 5
+                                        }
+                                    },
+                                    "start": 73,
+                                    "end": 74,
+                                    "range": [
+                                        73,
+                                        74
+                                    ],
+                                    "value": "+",
+                                    "selector": "+"
+                                },
+                                {
+                                    "type": "VCSSNestingSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 6
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 7
+                                        }
+                                    },
+                                    "start": 75,
+                                    "end": 76,
+                                    "range": [
+                                        75,
+                                        76
+                                    ],
+                                    "value": "&",
+                                    "selector": "&"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": []
+                }
+            ]
+        }
+    ],
+    "comments": [],
+    "errors": []
+}

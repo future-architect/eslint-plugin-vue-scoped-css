@@ -1,0 +1,7 @@
+{
+    ".bar": [
+        "ul>li#b.bar",
+        "ul>li#d.qux.bar",
+        "ul>li#e.quux.foo.bar"
+    ]
+}

@@ -1,0 +1,829 @@
+import {
+    isTypeSelector,
+    isIDSelector,
+    isClassSelector,
+    isUniversalSelector,
+    isSelectorCombinator,
+    isDescendantCombinator,
+    isChildCombinator,
+    isAdjacentSiblingCombinator,
+    isGeneralSiblingCombinator,
+    isDeepCombinator,
+} from "../../utils/selectors"
+
+import {
+    getParentElement,
+    isSkipElement,
+    isElementWrappedInTransition,
+    getWrapperTransition,
+    isTransitionElement,
+    isRootElement,
+    isSlotElement,
+} from "./elements"
+import { VCSSSelectorNode } from "../../ast"
+import { AST, RuleContext, ASTNode } from "../../../types"
+import { QueryOptions } from "../../../options"
+import {
+    getAttributeValueNodes,
+    getReferenceExpressions,
+    ReferenceExpressions,
+} from "./attribute-tracker"
+import { getVueComponentContext } from "../../context"
+import { getStringFromNode } from "../../utils/nodes"
+import { Template } from "../../template"
+
+const TRANSITION_CLASS_BASES = [
+    "enter",
+    "enter-active",
+    "enter-to",
+    "leave",
+    "leave-active",
+    "leave-to",
+]
+const TRANSITION_GROUP_CLASS_BASES = [...TRANSITION_CLASS_BASES, "move"]
+
+/**
+ * Context to execute the query and retrieve the target elements.
+ */
+export class QueryContext {
+    public elements: AST.VElement[] = []
+    protected readonly document: VueDocumentQueryContext
+    protected constructor(document?: VueDocumentQueryContext) {
+        this.document = document || (this as any)
+    }
+    /**
+     * Execute a one-step query and return contexts of the matched elements.
+     * @param {Node} selectorNode selector node
+     * @returns {ElementsQueryContext} elements
+     */
+    public queryStep(selectorNode: VCSSSelectorNode): ElementsQueryContext {
+        return new ElementsQueryContext(
+            queryStep(this.elements, selectorNode, this.document),
+            this.document,
+        )
+    }
+
+    /**
+     * Execute a one-step query in the reverse direction and return contexts of the matched elements.
+     * @param {Node} selectorNode selector node
+     * @returns {ElementsQueryContext} elements
+     */
+    public reverseQueryStep(
+        selectorNode: VCSSSelectorNode,
+    ): ElementsQueryContext {
+        return new ElementsQueryContext(
+            reverseQueryStep(this.elements, selectorNode, this.document),
+            this.document,
+        )
+    }
+
+    /**
+     * Filter elements
+     * @param {function} predicate filter function.
+     * @returns {ElementsQueryContext} elements
+     */
+    public filter<S extends AST.VElement>(
+        predicate: (value: AST.VElement) => value is S,
+    ): ElementsQueryContext {
+        return new ElementsQueryContext(
+            this.elements.filter(predicate),
+            this.document,
+        )
+    }
+
+    /**
+     * Split elements
+     * @returns {ElementsQueryContext[]} element contexts
+     */
+    public split(): ElementsQueryContext[] {
+        return this.elements.map(
+            e => new ElementsQueryContext([e], this.document),
+        )
+    }
+}
+
+/**
+ * QueryContext that as the Vue document.
+ */
+class VueDocumentQueryContext extends QueryContext {
+    public context: RuleContext
+    public options: QueryOptions
+    public constructor(context: RuleContext, options: QueryOptions) {
+        super()
+        const sourceCode = context.getSourceCode()
+        const { ast } = sourceCode
+        this.elements = ast.templateBody
+            ? [...genDescendantElements([ast.templateBody])]
+            : []
+        this.context = context
+        this.options = options
+    }
+}
+
+/**
+ * QueryContext as elements.
+ */
+class ElementsQueryContext extends QueryContext {
+    public constructor(
+        elements: AST.VElement[] | IterableIterator<AST.VElement>,
+        document: VueDocumentQueryContext,
+    ) {
+        super(document)
+        this.elements = [...elements]
+    }
+}
+
+/**
+ * Create Vue document context for query search
+ * @param {RuleContext} context ESLint rule context
+ * @param {object} options query options
+ * @returns {VueDocumentQueryContext} the context
+ */
+export function createQueryContext(
+    context: RuleContext,
+    options: QueryOptions = {},
+): QueryContext {
+    return new VueDocumentQueryContext(context, options)
+}
+
+/**
+ * Get the next step nodes of the given query.
+ * @param {VElement} elements the elements
+ * @param {object} selectorNode selector node of query
+ * @param {object} document document
+ */
+function* queryStep(
+    elements: AST.VElement[],
+    selectorNode: VCSSSelectorNode,
+    document: VueDocumentQueryContext,
+): IterableIterator<AST.VElement> {
+    if (isSelectorCombinator(selectorNode)) {
+        if (isChildCombinator(selectorNode)) {
+            yield* genChildElements(elements)
+            return
+        } else if (
+            isDescendantCombinator(selectorNode) ||
+            isDeepCombinator(selectorNode)
+        ) {
+            yield* genDescendantElements(elements)
+            return
+        } else if (isAdjacentSiblingCombinator(selectorNode)) {
+            yield* genAdjacentSiblingElements(elements)
+            return
+        } else if (isGeneralSiblingCombinator(selectorNode)) {
+            yield* genGeneralSiblingElements(elements)
+            return
+        }
+    }
+    if (isTypeSelector(selectorNode)) {
+        yield* genElementsByTagName(elements, Template.ofSelector(selectorNode))
+        return
+    } else if (isIDSelector(selectorNode)) {
+        yield* genElementsById(
+            elements,
+            Template.ofSelector(selectorNode),
+            document,
+        )
+        return
+    } else if (isClassSelector(selectorNode)) {
+        yield* genElementsByClassName(
+            elements,
+            Template.ofSelector(selectorNode),
+            document,
+        )
+        return
+    } else if (isUniversalSelector(selectorNode)) {
+        yield* elements
+        return
+    }
+    // Other selectors are ignored because they are likely to be changed dynamically.
+    yield* elements
+}
+
+/**
+ * Get the next step nodes of the given reverse query.
+ * @param {VElement} elements the elements
+ * @param {object} selectorNode selector node of query
+ * @param {object} document document
+ */
+function* reverseQueryStep(
+    elements: AST.VElement[],
+    selectorNode: VCSSSelectorNode,
+    document: VueDocumentQueryContext,
+): IterableIterator<AST.VElement> {
+    if (isSelectorCombinator(selectorNode)) {
+        if (isChildCombinator(selectorNode)) {
+            yield* genParentElements(elements)
+            return
+        } else if (
+            isDescendantCombinator(selectorNode) ||
+            isDeepCombinator(selectorNode)
+        ) {
+            yield* genAncestorElements(elements)
+            return
+        } else if (isAdjacentSiblingCombinator(selectorNode)) {
+            yield* genPrevAdjacentSiblingElements(elements)
+            return
+        } else if (isGeneralSiblingCombinator(selectorNode)) {
+            yield* genPrevGeneralSiblingElements(elements)
+            return
+        }
+    }
+    yield* queryStep(elements, selectorNode, document)
+}
+
+/**
+ * Get the descendant elements.
+ */
+function* genDescendantElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const e of genChildElements(elements)) {
+        yield e
+        found.add(e)
+        for (const p of genDescendantElements([e])) {
+            if (!found.has(p)) {
+                yield p
+                found.add(p)
+            }
+        }
+    }
+}
+
+/**
+ * Get the ancestor elements.
+ */
+function* genAncestorElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const e of genParentElements(elements)) {
+        yield e
+        found.add(e)
+        for (const a of genAncestorElements([e])) {
+            if (!found.has(a)) {
+                yield a
+                found.add(a)
+            }
+        }
+    }
+}
+
+/**
+ * Get the child elements.
+ */
+function* genChildElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    for (const element of elements) {
+        for (const e of element.children.filter(isVElement)) {
+            if (isSkipElement(e)) {
+                yield* genChildElements([e])
+            } else if (isSlotElement(e)) {
+                yield* genChildElements([e])
+                // Returns a dummy element to verify if slot is given.
+                yield newVElement(e, "component")
+            } else {
+                yield e
+            }
+        }
+    }
+}
+
+/**
+ * Get the parent elements.
+ */
+function* genParentElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const element of elements) {
+        const parent = getParentElement(element)
+        if (parent) {
+            if (!found.has(parent)) {
+                yield parent
+                found.add(parent)
+            }
+        }
+    }
+}
+
+/**
+ * Get the adjacent sibling elements.
+ */
+function* genAdjacentSiblingElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    for (const element of elements) {
+        const parent = getParentElement(element)
+        if (parent == null) {
+            continue
+        }
+        const children = [...genChildElements([parent])]
+        const index = children.indexOf(element)
+        const e = children[index + 1]
+        if (e) {
+            yield e
+        }
+    }
+}
+
+/**
+ * Gets the previous adjacent sibling elements.
+ */
+function* genPrevAdjacentSiblingElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    for (const element of elements) {
+        const parent = getParentElement(element)
+        if (parent == null) {
+            continue
+        }
+        const children = [...genChildElements([parent])]
+        const index = children.indexOf(element)
+        const e = children[index - 1]
+        if (e) {
+            yield e
+        }
+    }
+}
+
+/**
+ * Gets the general sibling elements.
+ */
+function* genGeneralSiblingElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const element of elements) {
+        const parent = getParentElement(element)
+        if (parent == null) {
+            continue
+        }
+        const children = [...genChildElements([parent])]
+        const index = children.indexOf(element)
+        for (const n of children.slice(index + 1)) {
+            if (!found.has(n)) {
+                yield n
+                found.add(n)
+            }
+        }
+    }
+}
+
+/**
+ * Gets the previous general sibling elements.
+ */
+function* genPrevGeneralSiblingElements(
+    elements: AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const element of elements) {
+        const parent = getParentElement(element)
+        if (parent == null) {
+            continue
+        }
+        const children = [...genChildElements([parent])]
+        const index = children.indexOf(element)
+        for (const p of children.slice(0, index)) {
+            if (!found.has(p)) {
+                yield p
+                found.add(p)
+            }
+        }
+    }
+}
+
+/**
+ * Gets the elements with the given tag name.
+ */
+function* genElementsByTagName(
+    elements: AST.VElement[],
+    tagName: Template,
+): IterableIterator<AST.VElement> {
+    for (const element of elements) {
+        if (element.name === "component") {
+            // The `component` tag is considered to match all elements because the element can not be identified.
+            yield element
+        } else if (tagName.toLowerCase().matchString(element.name)) {
+            yield element
+        }
+    }
+}
+
+/**
+ * Gets the elements with the given id.
+ */
+function* genElementsById(
+    elements: AST.VElement[],
+    id: Template,
+    document: VueDocumentQueryContext,
+): IterableIterator<AST.VElement> {
+    for (const element of elements) {
+        if (matchId(element, id, document)) {
+            yield element
+        }
+    }
+}
+
+/**
+ * Gets the elements with the given class name.
+ */
+function* genElementsByClassName(
+    elements: AST.VElement[],
+    className: Template,
+    document: VueDocumentQueryContext,
+): IterableIterator<AST.VElement> {
+    let removeModifierClassName = null
+    if (document.options.ignoreBEMModifier) {
+        if (className.hasString("--")) {
+            const list = className.divide("--")
+            list.pop()
+            if (list.length) {
+                removeModifierClassName = list.reduce((r, a) => r.concat(a))
+            }
+        }
+    }
+
+    for (const element of elements) {
+        if (matchClassName(element, className, document)) {
+            yield element
+        } else if (
+            removeModifierClassName &&
+            matchClassName(element, removeModifierClassName, document)
+        ) {
+            yield element
+        }
+    }
+}
+
+/**
+ * Checks whether the given element matches the given ID.
+ */
+function matchId(
+    element: AST.VElement,
+    id: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    const nodes = getAttributeValueNodes(element, "id", document.context)
+    if (nodes == null) {
+        return true
+    }
+    for (const node of nodes) {
+        const value = Template.ofNode(node)
+        if (value == null) {
+            // Are identified by complex expressions.
+            return true
+        }
+        if (value.match(id)) {
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * Checks whether the given element matches the given class name.
+ */
+function matchClassName(
+    element: AST.VElement,
+    className: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    if (isElementWrappedInTransition(element)) {
+        const transition = getWrapperTransition(element)
+        if (
+            transition != null &&
+            matchTransitionClassName(transition, className, document)
+        ) {
+            return true
+        }
+    }
+    const nodes = getAttributeValueNodes(element, "class", document.context)
+    if (nodes == null) {
+        return true
+    }
+    for (const node of nodes) {
+        if (node.type === "VLiteral") {
+            if (includesClassName(node.value, className)) {
+                return true
+            }
+        } else if (matchClassNameExpression(node, className, document)) {
+            return true
+        }
+    }
+
+    const refNames = getRefNames(element, document)
+    const vueComponent = getVueComponentContext(document.context)
+    if (
+        vueComponent &&
+        vueComponent
+            .getClassesOperatedByClassList(refNames, isRootElement(element))
+            .filter(
+                (n => n.type === "Literal") as (
+                    n: ASTNode,
+                ) => n is AST.ESLintLiteral,
+            )
+            .some(n => matchClassNameExpression(n, className, document))
+    ) {
+        return true
+    }
+
+    return false
+}
+
+/**
+ * Gets the ref name.
+ */
+function getRefNames(
+    element: AST.VElement,
+    document: VueDocumentQueryContext,
+): Template[] | null {
+    const refNameNodes = getAttributeValueNodes(
+        element,
+        "ref",
+        document.context,
+    )
+    if (refNameNodes == null) {
+        return null
+    }
+    const refNames = []
+    for (const refNameNode of refNameNodes) {
+        const refName = Template.ofNode(refNameNode)
+        if (refName == null) {
+            // The ref name cannot be identified.
+            return null
+        }
+        refNames.push(refName)
+    }
+
+    return refNames
+}
+
+/**
+ * Check whether the given class name matches the `<transition>` element.
+ */
+function matchTransitionClassName(
+    element: AST.VElement,
+    className: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    const classBases = isTransitionElement(element)
+        ? TRANSITION_CLASS_BASES
+        : TRANSITION_GROUP_CLASS_BASES
+    const nameNodes = getAttributeValueNodes(element, "name", document.context)
+
+    for (const classBase of classBases) {
+        const classNameNodes = getAttributeValueNodes(
+            element,
+            `${classBase}-class`,
+            document.context,
+        )
+        if (classNameNodes == null) {
+            // Unknown attrbute are found
+            // So the class is considered a match.
+            return true
+        }
+        if (classNameNodes.length) {
+            for (const classNameNode of classNameNodes) {
+                const value = Template.ofNode(classNameNode)
+                if (value == null) {
+                    // Are identified by complex expressions.
+                    return true
+                }
+                if (value.match(className)) {
+                    return true
+                }
+            }
+        } else if (nameNodes == null) {
+            if (className.endsWith(`-${classBase}`)) {
+                return true
+            }
+        } else if (nameNodes.length === 0) {
+            if (className.matchString(`v-${classBase}`)) {
+                return true
+            }
+        } else {
+            for (const nameNode of nameNodes) {
+                const name = Template.ofNode(nameNode)
+                if (name == null) {
+                    // Are identified by complex expressions.
+                    return true
+                }
+                if (className.match(name.concat(`-${classBase}`))) {
+                    return true
+                }
+            }
+        }
+    }
+    return false
+}
+
+/**
+ * Check whether the given class name matches the expression node.
+ */
+function matchClassNameExpression(
+    expression: ReferenceExpressions,
+    className: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    const literal = Template.ofNode(expression)
+    if (literal != null) {
+        if (includesClassName(literal, className)) {
+            return true
+        }
+    } else if (expression.type === "Identifier") {
+        const string = getStringFromNode(expression, document.context)
+        if (string == null) {
+            // Class names are identified by complex expressions.
+            // So the class is considered a match.
+            return true
+        }
+        if (includesClassName(string, className)) {
+            return true
+        }
+    } else if (expression.type === "ArrayExpression") {
+        if (matchClassNameForArrayExpression(expression, className, document)) {
+            return true
+        }
+    } else if (expression.type === "ObjectExpression") {
+        if (
+            matchClassNameForObjectExpression(expression, className, document)
+        ) {
+            return true
+        }
+    } else {
+        // Class names are identified by complex expressions.
+        // So the class is considered a match.
+        return true
+    }
+
+    return false
+}
+
+/**
+ * Check whether the given class name matches the array expression node.
+ */
+function matchClassNameForArrayExpression(
+    expression: AST.ESLintArrayExpression,
+    className: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    for (const e of expression.elements) {
+        if (e.type === "Identifier") {
+            if (withinTemplate(e, document)) {
+                const expressions = getReferenceExpressions(e, document.context)
+                if (expressions) {
+                    for (const e2 of expressions) {
+                        if (matchClassNameExpression(e2, className, document)) {
+                            return true
+                        }
+                    }
+                }
+            } else {
+                if (matchClassNameExpression(e, className, document)) {
+                    return true
+                }
+            }
+        } else if (e.type === "SpreadElement") {
+            if (matchClassNameExpression(e.argument, className, document)) {
+                return true
+            }
+        } else if (matchClassNameExpression(e, className, document)) {
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * Check whether the given class name matches the object expression node.
+ */
+function matchClassNameForObjectExpression(
+    expression: AST.ESLintObjectExpression,
+    className: Template,
+    document: VueDocumentQueryContext,
+): boolean {
+    for (const prop of expression.properties) {
+        if (prop.type !== "Property") {
+            // Can not identify the key name.
+            // So the class is considered a match.
+            return true
+        }
+        if (prop.computed) {
+            // { [key]: value }
+            if (
+                prop.key.type === "Identifier" ||
+                prop.key.type === "Literal" ||
+                prop.key.type === "TemplateLiteral" ||
+                prop.key.type === "BinaryExpression"
+            ) {
+                if (matchClassNameExpression(prop.key, className, document)) {
+                    return true
+                }
+            } else {
+                // Can not identify the key name.
+                // So the class is considered a match.
+                return true
+            }
+        } else {
+            if (prop.key.type === "Identifier") {
+                // { key: value }
+                if (includesClassName(prop.key.name, className)) {
+                    return true
+                }
+            } else if (prop.key.type === "Literal") {
+                // { 'key': value }
+                if (includesClassName(`${prop.key.value}`, className)) {
+                    return true
+                }
+            }
+        }
+    }
+    return false
+}
+
+/**
+ * Create a new VElement
+ */
+function newVElement(element: AST.VElement, name: string): AST.VElement {
+    const startTag = element.startTag
+    const endTag = element.endTag
+    const newElement: AST.VElement = {
+        type: "VElement",
+        name,
+        startTag: {
+            type: "VStartTag",
+            attributes: [],
+            selfClosing: startTag.selfClosing,
+            parent: element,
+            loc: startTag.loc,
+            start: startTag.start,
+            end: startTag.end,
+            range: startTag.range,
+        },
+        endTag: endTag
+            ? {
+                  type: "VEndTag",
+                  parent: element,
+                  loc: endTag.loc,
+                  start: endTag.start,
+                  end: endTag.end,
+                  range: endTag.range,
+              }
+            : null,
+        parent: element,
+        namespace: element.namespace,
+        rawName: name,
+        variables: element.variables,
+        children: [],
+
+        loc: element.loc,
+        start: element.start,
+        end: element.end,
+        range: element.range,
+    }
+    newElement.startTag.parent = newElement
+    if (newElement.endTag) {
+        newElement.endTag.parent = newElement
+    }
+    return newElement
+}
+
+/**
+ * Checks whether the given node is VElement
+ * @param node node to check
+ */
+function isVElement(
+    node: AST.VElement | AST.VText | AST.VExpressionContainer,
+): node is AST.VElement {
+    return node?.type === "VElement"
+}
+
+/**
+ * Checks if the given className is included in the class definition
+ */
+function includesClassName(
+    value: string | Template,
+    className: Template,
+): boolean {
+    if (typeof value === "string") {
+        return value.split(/\s+/u).some(s => className.matchString(s))
+    }
+    return value.divide(/\s+/u).some(s => className.match(s))
+}
+
+/**
+ * Checks whether the given node within `<template>`
+ */
+function withinTemplate(
+    expr: AST.ESLintIdentifier,
+    document: VueDocumentQueryContext,
+) {
+    const templateBody = document.context.getSourceCode().ast.templateBody
+    const templateRange = templateBody?.range ?? [0, 0]
+    return (
+        templateRange[0] <= expr.range[0] && expr.range[1] <= templateRange[1]
+    )
+}

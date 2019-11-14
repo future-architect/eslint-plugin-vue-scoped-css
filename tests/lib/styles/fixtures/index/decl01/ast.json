@@ -1,0 +1,112 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 14
+        },
+        "end": {
+            "line": 8,
+            "column": 0
+        }
+    },
+    "start": 49,
+    "end": 78,
+    "range": [
+        49,
+        78
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 1
+                }
+            },
+            "start": 50,
+            "end": 77,
+            "range": [
+                50,
+                77
+            ],
+            "selectorText": "a",
+            "rawSelectorText": "a",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 1
+                        }
+                    },
+                    "start": 50,
+                    "end": 51,
+                    "range": [
+                        50,
+                        51
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 1
+                                }
+                            },
+                            "start": 50,
+                            "end": 51,
+                            "range": [
+                                50,
+                                51
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSDeclarationProperty",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 6,
+                            "column": 21
+                        }
+                    },
+                    "start": 58,
+                    "end": 75,
+                    "range": [
+                        58,
+                        75
+                    ],
+                    "property": "color",
+                    "value": "aliceblue",
+                    "important": false
+                }
+            ]
+        }
+    ],
+    "comments": [],
+    "errors": []
+}

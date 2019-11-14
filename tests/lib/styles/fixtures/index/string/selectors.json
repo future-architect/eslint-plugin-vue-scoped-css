@@ -1,0 +1,25 @@
+[
+    [
+        {
+            "type": "VCSSUnknownSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 5
+                }
+            },
+            "start": 50,
+            "end": 55,
+            "range": [
+                50,
+                55
+            ],
+            "value": "\"wow\"",
+            "selector": "\"wow\""
+        }
+    ]
+]

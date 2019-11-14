@@ -1,0 +1,20 @@
+{
+    ".ec": [
+        "div#example-2>transition>p#c"
+    ],
+    ".eac": [
+        "div#example-2>transition>p#c"
+    ],
+    ".etc": [
+        "div#example-2>transition>p#c"
+    ],
+    ".lc": [
+        "div#example-2>transition>p#d"
+    ],
+    ".lac": [
+        "div#example-2>transition>p#d"
+    ],
+    ".ltc": [
+        "div#example-2>transition>p#d"
+    ]
+}

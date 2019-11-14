@@ -1,0 +1,19 @@
+{
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    { "language": "vue", "autoFix": true },
+    { "autoFix": true, "language": "typescript" },
+  ],
+  "typescript.validate.enable": true,
+  "javascript.validate.enable": false,
+  "eslint.autoFixOnSave": true,
+  "eslint.workingDirectories": [
+    {"directory": "./", "changeProcessCWD": true },
+    {"directory": "./docs/.vuepress", "changeProcessCWD": true }
+  ],
+  "vetur.validation.script": false,
+  "vetur.validation.style": false,
+  "css.validate": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

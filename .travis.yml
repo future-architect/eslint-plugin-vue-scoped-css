@@ -1,0 +1,27 @@
+language: node_js
+cache:
+  npm: false
+matrix:
+  include:
+    - node_js: "node"
+      env: CI=coverage
+    - node_js: "8"
+    - node_js: "8"
+      env: DEPS=low
+    - node_js: "10"
+    - node_js: "12"
+before_install:
+  - if [ "$DEPS" = "low" ]; then npm i -S eslint@5.0.0 eslint-plugin-vue@5.0.0 vue-eslint-parser@5.0.0; fi
+before_deploy:
+  - npm run build
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: $EMAIL
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
+notifications:
+  email: false
+after_success:
+  - if [ "$CI" = "coverage" ]; then npm install coveralls --no-save && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

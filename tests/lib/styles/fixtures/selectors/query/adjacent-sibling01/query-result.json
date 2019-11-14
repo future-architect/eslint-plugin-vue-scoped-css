@@ -1,0 +1,5 @@
+{
+    ".foo>li.baz+li+li.bar": [
+        "ul.foo>li#d.bar"
+    ]
+}

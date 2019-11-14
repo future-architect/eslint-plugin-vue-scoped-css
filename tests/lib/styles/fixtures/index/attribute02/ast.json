@@ -1,0 +1,660 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 14
+        },
+        "end": {
+            "line": 25,
+            "column": 0
+        }
+    },
+    "start": 49,
+    "end": 204,
+    "range": [
+        49,
+        204
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 1
+                }
+            },
+            "start": 50,
+            "end": 66,
+            "range": [
+                50,
+                66
+            ],
+            "selectorText": "a[href^=\"#\"]",
+            "rawSelectorText": "a[href^=\"#\"]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 12
+                        }
+                    },
+                    "start": 50,
+                    "end": 62,
+                    "range": [
+                        50,
+                        62
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 1
+                                }
+                            },
+                            "start": 50,
+                            "end": 51,
+                            "range": [
+                                50,
+                                51
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 12
+                                }
+                            },
+                            "start": 51,
+                            "end": 62,
+                            "range": [
+                                51,
+                                62
+                            ],
+                            "attribute": "href",
+                            "operator": "^=",
+                            "value": "#",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": null,
+                            "selector": "[href^=\"#\"]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 1
+                }
+            },
+            "start": 68,
+            "end": 90,
+            "range": [
+                68,
+                90
+            ],
+            "selectorText": "a[href*=\"example\"]",
+            "rawSelectorText": "a[href*=\"example\"]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 8,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "column": 18
+                        }
+                    },
+                    "start": 68,
+                    "end": 86,
+                    "range": [
+                        68,
+                        86
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 1
+                                }
+                            },
+                            "start": 68,
+                            "end": 69,
+                            "range": [
+                                68,
+                                69
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 18
+                                }
+                            },
+                            "start": 69,
+                            "end": 86,
+                            "range": [
+                                69,
+                                86
+                            ],
+                            "attribute": "href",
+                            "operator": "*=",
+                            "value": "example",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": null,
+                            "selector": "[href*=\"example\"]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 11,
+                    "column": 0
+                },
+                "end": {
+                    "line": 12,
+                    "column": 1
+                }
+            },
+            "start": 92,
+            "end": 111,
+            "range": [
+                92,
+                111
+            ],
+            "selectorText": "a[href$=\".org\"]",
+            "rawSelectorText": "a[href$=\".org\"]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 11,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 15
+                        }
+                    },
+                    "start": 92,
+                    "end": 107,
+                    "range": [
+                        92,
+                        107
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 11,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 11,
+                                    "column": 1
+                                }
+                            },
+                            "start": 92,
+                            "end": 93,
+                            "range": [
+                                92,
+                                93
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 11,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 11,
+                                    "column": 15
+                                }
+                            },
+                            "start": 93,
+                            "end": 107,
+                            "range": [
+                                93,
+                                107
+                            ],
+                            "attribute": "href",
+                            "operator": "$=",
+                            "value": ".org",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": null,
+                            "selector": "[href$=\".org\"]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 14,
+                    "column": 0
+                },
+                "end": {
+                    "line": 15,
+                    "column": 1
+                }
+            },
+            "start": 113,
+            "end": 134,
+            "range": [
+                113,
+                134
+            ],
+            "selectorText": "a[href*=\"cAsE\" s]",
+            "rawSelectorText": "a[href*=\"cAsE\" s]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 14,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "column": 17
+                        }
+                    },
+                    "start": 113,
+                    "end": 130,
+                    "range": [
+                        113,
+                        130
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 14,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 14,
+                                    "column": 1
+                                }
+                            },
+                            "start": 113,
+                            "end": 114,
+                            "range": [
+                                113,
+                                114
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 14,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 14,
+                                    "column": 17
+                                }
+                            },
+                            "start": 114,
+                            "end": 130,
+                            "range": [
+                                114,
+                                130
+                            ],
+                            "attribute": "href",
+                            "operator": "*=",
+                            "value": "cAsE",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": "s",
+                            "selector": "[href*=\"cAsE\" s]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 17,
+                    "column": 0
+                },
+                "end": {
+                    "line": 18,
+                    "column": 1
+                }
+            },
+            "start": 136,
+            "end": 157,
+            "range": [
+                136,
+                157
+            ],
+            "selectorText": "a[href*=\"cAsE\" i]",
+            "rawSelectorText": "a[href*=\"cAsE\" i]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 17,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 17,
+                            "column": 17
+                        }
+                    },
+                    "start": 136,
+                    "end": 153,
+                    "range": [
+                        136,
+                        153
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 17,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 17,
+                                    "column": 1
+                                }
+                            },
+                            "start": 136,
+                            "end": 137,
+                            "range": [
+                                136,
+                                137
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 17,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 17,
+                                    "column": 17
+                                }
+                            },
+                            "start": 137,
+                            "end": 153,
+                            "range": [
+                                137,
+                                153
+                            ],
+                            "attribute": "href",
+                            "operator": "*=",
+                            "value": "cAsE",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": "i",
+                            "selector": "[href*=\"cAsE\" i]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 20,
+                    "column": 0
+                },
+                "end": {
+                    "line": 21,
+                    "column": 1
+                }
+            },
+            "start": 159,
+            "end": 180,
+            "range": [
+                159,
+                180
+            ],
+            "selectorText": "a[href*=\"cAsE\" S]",
+            "rawSelectorText": "a[href*=\"cAsE\" S]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 20,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 20,
+                            "column": 17
+                        }
+                    },
+                    "start": 159,
+                    "end": 176,
+                    "range": [
+                        159,
+                        176
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 20,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 20,
+                                    "column": 1
+                                }
+                            },
+                            "start": 159,
+                            "end": 160,
+                            "range": [
+                                159,
+                                160
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 20,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 20,
+                                    "column": 17
+                                }
+                            },
+                            "start": 160,
+                            "end": 176,
+                            "range": [
+                                160,
+                                176
+                            ],
+                            "attribute": "href",
+                            "operator": "*=",
+                            "value": "cAsE",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": "S",
+                            "selector": "[href*=\"cAsE\" S]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        },
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 23,
+                    "column": 0
+                },
+                "end": {
+                    "line": 24,
+                    "column": 1
+                }
+            },
+            "start": 182,
+            "end": 203,
+            "range": [
+                182,
+                203
+            ],
+            "selectorText": "a[href*=\"cAsE\" I]",
+            "rawSelectorText": "a[href*=\"cAsE\" I]",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 23,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 23,
+                            "column": 17
+                        }
+                    },
+                    "start": 182,
+                    "end": 199,
+                    "range": [
+                        182,
+                        199
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 23,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 23,
+                                    "column": 1
+                                }
+                            },
+                            "start": 182,
+                            "end": 183,
+                            "range": [
+                                182,
+                                183
+                            ],
+                            "value": "a",
+                            "selector": "a"
+                        },
+                        {
+                            "type": "VCSSAttributeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 23,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 23,
+                                    "column": 17
+                                }
+                            },
+                            "start": 183,
+                            "end": 199,
+                            "range": [
+                                183,
+                                199
+                            ],
+                            "attribute": "href",
+                            "operator": "*=",
+                            "value": "cAsE",
+                            "quoteMark": "\"",
+                            "insensitiveFlag": "I",
+                            "selector": "[href*=\"cAsE\" I]"
+                        }
+                    ]
+                }
+            ],
+            "nodes": []
+        }
+    ],
+    "comments": [],
+    "errors": []
+}
