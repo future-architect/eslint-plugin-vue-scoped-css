@@ -136,27 +136,27 @@ export class CSSParser {
         parent?: VCSSContainerNode,
     ): VCSSNode | null {
         const { sourceCode } = this
-        const loc: SourceLocation = {
-            start: getESLintLineAndColumnFromPostCSSNode(
-                offsetLocation,
-                node,
-                "start",
-            ) || { line: 0, column: 1 },
-            end: getESLintLineAndColumnFromPostCSSNode(
+        const startLoc = getESLintLineAndColumnFromPostCSSNode(
+            offsetLocation,
+            node,
+            "start",
+        ) || { line: 0, column: 1 }
+        const start = sourceCode.getIndexFromLoc(startLoc)
+        const endLoc =
+            getESLintLineAndColumnFromPostCSSNode(
                 offsetLocation,
                 node,
                 "end",
-            ) || { line: 0, column: 1 },
-        }
-
-        const start = sourceCode.getIndexFromLoc(loc.start)
-        if (!loc.end) {
+            ) ||
             // for node type: `root`
-            loc.end = sourceCode.getLocFromIndex(
+            sourceCode.getLocFromIndex(
                 start + (node as PostCSSRoot).source.input.css.length,
             )
+        const end = sourceCode.getIndexFromLoc(endLoc)
+        const loc: SourceLocation = {
+            start: startLoc,
+            end: endLoc,
         }
-        const end = sourceCode.getIndexFromLoc(loc.end)
 
         const astNode = this[typeToConvertMethodName(node.type)](
             node as any,
