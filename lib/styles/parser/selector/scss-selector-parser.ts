@@ -300,8 +300,6 @@ function restoreInterpolationAndInlineComments<T extends PostCSSSPNode>(
     } = options
 
     if (node.source) {
-        let startIndex = null
-        let endIndex = null
         if (node.source.start) {
             const cssLoc = node.source.start
             const index = cssSourceCode.getIndexFromLoc({
@@ -312,7 +310,6 @@ function restoreInterpolationAndInlineComments<T extends PostCSSSPNode>(
             const scssLoc = scssSourceCode.getLocFromIndex(scssIndex)
             scssLoc.column++
             node.source.start = scssLoc
-            startIndex = scssIndex
         }
         if (node.source.end) {
             const cssLoc = node.source.end
@@ -322,11 +319,8 @@ function restoreInterpolationAndInlineComments<T extends PostCSSSPNode>(
             })
             const scssIndex = remapContext.remapIndex(index)
             node.source.end = scssSourceCode.getLocFromIndex(scssIndex)
-            endIndex = scssIndex
         }
-        while (
-            restoreInterpolations(node, startIndex, endIndex, interpolations)
-        ) {
+        while (restoreInterpolations(node, interpolations)) {
             // loop
         }
         while (restoreComments(node, inlineComments)) {
@@ -341,70 +335,38 @@ function restoreInterpolationAndInlineComments<T extends PostCSSSPNode>(
     return node
 }
 
-/* eslint-disable complexity */
 /**
  * Restore interpolation for given node
  */
 function restoreInterpolations(
     node: PostCSSSPNode,
-    startIndex: number | null,
-    endIndex: number | null,
     interpolations: ReplaceInfo[],
 ): boolean {
-    /* eslint-enable complexity */
     if (!interpolations.length) {
         return false
     }
-    if (
-        node.type === "root" ||
-        node.type === "selector" ||
-        node.type === "universal" || // *
-        node.type === "nesting" || // &
-        node.type === "comment"
-    ) {
-        return false
-    }
-    if (node.type === "string") {
-        for (let index = 0; index < interpolations.length; index++) {
-            const inter = interpolations[index]
-            if (restoreReplaceNodeProp(node, "value", inter)) {
-                interpolations.splice(index, 1)
-                return true
-            }
-        }
-        return false
-    }
-
-    const interpolationIndex = interpolations.findIndex(
-        inter =>
-            (startIndex == null || startIndex <= inter.start) &&
-            (endIndex == null || inter.start < endIndex),
-    )
-    if (interpolationIndex < 0) {
-        return false
-    }
-
-    const inter = interpolations[interpolationIndex]
-
+    const targetProperties = []
     if (
         node.type === "tag" ||
         node.type === "class" ||
         node.type === "id" ||
         node.type === "combinator" ||
-        node.type === "pseudo"
+        node.type === "pseudo" ||
+        node.type === "string"
     ) {
-        if (restoreReplaceNodeProp(node, "value", inter)) {
-            interpolations.splice(interpolationIndex, 1)
-            return true
-        }
+        targetProperties.push("value")
     } else if (node.type === "attribute") {
-        if (restoreReplaceNodeProp(node, "attribute", inter)) {
-            interpolations.splice(interpolationIndex, 1)
-            return true
-        }
-        if (restoreReplaceNodeProp(node, "value", inter)) {
-            interpolations.splice(interpolationIndex, 1)
-            return true
+        targetProperties.push("attribute")
+        targetProperties.push("value")
+    }
+
+    for (const prop of targetProperties) {
+        for (let index = 0; index < interpolations.length; index++) {
+            const interpolation = interpolations[index]
+            if (restoreReplaceNodeProp(node, prop, interpolation)) {
+                interpolations.splice(index, 1)
+                return true
+            }
         }
     }
 
@@ -426,23 +388,14 @@ function restoreComments(node: PostCSSSPNode, inlineComments: ReplaceInfo[]) {
         targetProperties.push("raws.spaces.after")
         targetProperties.push("raws.spaces.before")
     }
-    if (!targetProperties.length) {
-        return false
-    }
 
     for (const prop of targetProperties) {
-        const text = `${lodash.get(node, prop, "") || ""}`
-        const commentIndex = inlineComments.findIndex(comment =>
-            text.includes(comment.replace),
-        )
-        if (commentIndex < 0) {
-            return false
-        }
-
-        const comment = inlineComments[commentIndex]
-        if (restoreReplaceNodeProp(node, prop, comment)) {
-            inlineComments.splice(commentIndex, 1)
-            return true
+        for (let index = 0; index < inlineComments.length; index++) {
+            const comment = inlineComments[index]
+            if (restoreReplaceNodeProp(node, prop, comment)) {
+                inlineComments.splice(index, 1)
+                return true
+            }
         }
     }
     return false
