@@ -97,6 +97,7 @@ Enforce all the rules in this category with:
 |    | Rule ID | Description |
 |:---|:--------|:------------|
 |  | [vue-scoped-css/no-parsing-error](./docs/rules/no-parsing-error.md) | Disallow parsing errors in `<style>` |
+|  | [vue-scoped-css/no-unused-keyframes](./docs/rules/no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |
 |  | [vue-scoped-css/no-unused-selector](./docs/rules/no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |
 |  | [vue-scoped-css/require-scoped](./docs/rules/require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |
 

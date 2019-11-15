@@ -272,6 +272,7 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
     public readonly rawParamsText: string
     public rawSelectorText?: string
     public selectors?: VCSSSelectorNode[]
+    public readonly node: PostCSSAtRule
     /**
      * constructor.
      * @param  {PostCSSAtRule} node  The node.
@@ -295,6 +296,7 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
         },
     ) {
         super(node, "VCSSAtRule", loc, start, end, props)
+        this.node = node
 
         this.name = getProp(props, node, "name")
         this.paramsText = props.paramsText ?? node.params

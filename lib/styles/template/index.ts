@@ -1,8 +1,16 @@
 import { isDefined, escapeRegExp } from "../utils"
 import { AST } from "../../types"
 import { Interpolation } from "./interpolation"
-import { VCSSIDSelector, VCSSClassSelector, VCSSTypeSelector } from "../ast"
+import {
+    VCSSIDSelector,
+    VCSSClassSelector,
+    VCSSTypeSelector,
+    VCSSAtRule,
+    VCSSDeclarationProperty,
+} from "../ast"
 import getSelectorTemplateElements from "./selector"
+import getAtRuleParamsTemplateElements from "./at-rule-params"
+import getDeclValueTemplateElements from "./decl-value"
 
 export { Interpolation }
 
@@ -54,6 +62,27 @@ export class Template {
         node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector,
     ): Template {
         return new Template(getSelectorTemplateElements(node))
+    }
+    public static ofParams(node: VCSSAtRule) {
+        return new Template(
+            getAtRuleParamsTemplateElements(node.paramsText.trim(), node.lang),
+        )
+    }
+
+    public static ofDeclValue(text: string, lang: string): Template
+    public static ofDeclValue(node: VCSSDeclarationProperty): Template
+    public static ofDeclValue(
+        nodeOrText: VCSSDeclarationProperty | string,
+        lang?: string,
+    ): Template {
+        if (typeof nodeOrText === "string") {
+            return new Template(
+                getDeclValueTemplateElements(nodeOrText, lang || ""),
+            )
+        }
+        return new Template(
+            getDeclValueTemplateElements(nodeOrText.value, nodeOrText.lang),
+        )
     }
     public static ofNode(
         node:
