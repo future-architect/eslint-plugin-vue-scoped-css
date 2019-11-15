@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: Install Dependencies
+      run: npm install
+    - name: Build
+      run: npm run build
+    - name: Lint
+      run: npm run lint
+  test:
+    name: Test on node ${{ matrix.node_version }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node_version: ['8', '10', '12', 'latest']
+        os: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: Install Dependencies
+      run: npm install
+    - name: Test
+      run: npm test
+
+  test_old_deps:
+    name: Test on old dependency packages
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 8
+    - name: Install Dependencies
+      run: npm i -S eslint@5.0.0 eslint-plugin-vue@5.0.0 vue-eslint-parser@5.0.0
+    - name: Test
+      run: npm test
