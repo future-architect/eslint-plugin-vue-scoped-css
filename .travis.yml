@@ -24,4 +24,4 @@ deploy:
 notifications:
   email: false
 after_success:
-  - if [ "$CI" = "coverage" ]; then npm install coveralls --no-save && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
+  - if [ "$CI" = "coverage" ]; then npm install coveralls --no-save && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls; fi
