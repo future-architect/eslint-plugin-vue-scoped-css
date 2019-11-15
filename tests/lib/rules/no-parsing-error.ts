@@ -12,6 +12,7 @@ const tester = new RuleTester({
 tester.run("no-parsing-error", rule, {
     valid: [
         `
+        <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped>
         .item {}
         </style>
@@ -20,6 +21,7 @@ tester.run("no-parsing-error", rule, {
     invalid: [
         {
             code: `
+            <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
             <style scoped>
             .item {
             </style>
@@ -27,7 +29,7 @@ tester.run("no-parsing-error", rule, {
             errors: [
                 {
                     message: "Parsing error: Unclosed block.",
-                    line: 3,
+                    line: 4,
                     column: 13,
                 },
             ],

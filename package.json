@@ -62,7 +62,6 @@
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "pack": "^2.2.0",
-    "postcss-safe-parser": "^4.0.1",
     "raw-loader": "^3.1.0",
     "rimraf": "^3.0.0",
     "ts-node": "^8.4.1",
@@ -74,6 +73,7 @@
     "eslint-utils": "^1.4.3",
     "lodash": "^4.17.15",
     "postcss": "^7.0.21",
+    "postcss-safe-parser": "^4.0.1",
     "postcss-scss": "^2.0.0",
     "postcss-selector-parser": "^6.0.2",
     "vue-eslint-parser": "^5.0.0 || ^6.0.0 || ^7.0.0"

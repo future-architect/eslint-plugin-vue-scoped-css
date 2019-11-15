@@ -9,8 +9,8 @@
 [![NPM downloads](https://img.shields.io/npm/dm/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dy/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dt/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
+[![Build Status](https://travis-ci.com/ota-meshi/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.com/ota-meshi/eslint-plugin-vue-scoped-css)
 <!--
-[![Build Status](https://travis-ci.org/ota-meshi/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.org/ota-meshi/eslint-plugin-vue-scoped-css)
 [![Coverage Status](https://coveralls.io/repos/github/ota-meshi/eslint-plugin-vue-scoped-css/badge.svg?branch=master)](https://coveralls.io/github/ota-meshi/eslint-plugin-vue-scoped-css?branch=master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/ota-meshi/eslint-plugin-vue-scoped-css.svg)](https://greenkeeper.io/)
 -->
@@ -18,6 +18,9 @@
 ## Features
 
 This ESLint plugin provides linting rules specific to [Scoped CSS in Vue.js].
+
+- Enforce best practices for Scoped CSS.
+- Supports CSS and SCSS syntax.
 
 You can check on the [Online DEMO](./playground/).
 
@@ -51,8 +54,8 @@ module.exports = {
 
 This plugin provides 3 predefined configs:
 
-- `plugin:vue-scoped-css/base` - Settings and rules to enable correct ESLint parsing
-- `plugin:vue-scoped-css/recommended` - Above, plus rules to improve code experience
+- `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
+- `plugin:vue-scoped-css/recommended` - Above, plus rules for better ways to help you avoid problems
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
 
 ## Rules

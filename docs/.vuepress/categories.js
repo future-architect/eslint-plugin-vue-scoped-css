@@ -1,8 +1,8 @@
 const { rules } = require("../../dist/utils/rules")
 
 const categoryTitles = {
-    base: "Base Rules (Enabling Correct ESLint Parsing)",
-    recommended: "Recommended (Improve Development Experience)",
+    base: "Base Rules (Enabling Plugin)",
+    recommended: "Recommended",
 }
 
 const categoryConfigDescriptions = {

@@ -30,8 +30,14 @@ export interface VDirectiveKeyV5 extends AST.HasLocation, AST.HasParent {
     type: "VDirectiveKey"
     name: string
     argument: string | null
-    modifiers: [string]
+    modifiers: string[]
+    parent: AST.VAttribute
     shorthand: boolean
+    raw: {
+        name: string
+        argument: string | null
+        modifiers: string[]
+    }
 }
 export interface VDirectiveKeyV6 extends AST.HasLocation, AST.HasParent {
     type: "VDirectiveKey"
