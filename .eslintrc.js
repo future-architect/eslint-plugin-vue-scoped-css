@@ -37,7 +37,7 @@ module.exports = {
                 "@mysticatea/eslint-plugin/require-meta-docs-url": [
                     "error",
                     {
-                        pattern: `https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/v${version}/docs/rules/{{name}}.md`,
+                        pattern: `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html`,
                     },
                 ],
             }

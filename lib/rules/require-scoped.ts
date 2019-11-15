@@ -9,7 +9,7 @@ module.exports = {
             category: "recommended",
             default: "warn",
             url:
-                "https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/v0.0.0/docs/rules/require-scoped.ts.md",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.ts.html",
         },
         fixable: null,
         messages: {

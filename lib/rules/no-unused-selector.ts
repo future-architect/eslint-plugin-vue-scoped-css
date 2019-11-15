@@ -71,7 +71,7 @@ module.exports = {
             category: "recommended",
             default: "warn",
             url:
-                "https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/v0.0.0/docs/rules/no-unused-selector.ts.md",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.ts.html",
         },
         fixable: null,
         messages: {
