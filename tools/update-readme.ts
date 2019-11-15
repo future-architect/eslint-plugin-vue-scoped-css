@@ -112,7 +112,7 @@ fs.writeFileSync(
             "",
         )
         .replace(
-            /\(https:\/\/ota-meshi.github.io\/eslint-plugin-vue-scoped-css/gu,
+            /\(https:\/\/future-architect.github.io\/eslint-plugin-vue-scoped-css/gu,
             "(.",
         )
         .replace(/\n\n\n+/gu, "\n\n"),

@@ -70,5 +70,5 @@ div {}
 
 ## Implementation
 
-- [Rule source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/lib/rules/require-selector-used-inside.ts)
-- [Test source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/require-selector-used-inside.js)
+- [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/require-selector-used-inside.ts)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/require-selector-used-inside.js)

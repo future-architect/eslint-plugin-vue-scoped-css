@@ -3,20 +3,20 @@
         <div class="sns">
             <a
                 class="github-button"
-                href="https://github.com/ota-meshi/eslint-plugin-vue-scoped-css"
+                href="https://github.com/future-architect/eslint-plugin-vue-scoped-css"
                 data-show-count="true"
-                aria-label="Star ota-meshi/eslint-plugin-vue-scoped-css on GitHub"
+                aria-label="Star future-architect/eslint-plugin-vue-scoped-css on GitHub"
                 >Star</a
             >
             <a
                 href="https://twitter.com/share"
                 class="twitter-share-button"
-                data-url="https://ota-meshi.github.io/eslint-plugin-vue-scoped-css/"
+                data-url="https://future-architect.github.io/eslint-plugin-vue-scoped-css/"
                 >Tweet</a
             >
             <div
                 class="fb-like"
-                data-href="https://ota-meshi.github.io/eslint-plugin-vue-scoped-css/"
+                data-href="https://future-architect.github.io/eslint-plugin-vue-scoped-css/"
                 data-layout="button_count"
                 data-action="like"
                 data-size="small"
