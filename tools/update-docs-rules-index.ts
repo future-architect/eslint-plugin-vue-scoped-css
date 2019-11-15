@@ -35,7 +35,7 @@ function toDeprecatedRuleRow(rule: Rule) {
 // -----------------------------------------------------------------------------
 let rulesTableContent = categories
     .map(
-        category =>
+        category =>category.rules.length?
             `
 ## ${category.title}
 
@@ -46,15 +46,12 @@ ${category.configDescription}
   "extends": "plugin:vue-scoped-css/${category.categoryId}"
 }
 \`\`\`
-${
-    category.rules.length
-        ? `
+
 | Rule ID | Description |    |
 |:--------|:------------|:---|
 ${category.rules.map(toRuleRow).join("\n")}
 `
-        : ""
-}`,
+        : "",
     )
     .join("")
 
