@@ -9,10 +9,10 @@
 [![NPM downloads](https://img.shields.io/npm/dm/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dy/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dt/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
-[![Build Status](https://travis-ci.com/ota-meshi/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.com/ota-meshi/eslint-plugin-vue-scoped-css)
-[![Coverage Status](https://coveralls.io/repos/github/ota-meshi/eslint-plugin-vue-scoped-css/badge.svg?branch=dev)](https://coveralls.io/github/ota-meshi/eslint-plugin-vue-scoped-css?branch=dev)
+[![Build Status](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css)
+[![Coverage Status](https://coveralls.io/repos/github/future-architect/eslint-plugin-vue-scoped-css/badge.svg?branch=dev)](https://coveralls.io/github/future-architect/eslint-plugin-vue-scoped-css?branch=dev)
 <!--
-[![Greenkeeper badge](https://badges.greenkeeper.io/ota-meshi/eslint-plugin-vue-scoped-css.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/future-architect/eslint-plugin-vue-scoped-css.svg)](https://greenkeeper.io/)
 -->
 
 ## Features
@@ -22,13 +22,13 @@ This ESLint plugin provides linting rules specific to [Scoped CSS in Vue.js].
 - Enforce best practices for Scoped CSS.
 - Supports CSS and SCSS syntax.
 
-You can check on the [Online DEMO](https://ota-meshi.github.io/eslint-plugin-vue-scoped-css/playground/).
+You can check on the [Online DEMO](https://future-architect.github.io/eslint-plugin-vue-scoped-css/playground/).
 
 <!--DOCS_IGNORE_START-->
 
 ## Documentation
 
-See [documents](https://ota-meshi.github.io/eslint-plugin-vue-scoped-css/).
+See [documents](https://future-architect.github.io/eslint-plugin-vue-scoped-css/).
 
 <!--DOCS_IGNORE_END-->
 

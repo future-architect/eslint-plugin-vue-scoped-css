@@ -39,5 +39,5 @@ This rule reports the `<style>` tags missing the `scoped` attribute.
 
 ## Implementation
 
-- [Rule source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/lib/rules/require-scoped.ts)
-- [Test source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/require-scoped.js)
+- [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/require-scoped.ts)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/require-scoped.js)

@@ -49,7 +49,7 @@ module.exports = {
             category: undefined,
             default: "warn",
             url:
-                "https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/v0.0.0/docs/rules/require-selector-used-inside.ts.md",
+                "https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/v0.0.0/docs/rules/require-selector-used-inside.ts.md",
         },
         fixable: null,
         messages: {

@@ -121,5 +121,5 @@ This is a limitation of this rule. Without this limitation, the root element can
 
 ## Implementation
 
-- [Rule source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/lib/rules/no-unused-selector.ts)
-- [Test source](https://github.com/ota-meshi/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/no-unused-selector.js)
+- [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/no-unused-selector.ts)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/no-unused-selector.js)

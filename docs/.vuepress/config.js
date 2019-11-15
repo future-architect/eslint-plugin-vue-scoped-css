@@ -53,8 +53,8 @@ module.exports = {
     ],
     themeConfig: {
         // logo: "/logo.svg",
-        repo: "ota-meshi/eslint-plugin-vue-scoped-css",
-        docsRepo: "ota-meshi/eslint-plugin-vue-scoped-css",
+        repo: "future-architect/eslint-plugin-vue-scoped-css",
+        docsRepo: "future-architect/eslint-plugin-vue-scoped-css",
         docsDir: "docs",
         docsBranch: "master",
         editLinks: true,
