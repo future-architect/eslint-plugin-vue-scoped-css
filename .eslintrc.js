@@ -55,7 +55,7 @@ module.exports = {
                 sourceType: "module",
             },
             extends: [
-                // "plugin:vue-scoped-css/recommended"
+                "plugin:vue-scoped-css/recommended"
             ],
             globals:{
                 require: true
