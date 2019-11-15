@@ -2,8 +2,8 @@ import { rules } from "../../lib/utils/rules"
 import { Rule } from "../../lib/types"
 
 const categoryTitles = {
-    base: "Base Rules (Enabling Correct ESLint Parsing)",
-    recommended: "Recommended (Improve Development Experience)",
+    base: "Base Rules (Enabling Plugin)",
+    recommended: "Recommended",
 } as { [key: string]: string }
 
 const categoryConfigDescriptions = {

@@ -19,6 +19,9 @@
 
 This ESLint plugin provides linting rules specific to [Scoped CSS in Vue.js].
 
+- Enforce best practices for Scoped CSS.
+- Supports CSS and SCSS syntax.
+
 You can check on the [Online DEMO](https://ota-meshi.github.io/eslint-plugin-vue-scoped-css/playground/).
 
 <!--DOCS_IGNORE_START-->
@@ -59,8 +62,8 @@ module.exports = {
 
 This plugin provides 3 predefined configs:
 
-- `plugin:vue-scoped-css/base` - Settings and rules to enable correct ESLint parsing
-- `plugin:vue-scoped-css/recommended` - Above, plus rules to improve code experience
+- `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
+- `plugin:vue-scoped-css/recommended` - Above, plus rules for better ways to help you avoid problems
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
 
 ## Rules
@@ -71,7 +74,7 @@ The `--fix` option on the [command line](https://eslint.org/docs/user-guide/comm
 
 <!--RULES_TABLE_START-->
 
-### Base Rules (Enabling Correct ESLint Parsing)
+### Base Rules (Enabling Plugin)
 
 Enable this plugin using with:
 
@@ -81,7 +84,7 @@ Enable this plugin using with:
 }
 ```
 
-### Recommended (Improve Development Experience)
+### Recommended
 
 Enforce all the rules in this category with:
 

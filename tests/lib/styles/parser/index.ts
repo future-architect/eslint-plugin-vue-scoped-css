@@ -66,6 +66,9 @@ describe("CSS Nodes Test.", () => {
                 if (!style.cssNode) {
                     throw new Error("invalid")
                 }
+                if (style.cssNode.errors.length) {
+                    return
+                }
                 checkCSSNodeLocations(source, style.cssNode, style.lang)
             })
             it("should be parsed to valid AST.", () => {
