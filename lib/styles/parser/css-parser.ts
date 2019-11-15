@@ -1,4 +1,5 @@
 import postcss from "postcss"
+import postcssSafeParser from "postcss-safe-parser"
 import { CSSSelectorParser } from "./selector/css-selector-parser"
 import {
     VCSSStyleSheet,
@@ -36,6 +37,7 @@ export class CSSParser {
     protected commentContainer: VCSSCommentNode[]
     private _selectorParser: CSSSelectorParser | null = null
     private readonly lang: string
+    private anyErrors: any[] = []
     /**
      * constructor.
      * @param {SourceCode} sourceCode the SourceCode object that you can use to work with the source that was passed to ESLint.
@@ -57,6 +59,7 @@ export class CSSParser {
 
         this.commentContainer = []
         this._selectorParser = this.createSelectorParser()
+        this.anyErrors = []
 
         try {
             const postcssRoot = this.parseInternal(css) as PostCSSRoot
@@ -66,28 +69,12 @@ export class CSSParser {
                 postcssRoot,
             )
             rootNode.comments = this.commentContainer
-            return rootNode
-        } catch (e) {
-            const errorLoc = getESLintLineAndColumnFromPostCSSPosition(
-                offsetLocation,
-                e,
-            )
-            const errorIndex = this.sourceCode.getIndexFromLoc(errorLoc)
-            const message = e.reason || e.message
-            const errorNode = new VCSSParsingError(
-                null as any,
-                {
-                    start: errorLoc,
-                    end: errorLoc,
-                },
-                errorIndex,
-                errorIndex,
-                {
-                    lang: this.lang,
-                    message,
-                },
+            rootNode.errors.push(
+                ...this.collectErrors(this.anyErrors, offsetLocation),
             )
 
+            return rootNode
+        } catch (e) {
             const startIndex = sourceCode.getIndexFromLoc(offsetLocation)
             const endIndex = startIndex + css.length
             const styleLoc = {
@@ -100,11 +87,57 @@ export class CSSParser {
                 startIndex,
                 endIndex,
                 {
-                    errors: [errorNode],
+                    errors: this.collectErrors(
+                        [...this.anyErrors, e],
+                        offsetLocation,
+                    ),
                     lang: this.lang,
                 },
             )
         }
+    }
+
+    private addError(error: any) {
+        this.anyErrors.push(error)
+    }
+
+    private collectErrors(
+        errors: any[],
+        offsetLocation: LineAndColumnData,
+    ): VCSSParsingError[] {
+        const errorNodes = []
+        const duplicate = new Set<string>()
+        for (const error of errors) {
+            const errorLoc =
+                getESLintLineAndColumnFromPostCSSPosition(
+                    offsetLocation,
+                    error,
+                ) || offsetLocation
+            const message = error.reason || error.message
+
+            const key = `[${errorLoc.line}:${errorLoc.column}]: ${message}`
+            if (duplicate.has(key)) {
+                continue
+            }
+            duplicate.add(key)
+            const errorIndex = this.sourceCode.getIndexFromLoc(errorLoc)
+            errorNodes.push(
+                new VCSSParsingError(
+                    null as any,
+                    {
+                        start: errorLoc,
+                        end: errorLoc,
+                    },
+                    errorIndex,
+                    errorIndex,
+                    {
+                        lang: this.lang,
+                        message,
+                    },
+                ),
+            )
+        }
+        return errorNodes
     }
 
     protected get selectorParser(): CSSSelectorParser {
@@ -150,7 +183,8 @@ export class CSSParser {
             ) ||
             // for node type: `root`
             sourceCode.getLocFromIndex(
-                start + (node as PostCSSRoot).source.input.css.length,
+                sourceCode.getIndexFromLoc(offsetLocation) +
+                    (node as PostCSSRoot).source.input.css.length,
             )
         const end = sourceCode.getIndexFromLoc(endLoc)
         const loc: SourceLocation = {
@@ -179,12 +213,16 @@ export class CSSParser {
         return astNode
     }
 
-    /* eslint-disable class-methods-use-this */
-
     protected parseInternal(css: string): postcss.Root {
-        return postcss.parse(css)
+        try {
+            return postcss.parse(css)
+        } catch (e) {
+            this.addError(e)
+            return postcssSafeParser(css)
+        }
     }
 
+    /* eslint-disable class-methods-use-this */
     protected createSelectorParser(): CSSSelectorParser {
         return new CSSSelectorParser(this.sourceCode, this.commentContainer)
     }

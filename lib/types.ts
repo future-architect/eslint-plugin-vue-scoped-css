@@ -1,4 +1,5 @@
-import { AST } from "vue-eslint-parser"
+// eslint-disable-next-line  @mysticatea/node/no-missing-import
+import AST from "vue-eslint-parser/ast"
 import postcss from "postcss"
 import selectorParser from "postcss-selector-parser"
 // eslint-disable-next-line @mysticatea/node/no-extraneous-import
