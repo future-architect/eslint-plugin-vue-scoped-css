@@ -618,12 +618,17 @@ function removeInvalidDescendantCombinator(
     const results = []
 
     let prev = null
-    for (const node of nodes) {
+    for (let index = 0; index < nodes.length; index++) {
+        const node = nodes[index]
         if (isDescendantCombinator(node)) {
             if (results.length === 0) {
                 continue
             }
             if (isSelectorCombinator(prev)) {
+                continue
+            }
+            const next = nodes[index + 1]
+            if (isSelectorCombinator(next)) {
                 continue
             }
         }

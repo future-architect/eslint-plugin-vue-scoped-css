@@ -9,6 +9,7 @@ import {
     VCSSNode,
     VCSSTypeSelector,
     VCSSSelectorContainerNode,
+    VCSSSelectorPseudo,
 } from "../ast"
 import { isVCSSAtRule } from "./css-nodes"
 
@@ -23,6 +24,22 @@ export function hasNodesSelector(
         node != null &&
         (node.type === "VCSSSelector" || node.type === "VCSSSelectorPseudo")
     )
+}
+
+type VDeepPseudo = VCSSSelectorPseudo & { value: "::v-deep" }
+
+/**
+ * Checks whether the given node is ::v-deep pseudo
+ * @param node node to check
+ */
+export function isVDeepPseudo(
+    node: VCSSSelectorNode | null,
+): node is VDeepPseudo {
+    if (isPseudo(node)) {
+        const val = node.value.trim()
+        return val === "::v-deep"
+    }
+    return false
 }
 
 /**
@@ -76,13 +93,22 @@ export function isNestingSelector(
 }
 
 /**
+ * Checks whether the given node is VCSSNestingSelector
+ * @param node node to check
+ */
+export function isPseudo(
+    node: VCSSSelectorNode | null,
+): node is VCSSSelectorPseudo {
+    return node?.type === "VCSSSelectorPseudo"
+}
+/**
  * Checks whether the given node is VCSSSelectorCombinator
  * @param node node to check
  */
 export function isSelectorCombinator(
     node: VCSSSelectorNode | null,
-): node is VCSSSelectorCombinator {
-    return node?.type === "VCSSSelectorCombinator"
+): node is VCSSSelectorCombinator | VDeepPseudo {
+    return node?.type === "VCSSSelectorCombinator" || isVDeepPseudo(node)
 }
 
 /**
@@ -131,12 +157,14 @@ export function isGeneralSiblingCombinator(
  */
 export function isDeepCombinator(
     node: VCSSSelectorNode | null,
-): node is VCSSSelectorCombinator & { value: ">>>" | "/deep/" } {
-    if (!isSelectorCombinator(node)) {
-        return false
+): node is
+    | (VCSSSelectorCombinator & { value: ">>>" | "/deep/" })
+    | VDeepPseudo {
+    if (isSelectorCombinator(node)) {
+        const val = node.value.trim()
+        return val === ">>>" || val === "/deep/" || isVDeepPseudo(node)
     }
-    const val = node.value.trim()
-    return val === ">>>" || val === "/deep/"
+    return false
 }
 
 /**

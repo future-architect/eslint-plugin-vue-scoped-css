@@ -471,6 +471,76 @@ tester.run("require-selector-used-inside", rule, {
                 },
             ],
         },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul /deep/ .a {}
+            div > li /deep/ .a {}
+            div > .list /deep/ .a {}
+            div > .item /deep/ .a {}
+            </style>
+            `,
+            errors: [
+                {
+                    messageId: "unused",
+                    data: { selector: "div>li" },
+                    line: 11,
+                    column: 13,
+                    endLine: 11,
+                    endColumn: 21,
+                },
+                {
+                    messageId: "unused",
+                    data: { selector: "div>.item" },
+                    line: 13,
+                    column: 13,
+                    endLine: 13,
+                    endColumn: 24,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul ::v-deep .a {}
+            div > li ::v-deep .a {}
+            div > .list ::v-deep .a {}
+            div > .item ::v-deep .a {}
+            </style>
+            `,
+            errors: [
+                {
+                    messageId: "unused",
+                    data: { selector: "div>li" },
+                    line: 11,
+                    column: 13,
+                    endLine: 11,
+                    endColumn: 21,
+                },
+                {
+                    messageId: "unused",
+                    data: { selector: "div>.item" },
+                    line: 13,
+                    column: 13,
+                    endLine: 13,
+                    endColumn: 24,
+                },
+            ],
+        },
 
         // multiple parents children
         {

@@ -1,0 +1,20 @@
+{
+    "#g>>>.bar": [
+        "ul.foo>li#g>ul>li#h.bar",
+        "ul.foo>li#g>ul>li#k.bar",
+        "ul.foo>li#g>div#n.bar",
+        "ul.foo>li#g>div#q.bar"
+    ],
+    "#g/deep/.bar": [
+        "ul.foo>li#g>ul>li#h.bar",
+        "ul.foo>li#g>ul>li#k.bar",
+        "ul.foo>li#g>div#n.bar",
+        "ul.foo>li#g>div#q.bar"
+    ],
+    "#g::v-deep.bar": [
+        "ul.foo>li#g>ul>li#h.bar",
+        "ul.foo>li#g>ul>li#k.bar",
+        "ul.foo>li#g>div#n.bar",
+        "ul.foo>li#g>div#q.bar"
+    ]
+}
