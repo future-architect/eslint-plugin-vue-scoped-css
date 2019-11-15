@@ -10,7 +10,7 @@
 [![NPM downloads](https://img.shields.io/npm/dy/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dt/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![Build Status](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css)
-[![Coverage Status](https://coveralls.io/repos/github/future-architect/eslint-plugin-vue-scoped-css/badge.svg?branch=dev)](https://coveralls.io/github/future-architect/eslint-plugin-vue-scoped-css?branch=dev)
+[![Coverage Status](https://coveralls.io/repos/github/future-architect/eslint-plugin-vue-scoped-css/badge.svg?branch=master)](https://coveralls.io/github/future-architect/eslint-plugin-vue-scoped-css?branch=master)
 <!--
 [![Greenkeeper badge](https://badges.greenkeeper.io/future-architect/eslint-plugin-vue-scoped-css.svg)](https://greenkeeper.io/)
 -->
