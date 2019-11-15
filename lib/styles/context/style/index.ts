@@ -1,6 +1,7 @@
 import { parse } from "../../parser"
 import { AST, SourceCode, RuleContext } from "../../../types"
-import { VCSSStyleSheet } from "../../ast"
+import { VCSSStyleSheet, VCSSNode } from "../../ast"
+import { isVCSSContainerNode } from "../../utils/css-nodes"
 
 /**
  * Check whether the templateBody of the program has invalid EOF or not.
@@ -70,6 +71,13 @@ function getLang(style: AST.VElement) {
     )
 }
 
+interface Visitor {
+    exit?: boolean
+    break?: boolean
+    enterNode(node: VCSSNode): void
+    leaveNode(node: VCSSNode): void
+}
+
 /**
  * Style context
  */
@@ -108,7 +116,41 @@ export class StyleContext {
             this.cssNode = null
         }
     }
+
+    public traverseNodes(visitor: Visitor): void {
+        if (this.cssNode) {
+            traverseNodes(this.cssNode, visitor)
+        }
+    }
 }
+
+/**
+ * Traverse the given node.
+ * @param node The node to traverse.
+ * @param visitor The node visitor.
+ */
+function traverseNodes(node: VCSSNode, visitor: Visitor): void {
+    visitor.break = false
+    visitor.enterNode(node)
+    if (visitor.exit || visitor.break) {
+        return
+    }
+
+    if (isVCSSContainerNode(node)) {
+        for (const child of node.nodes) {
+            traverseNodes(child, visitor)
+            if (visitor.break) {
+                break
+            }
+            if (visitor.exit) {
+                return
+            }
+        }
+    }
+
+    visitor.leaveNode(node)
+}
+
 /**
  * Create the style contexts
  * @param {RuleContext} context ESLint rule context

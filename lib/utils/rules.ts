@@ -7,6 +7,11 @@ const baseRules = [
         ruleId: "vue-scoped-css/no-parsing-error",
     },
     {
+        rule: require("../rules/no-unused-keyframes"),
+        ruleName: "no-unused-keyframes",
+        ruleId: "vue-scoped-css/no-unused-keyframes",
+    },
+    {
         rule: require("../rules/no-unused-selector"),
         ruleName: "no-unused-selector",
         ruleId: "vue-scoped-css/no-unused-selector",

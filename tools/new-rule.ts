@@ -16,7 +16,7 @@ const logger = console
     }
 
     const ruleFile = path.resolve(__dirname, `../lib/rules/${ruleId}.ts`)
-    const testFile = path.resolve(__dirname, `../tests/lib/rules/${ruleId}.js`)
+    const testFile = path.resolve(__dirname, `../tests/lib/rules/${ruleId}.ts`)
     const docFile = path.resolve(__dirname, `../docs/rules/${ruleId}.md`)
 
     fs.writeFileSync(
@@ -41,7 +41,8 @@ module.exports = {
         fixable: null,
         schema: [],
         messages: {
-        }
+        },
+        type: "suggestion", // "problem",
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context).filter(
