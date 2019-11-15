@@ -1,3 +1,4 @@
+// eslint-disable-next-line @mysticatea/node/no-missing-import
 import * as estree from "estree"
 
 export interface AnalysisOptions {
