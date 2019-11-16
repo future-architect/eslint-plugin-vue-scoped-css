@@ -17,61 +17,22 @@
 
 ## Features
 
-This ESLint plugin provides linting rules specific to [Scoped CSS in Vue.js].
+This ESLint plugin provides linting rules relate to better ways to help you avoid problems when using [Scoped CSS in Vue.js].
 
-- Enforce best practices for Scoped CSS.
-- Supports CSS and SCSS syntax.
+- Provides linting rules for Scoped CSS.
+- Supports CSS syntax including level 4 selectors.
+- Supports `<style lang="scss">`.
+- Parses `<style>`, `<template>` and `<script>` blocks.
 
 You can check on the [Online DEMO](./playground/).
 
-## Installation
-
-```bash
-npm install --save-dev eslint-plugin-vue-scoped-css
-```
-
 ## Usage
 
-Create `.eslintrc.*` file to configure rules. See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring).
-
-Example **.eslintrc.js**:
-
-```js
-module.exports = {
-  extends: [
-    // add more generic rulesets here, such as:
-    // 'eslint:recommended',
-    'plugin:vue-scoped-css/recommended'
-  ],
-  rules: {
-    // override/add rules settings here, such as:
-    // 'vue-scoped-css/no-unused-selector': 'error'
-  }
-}
-```
-
-## Configs
-
-This plugin provides 3 predefined configs:
-
-- `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
-- `plugin:vue-scoped-css/recommended` - Above, plus rules for better ways to help you avoid problems
-- `plugin:vue-scoped-css/all` - All rules of this plugin are included
+See [User Guide](./user-guide/README.md).
 
 ## Rules
 
-[Available Rules](./rules/README.md).
-
-## Contributing
-
-Welcome contributing!
-
-Please use GitHub's Issues/PRs.
-
-### Development Tools
-
-- `npm test` runs tests and measures coverage.  
-- `npm run update` runs in order to update readme and recommended configuration.  
+See [Available Rules](./rules/README.md).
 
 ## License
 
