@@ -14,7 +14,7 @@ module.exports = {
             category: "recommended",
             default: "warn",
             url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.ts.html",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html",
         },
         fixable: null,
         messages: {

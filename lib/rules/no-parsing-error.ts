@@ -9,7 +9,7 @@ module.exports = {
             category: "recommended",
             default: "warn",
             url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.ts.html",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html",
         },
         fixable: null,
         messages: {},

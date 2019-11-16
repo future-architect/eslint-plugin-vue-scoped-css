@@ -17,10 +17,12 @@
 
 ## Features
 
-This ESLint plugin provides linting rules specific to [Scoped CSS in Vue.js].
+This ESLint plugin provides linting rules relate to better ways to help you avoid problems when using [Scoped CSS in Vue.js].
 
-- Enforce best practices for Scoped CSS.
-- Supports CSS and SCSS syntax.
+- Provides linting rules for Scoped CSS.
+- Supports CSS syntax including level 4 selectors.
+- Supports `<style lang="scss">`.
+- Parses `<style>`, `<template>` and `<script>` blocks.
 
 You can check on the [Online DEMO](https://future-architect.github.io/eslint-plugin-vue-scoped-css/playground/).
 
@@ -30,15 +32,22 @@ You can check on the [Online DEMO](https://future-architect.github.io/eslint-plu
 
 See [documents](https://future-architect.github.io/eslint-plugin-vue-scoped-css/).
 
-<!--DOCS_IGNORE_END-->
-
 ## Installation
 
 ```bash
-npm install --save-dev eslint-plugin-vue-scoped-css
+npm install --save-dev eslint eslint-plugin-vue-scoped-css
 ```
 
+> **Requirements**
+> 
+> - ESLint v5.0.0 and above
+> - Node.js v8.10.0 and above
+
+<!--DOCS_IGNORE_END-->
+
 ## Usage
+
+<!--USAGE_SECTION_START-->
 
 Create `.eslintrc.*` file to configure rules. See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring).
 
@@ -66,6 +75,8 @@ This plugin provides 3 predefined configs:
 - `plugin:vue-scoped-css/recommended` - Above, plus rules for better ways to help you avoid problems
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
 
+<!--USAGE_SECTION_END-->
+
 ## Rules
 
 <!--RULES_SECTION_START-->
@@ -74,17 +85,7 @@ The `--fix` option on the [command line](https://eslint.org/docs/user-guide/comm
 
 <!--RULES_TABLE_START-->
 
-### Base Rules (Enabling Plugin)
-
-Enable this plugin using with:
-
-```json
-{
-  "extends": "plugin:vue-scoped-css/base"
-}
-```
-
-### Recommended
+## Recommended
 
 Enforce all the rules in this category with:
 
@@ -94,21 +95,36 @@ Enforce all the rules in this category with:
 }
 ```
 
-|    | Rule ID | Description |
-|:---|:--------|:------------|
-|  | [vue-scoped-css/no-parsing-error](./docs/rules/no-parsing-error.md) | Disallow parsing errors in `<style>` |
-|  | [vue-scoped-css/no-unused-keyframes](./docs/rules/no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |
-|  | [vue-scoped-css/no-unused-selector](./docs/rules/no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |
-|  | [vue-scoped-css/require-scoped](./docs/rules/require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |
+| Rule ID | Description |    |
+|:--------|:------------|:---|
+| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
+| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
+| [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 
-### Uncategorized
+## Uncategorized
 
-|    | Rule ID | Description |
-|:---|:--------|:------------|
-|  | [vue-scoped-css/require-selector-used-inside](./docs/rules/require-selector-used-inside.md) | Reports the defined selectors is not used inside `<template>`. |
+No preset enables the rules in this category.
+Please enable each rule if you want.
+
+For example:
+
+```json
+{
+  "rules": {
+    "vue-scoped-css/require-selector-used-inside": "error"
+  }
+}
+```
+
+| Rule ID | Description |    |
+|:--------|:------------|:---|
+| [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | Reports the defined selectors is not used inside `<template>`. |  |
 
 <!--RULES_TABLE_END-->
 <!--RULES_SECTION_END-->
+
+<!--DOCS_IGNORE_START-->
 
 ## Contributing
 
@@ -120,6 +136,8 @@ Please use GitHub's Issues/PRs.
 
 - `npm test` runs tests and measures coverage.  
 - `npm run update` runs in order to update readme and recommended configuration.  
+
+<!--DOCS_IGNORE_END-->
 
 ## License
 

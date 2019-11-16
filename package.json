@@ -7,9 +7,9 @@
     "prebuild": "npm run -s clean",
     "build": "tsc --project ./tsconfig.build.json",
     "clean": "rimraf .nyc_output dist coverage",
-    "lint": "eslint \"tests\" \"lib\" \"docs/.vuepress\" --ext .js,.vue,.ts --ignore-pattern \"fixtures\"",
+    "lint": "eslint \"tests\" \"lib\" \"docs/.vuepress\" --ext .js,.vue,.ts --ignore-pattern \"fixtures\" --rulesdir eslint-internal-rules",
     "lint:ci": "node -e \"if(process.env.DEPS=='low')process.exit(1)\" && npm run lint || node -e \"if(process.env.DEPS!='low')process.exit(1)\"",
-    "eslint-fix": "eslint \"tests\" \"lib\" \"docs/.vuepress\" --ext .js,.vue,.ts --ignore-pattern \"fixtures\" --fix",
+    "eslint-fix": "eslint \"tests\" \"lib\" \"docs/.vuepress\" --ext .js,.vue,.ts --ignore-pattern \"fixtures\" --rulesdir eslint-internal-rules --fix",
     "pretest": "npm run build && npm run lint:ci",
     "test:base": "mocha --require ts-node/register \"tests/**/*.ts\" --reporter dot --timeout 60000",
     "test": "npm run test:nyc",
@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues"
   },
-  "homepage": "https://github.com/future-architect/eslint-plugin-vue-scoped-css#readme",
+  "homepage": "https://future-architect.github.io/eslint-plugin-vue-scoped-css/",
   "keywords": [
     "eslint",
     "eslintplugin",

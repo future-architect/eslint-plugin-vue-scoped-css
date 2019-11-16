@@ -49,7 +49,7 @@ module.exports = {
             category: undefined,
             default: "warn",
             url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.ts.html",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html",
         },
         fixable: null,
         messages: {

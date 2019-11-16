@@ -64,6 +64,8 @@ module.exports = {
         },
 
         nav: [
+            { text: "Introduction", link: "/" },
+            { text: "User Guide", link: "/user-guide/" },
             { text: "Rules", link: "/rules/" },
             { text: "Playground", link: "/playground/" },
         ],
@@ -90,7 +92,7 @@ module.exports = {
                 // Rules in no category.
                 ...extraCategories,
             ],
-            "/": ["/", "/rules/", "/playground/"],
+            "/": ["/", "/user-guide/", "/rules/", "/playground/"],
         },
     },
 }

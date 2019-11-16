@@ -34,12 +34,10 @@ module.exports = {
             files: ["lib/rules/**"],
             rules: {
                 "@mysticatea/eslint-plugin/report-message-format": ["error", "[^a-z].*\\.$"],
-                "@mysticatea/eslint-plugin/require-meta-docs-url": [
-                    "error",
-                    {
-                        pattern: `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html`,
-                    },
-                ],
+                "require-meta-docs-url": ["warn", {
+                    pattern: `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html`,
+                }],
+                "@mysticatea/eslint-plugin/require-meta-docs-url":  "off",
             }
         },
         {
