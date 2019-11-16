@@ -97,10 +97,10 @@ Enforce all the rules in this category with:
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
-| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
-| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
-| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
-| [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+| [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | Disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | Reports the `@keyframes` is not used in Scoped CSS. |  |
+| [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
+| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 
 ## Uncategorized
 
@@ -119,7 +119,7 @@ For example:
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
-| [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | Reports the defined selectors is not used inside `<template>`. |  |
+| [vue-scoped-css/require-selector-used-inside](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html) | Reports the defined selectors is not used inside `<template>`. |  |
 
 <!--RULES_TABLE_END-->
 <!--RULES_SECTION_END-->

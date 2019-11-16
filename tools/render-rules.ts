@@ -2,36 +2,42 @@ import categories from "./lib/categories"
 import { Rule } from "../lib/types"
 import { rules } from "../lib/utils/rules"
 
-// -----------------------------------------------------------------------------
-
 //eslint-disable-next-line require-jsdoc
-function toRuleRow(rule: Rule) {
-    const mark = `${rule.meta.fixable ? ":wrench:" : ""}${
-        rule.meta.deprecated ? ":warning:" : ""
-    }`
-    const link = `[${rule.meta.docs.ruleId}](./${rule.meta.docs.ruleName}.md)`
-    const description = rule.meta.docs.description || "(no description)"
-
-    return `| ${link} | ${description} | ${mark} |`
-}
-
-//eslint-disable-next-line require-jsdoc
-function toDeprecatedRuleRow(rule: Rule) {
-    const link = `[${rule.meta.docs.ruleId}](./${rule.meta.docs.ruleName}.md)`
-    const replacedRules = rule.meta.docs.replacedBy || []
-    const replacedBy = replacedRules
-        .map(name => `[vue-scoped-css/${name}](./${name}.md)`)
-        .join(", ")
-
-    return `| ${link} | ${replacedBy || "(no replacement)"} |`
-}
-
-//eslint-disable-next-line require-jsdoc
-export default function renderRulesTableContent() {
+export default function renderRulesTableContent(
+    buildRulePath = (ruleName: string) => `./${ruleName}.md`,
+) {
     const uncategorizedRules = rules.filter(
         rule => !rule.meta.docs.category && !rule.meta.deprecated,
     )
     const deprecatedRules = rules.filter(rule => rule.meta.deprecated)
+
+    // -----------------------------------------------------------------------------
+
+    //eslint-disable-next-line require-jsdoc
+    function toRuleRow(rule: Rule) {
+        const mark = `${rule.meta.fixable ? ":wrench:" : ""}${
+            rule.meta.deprecated ? ":warning:" : ""
+        }`
+        const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
+            rule.meta.docs.ruleName,
+        )})`
+        const description = rule.meta.docs.description || "(no description)"
+
+        return `| ${link} | ${description} | ${mark} |`
+    }
+
+    //eslint-disable-next-line require-jsdoc
+    function toDeprecatedRuleRow(rule: Rule) {
+        const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
+            rule.meta.docs.ruleName,
+        )})`
+        const replacedRules = rule.meta.docs.replacedBy || []
+        const replacedBy = replacedRules
+            .map(name => `[vue-scoped-css/${name}](${buildRulePath(name)}.md)`)
+            .join(", ")
+
+        return `| ${link} | ${replacedBy || "(no replacement)"} |`
+    }
 
     // -----------------------------------------------------------------------------
     let rulesTableContent = categories
