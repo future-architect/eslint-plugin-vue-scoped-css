@@ -12,6 +12,7 @@
                 href="https://twitter.com/share"
                 class="twitter-share-button"
                 data-url="https://future-architect.github.io/eslint-plugin-vue-scoped-css/"
+                data-text="eslint-plugin-vue-scoped-css"
                 >Tweet</a
             >
             <div
