@@ -4,7 +4,7 @@ import pluginVue from "eslint-plugin-vue"
 
 const CATEGORY_TITLES = {
     base: "Base Rules",
-    recommended: "Recommended (Improve Development Experience)",
+    recommended: "Recommended",
     uncategorized: "Uncategorized",
     "eslint-plugin-vue": "eslint-plugin-vue rules",
     "eslint-core-rules@Possible Errors": "ESLint core rules(Possible Errors)",
