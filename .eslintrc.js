@@ -7,6 +7,7 @@ module.exports = {
         sourceType: "script",
         ecmaVersion: 2018,
     },
+    plugins: ['internal-rules'],
     extends: [
         "plugin:@mysticatea/es2015",
         "plugin:@mysticatea/+node",
@@ -34,7 +35,7 @@ module.exports = {
             files: ["lib/rules/**"],
             rules: {
                 "@mysticatea/eslint-plugin/report-message-format": ["error", "[^a-z].*\\.$"],
-                "require-meta-docs-url": ["warn", {
+                "internal-rules/require-meta-docs-url": ["warn", {
                     pattern: `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html`,
                 }],
                 "@mysticatea/eslint-plugin/require-meta-docs-url":  "off",

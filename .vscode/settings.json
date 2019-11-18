@@ -5,9 +5,6 @@
     { "language": "vue", "autoFix": true },
     { "autoFix": true, "language": "typescript" },
   ],
-  "eslint.options": {
-    "rulePaths": ["eslint-internal-rules"]
-  },
   "typescript.validate.enable": true,
   "javascript.validate.enable": false,
   "eslint.autoFixOnSave": true,
