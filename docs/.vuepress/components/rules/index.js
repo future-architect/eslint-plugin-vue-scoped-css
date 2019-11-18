@@ -104,7 +104,11 @@ categories.sort((a, b) =>
 )
 
 export const DEFAULT_RULES_CONFIG = allRules.reduce((c, r) => {
-    c[r.ruleId] = r.initChecked ? "error" : "off"
+    if (r.ruleId === "vue/no-parsing-error") {
+        c[r.ruleId] = "error"
+    } else {
+        c[r.ruleId] = r.initChecked ? "error" : "off"
+    }
     return c
 }, {})
 

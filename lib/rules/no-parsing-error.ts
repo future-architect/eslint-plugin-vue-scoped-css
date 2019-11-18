@@ -1,5 +1,9 @@
-import { getStyleContexts, getCommentDirectivesReporter } from "../styles"
-import { RuleContext } from "../types"
+import {
+    getStyleContexts,
+    getCommentDirectivesReporter,
+    StyleContext,
+} from "../styles"
+import { RuleContext, LineAndColumnData } from "../types"
 import { VCSSParsingError } from "../styles/ast"
 
 module.exports = {
@@ -17,7 +21,7 @@ module.exports = {
         type: "problem",
     },
     create(context: RuleContext) {
-        const styles = getStyleContexts(context).filter(style => !style.invalid)
+        const styles = getStyleContexts(context)
         if (!styles.length) {
             return {}
         }
@@ -40,11 +44,48 @@ module.exports = {
             })
         }
 
+        /**
+         * Reports the given style
+         * @param {ASTNode} node node to report
+         */
+        function reportInvalidStyle(
+            style: StyleContext & {
+                invalid: {
+                    message: string
+                    needReport: boolean
+                    loc: LineAndColumnData
+                }
+            },
+        ) {
+            reporter.report({
+                node: style.styleElement,
+                loc: style.invalid.loc,
+                message: "Parsing error: {{message}}.",
+                data: {
+                    message: style.invalid.message,
+                },
+            })
+        }
+
         return {
             "Program:exit"() {
                 for (const style of styles) {
-                    for (const node of style.cssNode?.errors || []) {
-                        report(node)
+                    if (style.invalid != null) {
+                        if (style.invalid.needReport) {
+                            reportInvalidStyle(
+                                style as StyleContext & {
+                                    invalid: {
+                                        message: string
+                                        needReport: boolean
+                                        loc: LineAndColumnData
+                                    }
+                                },
+                            )
+                        }
+                    } else {
+                        for (const node of style.cssNode?.errors || []) {
+                            report(node)
+                        }
                     }
                 }
             },
