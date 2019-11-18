@@ -4,6 +4,7 @@ import {
     isTypeSelector,
     findNestingSelectors,
     hasNodesSelector,
+    isSelectorCombinator,
 } from "../../utils/selectors"
 import {
     VCSSStyleSheet,
@@ -202,8 +203,8 @@ export class CSSSelectorResolver {
         parentSelectors: ResolvedSelector[],
         container: VCSSNode,
     ) {
-        const nesting = findNestingSelectors(selectorNodes).next().value
-        if (!nesting) {
+        const nestingNext = findNestingSelectors(selectorNodes).next()
+        if (nestingNext.done) {
             // Must be nest-containing, which means it contains a nesting selector in it somewhere.
             return [new ResolvedSelector(selectorNodes, container)]
         }
@@ -211,21 +212,24 @@ export class CSSSelectorResolver {
             nestingIndex,
             nodes: hasNestingNodes,
             node: nestingNode,
-        } = nesting
+        } = nestingNext.value
 
-        const nestingLeftNode = hasNestingNodes[nestingIndex - 1]
-        const nestingRightNode = hasNestingNodes[(nestingIndex as number) + 1]
+        const beforeSelector = hasNestingNodes.slice(0, nestingIndex)
+        const afterSelector = hasNestingNodes.slice(nestingIndex + 1)
+        const nestingLeftNode =
+            beforeSelector.length > 0
+                ? beforeSelector[beforeSelector.length - 1]
+                : null
+        const nestingRightNode =
+            afterSelector.length > 0 ? afterSelector[0] : null
         const maybeJoinLeft =
-            nestingLeftNode && nestingLeftNode.range[1] === nestingNode.range[0]
-        const needJoinRight =
+            nestingLeftNode &&
+            nestingLeftNode.range[1] === nestingNode.range[0] &&
+            !isSelectorCombinator(nestingLeftNode)
+        const maybeJoinRight =
             nestingRightNode &&
             nestingNode.range[1] === nestingRightNode.range[0] &&
             isTypeSelector(nestingRightNode)
-
-        const beforeSelector = hasNestingNodes.slice(0, nestingIndex)
-        const afterSelector = hasNestingNodes.slice(
-            (nestingIndex as number) + 1,
-        )
 
         let resolved = parentSelectors.map(p => {
             const before = [...beforeSelector]
@@ -233,13 +237,16 @@ export class CSSSelectorResolver {
             const parentSelector = [...p.selector]
             const needJoinLeft =
                 maybeJoinLeft && isTypeSelector(parentSelector[0])
+            const needJoinRight =
+                maybeJoinRight &&
+                !isSelectorCombinator(parentSelector[parentSelector.length - 1])
             if (needJoinLeft && needJoinRight && parentSelector.length === 1) {
-                // concat both (e.g. `bar { @nest foo-&-baz {} }` -> .foo-bar-baz)
+                // concat both (e.g. `bar { @nest .foo-&-baz {} }` -> .foo-bar-baz)
                 before.push(
                     newNestingConcatBothSelectorNodes(
-                        before.pop() as VCSSTypeSelector,
-                        parentSelector.shift() as VCSSSelectorNode,
-                        after.shift() as VCSSSelectorNode,
+                        before.pop() as VCSSSelectorValueNode,
+                        parentSelector.shift() as VCSSTypeSelector,
+                        after.shift() as VCSSTypeSelector,
                         nestingNode,
                     ),
                 )
@@ -248,8 +255,8 @@ export class CSSSelectorResolver {
                     // concat left (e.g. `bar { @nest .foo-& {} }` -> .foo-bar)
                     before.push(
                         newNestingConcatLeftSelectorNodes(
-                            before.pop() as VCSSTypeSelector,
-                            parentSelector.shift() as VCSSSelectorNode,
+                            before.pop() as VCSSSelectorValueNode,
+                            parentSelector.shift() as VCSSTypeSelector,
                             nestingNode,
                         ),
                     )
@@ -259,7 +266,7 @@ export class CSSSelectorResolver {
                     after.unshift(
                         newNestingConcatRightSelectorNodes(
                             parentSelector.pop() as VCSSSelectorValueNode,
-                            after.shift() as VCSSSelectorValueNode,
+                            after.shift() as VCSSTypeSelector,
                             nestingNode,
                         ),
                     )
@@ -302,9 +309,9 @@ export class CSSSelectorResolver {
  * Creates a selector node that concats the left and right selectors of the parent selector and the nested selector.
  */
 function newNestingConcatBothSelectorNodes(
-    left: VCSSTypeSelector,
-    parent: VCSSSelectorNode,
-    right: VCSSSelectorNode,
+    left: VCSSSelectorValueNode,
+    parent: VCSSTypeSelector,
+    right: VCSSTypeSelector,
     _nesting: any,
 ) {
     const loc = {
@@ -326,8 +333,8 @@ function newNestingConcatBothSelectorNodes(
  * Creates a selector node that concats the left selectors of the parent selector and the nested selector.
  */
 function newNestingConcatLeftSelectorNodes(
-    left: VCSSTypeSelector,
-    parent: VCSSSelectorNode,
+    left: VCSSSelectorValueNode,
+    parent: VCSSTypeSelector,
     nesting: VCSSNestingSelector,
 ) {
     const loc = {
@@ -349,7 +356,7 @@ function newNestingConcatLeftSelectorNodes(
  */
 function newNestingConcatRightSelectorNodes(
     parent: VCSSSelectorValueNode,
-    right: VCSSSelectorValueNode,
+    right: VCSSTypeSelector,
     nesting: VCSSNestingSelector,
 ) {
     const loc = {

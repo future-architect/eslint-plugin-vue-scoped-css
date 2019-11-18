@@ -180,7 +180,7 @@ export function isNestingAtRule(
     return isVCSSAtRule(node) && node.name === "nest"
 }
 
-type NestingInfo = {
+export type NestingInfo = {
     node: VCSSNestingSelector
     nodes: VCSSSelectorNode[]
     nestingIndex: number
