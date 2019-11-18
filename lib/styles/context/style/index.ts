@@ -1,22 +1,51 @@
 import { parse } from "../../parser"
-import { AST, SourceCode, RuleContext } from "../../../types"
+import { AST, SourceCode, RuleContext, LineAndColumnData } from "../../../types"
 import { VCSSStyleSheet, VCSSNode } from "../../ast"
 import { isVCSSContainerNode } from "../../utils/css-nodes"
 
 /**
- * Check whether the templateBody of the program has invalid EOF or not.
- * @param {Program} node the program node to check.
- * @returns {boolean} `true` if it has invalid EOF.
+ * Check whether the program has invalid EOF or not.
  */
-function hasInvalidEOF(node: AST.ESLintProgram) {
+function getInvalidEOFError(
+    context: RuleContext,
+    style: AST.VElement,
+): {
+    inDocumentFragment: boolean
+    error: AST.ParseError
+} | null {
+    const node = context.getSourceCode().ast
     const body = node.templateBody
-    if (body?.errors == null) {
-        return false
+    let errors = body?.errors
+    let inDocumentFragment = false
+    if (errors == null) {
+        if (!context.parserServices.getDocumentFragment) {
+            return null
+        }
+        const df = context.parserServices.getDocumentFragment()
+        inDocumentFragment = true
+        errors = df?.errors
+        if (errors == null) {
+            return null
+        }
     }
-    return body.errors.some(
-        error =>
-            typeof error.code === "string" && error.code.startsWith("eof-"),
-    )
+    const error =
+        errors.find(
+            err =>
+                typeof err.code === "string" &&
+                err.code.startsWith("eof-") &&
+                style.range[0] <= err.index &&
+                err.index < style.range[1],
+        ) ||
+        errors.find(
+            err => typeof err.code === "string" && err.code.startsWith("eof-"),
+        )
+    if (!error) {
+        return null
+    }
+    return {
+        error,
+        inDocumentFragment,
+    }
 }
 
 /**
@@ -84,17 +113,36 @@ interface Visitor {
 export class StyleContext {
     public readonly styleElement: AST.VElement
     public readonly sourceCode: SourceCode
-    public readonly invalid: boolean
+    public readonly invalid: {
+        message: string
+        needReport: boolean
+        loc: LineAndColumnData
+    } | null
     public readonly scoped: boolean
     public readonly lang: string
     private readonly cssText: string | null
     public readonly cssNode: VCSSStyleSheet | null
-    public constructor(style: AST.VElement, sourceCode: SourceCode) {
+    public constructor(style: AST.VElement, context: RuleContext) {
+        const sourceCode = context.getSourceCode()
         this.styleElement = style
         this.sourceCode = sourceCode
 
         const { startTag, endTag } = style
-        this.invalid = endTag == null || hasInvalidEOF(sourceCode.ast)
+        this.invalid = null
+        const eof = getInvalidEOFError(context, style)
+        if (eof) {
+            this.invalid = {
+                message: eof.error.message,
+                needReport: eof.inDocumentFragment,
+                loc: { line: eof.error.lineNumber, column: eof.error.column },
+            }
+        } else if (endTag == null) {
+            this.invalid = {
+                message: "Missing end tag",
+                needReport: true,
+                loc: startTag.loc.end,
+            }
+        }
 
         this.scoped = Boolean(style && isScoped(style))
 
@@ -157,10 +205,9 @@ function traverseNodes(node: VCSSNode, visitor: Visitor): void {
  * @returns {StyleContext[]} the style contexts
  */
 export function createStyleContexts(context: RuleContext): StyleContext[] {
-    const sourceCode = context.getSourceCode()
     const styles = getStyleElements(context)
 
-    return styles.map(style => new StyleContext(style, sourceCode))
+    return styles.map(style => new StyleContext(style, context))
 }
 
 /**
