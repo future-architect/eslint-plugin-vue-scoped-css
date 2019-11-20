@@ -1,5 +1,6 @@
 import { CSSParser } from "./css-parser"
 import { SCSSParser } from "./scss-parser"
+import { StylusParser } from "./stylus-parser"
 import { SourceCode, LineAndColumnData } from "../../types"
 import { VCSSStyleSheet } from "../ast"
 import { isSupportedStyleLang } from "../utils"
@@ -7,6 +8,7 @@ import { isSupportedStyleLang } from "../utils"
 const PARSERS = {
     scss: SCSSParser,
     css: CSSParser,
+    stylus: StylusParser,
 }
 
 /**
@@ -21,7 +23,7 @@ export function parse(
     sourceCode: SourceCode,
     offsetLocation: LineAndColumnData,
     css: string,
-    lang: "css" | "scss" | string,
+    lang: string,
 ): VCSSStyleSheet {
     const Parser = isSupportedStyleLang(lang) ? PARSERS[lang] : CSSParser
     const parser = new Parser(sourceCode, lang)

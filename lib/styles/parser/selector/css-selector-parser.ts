@@ -18,6 +18,7 @@ import {
     VCSSNode,
     VCSSSelectorContainerNode,
     VCSSContainerNode,
+    VCSSSelectorValueNode,
 } from "../../ast"
 import {
     isSelectorCombinator,
@@ -110,7 +111,7 @@ export class CSSSelectorParser {
         offsetLocation: LineAndColumnData,
         node: PostCSSSPContainer,
         parent: VCSSSelectorContainerNode,
-    ): VCSSSelectorNode[]
+    ): VCSSSelectorValueNode[]
     private _postcssSelectorParserNodeChiildrenToASTNodes(
         offsetLocation: LineAndColumnData,
         node: PostCSSSPContainer,
@@ -252,7 +253,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSNode,
-    ): VCSSSelector {
+    ): VCSSSelectorNode | null {
         let source = this.sourceCode.text.slice(start, end)
         const beforeSpaces = /^\s+/u.exec(source)
         if (beforeSpaces?.[0]) {
@@ -312,7 +313,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSTypeSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSTypeSelector(node, loc, start, end, {
             parent,
         })
@@ -333,7 +334,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSIDSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSIDSelector(node, loc, start, end, {
             parent,
         })
@@ -354,7 +355,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSClassSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSClassSelector(node, loc, start, end, {
             parent,
         })
@@ -375,7 +376,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSNestingSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSNestingSelector(node, loc, start, end, {
             parent,
         })
@@ -396,7 +397,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSUniversalSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSUniversalSelector(node, loc, start, end, {
             parent,
         })
@@ -417,7 +418,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSAttributeSelector {
+    ): VCSSSelectorNode | null {
         return new VCSSAttributeSelector(node, loc, start, end, {
             parent,
         })
@@ -438,7 +439,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSSelectorPseudo {
+    ): VCSSSelectorNode | null {
         return new VCSSSelectorPseudo(node, loc, start, end, {
             parent,
         })
@@ -459,7 +460,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSSelectorCombinator {
+    ): VCSSSelectorNode | null {
         const astNode = new VCSSSelectorCombinator(node, loc, start, end, {
             parent,
         })
@@ -487,7 +488,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): VCSSUnknownSelector {
+    ): VCSSSelectorNode | null {
         // unknown string
         const astNode = new VCSSUnknownSelector(node, loc, start, end, {
             parent,
@@ -516,7 +517,7 @@ export class CSSSelectorParser {
         start: number,
         end: number,
         parent: VCSSSelectorContainerNode,
-    ): null {
+    ): VCSSSelectorNode | null {
         const text = node.value
             .replace(/^\s*\/\*/u, "")
             .replace(/\*\/\s*$/u, "")

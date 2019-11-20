@@ -1,0 +1,17 @@
+[
+    [
+        ".foo"
+    ],
+    [
+        ".foo__bar"
+    ],
+    [
+        ".foo__bar_baz"
+    ],
+    [
+        ".foo__bar",
+        ":hover",
+        " ",
+        ".foo__bar_baz"
+    ]
+]

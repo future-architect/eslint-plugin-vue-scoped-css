@@ -1,0 +1,356 @@
+[
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "body",
+            "selector": "body"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "body",
+            "selector": "body"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 2
+                },
+                "end": {
+                    "line": 7,
+                    "column": 2
+                }
+            },
+            "start": 116,
+            "end": 116,
+            "range": [
+                116,
+                116
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 2
+                },
+                "end": {
+                    "line": 7,
+                    "column": 8
+                }
+            },
+            "start": 116,
+            "end": 122,
+            "range": [
+                116,
+                122
+            ],
+            "value": "button",
+            "selector": "button"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "body",
+            "selector": "body"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 2
+                },
+                "end": {
+                    "line": 8,
+                    "column": 2
+                }
+            },
+            "start": 125,
+            "end": 125,
+            "range": [
+                125,
+                125
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 2
+                },
+                "end": {
+                    "line": 8,
+                    "column": 8
+                }
+            },
+            "start": 125,
+            "end": 131,
+            "range": [
+                125,
+                131
+            ],
+            "value": "button",
+            "selector": "button"
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 8
+                },
+                "end": {
+                    "line": 8,
+                    "column": 15
+                }
+            },
+            "start": 131,
+            "end": 138,
+            "range": [
+                131,
+                138
+            ],
+            "value": "button",
+            "selector": ".button"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "body",
+            "selector": "body"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 2
+                },
+                "end": {
+                    "line": 9,
+                    "column": 2
+                }
+            },
+            "start": 141,
+            "end": 141,
+            "range": [
+                141,
+                141
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 2
+                },
+                "end": {
+                    "line": 9,
+                    "column": 7
+                }
+            },
+            "start": 141,
+            "end": 146,
+            "range": [
+                141,
+                146
+            ],
+            "value": "input",
+            "selector": "input"
+        },
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 7
+                },
+                "end": {
+                    "line": 9,
+                    "column": 22
+                }
+            },
+            "start": 146,
+            "end": 161,
+            "range": [
+                146,
+                161
+            ],
+            "attribute": "type",
+            "operator": "=",
+            "value": "button",
+            "quoteMark": "'",
+            "insensitiveFlag": null,
+            "selector": "[type='button']"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "body",
+            "selector": "body"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 2
+                },
+                "end": {
+                    "line": 10,
+                    "column": 2
+                }
+            },
+            "start": 164,
+            "end": 164,
+            "range": [
+                164,
+                164
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 2
+                },
+                "end": {
+                    "line": 10,
+                    "column": 7
+                }
+            },
+            "start": 164,
+            "end": 169,
+            "range": [
+                164,
+                169
+            ],
+            "value": "input",
+            "selector": "input"
+        },
+        {
+            "type": "VCSSAttributeSelector",
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 7
+                },
+                "end": {
+                    "line": 10,
+                    "column": 22
+                }
+            },
+            "start": 169,
+            "end": 184,
+            "range": [
+                169,
+                184
+            ],
+            "attribute": "type",
+            "operator": "=",
+            "value": "submit",
+            "quoteMark": "'",
+            "insensitiveFlag": null,
+            "selector": "[type='submit']"
+        }
+    ]
+]

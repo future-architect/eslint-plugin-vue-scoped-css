@@ -36,6 +36,7 @@
                 71
             ],
             "name": "nest",
+            "identifier": "@",
             "paramsText": ".foo > .bar",
             "rawParamsText": ".foo > .bar",
             "selectors": [
@@ -210,6 +211,7 @@
                         98
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": ".bar",
                     "rawParamsText": ".bar",
                     "selectors": [

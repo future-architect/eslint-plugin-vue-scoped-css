@@ -1,0 +1,28 @@
+[
+    [
+        "body"
+    ],
+    [
+        "body",
+        " ",
+        "button"
+    ],
+    [
+        "body",
+        " ",
+        "button",
+        ".button"
+    ],
+    [
+        "body",
+        " ",
+        "input",
+        "[type='button']"
+    ],
+    [
+        "body",
+        " ",
+        "input",
+        "[type='submit']"
+    ]
+]

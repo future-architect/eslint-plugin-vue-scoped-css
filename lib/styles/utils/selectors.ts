@@ -10,6 +10,7 @@ import {
     VCSSTypeSelector,
     VCSSSelectorContainerNode,
     VCSSSelectorPseudo,
+    VCSSSelectorValueNode,
 } from "../ast"
 import { isVCSSAtRule } from "./css-nodes"
 
@@ -173,16 +174,16 @@ export function isDeepCombinator(
  */
 export function isNestingAtRule(
     node: VCSSNode | null,
-): node is VCSSAtRule & { selectors: VCSSSelectorNode[] } {
+): node is VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] } {
     if (node == null) {
         return false
     }
-    return isVCSSAtRule(node) && node.name === "nest"
+    return isVCSSAtRule(node) && node.name === "nest" && node.identifier === "@"
 }
 
 export type NestingInfo = {
     node: VCSSNestingSelector
-    nodes: VCSSSelectorNode[]
+    nodes: VCSSSelectorValueNode[]
     nestingIndex: number
 }
 /**
@@ -191,7 +192,7 @@ export type NestingInfo = {
  * @returns {IterableIterator<NestingInfo>} nesting selectors info
  */
 export function* findNestingSelectors(
-    nodes: VCSSSelectorNode[],
+    nodes: VCSSSelectorValueNode[],
 ): IterableIterator<NestingInfo> {
     for (const node of nodes) {
         if (isNestingSelector(node)) {
@@ -205,4 +206,16 @@ export function* findNestingSelectors(
             yield* findNestingSelectors(node.nodes)
         }
     }
+}
+
+/**
+ * Find nesting selector
+ */
+export function findNestingSelector(
+    nodes: VCSSSelectorValueNode[],
+): NestingInfo | null {
+    for (const nest of findNestingSelectors(nodes)) {
+        return nest
+    }
+    return null
 }

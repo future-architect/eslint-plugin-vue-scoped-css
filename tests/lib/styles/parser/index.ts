@@ -9,6 +9,9 @@ import CSSStringifier from "postcss/lib/stringifier"
 // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore
 // @ts-ignore
 import SCSSStringifier from "postcss-scss/lib/scss-stringifier"
+// eslint-disable-next-line @mysticatea/ts/ban-ts-ignore
+// @ts-ignore
+import StylusStringifier from "postcss-styl/lib/stringifier"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
 import { VCSSNode, VCSSSelectorNode } from "../../../../lib/styles/ast"
@@ -32,6 +35,10 @@ const Stringifys = {
     },
     css(node: any, builder: any) {
         const stringifier = new CSSStringifier(builder)
+        stringify(node, stringifier)
+    },
+    stylus(node: any, builder: any) {
+        const stringifier = new StylusStringifier(builder)
         stringify(node, stringifier)
     },
 }
@@ -122,7 +129,7 @@ function checkCSSNodeLocations(
     lang: string,
 ) {
     if (node.node) {
-        const rangeText = `${node.type}:\n${code.slice(...node.range)}`
+        let rangeText = `${node.type}:\n${code.slice(...node.range)}`
         let postcssText = (node.node as any).toString((Stringifys as any)[lang])
         if (node.type === "VCSSSelector" || node.type === "VCSSClassSelector") {
             postcssText = postcssText.replace(
@@ -130,20 +137,25 @@ function checkCSSNodeLocations(
                 "",
             )
             postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\/\s*/u, "")
-            postcssText = postcssText.replace(/^\s*\/\/([^\n]*?)\n/u, "")
+            postcssText = postcssText.replace(/^\s*\/\/([^\n]*)\s*/u, "")
+            postcssText = postcssText.replace(/\s*\/\/([^\n]*)\s*$/u, "")
         } else if (node.type === "VCSSSelectorCombinator") {
             postcssText = postcssText.replace(
                 /\/\*(?![\s\S]*\*\/[\s\S]*\/\*)([\s\S]*?)\*\/\s*$/u,
                 "",
             )
             postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\//u, "")
-            postcssText = postcssText.replace(/\/\/([^\n]*?)\n\s*$/u, "")
+            postcssText = postcssText.replace(/\/\/([^\n]*)\s*$/u, "")
+            postcssText = postcssText.replace(/\s*\/\/([^\n]*)\s*$/u, "")
         }
         if (
             node.type === "VCSSSelectorCombinator" &&
             postcssText.trim() === ""
         ) {
             // noop
+        } else if (node.type === "VCSSNestingSelector") {
+            rangeText = rangeText.trim()
+            postcssText = postcssText.trim()
         } else if (node.type === "VCSSStyleSheet") {
             // noop
         } else {
@@ -163,7 +175,9 @@ function checkCSSNodeLocations(
             text.slice(0, node.rawSelectorText.length),
             node.rawSelectorText,
         )
-        assert.strictEqual(text[text.length - 1], "}")
+        if (lang !== "stylus") {
+            assert.strictEqual(text[text.length - 1], "}")
+        }
         for (const n of node.selectors) {
             checkCSSNodeLocations(code, n, lang)
         }
@@ -176,10 +190,18 @@ function checkCSSNodeLocations(
         }
     } else if (node.type === "VCSSAtRule") {
         const text = code.slice(...node.range)
-        const expected = `@${node.name}`
+        const expected =
+            lang !== "stylus"
+                ? `@${node.name}`
+                : `${(node.node as any).raws.identifier ?? "@"}${node.name}`
         assert.strictEqual(text.slice(0, expected.length), expected)
-        const last = text[text.length - 1]
-        assert.ok(last === "}" || last === ";", `act:${text[text.length - 1]}`)
+        if (lang !== "stylus") {
+            const last = text[text.length - 1]
+            assert.ok(
+                last === "}" || last === ";",
+                `act:${text[text.length - 1]}`,
+            )
+        }
     } else if (node.type === "VCSSSelector") {
         const { parent } = node
 
@@ -213,7 +235,6 @@ function checkCSSNodeLocations(
         node.type === "VCSSTypeSelector" ||
         node.type === "VCSSIDSelector" ||
         node.type === "VCSSClassSelector" ||
-        node.type === "VCSSNestingSelector" ||
         node.type === "VCSSUniversalSelector" ||
         node.type === "VCSSAttributeSelector" ||
         node.type === "VCSSSelectorCombinator"
@@ -225,6 +246,9 @@ function checkCSSNodeLocations(
         } else {
             assert.strictEqual(text.trim(), node.selector.trim())
         }
+    } else if (node.type === "VCSSNestingSelector") {
+        const text = code.slice(...node.range)
+        assert.strictEqual(text.trim(), node.selector.trim())
     } else if (node.type === "VCSSSelectorPseudo") {
         const text = code.slice(...node.range)
 

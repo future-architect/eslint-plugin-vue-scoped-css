@@ -7,7 +7,7 @@ export function processText(text: string): (Interpolation | string)[] {
     const elements = []
     const value = text
     let start = 0
-    const reg = /#\{([\s\S]*?)\}/gu
+    const reg = /#\{(?:[\s\S]*?)\}/gu
     let re = null
     while ((re = reg.exec(value))) {
         elements.push(value.slice(start, re.index))
@@ -26,7 +26,7 @@ export function processValue(text: string): (Interpolation | string)[] {
     const elements = []
     const value = text
     let start = 0
-    const reg = /(#\{([\s\S]*?)\})|(\$[\w\d\-_]+)/gu
+    const reg = /(#\{(?:[\s\S]*?)\})|(?:\$[\w\d\-_]+)/gu
     let re = null
     while ((re = reg.exec(value))) {
         elements.push(value.slice(start, re.index))

@@ -101,6 +101,7 @@
                         76
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&-bar",
                     "rawParamsText": "&-bar",
                     "selectors": [
@@ -189,6 +190,7 @@
                         97
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&.bar",
                     "rawParamsText": "&.bar",
                     "selectors": [
@@ -277,6 +279,7 @@
                         118
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&#bar",
                     "rawParamsText": "&#bar",
                     "selectors": [
@@ -365,6 +368,7 @@
                         138
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&bar",
                     "rawParamsText": "&bar",
                     "selectors": [
@@ -453,6 +457,7 @@
                         160
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&__bar",
                     "rawParamsText": "&__bar",
                     "selectors": [
@@ -608,6 +613,7 @@
                         189
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&-bar",
                     "rawParamsText": "&-bar",
                     "selectors": [
@@ -763,6 +769,7 @@
                         218
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&-bar",
                     "rawParamsText": "&-bar",
                     "selectors": [

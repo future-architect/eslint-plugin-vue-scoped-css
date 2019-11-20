@@ -2,8 +2,10 @@
  * Checks whether the given lang is supported
  * @param lang
  */
-export function isSupportedStyleLang(lang: string): lang is "css" | "scss" {
-    return lang === "css" || lang === "scss"
+export function isSupportedStyleLang(
+    lang: string,
+): lang is "css" | "scss" | "stylus" {
+    return lang === "css" || lang === "scss" || lang === "stylus"
 }
 
 /**

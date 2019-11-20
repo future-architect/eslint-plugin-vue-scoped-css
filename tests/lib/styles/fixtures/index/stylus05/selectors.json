@@ -1,0 +1,25 @@
+[
+    [
+        {
+            "type": "VCSSIDSelector",
+            "loc": {
+                "start": {
+                    "line": 13,
+                    "column": 0
+                },
+                "end": {
+                    "line": 13,
+                    "column": 8
+                }
+            },
+            "start": 247,
+            "end": 255,
+            "range": [
+                247,
+                255
+            ],
+            "value": "content",
+            "selector": "#content"
+        }
+    ]
+]

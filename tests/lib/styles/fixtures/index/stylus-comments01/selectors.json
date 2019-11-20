@@ -1,0 +1,90 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 4
+                }
+            },
+            "start": 90,
+            "end": 94,
+            "range": [
+                90,
+                94
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 4
+                }
+            },
+            "start": 90,
+            "end": 94,
+            "range": [
+                90,
+                94
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 2
+                },
+                "end": {
+                    "line": 8,
+                    "column": 2
+                }
+            },
+            "start": 97,
+            "end": 97,
+            "range": [
+                97,
+                97
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 2
+                },
+                "end": {
+                    "line": 8,
+                    "column": 6
+                }
+            },
+            "start": 97,
+            "end": 101,
+            "range": [
+                97,
+                101
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ]
+]

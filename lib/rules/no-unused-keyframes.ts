@@ -40,7 +40,7 @@ module.exports = {
         function report(node: VCSSAtRule) {
             const paramsStartIndex =
                 node.range[0] + // start index of at-rule
-                1 + // `@`
+                node.identifier.length + // `@`
                 node.name.length + // `nest`
                 (node.node.raws.afterName || "").length // comments and spaces
             const paramsEndIndex = paramsStartIndex + node.rawParamsText.length
@@ -71,7 +71,10 @@ module.exports = {
             style.traverseNodes({
                 enterNode(node) {
                     if (node.type === "VCSSAtRule") {
-                        if (/-?keyframes$/u.test(node.name)) {
+                        if (
+                            /-?keyframes$/u.test(node.name) &&
+                            node.identifier === "@"
+                        ) {
                             // register keyframes
                             keyframes.push({
                                 params: Template.ofParams(node),

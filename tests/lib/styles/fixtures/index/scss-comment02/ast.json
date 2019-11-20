@@ -166,6 +166,7 @@
                                 177
                             ],
                             "name": "nest",
+                            "identifier": "@",
                             "paramsText": ".baz",
                             "rawParamsText": ".baz",
                             "selectors": [

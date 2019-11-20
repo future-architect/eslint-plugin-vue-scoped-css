@@ -101,6 +101,7 @@
                         109
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": "&  >  .bar",
                     "rawParamsText": "& /*3*/ > /*4*/ .bar",
                     "selectors": [

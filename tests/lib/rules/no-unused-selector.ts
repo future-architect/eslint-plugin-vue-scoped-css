@@ -16,8 +16,28 @@ tester.run("no-unused-selector", rule, {
             <div><div class="foo"/></div>
         </template>
         <style scoped>
-        .foo {}
-        div {}
+        .foo {color:red;}
+        div {color:red;}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped lang="scss">
+        .foo {color:red;}
+        div {color:red;}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped lang="stylus">
+        .foo
+          color red
+        div
+          color red
         </style>
         `,
         `
@@ -247,6 +267,66 @@ tester.run("no-unused-selector", rule, {
                     line: 7,
                     column: 13,
                     endLine: 7,
+                    endColumn: 16,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <li class="bar"/>
+            </template>
+            <style scoped lang="scss">
+            .foo {}
+            div {}
+            </style>
+            `,
+            errors: [
+                {
+                    messageId: "unused",
+                    data: { selector: ".foo" },
+                    line: 6,
+                    column: 13,
+                    endLine: 6,
+                    endColumn: 17,
+                },
+                {
+                    messageId: "unused",
+                    data: { selector: "div" },
+                    line: 7,
+                    column: 13,
+                    endLine: 7,
+                    endColumn: 16,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <li class="bar"/>
+            </template>
+            <style scoped lang="stylus">
+            .foo
+              color red;
+            div
+              color red;
+            </style>
+            `,
+            errors: [
+                {
+                    messageId: "unused",
+                    data: { selector: ".foo" },
+                    line: 6,
+                    column: 13,
+                    endLine: 6,
+                    endColumn: 17,
+                },
+                {
+                    messageId: "unused",
+                    data: { selector: "div" },
+                    line: 8,
+                    column: 13,
+                    endLine: 8,
                     endColumn: 16,
                 },
             ],

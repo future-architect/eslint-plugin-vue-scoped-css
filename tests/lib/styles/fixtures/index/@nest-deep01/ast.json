@@ -143,6 +143,7 @@
                         104
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": ".bar:not(&), :not(& .bar)",
                     "rawParamsText": ".bar:not(&), :not(& .bar)",
                     "selectors": [

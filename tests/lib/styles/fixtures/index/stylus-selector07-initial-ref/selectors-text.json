@@ -1,0 +1,14 @@
+[
+    [
+        ".block"
+    ],
+    [
+        ".block__element"
+    ],
+    [
+        ".block",
+        ":hover",
+        " ",
+        ".block__element"
+    ]
+]

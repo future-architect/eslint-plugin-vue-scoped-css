@@ -1,5 +1,7 @@
 const { rules } = require("../../dist/utils/rules")
 const categories = require("./categories")
+// eslint-disable-next-line @mysticatea/node/no-extraneous-require
+const webpack = require("webpack")
 
 const uncategorizedRules = rules.filter(
     rule => !rule.meta.docs.category && !rule.meta.deprecated
@@ -43,8 +45,18 @@ module.exports = {
     configureWebpack(_config, _isServer) {
         return {
             resolve: {
-                alias: {},
+                alias: {
+                    // eslint-disable-next-line @mysticatea/node/no-extraneous-require
+                    stylus: require.resolve("stylus/lib/stylus"),
+                    glob: require.resolve("./shim/glob"),
+                    "safer-buffer": require.resolve("./shim/safer-buffer"),
+                },
             },
+            plugins: [
+                new webpack.DefinePlugin({
+                    "process.version": JSON.stringify("v12.13.0"),
+                }),
+            ],
         }
     },
 

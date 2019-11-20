@@ -1,0 +1,16 @@
+[
+    [
+        "textarea"
+    ],
+    [
+        "input"
+    ],
+    [
+        "textarea",
+        ":hover"
+    ],
+    [
+        "input",
+        ":hover"
+    ]
+]

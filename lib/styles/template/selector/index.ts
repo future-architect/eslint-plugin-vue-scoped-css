@@ -1,5 +1,6 @@
 import getCSSTemplateElements from "./css"
 import getSCSSTemplateElements from "./scss"
+import getStylusTemplateElements from "./stylus"
 import { VCSSIDSelector, VCSSTypeSelector, VCSSClassSelector } from "../../ast"
 import { Interpolation } from "../interpolation"
 import { isSupportedStyleLang } from "../../utils"
@@ -7,6 +8,7 @@ import { isSupportedStyleLang } from "../../utils"
 const BUILDERS = {
     css: getCSSTemplateElements,
     scss: getSCSSTemplateElements,
+    stylus: getStylusTemplateElements,
 }
 
 /**

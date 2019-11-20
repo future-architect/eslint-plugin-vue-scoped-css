@@ -11,10 +11,10 @@
         }
     },
     "start": 61,
-    "end": 412,
+    "end": 426,
     "range": [
         61,
-        412
+        426
     ],
     "nodes": [
         {
@@ -206,13 +206,13 @@
                 }
             },
             "start": 178,
-            "end": 342,
+            "end": 356,
             "range": [
                 178,
-                342
+                356
             ],
-            "selectorText": "tag#{$tag}\n##{$id}\n.#{$class}class[#{$attr}]\n[attr=#{$attr-val}]\n::pseudo#{$pseudo}\n:pseudo2#{$pseudo}\n::fn( .#{$in-pseudo} )\n/#{$named-comb}/",
-            "rawSelectorText": "tag#{$tag}\n##{$id}\n.#{$class}class[#{$attr}]\n[attr=#{$attr-val}]\n::pseudo#{$pseudo}\n:pseudo2#{$pseudo}\n::fn( .#{$in-pseudo} )\n/#{$named-comb}/",
+            "selectorText": "tag#{$tag}\n##{$id}\n.#{$class}class[#{$attr}]\n[attr=#{$attr-val}] \n::pseudo#{$pseudo}\n:pseudo2#{$pseudo}\n::fn( .#{$in-pseudo} )\n/#{$named-comb}/",
+            "rawSelectorText": "tag#{$tag}\n##{$id}\n.#{$class}class[#{$attr}]\n[attr=#{$attr-val}] // #{comment}\n::pseudo#{$pseudo}\n:pseudo2#{$pseudo}\n::fn( .#{$in-pseudo} )\n/#{$named-comb}/",
             "selectors": [
                 {
                     "type": "VCSSSelector",
@@ -227,10 +227,10 @@
                         }
                     },
                     "start": 178,
-                    "end": 320,
+                    "end": 334,
                     "range": [
                         178,
-                        320
+                        334
                     ],
                     "nodes": [
                         {
@@ -417,8 +417,8 @@
                                     "column": 19
                                 },
                                 "end": {
-                                    "line": 16,
-                                    "column": 0
+                                    "line": 15,
+                                    "column": 20
                                 }
                             },
                             "start": 242,
@@ -442,11 +442,11 @@
                                     "column": 18
                                 }
                             },
-                            "start": 243,
-                            "end": 261,
+                            "start": 257,
+                            "end": 275,
                             "range": [
-                                243,
-                                261
+                                257,
+                                275
                             ],
                             "value": "::pseudo#{$pseudo}",
                             "nodes": []
@@ -463,11 +463,11 @@
                                     "column": 0
                                 }
                             },
-                            "start": 261,
-                            "end": 262,
+                            "start": 275,
+                            "end": 276,
                             "range": [
-                                261,
-                                262
+                                275,
+                                276
                             ],
                             "value": " ",
                             "selector": " "
@@ -484,11 +484,11 @@
                                     "column": 18
                                 }
                             },
-                            "start": 262,
-                            "end": 280,
+                            "start": 276,
+                            "end": 294,
                             "range": [
-                                262,
-                                280
+                                276,
+                                294
                             ],
                             "value": ":pseudo2#{$pseudo}",
                             "nodes": []
@@ -505,11 +505,11 @@
                                     "column": 0
                                 }
                             },
-                            "start": 280,
-                            "end": 281,
+                            "start": 294,
+                            "end": 295,
                             "range": [
-                                280,
-                                281
+                                294,
+                                295
                             ],
                             "value": " ",
                             "selector": " "
@@ -526,11 +526,11 @@
                                     "column": 22
                                 }
                             },
-                            "start": 281,
-                            "end": 303,
+                            "start": 295,
+                            "end": 317,
                             "range": [
-                                281,
-                                303
+                                295,
+                                317
                             ],
                             "value": "::fn",
                             "nodes": [
@@ -546,11 +546,11 @@
                                             "column": 20
                                         }
                                     },
-                                    "start": 287,
-                                    "end": 301,
+                                    "start": 301,
+                                    "end": 315,
                                     "range": [
-                                        287,
-                                        301
+                                        301,
+                                        315
                                     ],
                                     "nodes": [
                                         {
@@ -565,11 +565,11 @@
                                                     "column": 20
                                                 }
                                             },
-                                            "start": 287,
-                                            "end": 301,
+                                            "start": 301,
+                                            "end": 315,
                                             "range": [
-                                                287,
-                                                301
+                                                301,
+                                                315
                                             ],
                                             "value": "#{$in-pseudo}",
                                             "selector": ".#{$in-pseudo}"
@@ -590,11 +590,11 @@
                                     "column": 16
                                 }
                             },
-                            "start": 304,
-                            "end": 320,
+                            "start": 318,
+                            "end": 334,
                             "range": [
-                                304,
-                                320
+                                318,
+                                334
                             ],
                             "value": "/#{$named-comb}/",
                             "selector": "/#{$named-comb}/"
@@ -616,11 +616,11 @@
                     "column": 1
                 }
             },
-            "start": 344,
-            "end": 357,
+            "start": 358,
+            "end": 371,
             "range": [
-                344,
-                357
+                358,
+                371
             ],
             "selectorText": "\"#{$wow}\"",
             "rawSelectorText": "\"#{$wow}\"",
@@ -637,11 +637,11 @@
                             "column": 9
                         }
                     },
-                    "start": 344,
-                    "end": 353,
+                    "start": 358,
+                    "end": 367,
                     "range": [
-                        344,
-                        353
+                        358,
+                        367
                     ],
                     "nodes": [
                         {
@@ -656,11 +656,11 @@
                                     "column": 9
                                 }
                             },
-                            "start": 344,
-                            "end": 353,
+                            "start": 358,
+                            "end": 367,
                             "range": [
-                                344,
-                                353
+                                358,
+                                367
                             ],
                             "value": "\"#{$wow}\"",
                             "selector": "\"#{$wow}\""
@@ -682,11 +682,11 @@
                     "column": 1
                 }
             },
-            "start": 359,
-            "end": 379,
+            "start": 373,
+            "end": 393,
             "range": [
-                359,
-                379
+                373,
+                393
             ],
             "selectorText": ".class \"#{$wow}\"",
             "rawSelectorText": ".class \"#{$wow}\"",
@@ -703,11 +703,11 @@
                             "column": 16
                         }
                     },
-                    "start": 359,
-                    "end": 375,
+                    "start": 373,
+                    "end": 389,
                     "range": [
-                        359,
-                        375
+                        373,
+                        389
                     ],
                     "nodes": [
                         {
@@ -722,11 +722,11 @@
                                     "column": 6
                                 }
                             },
-                            "start": 359,
-                            "end": 365,
+                            "start": 373,
+                            "end": 379,
                             "range": [
-                                359,
-                                365
+                                373,
+                                379
                             ],
                             "value": "class",
                             "selector": ".class"
@@ -743,11 +743,11 @@
                                     "column": 7
                                 }
                             },
-                            "start": 365,
-                            "end": 366,
+                            "start": 379,
+                            "end": 380,
                             "range": [
-                                365,
-                                366
+                                379,
+                                380
                             ],
                             "value": " ",
                             "selector": " "
@@ -764,11 +764,11 @@
                                     "column": 16
                                 }
                             },
-                            "start": 366,
-                            "end": 375,
+                            "start": 380,
+                            "end": 389,
                             "range": [
-                                366,
-                                375
+                                380,
+                                389
                             ],
                             "value": "\"#{$wow}\"",
                             "selector": "\"#{$wow}\""
@@ -790,11 +790,11 @@
                     "column": 1
                 }
             },
-            "start": 382,
-            "end": 411,
+            "start": 396,
+            "end": 425,
             "range": [
-                382,
-                411
+                396,
+                425
             ],
             "selectorText": ".emoji-#{\n  \n  $name\n  \n}",
             "rawSelectorText": ".emoji-#{\n  \n  $name\n  \n}",
@@ -811,11 +811,11 @@
                             "column": 1
                         }
                     },
-                    "start": 382,
-                    "end": 407,
+                    "start": 396,
+                    "end": 421,
                     "range": [
-                        382,
-                        407
+                        396,
+                        421
                     ],
                     "nodes": [
                         {
@@ -830,11 +830,11 @@
                                     "column": 1
                                 }
                             },
-                            "start": 382,
-                            "end": 407,
+                            "start": 396,
+                            "end": 421,
                             "range": [
-                                382,
-                                407
+                                396,
+                                421
                             ],
                             "value": "emoji-#{\n  \n  $name\n  \n}",
                             "selector": ".emoji-#{\n  \n  $name\n  \n}"
@@ -847,6 +847,26 @@
     ],
     "comments": [
         {
+            "type": "VCSSInlineComment",
+            "loc": {
+                "start": {
+                    "line": 15,
+                    "column": 20
+                },
+                "end": {
+                    "line": 15,
+                    "column": 33
+                }
+            },
+            "start": 243,
+            "end": 256,
+            "range": [
+                243,
+                256
+            ],
+            "text": " #{comment}"
+        },
+        {
             "type": "VCSSComment",
             "loc": {
                 "start": {
@@ -858,11 +878,11 @@
                     "column": 34
                 }
             },
-            "start": 321,
-            "end": 338,
+            "start": 335,
+            "end": 352,
             "range": [
-                321,
-                338
+                335,
+                352
             ],
             "text": "#{$comment}"
         }
