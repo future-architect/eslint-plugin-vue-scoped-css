@@ -22,6 +22,10 @@ tester.run("no-parsing-error", rule, {
         `
         <template></template>
         `,
+        `
+        <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
+        <style scoped/>
+        `,
     ],
     invalid: [
         {

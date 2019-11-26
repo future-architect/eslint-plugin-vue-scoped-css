@@ -136,7 +136,7 @@ export class StyleContext {
                 needReport: eof.inDocumentFragment,
                 loc: { line: eof.error.lineNumber, column: eof.error.column },
             }
-        } else if (endTag == null) {
+        } else if (endTag == null && !startTag.selfClosing) {
             this.invalid = {
                 message: "Missing end tag",
                 needReport: true,
@@ -148,11 +148,10 @@ export class StyleContext {
 
         this.lang = ((style && getLang(style)) || "css").toLowerCase()
 
-        if (!this.invalid && endTag != null) {
-            this.cssText = sourceCode.text.slice(
-                startTag.range[1],
-                endTag.range[0],
-            )
+        if (!this.invalid) {
+            this.cssText = endTag
+                ? sourceCode.text.slice(startTag.range[1], endTag.range[0])
+                : ""
             this.cssNode = parse(
                 sourceCode,
                 startTag.loc.end,
