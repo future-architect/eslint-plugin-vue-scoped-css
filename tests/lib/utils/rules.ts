@@ -43,14 +43,14 @@ describe("Check if the struct of all rules is correct", () => {
     })
 
     for (const rule of allRules) {
-        it(rule.meta.docs.ruleId, () => {
+        it(rule.meta.docs?.ruleId || "", () => {
             assert.ok(Boolean(rule.meta.docs.ruleId), "Did not set `ruleId`")
             assert.ok(
                 Boolean(rule.meta.docs.ruleName),
                 "Did not set `ruleName`",
             )
             assert.ok(
-                Boolean(dirRules[rule.meta.docs.ruleId]),
+                Boolean(dirRules[rule.meta.docs?.ruleId || ""]),
                 "Did not exist rule",
             )
         })
