@@ -18,12 +18,14 @@ function getInvalidEOFError(
     let errors = body?.errors
     let inDocumentFragment = false
     if (errors == null) {
+        /* istanbul ignore if */
         if (!context.parserServices.getDocumentFragment) {
             return null
         }
         const df = context.parserServices.getDocumentFragment()
         inDocumentFragment = true
         errors = df?.errors
+        /* istanbul ignore if */
         if (errors == null) {
             return null
         }
@@ -62,6 +64,7 @@ function getStyleElements(context: RuleContext): AST.VElement[] {
         const sourceCode = context.getSourceCode()
         const { ast } = sourceCode
         const templateBody = ast.templateBody as AST.ESLintProgram | undefined
+        /* istanbul ignore if */
         if (templateBody) {
             document = templateBody.parent as AST.VDocumentFragment
         }

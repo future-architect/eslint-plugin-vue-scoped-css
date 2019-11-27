@@ -2,9 +2,21 @@ import {
     isNestingAtRule,
     findNestingSelectors,
     isSelectorCombinator,
+    findNestingSelector,
+    NestingInfo,
 } from "../../utils/selectors"
-import { VCSSSelectorCombinator, VCSSSelectorNode, VCSSNode } from "../../ast"
-import { CSSSelectorResolver, ResolvedSelector } from "./css-selector-resolver"
+import {
+    VCSSSelectorCombinator,
+    VCSSSelectorValueNode,
+    VCSSStyleRule,
+    VCSSAtRule,
+    VCSS,
+} from "../../ast"
+import {
+    CSSSelectorResolver,
+    ResolvedSelector,
+    ResolvedSelectors,
+} from "./css-selector-resolver"
 import { PostCSSSPCombinatorNode } from "../../../types"
 
 export class SCSSSelectorResolver extends CSSSelectorResolver {
@@ -16,18 +28,22 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
      * @returns {ResolvedSelector[]} resolved selectors
      */
     protected resolveNestingSelectors(
-        selectorNodes: VCSSSelectorNode[],
-        parentSelectors: ResolvedSelector[],
-        container: VCSSNode,
+        owner: ResolvedSelectors,
+        selectorNodes: VCSSSelectorValueNode[],
+        parentSelectors: ResolvedSelectors,
+        container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {
         if (isNestingAtRule(container)) {
             return this.resolveSelectorForNestContaining(
+                owner,
                 selectorNodes,
+                findNestingSelector(selectorNodes),
                 parentSelectors,
                 container,
             )
         }
         return this.resolveSelectorForSCSSNesting(
+            owner,
             selectorNodes,
             parentSelectors,
             container,
@@ -42,28 +58,47 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
      * @returns {ResolvedSelector[]} resolved selectors
      */
     private resolveSelectorForSCSSNesting(
-        selectorNodes: VCSSSelectorNode[],
-        parentSelectors: ResolvedSelector[],
-        container: VCSSNode,
-    ) {
-        const nestings = findNestingSelectors(selectorNodes)
-        if (!nestings.next().done) {
+        owner: ResolvedSelectors,
+        selectorNodes: VCSSSelectorValueNode[],
+        parentSelectors: ResolvedSelectors,
+        container: VCSSAtRule | VCSSStyleRule,
+    ): ResolvedSelector[] {
+        const nesting = findNestingSelector(selectorNodes)
+        if (nesting != null) {
             let resolvedSelectors = this.resolveSelectorForNestContaining(
+                owner,
                 selectorNodes,
+                nesting,
                 parentSelectors,
                 container,
             )
-            while (!nestings.next().done) {
-                // e.g.  & + &
-                resolvedSelectors = resolvedSelectors
-                    .map(resolvedSelector =>
-                        this.resolveSelectorForNestContaining(
-                            resolvedSelector.selector,
-                            parentSelectors,
-                            container,
-                        ),
+
+            let hasNesting = true
+            while (hasNesting) {
+                hasNesting = false
+                const nextResolvedSelectors = []
+                for (const resolvedSelector of resolvedSelectors) {
+                    const nextNesting = findNextNestingSelector(
+                        resolvedSelector,
+                        container,
                     )
-                    .reduce((r, rs) => [...r, ...rs], [])
+                    if (nextNesting) {
+                        hasNesting = true
+                        nextResolvedSelectors.push(
+                            ...this.resolveSelectorForNestContaining(
+                                owner,
+                                resolvedSelector.selector,
+                                nextNesting,
+                                parentSelectors,
+                                container,
+                            ),
+                        )
+                    }
+                }
+                if (!hasNesting) {
+                    break
+                }
+                resolvedSelectors = nextResolvedSelectors
             }
             return resolvedSelectors
         }
@@ -71,12 +106,11 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         // SCSS css nesting
         const first = selectorNodes[0]
         if (isSelectorCombinator(first)) {
-            return parentSelectors.map(
-                parentSelector =>
-                    new ResolvedSelector(
-                        [...parentSelector.selector, ...selectorNodes],
-                        container,
-                    ),
+            return this.resolveSelectorForNestConcat(
+                owner,
+                selectorNodes,
+                parentSelectors,
+                container,
             )
         }
 
@@ -94,14 +128,36 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         comb.value = " "
         comb.selector = " "
 
-        return parentSelectors.map(
-            parentSelector =>
-                new ResolvedSelector(
-                    [...parentSelector.selector, comb, ...selectorNodes],
-                    container,
-                ),
+        return this.resolveSelectorForNestConcat(
+            owner,
+            [comb, ...selectorNodes],
+            parentSelectors,
+            container,
         )
     }
 }
 
 export { ResolvedSelector }
+
+/**
+ * Find next nesting selector
+ */
+export function findNextNestingSelector(
+    resolved: ResolvedSelector,
+    container: VCSSAtRule | VCSSStyleRule,
+): NestingInfo | null {
+    for (const nest of findNestingSelectors(resolved.selector)) {
+        let parent: VCSS = nest.node.parent
+        while (
+            parent &&
+            parent.type !== "VCSSAtRule" &&
+            parent.type !== "VCSSStyleRule"
+        ) {
+            parent = parent.parent
+        }
+        if (parent === container) {
+            return nest
+        }
+    }
+    return null
+}

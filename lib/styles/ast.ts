@@ -186,7 +186,7 @@ export class VCSSStyleRule extends HasParentNode<
         props: {
             parent: VCSSContainerNode
             selectorText?: string
-            rawSelectorText?: string
+            rawSelectorText: string | null
             selectors?: VCSSSelectorNode[]
             nodes?: VCSSNode[]
         },
@@ -268,6 +268,7 @@ export class VCSSDeclarationProperty extends HasParentNode<
 export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
     public nodes: VCSSNode[]
     public readonly name: string
+    public readonly identifier: string
     public readonly paramsText: string
     public readonly rawParamsText: string
     public rawSelectorText?: string
@@ -289,8 +290,9 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
         end: number,
         props: {
             parent: VCSSContainerNode
+            identifier: string
             paramsText?: string
-            rawParamsText?: string
+            rawParamsText: string | null
             selectors?: VCSSSelectorNode[]
             nodes?: VCSSNode[]
         },
@@ -299,6 +301,7 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
         this.node = node
 
         this.name = getProp(props, node, "name")
+        this.identifier = props.identifier
         this.paramsText = props.paramsText ?? node.params
         if (props.rawParamsText != null) {
             this.rawParamsText = props.rawParamsText
@@ -1008,7 +1011,9 @@ export type VCSSSelectorNode =
     | VCSSSelectorCombinator
     | VCSSUnknownSelector
     | VCSSSelectorContainerNode
-export type VCSSSelectorContainerNode = VCSSSelector | VCSSSelectorPseudo
+export type VCSSSelectorContainerNode = (VCSSSelector | VCSSSelectorPseudo) & {
+    nodes: VCSSSelectorValueNode[]
+}
 export type VCSSSelectorValueNode =
     | VCSSTypeSelector
     | VCSSIDSelector

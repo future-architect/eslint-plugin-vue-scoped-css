@@ -12,7 +12,7 @@ span.emoji-#{$name} {
 tag#{$tag}
 ##{$id}
 .#{$class}class[#{$attr}]
-[attr=#{$attr-val}]
+[attr=#{$attr-val}] // #{comment}
 ::pseudo#{$pseudo}
 :pseudo2#{$pseudo}
 ::fn( .#{$in-pseudo} )

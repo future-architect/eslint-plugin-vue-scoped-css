@@ -176,7 +176,7 @@ export type PostCSSSPClassNameNode = selectorParser.ClassName
 export type PostCSSSPNestingNode = selectorParser.Nesting
 export type PostCSSSPUniversalNode = selectorParser.Universal
 export interface PostCSSSPAttributeNode extends selectorParser.Attribute {
-    raws: PropType<selectorParser.Attribute, "raws"> & {
+    raws: selectorParser.Attribute["raws"] & {
         insensitiveFlag?: string
     }
 }
@@ -196,4 +196,3 @@ export interface PostCSSLoc {
     line: number
     column: number
 }
-type PropType<TObj, TProp extends keyof TObj> = TObj[TProp]

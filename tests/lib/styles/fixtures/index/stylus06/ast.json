@@ -1,0 +1,175 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 28
+        },
+        "end": {
+            "line": 10,
+            "column": 0
+        }
+    },
+    "start": 63,
+    "end": 90,
+    "range": [
+        63,
+        90
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 11
+                }
+            },
+            "start": 64,
+            "end": 89,
+            "range": [
+                64,
+                89
+            ],
+            "selectorText": ".a\n\n\n,.a",
+            "rawSelectorText": ".a\n\n/*  */\n.a",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 2
+                        }
+                    },
+                    "start": 64,
+                    "end": 66,
+                    "range": [
+                        64,
+                        66
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 2
+                                }
+                            },
+                            "start": 64,
+                            "end": 66,
+                            "range": [
+                                64,
+                                66
+                            ],
+                            "value": "a",
+                            "selector": ".a"
+                        }
+                    ]
+                },
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 8,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "column": 2
+                        }
+                    },
+                    "start": 75,
+                    "end": 77,
+                    "range": [
+                        75,
+                        77
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 2
+                                }
+                            },
+                            "start": 75,
+                            "end": 77,
+                            "range": [
+                                75,
+                                77
+                            ],
+                            "value": "a",
+                            "selector": ".a"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSDeclarationProperty",
+                    "loc": {
+                        "start": {
+                            "line": 9,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 11
+                        }
+                    },
+                    "start": 80,
+                    "end": 89,
+                    "range": [
+                        80,
+                        89
+                    ],
+                    "property": "color",
+                    "value": "red",
+                    "important": false
+                }
+            ]
+        }
+    ],
+    "comments": [
+        {
+            "type": "VCSSComment",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 6
+                }
+            },
+            "start": 68,
+            "end": 74,
+            "range": [
+                68,
+                74
+            ],
+            "text": "  "
+        }
+    ],
+    "errors": []
+}

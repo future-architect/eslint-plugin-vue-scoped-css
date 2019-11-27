@@ -1,0 +1,157 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 2
+                },
+                "end": {
+                    "line": 6,
+                    "column": 8
+                }
+            },
+            "start": 71,
+            "end": 77,
+            "range": [
+                71,
+                77
+            ],
+            "value": "foo__bar",
+            "selector": ".foo__bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 4
+                },
+                "end": {
+                    "line": 7,
+                    "column": 9
+                }
+            },
+            "start": 82,
+            "end": 87,
+            "range": [
+                82,
+                87
+            ],
+            "value": "foo__bar_baz",
+            "selector": ".foo__bar_baz"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 2
+                },
+                "end": {
+                    "line": 6,
+                    "column": 8
+                }
+            },
+            "start": 71,
+            "end": 77,
+            "range": [
+                71,
+                77
+            ],
+            "value": "foo__bar",
+            "selector": ".foo__bar"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 11
+                },
+                "end": {
+                    "line": 10,
+                    "column": 17
+                }
+            },
+            "start": 118,
+            "end": 124,
+            "range": [
+                118,
+                124
+            ],
+            "value": ":hover",
+            "nodes": []
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 10,
+                    "column": 17
+                },
+                "end": {
+                    "line": 10,
+                    "column": 18
+                }
+            },
+            "start": 124,
+            "end": 125,
+            "range": [
+                124,
+                125
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 4
+                },
+                "end": {
+                    "line": 7,
+                    "column": 9
+                }
+            },
+            "start": 82,
+            "end": 87,
+            "range": [
+                82,
+                87
+            ],
+            "value": "foo__bar_baz",
+            "selector": ".foo__bar_baz"
+        }
+    ]
+]

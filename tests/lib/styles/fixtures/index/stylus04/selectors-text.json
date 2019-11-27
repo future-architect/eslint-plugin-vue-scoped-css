@@ -1,0 +1,11 @@
+[
+    [
+        "table"
+    ],
+    [
+        "table",
+        " ",
+        "tr",
+        ":nth-child({row})"
+    ]
+]

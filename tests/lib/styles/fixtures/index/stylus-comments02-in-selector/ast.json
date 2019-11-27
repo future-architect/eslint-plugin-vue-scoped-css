@@ -1,0 +1,386 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 28
+        },
+        "end": {
+            "line": 13,
+            "column": 0
+        }
+    },
+    "start": 63,
+    "end": 173,
+    "range": [
+        63,
+        173
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 11,
+                    "column": 15
+                }
+            },
+            "start": 64,
+            "end": 171,
+            "range": [
+                64,
+                171
+            ],
+            "selectorText": ".foo",
+            "rawSelectorText": ".foo",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 4
+                        }
+                    },
+                    "start": 64,
+                    "end": 68,
+                    "range": [
+                        64,
+                        68
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 4
+                                }
+                            },
+                            "start": 64,
+                            "end": 68,
+                            "range": [
+                                64,
+                                68
+                            ],
+                            "value": "foo",
+                            "selector": ".foo"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 11,
+                            "column": 15
+                        }
+                    },
+                    "start": 71,
+                    "end": 171,
+                    "range": [
+                        71,
+                        171
+                    ],
+                    "selectorText": ".bar \n  ,.baz, \n  .qux, \n\n  .quux",
+                    "rawSelectorText": ".bar // {comment1}\n  .baz, // {comment2}\n  .qux, /* comment3 */\n// comment 4\n  .quux",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 6
+                                }
+                            },
+                            "start": 71,
+                            "end": 75,
+                            "range": [
+                                71,
+                                75
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 6
+                                        }
+                                    },
+                                    "start": 71,
+                                    "end": 75,
+                                    "range": [
+                                        71,
+                                        75
+                                    ],
+                                    "value": "bar",
+                                    "selector": ".bar"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 7,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 6
+                                }
+                            },
+                            "start": 92,
+                            "end": 96,
+                            "range": [
+                                92,
+                                96
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 7,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 7,
+                                            "column": 6
+                                        }
+                                    },
+                                    "start": 92,
+                                    "end": 96,
+                                    "range": [
+                                        92,
+                                        96
+                                    ],
+                                    "value": "baz",
+                                    "selector": ".baz"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 8,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 8,
+                                    "column": 6
+                                }
+                            },
+                            "start": 114,
+                            "end": 118,
+                            "range": [
+                                114,
+                                118
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 8,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 8,
+                                            "column": 6
+                                        }
+                                    },
+                                    "start": 114,
+                                    "end": 118,
+                                    "range": [
+                                        114,
+                                        118
+                                    ],
+                                    "value": "qux",
+                                    "selector": ".qux"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 10,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 10,
+                                    "column": 7
+                                }
+                            },
+                            "start": 150,
+                            "end": 155,
+                            "range": [
+                                150,
+                                155
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSClassSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 10,
+                                            "column": 2
+                                        },
+                                        "end": {
+                                            "line": 10,
+                                            "column": 7
+                                        }
+                                    },
+                                    "start": 150,
+                                    "end": 155,
+                                    "range": [
+                                        150,
+                                        155
+                                    ],
+                                    "value": "quux",
+                                    "selector": ".quux"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSDeclarationProperty",
+                            "loc": {
+                                "start": {
+                                    "line": 11,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 11,
+                                    "column": 15
+                                }
+                            },
+                            "start": 160,
+                            "end": 171,
+                            "range": [
+                                160,
+                                171
+                            ],
+                            "property": "width",
+                            "value": "10px",
+                            "important": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "comments": [
+        {
+            "type": "VCSSInlineComment",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 7
+                },
+                "end": {
+                    "line": 6,
+                    "column": 20
+                }
+            },
+            "start": 76,
+            "end": 89,
+            "range": [
+                76,
+                89
+            ],
+            "text": " {comment1}"
+        },
+        {
+            "type": "VCSSInlineComment",
+            "loc": {
+                "start": {
+                    "line": 7,
+                    "column": 8
+                },
+                "end": {
+                    "line": 8,
+                    "column": 1
+                }
+            },
+            "start": 98,
+            "end": 113,
+            "range": [
+                98,
+                113
+            ],
+            "text": " {comment2}"
+        },
+        {
+            "type": "VCSSComment",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 8
+                },
+                "end": {
+                    "line": 8,
+                    "column": 22
+                }
+            },
+            "start": 120,
+            "end": 134,
+            "range": [
+                120,
+                134
+            ],
+            "text": " comment3 "
+        },
+        {
+            "type": "VCSSInlineComment",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 1
+                },
+                "end": {
+                    "line": 10,
+                    "column": 0
+                }
+            },
+            "start": 136,
+            "end": 148,
+            "range": [
+                136,
+                148
+            ],
+            "text": " comment 4"
+        }
+    ],
+    "errors": []
+}

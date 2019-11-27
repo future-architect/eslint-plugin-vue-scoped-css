@@ -1,0 +1,159 @@
+[
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 8
+                }
+            },
+            "start": 64,
+            "end": 72,
+            "range": [
+                64,
+                72
+            ],
+            "value": "textarea",
+            "selector": "textarea"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 5
+                }
+            },
+            "start": 73,
+            "end": 78,
+            "range": [
+                73,
+                78
+            ],
+            "value": "input",
+            "selector": "input"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 8
+                }
+            },
+            "start": 64,
+            "end": 72,
+            "range": [
+                64,
+                72
+            ],
+            "value": "textarea",
+            "selector": "textarea"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 3
+                },
+                "end": {
+                    "line": 8,
+                    "column": 9
+                }
+            },
+            "start": 98,
+            "end": 104,
+            "range": [
+                98,
+                104
+            ],
+            "value": ":hover",
+            "nodes": []
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 0
+                },
+                "end": {
+                    "line": 6,
+                    "column": 5
+                }
+            },
+            "start": 73,
+            "end": 78,
+            "range": [
+                73,
+                78
+            ],
+            "value": "input",
+            "selector": "input"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 8,
+                    "column": 3
+                },
+                "end": {
+                    "line": 8,
+                    "column": 9
+                }
+            },
+            "start": 98,
+            "end": 104,
+            "range": [
+                98,
+                104
+            ],
+            "value": ":hover",
+            "nodes": []
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 3
+                },
+                "end": {
+                    "line": 9,
+                    "column": 14
+                }
+            },
+            "start": 109,
+            "end": 120,
+            "range": [
+                109,
+                120
+            ],
+            "value": "is-hovered",
+            "selector": ".is-hovered"
+        }
+    ]
+]

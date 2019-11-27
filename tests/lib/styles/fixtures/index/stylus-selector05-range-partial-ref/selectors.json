@@ -1,0 +1,176 @@
+[
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 3
+                },
+                "end": {
+                    "line": 6,
+                    "column": 4
+                }
+            },
+            "start": 72,
+            "end": 73,
+            "range": [
+                72,
+                73
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 4
+                },
+                "end": {
+                    "line": 6,
+                    "column": 8
+                }
+            },
+            "start": 73,
+            "end": 77,
+            "range": [
+                73,
+                77
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ],
+    [
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 64,
+            "end": 68,
+            "range": [
+                64,
+                68
+            ],
+            "value": "foo",
+            "selector": ".foo"
+        },
+        {
+            "type": "VCSSSelectorPseudo",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 8
+                },
+                "end": {
+                    "line": 9,
+                    "column": 14
+                }
+            },
+            "start": 103,
+            "end": 109,
+            "range": [
+                103,
+                109
+            ],
+            "value": ":hover",
+            "nodes": []
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 14
+                },
+                "end": {
+                    "line": 9,
+                    "column": 15
+                }
+            },
+            "start": 109,
+            "end": 110,
+            "range": [
+                109,
+                110
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSClassSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 4
+                },
+                "end": {
+                    "line": 6,
+                    "column": 8
+                }
+            },
+            "start": 73,
+            "end": 77,
+            "range": [
+                73,
+                77
+            ],
+            "value": "bar",
+            "selector": ".bar"
+        }
+    ]
+]

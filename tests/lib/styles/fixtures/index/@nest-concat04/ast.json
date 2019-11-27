@@ -101,6 +101,7 @@
                         80
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": ".bar&-baz",
                     "rawParamsText": ".bar&-baz",
                     "selectors": [
@@ -210,6 +211,7 @@
                         105
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": ".bar&>-baz",
                     "rawParamsText": ".bar&>-baz",
                     "selectors": [
@@ -340,6 +342,7 @@
                         131
                     ],
                     "name": "nest",
+                    "identifier": "@",
                     "paramsText": ".bar>&>-baz",
                     "rawParamsText": ".bar>&>-baz",
                     "selectors": [

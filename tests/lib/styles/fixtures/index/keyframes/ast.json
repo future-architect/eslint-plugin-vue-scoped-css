@@ -36,6 +36,7 @@
                 100
             ],
             "name": "keyframes",
+            "identifier": "@",
             "paramsText": "ani",
             "rawParamsText": "ani",
             "nodes": [

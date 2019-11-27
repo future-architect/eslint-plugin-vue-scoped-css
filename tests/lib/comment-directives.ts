@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../lib/rules/no-unused-selector")
+import rule = require("../../lib/rules/no-unused-selector")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("no-unused-selector-comment-directives", rule, {
+tester.run("no-unused-selector-comment-directives", rule as any, {
     valid: [],
     invalid: [
         // comment directives

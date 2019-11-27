@@ -1,0 +1,258 @@
+[
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 3
+                }
+            },
+            "start": 64,
+            "end": 67,
+            "range": [
+                64,
+                67
+            ],
+            "value": "foo",
+            "selector": "foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 3
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 67,
+            "end": 68,
+            "range": [
+                67,
+                68
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 7
+                }
+            },
+            "start": 68,
+            "end": 71,
+            "range": [
+                68,
+                71
+            ],
+            "value": "bar",
+            "selector": "bar"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 7
+                },
+                "end": {
+                    "line": 5,
+                    "column": 8
+                }
+            },
+            "start": 71,
+            "end": 72,
+            "range": [
+                71,
+                72
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 8
+                },
+                "end": {
+                    "line": 5,
+                    "column": 11
+                }
+            },
+            "start": 72,
+            "end": 75,
+            "range": [
+                72,
+                75
+            ],
+            "value": "baz",
+            "selector": "baz"
+        }
+    ],
+    [
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 5,
+                    "column": 3
+                }
+            },
+            "start": 64,
+            "end": 67,
+            "range": [
+                64,
+                67
+            ],
+            "value": "foo",
+            "selector": "foo"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 3
+                },
+                "end": {
+                    "line": 5,
+                    "column": 4
+                }
+            },
+            "start": 67,
+            "end": 68,
+            "range": [
+                67,
+                68
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 4
+                },
+                "end": {
+                    "line": 5,
+                    "column": 7
+                }
+            },
+            "start": 68,
+            "end": 71,
+            "range": [
+                68,
+                71
+            ],
+            "value": "bar",
+            "selector": "bar"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 7
+                },
+                "end": {
+                    "line": 5,
+                    "column": 8
+                }
+            },
+            "start": 71,
+            "end": 72,
+            "range": [
+                71,
+                72
+            ],
+            "value": " ",
+            "selector": " "
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 8
+                },
+                "end": {
+                    "line": 5,
+                    "column": 11
+                }
+            },
+            "start": 72,
+            "end": 75,
+            "range": [
+                72,
+                75
+            ],
+            "value": "baz",
+            "selector": "baz"
+        },
+        {
+            "type": "VCSSSelectorCombinator",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 1
+                },
+                "end": {
+                    "line": 6,
+                    "column": 2
+                }
+            },
+            "start": 77,
+            "end": 78,
+            "range": [
+                77,
+                78
+            ],
+            "value": ">",
+            "selector": ">"
+        },
+        {
+            "type": "VCSSTypeSelector",
+            "loc": {
+                "start": {
+                    "line": 6,
+                    "column": 3
+                },
+                "end": {
+                    "line": 6,
+                    "column": 8
+                }
+            },
+            "start": 79,
+            "end": 84,
+            "range": [
+                79,
+                84
+            ],
+            "value": "input",
+            "selector": "input"
+        }
+    ]
+]

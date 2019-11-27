@@ -109,10 +109,12 @@ export class CSSParser {
         const duplicate = new Set<string>()
         for (const error of errors) {
             const errorLoc =
-                getESLintLineAndColumnFromPostCSSPosition(
-                    offsetLocation,
-                    error,
-                ) || offsetLocation
+                error.line != null && error.column != null
+                    ? getESLintLineAndColumnFromPostCSSPosition(
+                          offsetLocation,
+                          error,
+                      )
+                    : offsetLocation
             const message = error.reason || error.message
 
             const key = `[${errorLoc.line}:${errorLoc.column}]: ${message}`
@@ -241,7 +243,7 @@ export class CSSParser {
         loc: SourceLocation,
         start: number,
         end: number,
-    ) {
+    ): VCSSNode | null {
         return new VCSSStyleSheet(node, loc, start, end, { lang: this.lang })
     }
 
@@ -260,15 +262,18 @@ export class CSSParser {
         start: number,
         end: number,
         parent: VCSSContainerNode,
-    ) {
-        const astNode = new VCSSStyleRule(node, loc, start, end, { parent })
+    ): VCSSNode | null {
+        const astNode = new VCSSStyleRule(node, loc, start, end, {
+            parent,
+            rawSelectorText: this.getRaw(node, "selector")?.raw ?? null,
+        })
         astNode.selectors = this.selectorParser.parse(
             astNode.rawSelectorText,
             astNode.loc.start,
             astNode,
         )
 
-        if (node.raws.between?.trim()) {
+        if (this.getRaw(node, "between")?.trim()) {
             this.parseRuleRawsBetween(node, astNode)
         }
 
@@ -276,8 +281,8 @@ export class CSSParser {
     }
 
     protected parseRuleRawsBetween(node: PostCSSRule, astNode: VCSSNode) {
-        const { between } = node.raws
-        const rawSelector = node.raws.selector?.raw ?? node.selector
+        const between = this.getRaw(node, "between")
+        const rawSelector = this.getRaw(node, "selector")?.raw ?? node.selector
         const betweenStart = astNode.range[0] + rawSelector.length
         const postcssRoot = this.parseInternal(between || "") as PostCSSRoot
 
@@ -302,15 +307,19 @@ export class CSSParser {
         start: number,
         end: number,
         parent: VCSSContainerNode,
-    ) {
-        const astNode = new VCSSAtRule(node, loc, start, end, { parent })
+    ): VCSSNode | null {
+        const astNode = new VCSSAtRule(node, loc, start, end, {
+            parent,
+            rawParamsText: this.getRaw(node, "params")?.raw ?? null,
+            identifier: this.getRaw(node as any, "identifier") ?? "@",
+        })
         if (node.name === "nest") {
             // The parameters following `@nest` are parsed as selectors.
             const paramsStartIndex =
                 astNode.range[0] + // start index of at-rule
-                1 + // `@`
+                astNode.identifier.length + // `@`
                 astNode.name.length + // `nest`
-                (node.raws.afterName || "").length // comments and spaces
+                (this.getRaw(node, "afterName") || "").length // comments and spaces
 
             astNode.selectors = this.selectorParser.parse(
                 astNode.rawParamsText,
@@ -319,10 +328,10 @@ export class CSSParser {
             )
         }
 
-        if (node.raws.afterName?.trim()) {
+        if (this.getRaw(node, "afterName")?.trim()) {
             this.parseAtruleRawsAfterName(node, astNode)
         }
-        if (node.raws.between?.trim()) {
+        if (this.getRaw(node, "between")?.trim()) {
             this.parseAtruleRawsBetween(node, astNode)
         }
 
@@ -330,11 +339,11 @@ export class CSSParser {
     }
 
     private parseAtruleRawsAfterName(node: PostCSSAtRule, astNode: VCSSAtRule) {
-        const { afterName } = node.raws
+        const afterName = this.getRaw(node, "afterName")
 
         const afterNameStart =
             astNode.range[0] + // start index of at-rule
-            1 + // `@`
+            astNode.identifier.length + // `@`
             astNode.name.length // `nest`
         const postcssRoot = this.parseInternal(afterName || "") as PostCSSRoot
 
@@ -345,14 +354,14 @@ export class CSSParser {
     }
 
     private parseAtruleRawsBetween(node: PostCSSAtRule, astNode: VCSSAtRule) {
-        const { between } = node.raws
+        const between = this.getRaw(node, "between")
 
-        const rawParams = node.raws.params?.raw ?? node.params
+        const rawParams = this.getRaw(node, "params")?.raw ?? node.params
         const betweenStart =
             astNode.range[0] + // start index of at-rule
-            1 + // `@`
+            astNode.identifier.length + // `@`
             astNode.name.length + // `nest`
-            (node.raws.afterName || "").length + // comments and spaces
+            (this.getRaw(node, "afterName") || "").length + // comments and spaces
             rawParams.length
 
         const postcssRoot = this.parseInternal(between || "") as PostCSSRoot
@@ -377,7 +386,7 @@ export class CSSParser {
         start: number,
         end: number,
         parent: VCSSContainerNode,
-    ) {
+    ): VCSSNode | null {
         // adjust star hack
         // `*color: red`
         //  ^
@@ -418,7 +427,7 @@ export class CSSParser {
         start: number,
         end: number,
         parent: VCSSContainerNode,
-    ): null {
+    ): VCSSNode | null {
         this.commentContainer.push(
             new VCSSComment(node, node.text, loc, start, end, { parent }),
         )
@@ -440,11 +449,18 @@ export class CSSParser {
         start: number,
         end: number,
         parent: VCSSContainerNode,
-    ) {
+    ): VCSSNode | null {
         return new VCSSUnknown(node, loc, start, end, {
             parent,
             unknownType: node.type,
         })
+    }
+
+    protected getRaw<N extends PostCSSNode, K extends keyof N["raws"] & string>(
+        node: N,
+        keyName: K,
+    ): N["raws"][K] {
+        return (node.raws as any)[keyName]
     }
 
     /* eslint-enable class-methods-use-this */

@@ -1,0 +1,284 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 28
+        },
+        "end": {
+            "line": 8,
+            "column": 0
+        }
+    },
+    "start": 63,
+    "end": 104,
+    "range": [
+        63,
+        104
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 7,
+                    "column": 18
+                }
+            },
+            "start": 64,
+            "end": 103,
+            "range": [
+                64,
+                103
+            ],
+            "selectorText": "foo bar baz",
+            "rawSelectorText": "foo bar baz",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 11
+                        }
+                    },
+                    "start": 64,
+                    "end": 75,
+                    "range": [
+                        64,
+                        75
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 3
+                                }
+                            },
+                            "start": 64,
+                            "end": 67,
+                            "range": [
+                                64,
+                                67
+                            ],
+                            "value": "foo",
+                            "selector": "foo"
+                        },
+                        {
+                            "type": "VCSSSelectorCombinator",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 3
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 4
+                                }
+                            },
+                            "start": 67,
+                            "end": 68,
+                            "range": [
+                                67,
+                                68
+                            ],
+                            "value": " ",
+                            "selector": " "
+                        },
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 4
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 7
+                                }
+                            },
+                            "start": 68,
+                            "end": 71,
+                            "range": [
+                                68,
+                                71
+                            ],
+                            "value": "bar",
+                            "selector": "bar"
+                        },
+                        {
+                            "type": "VCSSSelectorCombinator",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 7
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 8
+                                }
+                            },
+                            "start": 71,
+                            "end": 72,
+                            "range": [
+                                71,
+                                72
+                            ],
+                            "value": " ",
+                            "selector": " "
+                        },
+                        {
+                            "type": "VCSSTypeSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 8
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 11
+                                }
+                            },
+                            "start": 72,
+                            "end": 75,
+                            "range": [
+                                72,
+                                75
+                            ],
+                            "value": "baz",
+                            "selector": "baz"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSStyleRule",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 1
+                        },
+                        "end": {
+                            "line": 7,
+                            "column": 18
+                        }
+                    },
+                    "start": 77,
+                    "end": 103,
+                    "range": [
+                        77,
+                        103
+                    ],
+                    "selectorText": "> input",
+                    "rawSelectorText": "> input",
+                    "selectors": [
+                        {
+                            "type": "VCSSSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 6,
+                                    "column": 1
+                                },
+                                "end": {
+                                    "line": 6,
+                                    "column": 8
+                                }
+                            },
+                            "start": 77,
+                            "end": 84,
+                            "range": [
+                                77,
+                                84
+                            ],
+                            "nodes": [
+                                {
+                                    "type": "VCSSSelectorCombinator",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 1
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 2
+                                        }
+                                    },
+                                    "start": 77,
+                                    "end": 78,
+                                    "range": [
+                                        77,
+                                        78
+                                    ],
+                                    "value": ">",
+                                    "selector": ">"
+                                },
+                                {
+                                    "type": "VCSSTypeSelector",
+                                    "loc": {
+                                        "start": {
+                                            "line": 6,
+                                            "column": 3
+                                        },
+                                        "end": {
+                                            "line": 6,
+                                            "column": 8
+                                        }
+                                    },
+                                    "start": 79,
+                                    "end": 84,
+                                    "range": [
+                                        79,
+                                        84
+                                    ],
+                                    "value": "input",
+                                    "selector": "input"
+                                }
+                            ]
+                        }
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSDeclarationProperty",
+                            "loc": {
+                                "start": {
+                                    "line": 7,
+                                    "column": 2
+                                },
+                                "end": {
+                                    "line": 7,
+                                    "column": 18
+                                }
+                            },
+                            "start": 87,
+                            "end": 103,
+                            "range": [
+                                87,
+                                103
+                            ],
+                            "property": "border",
+                            "value": "1px solid",
+                            "important": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "comments": [],
+    "errors": []
+}

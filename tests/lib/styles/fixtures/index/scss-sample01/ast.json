@@ -613,6 +613,7 @@
                 422
             ],
             "name": "import",
+            "identifier": "@",
             "paramsText": "'reset'",
             "rawParamsText": "'reset'",
             "nodes": []
@@ -747,6 +748,7 @@
                 623
             ],
             "name": "mixin",
+            "identifier": "@",
             "paramsText": "transform($property)",
             "rawParamsText": "transform($property)",
             "nodes": [
@@ -902,6 +904,7 @@
                         665
                     ],
                     "name": "include",
+                    "identifier": "@",
                     "paramsText": "transform(rotate(30deg))",
                     "rawParamsText": "transform(rotate(30deg))",
                     "nodes": []
@@ -1236,6 +1239,7 @@
                         992
                     ],
                     "name": "extend",
+                    "identifier": "@",
                     "paramsText": "%message-shared",
                     "rawParamsText": "%message-shared",
                     "nodes": []
@@ -1326,6 +1330,7 @@
                         1033
                     ],
                     "name": "extend",
+                    "identifier": "@",
                     "paramsText": "%message-shared",
                     "rawParamsText": "%message-shared",
                     "nodes": []
@@ -1438,6 +1443,7 @@
                         1095
                     ],
                     "name": "extend",
+                    "identifier": "@",
                     "paramsText": "%message-shared",
                     "rawParamsText": "%message-shared",
                     "nodes": []
@@ -1550,6 +1556,7 @@
                         1157
                     ],
                     "name": "extend",
+                    "identifier": "@",
                     "paramsText": "%message-shared",
                     "rawParamsText": "%message-shared",
                     "nodes": []

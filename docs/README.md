@@ -22,6 +22,7 @@ This ESLint plugin provides linting rules relate to better ways to help you avoi
 - Provides linting rules for Scoped CSS.
 - Supports CSS syntax including level 4 selectors.
 - Supports `<style lang="scss">`.
+- Supports `<style lang="stylus">`.
 - Parses `<style>`, `<template>` and `<script>` blocks.
 
 You can check on the [Online DEMO](./playground/).
