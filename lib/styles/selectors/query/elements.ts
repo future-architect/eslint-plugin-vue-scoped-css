@@ -94,7 +94,7 @@ export function getWrapperTransition(
         if (isTransitionElement(parent) || isTransitionGroupElement(parent)) {
             return parent
         }
-        if (!isSkipElement(parent)) {
+        if (!isSlotElement(parent) && !isSkipElement(parent)) {
             return null
         }
         parent = parent.parent

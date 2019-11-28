@@ -168,6 +168,53 @@ tester.run("require-selector-used-inside", rule, {
         :not(.a) {}
         </style>
         `,
+        // transition
+        `
+        <template>
+            <transition>
+                <div/>
+            </transition>
+        </template>
+        <style scoped>
+        .v-enter,
+        .v-enter-active,
+        .v-enter-to,
+        .v-leave,
+        .v-leave-to,
+        .v-leave-active {}
+        </style>
+        `,
+        `
+        <template>
+            <transition name="foo">
+                <div/>
+            </transition>
+        </template>
+        <style scoped>
+        .foo-enter,
+        .foo-enter-active,
+        .foo-enter-to,
+        .foo-leave,
+        .foo-leave-to,
+        .foo-leave-active {}
+        </style>
+        `,
+        `
+        <template>
+            <!-- transition + slot -->
+            <transition name="foo">
+                <slot />
+            </transition>
+        </template>
+        <style scoped>
+        .foo-enter,
+        .foo-enter-active,
+        .foo-enter-to,
+        .foo-leave,
+        .foo-leave-to,
+        .foo-leave-active {}
+        </style>
+        `,
         // options
         // ignoreBEMModifier
         {
