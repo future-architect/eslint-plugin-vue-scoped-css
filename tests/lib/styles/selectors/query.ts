@@ -17,7 +17,8 @@ import {
     isVDirectiveKeyV6,
     isVDirective,
 } from "../../../../lib/styles/utils/nodes"
-import { StyleContext } from "../../../../lib/styles"
+import { StyleContext, ValidStyleContext } from "../../../../lib/styles/context"
+import { ParsedQueryOptions } from "../../../../lib/options"
 
 const ROOT = path.join(__dirname, "../fixtures/selectors/query")
 
@@ -35,11 +36,11 @@ function replacer(key: string, value: any): any {
 }
 
 function queries(style: StyleContext, context: RuleContext) {
-    const selectors = getResolvedSelectors(style)
+    const selectors = getResolvedSelectors(style as ValidStyleContext)
     return selectors
         .map(r => r.selector)
         .reduce((result, selector) => {
-            let q = createQueryContext(context)
+            let q = createQueryContext(context, ParsedQueryOptions.parse({}))
             for (const node of selector) {
                 q = q.queryStep(node)
             }
@@ -53,11 +54,14 @@ function queries(style: StyleContext, context: RuleContext) {
 }
 
 function reverseQueries(style: StyleContext, context: RuleContext) {
-    const selectors = getResolvedSelectors(style)
+    const selectors = getResolvedSelectors(style as ValidStyleContext)
     return selectors
         .map(r => r.selector)
         .reduce((result, selector) => {
-            const elementQueris = createQueryContext(context).split()
+            const elementQueris = createQueryContext(
+                context,
+                ParsedQueryOptions.parse({}),
+            ).split()
             const elementsTexts = elementQueris
                 .filter(elementQuery => {
                     let q = elementQuery

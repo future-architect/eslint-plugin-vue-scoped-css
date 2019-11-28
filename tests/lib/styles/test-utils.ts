@@ -3,8 +3,8 @@ import eslint from "eslint"
 import fs from "fs"
 import path from "path"
 
-import { getStyleContexts, StyleContext } from "../../../lib/styles"
 import { RuleContext } from "../../../lib/types"
+import { StyleContext, getStyleContexts } from "../../../lib/styles/context"
 
 const ROOT = path.join(__dirname, "./fixtures/index")
 

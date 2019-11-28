@@ -1,5 +1,4 @@
-import { StyleContext } from "../context"
-
+import { ValidStyleContext } from "../context"
 import {
     CSSSelectorResolver,
     ResolvedSelector,
@@ -20,10 +19,9 @@ const RESOLVERS = {
  * @param {StyleContext} style The style context
  * @returns {ResolvedSelectors[]} the selector that resolved the nesting.
  */
-export function getResolvedSelectors(style: StyleContext): ResolvedSelector[] {
-    if (!style.cssNode) {
-        return []
-    }
+export function getResolvedSelectors(
+    style: ValidStyleContext,
+): ResolvedSelector[] {
     const lang = style.lang
     const Resolver = isSupportedStyleLang(lang)
         ? RESOLVERS[lang]

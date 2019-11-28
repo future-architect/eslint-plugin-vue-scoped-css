@@ -22,13 +22,18 @@ import {
 } from "./elements"
 import { VCSSSelectorNode } from "../../ast"
 import { AST, RuleContext, ASTNode } from "../../../types"
-import { QueryOptions } from "../../../options"
+import { ParsedQueryOptions } from "../../../options"
 import {
     getAttributeValueNodes,
     getReferenceExpressions,
     ReferenceExpressions,
 } from "./attribute-tracker"
-import { getVueComponentContext } from "../../context"
+import {
+    getVueComponentContext,
+    getStyleContexts,
+    StyleContext,
+    ValidStyleContext,
+} from "../../context"
 import { getStringFromNode } from "../../utils/nodes"
 import { Template } from "../../template"
 
@@ -48,6 +53,7 @@ const TRANSITION_GROUP_CLASS_BASES = [...TRANSITION_CLASS_BASES, "move"]
 export class QueryContext {
     public elements: AST.VElement[] = []
     protected readonly document: VueDocumentQueryContext
+
     protected constructor(document?: VueDocumentQueryContext) {
         this.document = document || (this as any)
     }
@@ -107,8 +113,9 @@ export class QueryContext {
  */
 class VueDocumentQueryContext extends QueryContext {
     public context: RuleContext
-    public options: QueryOptions
-    public constructor(context: RuleContext, options: QueryOptions) {
+    public options: ParsedQueryOptions
+    public docsModifiers: string[]
+    public constructor(context: RuleContext, options: ParsedQueryOptions) {
         super()
         const sourceCode = context.getSourceCode()
         const { ast } = sourceCode
@@ -117,7 +124,46 @@ class VueDocumentQueryContext extends QueryContext {
             : []
         this.context = context
         this.options = options
+
+        if (options.captureClassesFromDoc.length > 0) {
+            this.docsModifiers = getStyleContexts(context)
+                .filter(StyleContext.isValid)
+                .filter(style => style.scoped)
+                .map(style =>
+                    extractClassesFromDoc(style, options.captureClassesFromDoc),
+                )
+                .reduce((r, a) => r.concat(a), [])
+        } else {
+            this.docsModifiers = []
+        }
     }
+}
+
+/**
+ * Extract class names documented in the comment.
+ */
+function extractClassesFromDoc(
+    style: ValidStyleContext,
+    captureClassesFromDoc: RegExp[],
+): string[] {
+    const results = new Set<string>()
+    for (const comment of style.cssNode.comments) {
+        for (const regexp of captureClassesFromDoc) {
+            // Get all captures
+            regexp.lastIndex = 0
+            let re
+            while ((re = regexp.exec(comment.text))) {
+                if (re.length > 1) {
+                    for (const s of re.slice(1)) {
+                        results.add(s)
+                    }
+                } else {
+                    results.add(re[0])
+                }
+            }
+        }
+    }
+    return [...results]
 }
 
 /**
@@ -141,7 +187,7 @@ class ElementsQueryContext extends QueryContext {
  */
 export function createQueryContext(
     context: RuleContext,
-    options: QueryOptions = {},
+    options: ParsedQueryOptions,
 ): QueryContext {
     return new VueDocumentQueryContext(context, options)
 }
@@ -436,6 +482,8 @@ function* genElementsByClassName(
     document: VueDocumentQueryContext,
 ): IterableIterator<AST.VElement> {
     let removeModifierClassName = null
+
+    // ignoreBEMModifier option
     if (document.options.ignoreBEMModifier) {
         if (className.hasString("--")) {
             const list = className.divide("--")
@@ -443,6 +491,21 @@ function* genElementsByClassName(
             if (list.length) {
                 removeModifierClassName = list.reduce((r, a) => r.concat(a))
             }
+        }
+    }
+
+    // captureClassesFromDoc option
+    for (const docMod of document.docsModifiers) {
+        if (docMod.startsWith(":")) {
+            continue
+        }
+        const modClassName: string = docMod.startsWith(".")
+            ? docMod.slice(1)
+            : docMod
+        if (className.matchString(modClassName)) {
+            // If the class name is documented, it is considered to match all elements.
+            yield* elements
+            return
         }
     }
 

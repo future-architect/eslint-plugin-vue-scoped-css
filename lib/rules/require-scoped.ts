@@ -1,5 +1,9 @@
-import { getStyleContexts, getCommentDirectivesReporter } from "../styles"
 import { RuleContext, AST, TokenStore } from "../types"
+import {
+    getStyleContexts,
+    StyleContext,
+    getCommentDirectivesReporter,
+} from "../styles/context"
 
 module.exports = {
     meta: {
@@ -21,7 +25,7 @@ module.exports = {
         type: "suggestion",
     },
     create(context: RuleContext) {
-        const styles = getStyleContexts(context).filter(style => !style.invalid)
+        const styles = getStyleContexts(context).filter(StyleContext.isValid)
         if (!styles.length) {
             return {}
         }

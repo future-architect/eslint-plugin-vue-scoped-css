@@ -1,11 +1,4 @@
-import {
-    getStyleContexts,
-    getCommentDirectivesReporter,
-    StyleContext,
-} from "../styles"
-
 import { getResolvedSelectors, ResolvedSelector } from "../styles/selectors"
-
 import { VCSSSelectorNode, VCSSSelectorCombinator } from "../styles/ast"
 import {
     isTypeSelector,
@@ -18,17 +11,23 @@ import {
     isGeneralSiblingCombinator,
     isDeepCombinator,
 } from "../styles/utils/selectors"
-
 import { createQueryContext, QueryContext } from "../styles/selectors/query"
 import { isRootElement } from "../styles/selectors/query/elements"
 import { RuleContext } from "../types"
+import { ParsedQueryOptions } from "../options"
+import {
+    ValidStyleContext,
+    getStyleContexts,
+    StyleContext,
+    getCommentDirectivesReporter,
+} from "../styles/context"
 
 /**
  * Gets scoped selectors.
  * @param {StyleContext} style The style context
  * @returns {VCSSSelectorNode[][]} selectors
  */
-function getScopedSelectors(style: StyleContext): VCSSSelectorNode[][] {
+function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
     const resolvedSelectors = getResolvedSelectors(style)
     return resolvedSelectors.map(getScopedSelector)
 }
@@ -84,6 +83,16 @@ module.exports = {
                     ignoreBEMModifier: {
                         type: "boolean",
                     },
+                    captureClassesFromDoc: {
+                        type: "array",
+                        items: [
+                            {
+                                type: "string",
+                            },
+                        ],
+                        minItems: 0,
+                        uniqueItems: true,
+                    },
                 },
                 additionalProperties: false,
             },
@@ -91,9 +100,9 @@ module.exports = {
         type: "suggestion", // "problem",
     },
     create(context: RuleContext) {
-        const styles = getStyleContexts(context).filter(
-            style => !style.invalid && style.scoped,
-        )
+        const styles = getStyleContexts(context)
+            .filter(StyleContext.isValid)
+            .filter(style => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -215,7 +224,7 @@ module.exports = {
             "Program:exit"() {
                 const queryContext = createQueryContext(
                     context,
-                    context.options[0] || {},
+                    ParsedQueryOptions.parse(context.options[0]),
                 )
 
                 for (const style of styles) {
