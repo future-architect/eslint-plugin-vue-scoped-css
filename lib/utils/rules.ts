@@ -46,7 +46,7 @@ export function collectRules(category?: string): { [key: string]: string } {
             (!category || rule.meta.docs.category === category) &&
             !rule.meta.deprecated
         ) {
-            obj[rule.meta.docs.ruleId] = rule.meta.docs.default || "error"
+            obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error"
         }
         return obj
     }, {} as { [key: string]: string })

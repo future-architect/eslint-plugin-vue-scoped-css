@@ -4,6 +4,7 @@ import postcss from "postcss"
 import selectorParser from "postcss-selector-parser"
 // eslint-disable-next-line @mysticatea/node/no-extraneous-import
 import { ScopeManager } from "eslint-scope"
+import { Rule } from "eslint"
 
 export { AST }
 
@@ -13,11 +14,12 @@ export type Rule = {
         docs: {
             description: string
             category: string
-            ruleId: string
-            ruleName: string
+            ruleId?: string
+            ruleName?: string
             default?: string
             replacedBy?: string[]
             url: string
+            suggestion?: true
         }
         deprecated?: boolean
         fixable?: "code" | "whitespace" | null
@@ -64,7 +66,7 @@ interface ParserServices {
      * Get the token store of the template body.
      * @returns The token store of template body.
      */
-    // getTemplateBodyTokenStore(): TokenStore
+    getTemplateBodyTokenStore?: () => TokenStore
 
     /**
      * Get the root document fragment.
@@ -80,13 +82,45 @@ export interface RuleContext {
     getFilename: () => string
     parserServices: ParserServices
 }
-export type ReportDescriptor = {
-    loc?: SourceLocation | { line: number; column: number }
-    node?: AST.HasLocation
-    messageId?: string
-    message?: string
-    data?: { [key: string]: any }
+
+export type ReportSuggestion = ({ messageId: string } | { desc: string }) & {
+    fix?(fixer: Rule.RuleFixer): null | Rule.Fix | IterableIterator<Rule.Fix>
 }
+export type ReportDescriptorNodeLocation = { node: AST.HasLocation }
+export type ReportDescriptorSourceLocation = {
+    loc: SourceLocation | { line: number; column: number }
+}
+
+export type ReportDescriptorLocation =
+    | ReportDescriptorNodeLocation
+    | ReportDescriptorSourceLocation
+
+export type ReportDescriptor = ReportDescriptorLocation &
+    Rule.ReportDescriptorOptions &
+    Rule.ReportDescriptorMessage & {
+        suggest?: ReportSuggestion[]
+    }
+
+type FilterPredicate = (tokenOrComment: AST.Token) => boolean
+
+type CursorWithSkipOptions =
+    | number
+    | FilterPredicate
+    | {
+          includeComments?: boolean
+          filter?: FilterPredicate
+          skip?: number
+      }
+
+// type CursorWithCountOptions =
+//     | number
+//     | FilterPredicate
+//     | {
+//           includeComments?: boolean
+//           filter?: FilterPredicate
+//           count?: number
+//       }
+
 export interface SourceCode {
     text: string
     ast: AST.ESLintProgram
@@ -105,6 +139,26 @@ export interface SourceCode {
     getLocFromIndex(index: number): LineAndColumnData
 
     getIndexFromLoc(location: LineAndColumnData): number
+
+    getFirstToken(
+        node: AST.Node,
+        options?: CursorWithSkipOptions,
+    ): AST.Token | null
+}
+export interface TokenStore {
+    getFirstToken(
+        node: AST.Node,
+        options?: CursorWithSkipOptions,
+    ): AST.Token | null
+    getLastToken(
+        node: AST.Node,
+        options?: CursorWithSkipOptions,
+    ): AST.Token | null
+    getTokens(
+        node: AST.Node,
+        beforeCount?: number,
+        afterCount?: number,
+    ): AST.Token[]
 }
 type HasPostCSSSource = {
     source: postcss.NodeSource

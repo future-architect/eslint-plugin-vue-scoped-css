@@ -8,7 +8,7 @@ const configs = {
 }
 
 const rules = ruleList.reduce((obj, r) => {
-    obj[r.meta.docs.ruleName] = r
+    obj[r.meta.docs?.ruleName || ""] = r
     return obj
 }, {} as { [key: string]: Rule })
 

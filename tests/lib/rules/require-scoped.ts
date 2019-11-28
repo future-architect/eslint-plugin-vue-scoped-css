@@ -37,6 +37,47 @@ tester.run("require-scoped", rule, {
                     column: 13,
                     endLine: 4,
                     endColumn: 20,
+                    // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
+                    /// @ts-ignore
+                    suggestions: [
+                        {
+                            desc: "Add `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style />
+            `,
+            errors: [
+                {
+                    messageId: "missing",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 22,
+                    // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
+                    /// @ts-ignore
+                    suggestions: [
+                        {
+                            desc: "Add `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style  scoped/>
+            `,
+                        },
+                    ],
                 },
             ],
         },

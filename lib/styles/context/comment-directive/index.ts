@@ -3,6 +3,7 @@ import {
     ReportDescriptor,
     RuleContext,
     SourceLocation,
+    ReportDescriptorSourceLocation,
 } from "../../../types"
 import { StyleContext } from "../style"
 import { VCSSCommentNode } from "../../ast"
@@ -208,7 +209,9 @@ export class CommentDirectives {
      * @returns {boolean} `true` if rule is enabled
      */
     public isEnabled(rule: string, descriptor: ReportDescriptor) {
-        const loc = descriptor.loc || (descriptor.node && descriptor.node.loc)
+        const loc = hasSourceLocation(descriptor)
+            ? descriptor.loc
+            : descriptor.node?.loc
         if (!loc) {
             return false
         }
@@ -315,4 +318,13 @@ function compareLoc(a: LineAndColumnData, b: LineAndColumnData) {
         return lc
     }
     return compare(a.column, b.column)
+}
+
+/**
+ * Checks whether the given descriptor has loc property
+ */
+function hasSourceLocation(
+    descriptor: ReportDescriptor,
+): descriptor is ReportDescriptor & ReportDescriptorSourceLocation {
+    return (descriptor as ReportDescriptorSourceLocation).loc != null
 }
