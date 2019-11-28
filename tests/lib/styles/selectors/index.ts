@@ -5,6 +5,7 @@ import path from "path"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
 import { getResolvedSelectors } from "../../../../lib/styles/selectors"
+import { ValidStyleContext } from "../../../../lib/styles/context"
 
 /**
  * Remove `parent` proeprties from the given AST.
@@ -26,7 +27,9 @@ describe("CSS Selectors Test.", () => {
                 const resultPath = path.join(dir, "selectors.json")
 
                 const actual = JSON.stringify(
-                    getResolvedSelectors(style).map(r => r.selector),
+                    getResolvedSelectors(style as ValidStyleContext).map(
+                        r => r.selector,
+                    ),
                     replacer,
                     4,
                 )
@@ -44,7 +47,7 @@ describe("CSS Selectors Test.", () => {
                 const resultPath = path.join(dir, "selectors-text.json")
 
                 const actual = JSON.stringify(
-                    getResolvedSelectors(style).map(r =>
+                    getResolvedSelectors(style as ValidStyleContext).map(r =>
                         r.selector.map(s => s.selector),
                     ),
                     replacer,

@@ -19,7 +19,7 @@ export default function renderRulesTableContent(
             rule.meta.deprecated ? ":warning:" : ""
         }`
         const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-            rule.meta.docs.ruleName,
+            rule.meta.docs.ruleName || "",
         )})`
         const description = rule.meta.docs.description || "(no description)"
 
@@ -29,7 +29,7 @@ export default function renderRulesTableContent(
     //eslint-disable-next-line require-jsdoc
     function toDeprecatedRuleRow(rule: Rule) {
         const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-            rule.meta.docs.ruleName,
+            rule.meta.docs.ruleName || "",
         )})`
         const replacedRules = rule.meta.docs.replacedBy || []
         const replacedBy = replacedRules

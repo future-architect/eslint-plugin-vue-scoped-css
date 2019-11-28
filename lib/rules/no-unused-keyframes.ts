@@ -1,11 +1,12 @@
-import {
-    getStyleContexts,
-    getCommentDirectivesReporter,
-    StyleContext,
-} from "../styles"
 import { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast"
 import { RuleContext } from "../types"
 import { Template } from "../styles/template"
+import {
+    getStyleContexts,
+    getCommentDirectivesReporter,
+    ValidStyleContext,
+    StyleContext,
+} from "../styles/context"
 
 module.exports = {
     meta: {
@@ -24,9 +25,9 @@ module.exports = {
         type: "suggestion", // "problem",
     },
     create(context: RuleContext) {
-        const styles = getStyleContexts(context).filter(
-            style => !style.invalid && style.scoped,
-        )
+        const styles = getStyleContexts(context)
+            .filter(StyleContext.isValid)
+            .filter(style => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -59,7 +60,7 @@ module.exports = {
          * Extract nodes
          */
         function extract(
-            style: StyleContext,
+            style: ValidStyleContext,
         ): {
             keyframes: { node: VCSSAtRule; params: Template }[]
             animationNames: VCSSDeclarationProperty[]
@@ -106,7 +107,7 @@ module.exports = {
         /**
          * Verify the style
          */
-        function verify(style: StyleContext) {
+        function verify(style: ValidStyleContext) {
             const { keyframes, animationNames, animations } = extract(style)
 
             for (const decl of animationNames) {

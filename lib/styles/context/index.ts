@@ -1,4 +1,9 @@
-import { createStyleContexts, StyleContext } from "./style"
+import {
+    createStyleContexts,
+    StyleContext,
+    ValidStyleContext,
+    InvalidStyleContext,
+} from "./style"
 import {
     CommentDirectivesReporter,
     createCommentDirectivesReporter,
@@ -76,7 +81,13 @@ export function getVueComponentContext(
     }
     return (cache.vueComponent = createVueComponentContext(context))
 }
-export { StyleContext, CommentDirectivesReporter, VueComponentContext }
+export {
+    StyleContext,
+    ValidStyleContext,
+    InvalidStyleContext,
+    CommentDirectivesReporter,
+    VueComponentContext,
+}
 
 /**
  * Gets the comment directive context from given rule context.

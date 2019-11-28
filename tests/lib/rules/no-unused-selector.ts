@@ -267,6 +267,40 @@ tester.run("no-unused-selector", rule, {
             `,
             options: [{ ignoreBEMModifier: true }],
         },
+        // captureClassesFromDoc
+        {
+            code: `
+            <template>
+                <div>
+                    <a class="button star"></a>
+                </div>
+            </template>
+            <style scoped lang="scss">
+            /* ✓ GOOD */
+            
+            // A button suitable for giving a star to someone.
+            //
+            // :hover             - Subtle hover highlight.
+            // .star-given        - A highlight indicating you've already given a star.
+            // .star-given:hover  - Subtle hover highlight on top of star-given styling.
+            // .disabled          - Dims the button to indicate it cannot be used.
+            //
+            // Styleguide 2.1.3.
+            a.button.star {
+                &.star-given {
+                }
+                &.disabled {
+                }
+            }
+            </style>`,
+            options: [
+                {
+                    captureClassesFromDoc: [
+                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+                    ],
+                },
+            ],
+        },
         // ignore nodes
         `
         <template>
@@ -558,6 +592,51 @@ tester.run("no-unused-selector", rule, {
                     column: 13,
                     endLine: 8,
                     endColumn: 27,
+                },
+            ],
+        },
+        // captureClassesFromDoc
+        {
+            code: `
+            <template>
+                <div>
+                    <a class="button star"></a>
+                </div>
+            </template>
+            <style scoped lang="scss">
+            /* ✓ GOOD */
+            
+            // A button suitable for giving a star to someone.
+            //
+            // :hover             - Subtle hover highlight.
+            // .star-given        - A highlight indicating you've already given a star.
+            // .star-given:hover  - Subtle hover highlight on top of star-given styling.
+            // .disabled          - Dims the button to indicate it cannot be used.
+            //
+            // Styleguide 2.1.3.
+            a.button.star {
+                &.star-given {
+                }
+                &.disabled {
+                }
+                &.unknown {
+                }
+            }
+            </style>`,
+            options: [
+                {
+                    captureClassesFromDoc: [
+                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+                    ],
+                },
+            ],
+            errors: [
+                {
+                    message: "The selector `a.button.star.unknown` is unused.",
+                    line: 18,
+                    column: 13,
+                    endLine: 23,
+                    endColumn: 26,
                 },
             ],
         },

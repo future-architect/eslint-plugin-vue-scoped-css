@@ -110,10 +110,43 @@ interface Visitor {
     leaveNode(node: VCSSNode): void
 }
 
+interface BaseStyleContext {
+    readonly styleElement: AST.VElement
+    readonly sourceCode: SourceCode
+    readonly scoped: boolean
+    readonly lang: string
+    traverseNodes(visitor: Visitor): void
+}
+
+export interface ValidStyleContext extends BaseStyleContext {
+    readonly invalid: null
+    readonly cssNode: VCSSStyleSheet
+}
+export interface InvalidStyleContext extends BaseStyleContext {
+    readonly invalid: {
+        message: string
+        needReport: boolean
+        loc: LineAndColumnData
+    }
+    readonly cssNode: null
+}
+
+export type StyleContext = InvalidStyleContext | ValidStyleContext
+export namespace StyleContext {
+    /**
+     * Checks whether the given context is valid
+     */
+    export function isValid(
+        context: StyleContext,
+    ): context is ValidStyleContext {
+        return !context.invalid
+    }
+}
+
 /**
  * Style context
  */
-export class StyleContext {
+export class StyleContextImpl {
     public readonly styleElement: AST.VElement
     public readonly sourceCode: SourceCode
     public readonly invalid: {
@@ -209,7 +242,9 @@ function traverseNodes(node: VCSSNode, visitor: Visitor): void {
 export function createStyleContexts(context: RuleContext): StyleContext[] {
     const styles = getStyleElements(context)
 
-    return styles.map(style => new StyleContext(style, context))
+    return styles.map(
+        style => new StyleContextImpl(style, context) as StyleContext,
+    )
 }
 
 /**

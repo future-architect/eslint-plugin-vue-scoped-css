@@ -1,10 +1,10 @@
+import { RuleContext } from "../types"
+import { VCSSParsingError } from "../styles/ast"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    StyleContext,
-} from "../styles"
-import { RuleContext, LineAndColumnData } from "../types"
-import { VCSSParsingError } from "../styles/ast"
+    InvalidStyleContext,
+} from "../styles/context"
 
 module.exports = {
     meta: {
@@ -48,15 +48,7 @@ module.exports = {
          * Reports the given style
          * @param {ASTNode} node node to report
          */
-        function reportInvalidStyle(
-            style: StyleContext & {
-                invalid: {
-                    message: string
-                    needReport: boolean
-                    loc: LineAndColumnData
-                }
-            },
-        ) {
+        function reportInvalidStyle(style: InvalidStyleContext) {
             reporter.report({
                 node: style.styleElement,
                 loc: style.invalid.loc,
@@ -72,15 +64,7 @@ module.exports = {
                 for (const style of styles) {
                     if (style.invalid != null) {
                         if (style.invalid.needReport) {
-                            reportInvalidStyle(
-                                style as StyleContext & {
-                                    invalid: {
-                                        message: string
-                                        needReport: boolean
-                                        loc: LineAndColumnData
-                                    }
-                                },
-                            )
+                            reportInvalidStyle(style)
                         }
                     } else {
                         for (const node of style.cssNode?.errors || []) {
