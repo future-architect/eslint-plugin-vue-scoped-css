@@ -60,7 +60,7 @@
     "eslint": "^6.7.1",
     "eslint-plugin-internal-rules": "file:./eslint-internal-rules",
     "eslint-plugin-vue": "^6.0.1",
-    "eslint-plugin-vue-scoped-css": "^0.2.0",
+    "eslint-plugin-vue-scoped-css": "^0.3.0",
     "eslint4b": "^6.7.1",
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
@@ -80,7 +80,7 @@
     "postcss-safe-parser": "^4.0.1",
     "postcss-scss": "^2.0.0",
     "postcss-selector-parser": "^6.0.2",
-    "postcss-styl": "^0.5.0",
+    "postcss-styl": "^0.5.1",
     "vue-eslint-parser": "^7.0.0 || ^6.0.0 || ^5.0.0"
   },
   "peerDependencies": {
