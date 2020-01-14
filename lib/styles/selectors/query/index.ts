@@ -506,6 +506,12 @@ function* genElementsByClassName(
             // If the class name is documented, it is considered to match all elements.
             yield* elements
             return
+        } else if (removeModifierClassName) {
+            if (removeModifierClassName.matchString(modClassName)) {
+                // If the class name is documented, it is considered to match all elements.
+                yield* elements
+                return
+            }
         }
     }
 
