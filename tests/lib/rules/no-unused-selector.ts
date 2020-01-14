@@ -301,6 +301,29 @@ tester.run("no-unused-selector", rule, {
                 },
             ],
         },
+        {
+            code: `
+            <template>
+                <div></div>
+            </template>
+            <style scoped>
+            /* .element        - doc. */
+            .element {
+                color: green;
+            }
+            .element--mod {
+                color: red;
+            }
+            </style>`,
+            options: [
+                {
+                    ignoreBEMModifier: true,
+                    captureClassesFromDoc: [
+                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+                    ],
+                },
+            ],
+        },
         // ignore nodes
         `
         <template>
