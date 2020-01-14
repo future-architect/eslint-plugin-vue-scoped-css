@@ -215,6 +215,14 @@ tester.run("require-selector-used-inside", rule, {
         .foo-leave-active {}
         </style>
         `,
+        `
+        <script></script>
+        <style scoped lang="scss">
+        .no-template {
+            color: red;
+        }
+        </style>
+        `,
         // options
         // ignoreBEMModifier
         {

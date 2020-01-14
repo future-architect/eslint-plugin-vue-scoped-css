@@ -253,7 +253,14 @@ tester.run("no-unused-selector", rule, {
         .foo-leave-active {}
         </style>
         `,
-
+        `
+        <script></script>
+        <style scoped lang="scss">
+        .no-template {
+            color: red;
+        }
+        </style>
+        `,
         // options
         // ignoreBEMModifier
         {
