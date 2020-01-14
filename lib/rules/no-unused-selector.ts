@@ -21,6 +21,7 @@ import {
     StyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
+import { hasTemplateBlock } from "../utils/utils"
 
 /**
  * Gets scoped selectors.
@@ -100,6 +101,9 @@ module.exports = {
         type: "suggestion", // "problem",
     },
     create(context: RuleContext) {
+        if (!hasTemplateBlock(context)) {
+            return {}
+        }
         const styles = getStyleContexts(context)
             .filter(StyleContext.isValid)
             .filter(style => style.scoped)
