@@ -46,7 +46,7 @@ module.exports = {
                         messageId: "add",
                         fix(fixer) {
                             const close = tokenStore.getLastToken(node.startTag)
-                            return fixer.insertTextBefore(
+                            return close && fixer.insertTextBefore(
                                 // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
                                 /// @ts-ignore
                                 close,
