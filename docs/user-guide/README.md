@@ -118,7 +118,7 @@ Example **.vscode/settings.json**:
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    { "language": "vue", "autoFix": true }
+    "vue",
   ]
 }
 ```
