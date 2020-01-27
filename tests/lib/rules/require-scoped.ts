@@ -1,5 +1,8 @@
 import { RuleTester } from "eslint"
+import semver from "semver"
 const rule = require("../../../lib/rules/require-scoped")
+
+const parserVersion = require("vue-eslint-parser/package.json").version
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -81,5 +84,25 @@ tester.run("require-scoped", rule, {
                 },
             ],
         },
+        ...(semver.satisfies(parserVersion, ">=7.0.0")
+            ? [
+                  {
+                      code: `
+                        <script>
+                        </script>
+                        <style />
+                        `,
+                      errors: [
+                          {
+                              messageId: "missing",
+                              line: 4,
+                              column: 25,
+                              endLine: 4,
+                              endColumn: 34,
+                          },
+                      ],
+                  },
+              ]
+            : []),
     ],
 })
