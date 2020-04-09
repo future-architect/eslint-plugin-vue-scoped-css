@@ -251,11 +251,11 @@
                     "column": 2
                 }
             },
-            "start": 150,
-            "end": 150,
+            "start": 152,
+            "end": 152,
             "range": [
-                150,
-                150
+                152,
+                152
             ],
             "value": " ",
             "selector": " "
@@ -272,11 +272,11 @@
                     "column": 7
                 }
             },
-            "start": 150,
-            "end": 155,
+            "start": 152,
+            "end": 157,
             "range": [
-                150,
-                155
+                152,
+                157
             ],
             "value": "quux",
             "selector": ".quux"

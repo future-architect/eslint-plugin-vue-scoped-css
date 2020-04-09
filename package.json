@@ -62,7 +62,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "eslint-plugin-vue-scoped-css": "^0.3.0",
     "eslint4b": "^6.7.1",
-    "mocha": "^6.2.2",
+    "mocha": "^7.1.1",
     "nyc": "^14.1.1",
     "pack": "^2.2.0",
     "raw-loader": "^3.1.0",
@@ -71,7 +71,7 @@
     "ts-node": "^8.5.2",
     "typescript": "^3.7.2",
     "vue-eslint-editor": "^0.1.4",
-    "vuepress": "^1.2.0"
+    "vuepress": "^1.4.0"
   },
   "dependencies": {
     "eslint-utils": "^1.4.3",
@@ -80,7 +80,7 @@
     "postcss-safe-parser": "^4.0.1",
     "postcss-scss": "^2.0.0",
     "postcss-selector-parser": "^6.0.2",
-    "postcss-styl": "^0.5.1",
+    "postcss-styl": "^0.5.10",
     "vue-eslint-parser": "^7.0.0 || ^6.0.0 || ^5.0.0"
   },
   "peerDependencies": {

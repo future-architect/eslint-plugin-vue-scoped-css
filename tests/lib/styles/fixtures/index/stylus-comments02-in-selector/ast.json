@@ -11,10 +11,10 @@
         }
     },
     "start": 63,
-    "end": 173,
+    "end": 175,
     "range": [
         63,
-        173
+        175
     ],
     "nodes": [
         {
@@ -30,10 +30,10 @@
                 }
             },
             "start": 64,
-            "end": 171,
+            "end": 173,
             "range": [
                 64,
-                171
+                173
             ],
             "selectorText": ".foo",
             "rawSelectorText": ".foo",
@@ -95,13 +95,13 @@
                         }
                     },
                     "start": 71,
-                    "end": 171,
+                    "end": 173,
                     "range": [
                         71,
-                        171
+                        173
                     ],
-                    "selectorText": ".bar \n  ,.baz, \n  .qux, \n\n  .quux",
-                    "rawSelectorText": ".bar // {comment1}\n  .baz, // {comment2}\n  .qux, /* comment3 */\n// comment 4\n  .quux",
+                    "selectorText": ".bar \n  ,.baz, \n  .qux, \n  \n  .quux",
+                    "rawSelectorText": ".bar // {comment1}\n  .baz, // {comment2}\n  .qux, /* comment3 */\n  // comment 4\n  .quux",
                     "selectors": [
                         {
                             "type": "VCSSSelector",
@@ -241,11 +241,11 @@
                                     "column": 7
                                 }
                             },
-                            "start": 150,
-                            "end": 155,
+                            "start": 152,
+                            "end": 157,
                             "range": [
-                                150,
-                                155
+                                152,
+                                157
                             ],
                             "nodes": [
                                 {
@@ -260,11 +260,11 @@
                                             "column": 7
                                         }
                                     },
-                                    "start": 150,
-                                    "end": 155,
+                                    "start": 152,
+                                    "end": 157,
                                     "range": [
-                                        150,
-                                        155
+                                        152,
+                                        157
                                     ],
                                     "value": "quux",
                                     "selector": ".quux"
@@ -285,11 +285,11 @@
                                     "column": 15
                                 }
                             },
-                            "start": 160,
-                            "end": 171,
+                            "start": 162,
+                            "end": 173,
                             "range": [
-                                160,
-                                171
+                                162,
+                                173
                             ],
                             "property": "width",
                             "value": "10px",
@@ -366,18 +366,18 @@
             "loc": {
                 "start": {
                     "line": 9,
-                    "column": 1
+                    "column": 3
                 },
                 "end": {
                     "line": 10,
                     "column": 0
                 }
             },
-            "start": 136,
-            "end": 148,
+            "start": 138,
+            "end": 150,
             "range": [
-                136,
-                148
+                138,
+                150
             ],
             "text": " comment 4"
         }

@@ -1,4 +1,5 @@
 import { RuleContext, AST, TokenStore } from "../types"
+import { Rule } from "eslint"
 import {
     getStyleContexts,
     StyleContext,
@@ -44,7 +45,7 @@ module.exports = {
                 suggest: [
                     {
                         messageId: "add",
-                        fix(fixer) {
+                        fix(fixer: Rule.RuleFixer) {
                             const close = tokenStore.getLastToken(node.startTag)
                             return (
                                 close &&
