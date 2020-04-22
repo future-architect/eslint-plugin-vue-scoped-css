@@ -8,15 +8,28 @@
   "typescript.validate.enable": true,
   "javascript.validate.enable": false,
   "eslint.workingDirectories": [
-    {"directory": "./", "changeProcessCWD": true },
-    {"directory": "./docs/.vuepress", "changeProcessCWD": true }
+    "./", "./docs/.vuepress"
   ],
   "vetur.validation.script": false,
   "vetur.validation.style": false,
   "css.validate": false,
   "typescript.tsdk": "node_modules/typescript/lib",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
   },
-  "editor.codeActionsOnSaveTimeout": 7500
+  "editor.codeActionsOnSaveTimeout": 7500,
+  "stylelint.customSyntax": "stylelint-plugin-stylus/custom-syntax",
+  "stylelint.validate": [
+    "css",
+    "html",
+    "less",
+    "postcss",
+    "sass",
+    "scss",
+    "vue",
+    "vue-html",
+    "vue-postcss",
+    "stylus"
+  ]
 }
