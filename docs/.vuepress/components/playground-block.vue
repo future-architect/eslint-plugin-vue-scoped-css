@@ -155,10 +155,10 @@ function equalsRules(a, b) {
     flex-wrap: wrap;
     height: calc(100% - 100px);
     border: 1px solid #cfd4db;
-
     background-color: #282c34;
     color: #f8c555;
 }
+
 .main-content > .rules-settings {
     height: 100%;
     overflow: auto;
@@ -180,6 +180,7 @@ function equalsRules(a, b) {
     box-sizing: border-box;
     padding: 3px;
 }
+
 .main-content > .editor-content > .messages {
     height: 30%;
     width: 100%;
