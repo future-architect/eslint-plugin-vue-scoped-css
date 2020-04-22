@@ -31,6 +31,38 @@ This rule reports the `<style>` tags missing the `scoped` attribute.
 
 </eslint-code-block>
 
+## :wrench: Options
+
+Default is set to `always`.
+
+```json
+{
+  "vue-scoped-css/require-scoped": ["error", "always" | "never"]
+}
+```
+
+- `"always"` (default) ... requires `scoped`.
+- `"never"` ... disallowed `scoped`.
+
+### `"never"`
+
+<eslint-code-block :rules="{'vue-scoped-css/require-scoped': ['error', 'never']}">
+
+```vue
+<template>
+</template>
+
+<!-- ✓ GOOD -->
+<style>
+</style>
+
+<!-- ✗ BAD -->
+<style scoped>
+</style>
+```
+
+</eslint-code-block>
+
 ## :books: Further reading
 
 - [Vue Loader - Scoped CSS]

@@ -3,13 +3,10 @@ import assert from "assert"
 import fs from "fs"
 import path from "path"
 
-// eslint-disable-next-line @mysticatea/ts/ban-ts-ignore
 // @ts-ignore
 import CSSStringifier from "postcss/lib/stringifier"
-// eslint-disable-next-line @mysticatea/ts/ban-ts-ignore
 // @ts-ignore
 import SCSSStringifier from "postcss-scss/lib/scss-stringifier"
-// eslint-disable-next-line @mysticatea/ts/ban-ts-ignore
 // @ts-ignore
 import StylusStringifier from "postcss-styl/lib/stringifier"
 

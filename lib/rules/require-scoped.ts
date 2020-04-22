@@ -20,12 +20,15 @@ module.exports = {
         fixable: null,
         messages: {
             missing: "Missing `scoped` attribute.",
+            forbidden: "`scoped` attribute are forbidden.",
             add: "Add `scoped` attribute.",
+            remove: "Remove `scoped` attribute.",
         },
-        schema: [],
+        schema: [{ enum: ["always", "never"] }],
         type: "suggestion",
     },
     create(context: RuleContext) {
+        const always = context.options[0] !== "never"
         const styles = getStyleContexts(context).filter(StyleContext.isValid)
         if (!styles.length) {
             return {}
@@ -37,7 +40,7 @@ module.exports = {
          * Reports the given node.
          * @param {ASTNode} node node to report
          */
-        function report(node: AST.VElement) {
+        function reportAlways(node: AST.VElement) {
             reporter.report({
                 node: node.startTag,
                 messageId: "missing",
@@ -50,8 +53,7 @@ module.exports = {
                             return (
                                 close &&
                                 fixer.insertTextBefore(
-                                    // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
-                                    /// @ts-ignore
+                                    // @ts-ignore
                                     close,
                                     " scoped",
                                 )
@@ -62,11 +64,39 @@ module.exports = {
             })
         }
 
+        /**
+         * Reports the given node.
+         * @param {ASTNode} node node to report
+         */
+        function reportNever(node: AST.VElement) {
+            const scopedAttr = node.startTag.attributes.find(
+                attr => attr.key.name === "scoped",
+            )
+            reporter.report({
+                node: scopedAttr!,
+                messageId: "forbidden",
+                data: {},
+                suggest: [
+                    {
+                        messageId: "remove",
+                        fix(fixer: Rule.RuleFixer) {
+                            return fixer.remove(
+                                // @ts-ignore
+                                scopedAttr,
+                            )
+                        },
+                    },
+                ],
+            })
+        }
+
         return {
             "Program:exit"() {
                 for (const style of styles) {
-                    if (!style.scoped) {
-                        report(style.styleElement)
+                    if (always && !style.scoped) {
+                        reportAlways(style.styleElement)
+                    } else if (!always && style.scoped) {
+                        reportNever(style.styleElement)
                     }
                 }
             },

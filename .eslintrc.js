@@ -16,7 +16,8 @@ module.exports = {
     rules: {
         'require-jsdoc': 'error',
         "no-warning-comments": "warn",
-        'no-lonely-if': 'off'
+        'no-lonely-if': 'off',
+        "@mysticatea/ts/ban-ts-ignore": 'off'
     },
     overrides: [
         {
