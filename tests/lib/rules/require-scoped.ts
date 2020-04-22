@@ -24,6 +24,15 @@ tester.run("require-scoped", rule, {
         <template>
         </template>
         `,
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: ["never"],
+        },
     ],
     invalid: [
         {
@@ -40,8 +49,7 @@ tester.run("require-scoped", rule, {
                     column: 13,
                     endLine: 4,
                     endColumn: 20,
-                    // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
-                    /// @ts-ignore
+                    // @ts-ignore
                     suggestions: [
                         {
                             desc: "Add `scoped` attribute.",
@@ -69,8 +77,7 @@ tester.run("require-scoped", rule, {
                     column: 13,
                     endLine: 4,
                     endColumn: 22,
-                    // eslint-disable-next-line @mysticatea/ts/ban-ts-ignore, spaced-comment
-                    /// @ts-ignore
+                    // @ts-ignore
                     suggestions: [
                         {
                             desc: "Add `scoped` attribute.",
@@ -104,5 +111,35 @@ tester.run("require-scoped", rule, {
                   },
               ]
             : []),
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: ["never"],
+            errors: [
+                {
+                    messageId: "forbidden",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                    // @ts-ignore
+                    suggestions: [
+                        {
+                            desc: "Remove `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style >
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
     ],
 })
