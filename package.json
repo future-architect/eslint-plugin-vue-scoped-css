@@ -59,7 +59,7 @@
     "eslint": "^7.0.0",
     "eslint-plugin-internal-rules": "file:./eslint-internal-rules",
     "eslint-plugin-vue": "^6.2.2",
-    "eslint-plugin-vue-scoped-css": "file:.",
+    "eslint-plugin-vue-scoped-css": "^0.4.0",
     "eslint4b": "^6.8.0",
     "mocha": "^7.1.2",
     "nyc": "^15.0.1",

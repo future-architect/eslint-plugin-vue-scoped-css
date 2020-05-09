@@ -18,7 +18,6 @@ before_install:
   - if [ "$DEPS" = "low" ]; then npm i -S eslint@5.0.0 eslint-plugin-vue@5.0.0 vue-eslint-parser@5.0.0; fi
   - if [ "$DEPS" = "eslint6" ]; then npm i -S eslint@6.0.0; fi
 before_script:
-  - if [ "$LINT" = "true" ]; then npm i; fi
   - if [ "$LINT" = "true" ]; then npm run lint; fi
 before_deploy:
   - npm run build
