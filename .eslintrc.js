@@ -72,11 +72,7 @@ module.exports = {
             },
         },
         {
-            files: [
-                "docs/.vuepress/**",
-                "docs/.vuepress/*",
-                "docs/.vuepress/*.js",
-            ],
+            files: ["docs/.vuepress/**"],
             parserOptions: {
                 sourceType: "module",
                 ecmaVersion: 2019,
@@ -94,6 +90,7 @@ module.exports = {
                 "@mysticatea/vue/html-self-closing": "off",
                 "@mysticatea/node/no-unsupported-features/es-syntax": "off",
                 "@mysticatea/node/no-missing-import": "off",
+                "@mysticatea/node/no-missing-require": "off",
             },
         },
     ],
