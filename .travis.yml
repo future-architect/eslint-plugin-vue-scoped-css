@@ -6,6 +6,7 @@ matrix:
     - node_js: "node"
       env: CI=coverage
     - node_js: "8"
+      env: DEPS=eslint6
     - node_js: "8"
       env: DEPS=low
     - node_js: "10"
@@ -14,6 +15,7 @@ matrix:
     - node_js: "14"
 before_install:
   - if [ "$DEPS" = "low" ]; then npm i -S eslint@5.0.0 eslint-plugin-vue@5.0.0 vue-eslint-parser@5.0.0; fi
+  - if [ "$DEPS" = "eslint6" ]; then npm i -S eslint@6.0.0; fi
 before_deploy:
   - npm run build
 deploy:
