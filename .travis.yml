@@ -10,10 +10,10 @@ matrix:
     - node_js: "8"
       env: DEPS=low
     - node_js: "10"
+      env: LINT=true
     - node_js: "12"
     - node_js: "13"
     - node_js: "14"
-      env: LINT=true
 before_install:
   - if [ "$DEPS" = "low" ]; then npm i -S eslint@5.0.0 eslint-plugin-vue@5.0.0 vue-eslint-parser@5.0.0; fi
   - if [ "$DEPS" = "eslint6" ]; then npm i -S eslint@6.0.0; fi
