@@ -72,7 +72,11 @@ module.exports = {
             },
         },
         {
-            files: ["docs/.vuepress/**", "docs/.vuepress/*"],
+            files: [
+                "docs/.vuepress/**",
+                "docs/.vuepress/*",
+                "docs/.vuepress/*.js",
+            ],
             parserOptions: {
                 sourceType: "module",
                 ecmaVersion: 2019,
