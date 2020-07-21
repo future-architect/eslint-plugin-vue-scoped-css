@@ -17,7 +17,7 @@ import {
     ResolvedSelector,
     ResolvedSelectors,
 } from "./css-selector-resolver"
-import { PostCSSSPCombinatorNode } from "../../../types"
+import type { PostCSSSPCombinatorNode } from "../../../types"
 
 export class SCSSSelectorResolver extends CSSSelectorResolver {
     /**

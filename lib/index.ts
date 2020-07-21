@@ -1,9 +1,10 @@
 import { rules as ruleList } from "./utils/rules"
-import { Rule } from "./types"
+import type { Rule } from "./types"
 
 const configs = {
     base: require("./configs/base"),
     recommended: require("./configs/recommended"),
+    "vue3-recommended": require("./configs/vue3-recommended"),
     all: require("./configs/all"),
 }
 

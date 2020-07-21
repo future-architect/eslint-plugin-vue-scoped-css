@@ -1,4 +1,4 @@
-import {
+import type {
     SourceLocation,
     Range,
     PostCSSNode,
@@ -69,7 +69,7 @@ class Node<T extends string> {
  */
 class HasParentNode<
     T extends string,
-    P extends VCSSContainerNode | VCSSSelectorContainerNode
+    P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo
 > extends Node<T> {
     public readonly parent: P
     protected constructor(
@@ -373,10 +373,10 @@ export class VCSSUnknown extends HasParentNode<
  */
 export class VCSSSelector extends HasParentNode<
     "VCSSSelector",
-    VCSSStyleRule | VCSSAtRule
+    VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo
 > {
-    public nodes: VCSSSelectorNode[]
-    public parent: VCSSStyleRule | VCSSAtRule
+    public nodes: VCSSSelectorValueNode[]
+    public parent: VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -392,8 +392,8 @@ export class VCSSSelector extends HasParentNode<
         start: number,
         end: number,
         props: {
-            parent: VCSSStyleRule | VCSSAtRule
-            nodes?: VCSSSelectorNode[]
+            parent: VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo
+            nodes?: VCSSSelectorValueNode[]
         },
     ) {
         super(node, "VCSSSelector", loc, start, end, props)
@@ -412,7 +412,7 @@ export class VCSSSelector extends HasParentNode<
     }
 
     public get selector(): string {
-        return this.nodes.map(n => n.selector).join("")
+        return this.nodes.map((n) => n.selector).join("")
     }
 }
 /**
@@ -420,7 +420,7 @@ export class VCSSSelector extends HasParentNode<
  */
 export class VCSSTypeSelector extends HasParentNode<
     "VCSSTypeSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -439,7 +439,7 @@ export class VCSSTypeSelector extends HasParentNode<
         start: number,
         end: number,
         props: {
-            parent: VCSSSelectorContainerNode
+            parent: VCSSSelector
             value?: string
         },
     ) {
@@ -455,7 +455,7 @@ export class VCSSTypeSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSTypeSelector {
@@ -467,7 +467,7 @@ export class VCSSTypeSelector extends HasParentNode<
  */
 export class VCSSIDSelector extends HasParentNode<
     "VCSSIDSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -485,7 +485,7 @@ export class VCSSIDSelector extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSSelectorContainerNode; value?: string },
+        props: { parent: VCSSSelector; value?: string },
     ) {
         super(node, "VCSSIDSelector", loc, start, end, props)
         this.value = getProp(props, node, "value")
@@ -499,7 +499,7 @@ export class VCSSIDSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSIDSelector {
@@ -511,7 +511,7 @@ export class VCSSIDSelector extends HasParentNode<
  */
 export class VCSSClassSelector extends HasParentNode<
     "VCSSClassSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -529,7 +529,7 @@ export class VCSSClassSelector extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSSelectorContainerNode; value?: string },
+        props: { parent: VCSSSelector; value?: string },
     ) {
         super(node, "VCSSClassSelector", loc, start, end, props)
         this.value = getProp(props, node, "value")
@@ -543,7 +543,7 @@ export class VCSSClassSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSClassSelector {
@@ -555,7 +555,7 @@ export class VCSSClassSelector extends HasParentNode<
  */
 export class VCSSNestingSelector extends HasParentNode<
     "VCSSNestingSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -573,7 +573,7 @@ export class VCSSNestingSelector extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSSelectorContainerNode; value?: string },
+        props: { parent: VCSSSelector; value?: string },
     ) {
         super(node, "VCSSNestingSelector", loc, start, end, props)
         this.value = getProp(props, node, "value")
@@ -587,7 +587,7 @@ export class VCSSNestingSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSNestingSelector {
@@ -599,7 +599,7 @@ export class VCSSNestingSelector extends HasParentNode<
  */
 export class VCSSUniversalSelector extends HasParentNode<
     "VCSSUniversalSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -617,7 +617,7 @@ export class VCSSUniversalSelector extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSSelectorContainerNode; value?: string },
+        props: { parent: VCSSSelector; value?: string },
     ) {
         super(node, "VCSSUniversalSelector", loc, start, end, props)
         this.value = getProp(props, node, "value")
@@ -631,7 +631,7 @@ export class VCSSUniversalSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSUniversalSelector {
@@ -643,7 +643,7 @@ export class VCSSUniversalSelector extends HasParentNode<
  */
 export class VCSSAttributeSelector extends HasParentNode<
     "VCSSAttributeSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string | null
     public readonly attribute: string
@@ -666,7 +666,7 @@ export class VCSSAttributeSelector extends HasParentNode<
         start: number,
         end: number,
         props: {
-            parent: VCSSSelectorContainerNode
+            parent: VCSSSelector
             value?: string
             insensitiveFlag?: string
         },
@@ -718,7 +718,7 @@ export class VCSSAttributeSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSAttributeSelector {
@@ -730,10 +730,10 @@ export class VCSSAttributeSelector extends HasParentNode<
  */
 export class VCSSSelectorPseudo extends HasParentNode<
     "VCSSSelectorPseudo",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
-    public nodes: VCSSSelectorNode[]
+    public nodes: VCSSSelector[]
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -749,8 +749,8 @@ export class VCSSSelectorPseudo extends HasParentNode<
         start: number,
         end: number,
         props: {
-            parent: VCSSSelectorContainerNode
-            nodes?: VCSSSelectorNode[]
+            parent: VCSSSelector
+            nodes?: VCSSSelector[]
         },
     ) {
         super(node, "VCSSSelectorPseudo", loc, start, end, props)
@@ -766,7 +766,7 @@ export class VCSSSelectorPseudo extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSSelectorPseudo {
@@ -777,7 +777,7 @@ export class VCSSSelectorPseudo extends HasParentNode<
         if (!this.nodes.length) {
             return this.value
         }
-        const params = this.nodes.map(n => n.selector).join(",")
+        const params = this.nodes.map((n) => n.selector).join(",")
         return `${this.value}(${params})`
     }
 }
@@ -787,7 +787,7 @@ export class VCSSSelectorPseudo extends HasParentNode<
  */
 export class VCSSSelectorCombinator extends HasParentNode<
     "VCSSSelectorCombinator",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public value: string
     public selector: string
@@ -805,7 +805,7 @@ export class VCSSSelectorCombinator extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSSelectorContainerNode },
+        props: { parent: VCSSSelector; value?: string },
     ) {
         super(node, "VCSSSelectorCombinator", loc, start, end, props)
         this.value = getProp(props, node, "value")
@@ -819,7 +819,7 @@ export class VCSSSelectorCombinator extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSSelectorCombinator {
@@ -832,7 +832,7 @@ export class VCSSSelectorCombinator extends HasParentNode<
  */
 export class VCSSUnknownSelector extends HasParentNode<
     "VCSSUnknownSelector",
-    VCSSSelectorContainerNode
+    VCSSSelector
 > {
     public readonly value: string
     public readonly selector: string
@@ -851,7 +851,7 @@ export class VCSSUnknownSelector extends HasParentNode<
         start: number,
         end: number,
         props: {
-            parent: VCSSSelectorContainerNode
+            parent: VCSSSelector
         },
     ) {
         super(node, "VCSSUnknownSelector", loc, start, end, props)
@@ -866,7 +866,7 @@ export class VCSSUnknownSelector extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSSelectorContainerNode
+            parent?: VCSSSelector
             value?: string
         },
     ): VCSSUnknownSelector {
@@ -879,7 +879,7 @@ export class VCSSUnknownSelector extends HasParentNode<
  */
 export class VCSSComment extends HasParentNode<
     "VCSSComment",
-    VCSSContainerNode | VCSSSelectorContainerNode
+    VCSSContainerNode | VCSSSelector
 > {
     public readonly node: PostCSSComment | PostCSSSPCommentNode
     public readonly text: string
@@ -899,7 +899,7 @@ export class VCSSComment extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSContainerNode | VCSSSelectorContainerNode },
+        props: { parent: VCSSContainerNode | VCSSSelector },
     ) {
         super(node, "VCSSComment", loc, start, end, props)
         this.node = node
@@ -913,7 +913,7 @@ export class VCSSComment extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSContainerNode | VCSSSelectorContainerNode
+            parent?: VCSSContainerNode | VCSSSelector
             node?: PostCSSComment | PostCSSSPCommentNode
             text?: string
         },
@@ -934,7 +934,7 @@ export class VCSSComment extends HasParentNode<
  */
 export class VCSSInlineComment extends HasParentNode<
     "VCSSInlineComment",
-    VCSSContainerNode | VCSSSelectorContainerNode
+    VCSSContainerNode | VCSSSelector
 > {
     public readonly node: PostCSSComment | PostCSSSPCommentNode
     public readonly text: string
@@ -954,7 +954,7 @@ export class VCSSInlineComment extends HasParentNode<
         loc: SourceLocation,
         start: number,
         end: number,
-        props: { parent: VCSSContainerNode | VCSSSelectorContainerNode },
+        props: { parent: VCSSContainerNode | VCSSSelector },
     ) {
         super(node, "VCSSInlineComment", loc, start, end, props)
         this.node = node
@@ -968,7 +968,7 @@ export class VCSSInlineComment extends HasParentNode<
      */
     public copy(
         props?: CopyProps & {
-            parent?: VCSSContainerNode | VCSSSelectorContainerNode
+            parent?: VCSSContainerNode | VCSSSelector
             node?: PostCSSComment | PostCSSSPCommentNode
             text?: string
         },
@@ -1010,10 +1010,7 @@ export type VCSSSelectorNode =
     | VCSSSelectorPseudo
     | VCSSSelectorCombinator
     | VCSSUnknownSelector
-    | VCSSSelectorContainerNode
-export type VCSSSelectorContainerNode = (VCSSSelector | VCSSSelectorPseudo) & {
-    nodes: VCSSSelectorValueNode[]
-}
+// export type VCSSSelectorContainerNode = VCSSSelector | VCSSSelectorPseudo
 export type VCSSSelectorValueNode =
     | VCSSTypeSelector
     | VCSSIDSelector

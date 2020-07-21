@@ -1,5 +1,5 @@
 import lodash from "lodash"
-import { LineAndColumnData, PostCSSSPNode } from "../../../types"
+import type { LineAndColumnData, PostCSSSPNode } from "../../../types"
 import { isPostCSSSPContainer } from "../utils"
 
 class SourceCodeLocationResolver {

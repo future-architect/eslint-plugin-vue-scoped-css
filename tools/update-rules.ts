@@ -6,12 +6,12 @@ import { rules } from "./lib/load-rules"
 const isWin = os.platform().startsWith("win")
 
 let content = `
-import { Rule } from "../types"
+import type { Rule } from "../types"
 
 const baseRules = [
     ${rules
         .map(
-            rule => `{
+            (rule) => `{
     rule: require("../rules/${rule.meta.docs.ruleName}"),
     ruleName: "${rule.meta.docs.ruleName}",
     ruleId: "${rule.meta.docs.ruleId}",
@@ -33,10 +33,12 @@ export const rules = baseRules.map(obj => {
  * @param {string} category category
  * @returns {Array} rules
  */
-export function collectRules(category?: string): { [key: string]: string } {
+export function collectRules(
+    category?: "recommended" | "vue3-recommended",
+): { [key: string]: string } {
     return rules.reduce((obj, rule) => {
         if (
-            (!category || rule.meta.docs.category === category) &&
+            (!category || rule.meta.docs.categories.includes(category)) &&
             !rule.meta.deprecated
         ) {
             obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error"

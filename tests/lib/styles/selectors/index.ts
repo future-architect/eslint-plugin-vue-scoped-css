@@ -28,7 +28,7 @@ describe("CSS Selectors Test.", () => {
 
                 const actual = JSON.stringify(
                     getResolvedSelectors(style as ValidStyleContext).map(
-                        r => r.selector,
+                        (r) => r.selector,
                     ),
                     replacer,
                     4,
@@ -47,8 +47,8 @@ describe("CSS Selectors Test.", () => {
                 const resultPath = path.join(dir, "selectors-text.json")
 
                 const actual = JSON.stringify(
-                    getResolvedSelectors(style as ValidStyleContext).map(r =>
-                        r.selector.map(s => s.selector),
+                    getResolvedSelectors(style as ValidStyleContext).map((r) =>
+                        r.selector.map((s) => s.selector),
                     ),
                     replacer,
                     4,

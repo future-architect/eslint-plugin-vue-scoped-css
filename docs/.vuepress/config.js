@@ -4,9 +4,9 @@ const categories = require("./categories")
 const webpack = require("webpack")
 
 const uncategorizedRules = rules.filter(
-    rule => !rule.meta.docs.category && !rule.meta.deprecated
+    (rule) => !rule.meta.docs.category && !rule.meta.deprecated
 )
-const deprecatedRules = rules.filter(rule => rule.meta.deprecated)
+const deprecatedRules = rules.filter((rule) => rule.meta.deprecated)
 
 const extraCategories = []
 if (uncategorizedRules.length > 0) {
@@ -99,7 +99,7 @@ module.exports = {
                             }) => [`/rules/${ruleName}`, ruleId]
                         ),
                     }))
-                    .filter(menu => Boolean(menu.children.length)),
+                    .filter((menu) => Boolean(menu.children.length)),
 
                 // Rules in no category.
                 ...extraCategories,

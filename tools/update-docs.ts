@@ -2,7 +2,7 @@ import path from "path"
 import fs from "fs"
 import { rules } from "../lib/utils/rules"
 import { configs } from "./lib/load-configs"
-import { Rule } from "../lib/types"
+import type { Rule } from "../lib/types"
 
 //eslint-disable-next-line require-jsdoc
 function formatItems(items: string[]) {
@@ -15,22 +15,22 @@ function formatItems(items: string[]) {
 }
 
 //eslint-disable-next-line require-jsdoc
-function getPresets(category: string) {
-    const categoryConfig = configs.find(conf => conf.name === category)
-    if (!categoryConfig) {
+function getPresets(categories: string[]) {
+    const categoryConfigs = configs.filter((conf) =>
+        categories.includes(conf.name),
+    )
+    if (!categoryConfigs.length) {
         return []
     }
 
-    const presets = [categoryConfig.configId]
-    const subTargets = configs.filter(conf =>
-        conf.extends.find(ext => ext.name === category),
+    const presets = new Set<string>(categoryConfigs.map((cat) => cat.configId))
+    const subTargets = configs.filter((conf) =>
+        conf.extends.find((ext) => categories.includes(ext.name)),
     )
-    for (const sub of subTargets) {
-        for (const name of getPresets(sub.name)) {
-            presets.push(name)
-        }
+    for (const name of getPresets(subTargets.map((s) => s.name))) {
+        presets.add(name)
     }
-    return presets
+    return [...presets]
 }
 
 //eslint-disable-next-line require-jsdoc
@@ -62,7 +62,7 @@ class DocFile {
             meta: {
                 fixable,
                 deprecated,
-                docs: { ruleId, description, category, replacedBy },
+                docs: { ruleId, description, categories, replacedBy },
             },
         } = this.rule
         const title = `# ${ruleId}\n\n> ${description}`
@@ -71,7 +71,7 @@ class DocFile {
         if (deprecated) {
             if (replacedBy) {
                 const replacedRules = replacedBy.map(
-                    name => `[vue-scoped-css/${name}](${name}.md) rule`,
+                    (name) => `[vue-scoped-css/${name}](${name}.md) rule`,
                 )
                 notes.push(
                     `- :warning: This rule was **deprecated** and replaced by ${formatItems(
@@ -84,14 +84,16 @@ class DocFile {
         } else {
             const presets = Array.from(
                 new Set(
-                    getPresets(category).concat(["plugin:vue-scoped-css/all"]),
+                    getPresets(categories).concat([
+                        "plugin:vue-scoped-css/all",
+                    ]),
                 ),
             )
 
             if (presets.length) {
                 notes.push(
                     `- :gear: This rule is included in ${formatItems(
-                        presets.map(c => `\`"${c}"\``),
+                        presets.map((c) => `\`"${c}"\``),
                     )}.`,
                 )
             }
@@ -174,7 +176,7 @@ class DocFile {
             description,
         }
         const computed = `---\n${Object.keys(fileIntro)
-            .map(key => `${key}: ${yamlValue((fileIntro as any)[key])}`)
+            .map((key) => `${key}: ${yamlValue((fileIntro as any)[key])}`)
             .join("\n")}\n---\n`
 
         const fileIntroPattern = /^---\n(.*\n)+---\n*/gu
@@ -189,9 +191,7 @@ class DocFile {
     }
 
     public write() {
-        const isWin = require("os")
-            .platform()
-            .startsWith("win")
+        const isWin = require("os").platform().startsWith("win")
 
         this.content = this.content.replace(/\r?\n/gu, isWin ? "\r\n" : "\n")
 

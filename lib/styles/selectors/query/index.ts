@@ -9,8 +9,11 @@ import {
     isAdjacentSiblingCombinator,
     isGeneralSiblingCombinator,
     isDeepCombinator,
+    isVDeepPseudo,
+    isVSlottedPseudo,
+    isVGlobalPseudo,
+    normalizePseudoParams,
 } from "../../utils/selectors"
-
 import {
     getParentElement,
     isSkipElement,
@@ -20,9 +23,13 @@ import {
     isRootElement,
     isSlotElement,
 } from "./elements"
-import { VCSSSelectorNode } from "../../ast"
-import { AST, RuleContext, ASTNode } from "../../../types"
-import { ParsedQueryOptions } from "../../../options"
+import type {
+    VCSSSelectorNode,
+    VCSSSelector,
+    VCSSSelectorValueNode,
+} from "../../ast"
+import type { AST, RuleContext, ASTNode } from "../../../types"
+import type { ParsedQueryOptions } from "../../../options"
 import {
     getAttributeValueNodes,
     getReferenceExpressions,
@@ -103,7 +110,7 @@ export class QueryContext {
      */
     public split(): ElementsQueryContext[] {
         return this.elements.map(
-            e => new ElementsQueryContext([e], this.document),
+            (e) => new ElementsQueryContext([e], this.document),
         )
     }
 }
@@ -128,8 +135,8 @@ class VueDocumentQueryContext extends QueryContext {
         if (options.captureClassesFromDoc.length > 0) {
             this.docsModifiers = getStyleContexts(context)
                 .filter(StyleContext.isValid)
-                .filter(style => style.scoped)
-                .map(style =>
+                .filter((style) => style.scoped)
+                .map((style) =>
                     extractClassesFromDoc(style, options.captureClassesFromDoc),
                 )
                 .reduce((r, a) => r.concat(a), [])
@@ -220,7 +227,30 @@ function* queryStep(
             yield* genGeneralSiblingElements(elements)
             return
         }
+    } else if (isVDeepPseudo(selectorNode)) {
+        yield* genVDeepElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            query,
+        )
+        return
+    } else if (isVSlottedPseudo(selectorNode)) {
+        yield* genVSlottedElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            query,
+        )
+        return
+    } else if (isVGlobalPseudo(selectorNode)) {
+        yield* genVGlobalElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            document,
+            query,
+        )
+        return
     }
+
     if (isTypeSelector(selectorNode)) {
         yield* genElementsByTagName(elements, Template.ofSelector(selectorNode))
         return
@@ -244,6 +274,22 @@ function* queryStep(
     }
     // Other selectors are ignored because they are likely to be changed dynamically.
     yield* elements
+
+    /**
+     * Query for ::v-xxx pseudo
+     */
+    function query(
+        els: AST.VElement[],
+        sels: VCSSSelectorValueNode[],
+    ): AST.VElement[] {
+        return sels.reduce(
+            (
+                res: AST.VElement[],
+                sel: VCSSSelectorValueNode,
+            ): AST.VElement[] => [...queryStep(res, sel, document)],
+            els,
+        )
+    }
 }
 
 /**
@@ -274,8 +320,46 @@ function* reverseQueryStep(
             yield* genPrevGeneralSiblingElements(elements)
             return
         }
+    } else if (isVDeepPseudo(selectorNode)) {
+        yield* genVDeepElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            query,
+        )
+        return
+    } else if (isVSlottedPseudo(selectorNode)) {
+        yield* genVSlottedElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            query,
+        )
+        return
+    } else if (isVGlobalPseudo(selectorNode)) {
+        yield* genVGlobalElements(
+            elements,
+            normalizePseudoParams(selectorNode, selectorNode.nodes),
+            document,
+            query,
+        )
+        return
     }
     yield* queryStep(elements, selectorNode, document)
+
+    /**
+     * Query for ::v-xxx pseudo
+     */
+    function query(
+        els: AST.VElement[],
+        sels: VCSSSelectorValueNode[],
+    ): AST.VElement[] {
+        return sels.reduceRight(
+            (
+                res: AST.VElement[],
+                sel: VCSSSelectorValueNode,
+            ): AST.VElement[] => [...reverseQueryStep(res, sel, document)],
+            els,
+        )
+    }
 }
 
 /**
@@ -286,12 +370,14 @@ function* genDescendantElements(
 ): IterableIterator<AST.VElement> {
     const found = new Set<AST.VElement>()
     for (const e of genChildElements(elements)) {
-        yield e
-        found.add(e)
-        for (const p of genDescendantElements([e])) {
-            if (!found.has(p)) {
-                yield p
-                found.add(p)
+        if (!found.has(e)) {
+            yield e
+            found.add(e)
+            for (const p of genDescendantElements([e])) {
+                if (!found.has(p)) {
+                    yield p
+                    found.add(p)
+                }
             }
         }
     }
@@ -322,18 +408,27 @@ function* genAncestorElements(
 function* genChildElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    for (const element of elements) {
-        for (const e of element.children.filter(isVElement)) {
+    /**
+     * Get the child elements.
+     */
+    function* genChildren(elm: AST.VElement): IterableIterator<AST.VElement> {
+        for (const e of elm.children.filter(isVElement)) {
             if (isSkipElement(e)) {
-                yield* genChildElements([e])
+                yield* genChildren(e)
             } else if (isSlotElement(e)) {
-                yield* genChildElements([e])
-                // Returns a dummy element to verify if slot is given.
-                yield newVElement(e, "component")
+                yield e
+                yield* genChildren(e)
             } else {
                 yield e
             }
         }
+    }
+
+    for (const element of elements) {
+        if (isSlotElement(element)) {
+            continue
+        }
+        yield* genChildren(element)
     }
 }
 
@@ -442,6 +537,99 @@ function* genPrevGeneralSiblingElements(
 }
 
 /**
+ * Gets the v-deep elements
+ */
+function* genVDeepElements(
+    elements: AST.VElement[],
+    params: VCSSSelector[],
+    query: (
+        els: AST.VElement[],
+        sels: VCSSSelectorValueNode[],
+    ) => AST.VElement[],
+): IterableIterator<AST.VElement> {
+    if (params.length) {
+        const found = new Set<AST.VElement>()
+        for (const node of params) {
+            const els = query(elements, node.nodes)
+            for (const e of els) {
+                if (!found.has(e)) {
+                    yield e
+                    found.add(e)
+                }
+            }
+        }
+    } else {
+        yield* elements
+    }
+}
+
+/**
+ * Gets the v-slotted elements
+ */
+function* genVSlottedElements(
+    elements: AST.VElement[],
+    params: VCSSSelector[],
+    query: (
+        els: AST.VElement[],
+        sels: VCSSSelectorValueNode[],
+    ) => AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const element of elements) {
+        if (isSlotElement(element)) {
+            if (!found.has(element)) {
+                yield element
+                found.add(element)
+            }
+        }
+    }
+
+    for (const node of params) {
+        const els = query(elements, node.nodes)
+        for (const e of els) {
+            if (!found.has(e) && inSlot(e)) {
+                yield e
+                found.add(e)
+            }
+        }
+    }
+
+    /**
+     * Checks if givin element within slot
+     */
+    function inSlot(e: AST.VElement | AST.VDocumentFragment): boolean {
+        if (isSlotElement(e)) {
+            return true
+        }
+        return Boolean(e && e.parent && inSlot(e.parent))
+    }
+}
+
+/**
+ * Gets the v-global elements
+ */
+function* genVGlobalElements(
+    _elements: AST.VElement[],
+    params: VCSSSelector[],
+    document: VueDocumentQueryContext,
+    query: (
+        els: AST.VElement[],
+        sels: VCSSSelectorValueNode[],
+    ) => AST.VElement[],
+): IterableIterator<AST.VElement> {
+    const found = new Set<AST.VElement>()
+    for (const node of params) {
+        const els = query(document.elements, node.nodes)
+        for (const e of els) {
+            if (!found.has(e)) {
+                yield e
+                found.add(e)
+            }
+        }
+    }
+}
+
+/**
  * Gets the elements with the given tag name.
  */
 function* genElementsByTagName(
@@ -449,7 +637,7 @@ function* genElementsByTagName(
     tagName: Template,
 ): IterableIterator<AST.VElement> {
     for (const element of elements) {
-        if (element.name === "component") {
+        if (element.name === "component" || element.name === "slot") {
             // The `component` tag is considered to match all elements because the element can not be identified.
             yield element
         } else if (tagName.toLowerCase().matchString(element.name)) {
@@ -590,11 +778,11 @@ function matchClassName(
         vueComponent
             .getClassesOperatedByClassList(refNames, isRootElement(element))
             .filter(
-                (n => n.type === "Literal") as (
+                ((n) => n.type === "Literal") as (
                     n: ASTNode,
                 ) => n is AST.ESLintLiteral,
             )
-            .some(n => matchClassNameExpression(n, className, document))
+            .some((n) => matchClassNameExpression(n, className, document))
     ) {
         return true
     }
@@ -814,53 +1002,6 @@ function matchClassNameForObjectExpression(
 }
 
 /**
- * Create a new VElement
- */
-function newVElement(element: AST.VElement, name: string): AST.VElement {
-    const startTag = element.startTag
-    const endTag = element.endTag
-    const newElement: AST.VElement = {
-        type: "VElement",
-        name,
-        startTag: {
-            type: "VStartTag",
-            attributes: [],
-            selfClosing: startTag.selfClosing,
-            parent: element,
-            loc: startTag.loc,
-            start: startTag.start,
-            end: startTag.end,
-            range: startTag.range,
-        },
-        endTag: endTag
-            ? {
-                  type: "VEndTag",
-                  parent: element,
-                  loc: endTag.loc,
-                  start: endTag.start,
-                  end: endTag.end,
-                  range: endTag.range,
-              }
-            : null,
-        parent: element,
-        namespace: element.namespace,
-        rawName: name,
-        variables: element.variables,
-        children: [],
-
-        loc: element.loc,
-        start: element.start,
-        end: element.end,
-        range: element.range,
-    }
-    newElement.startTag.parent = newElement
-    if (newElement.endTag) {
-        newElement.endTag.parent = newElement
-    }
-    return newElement
-}
-
-/**
  * Checks whether the given node is VElement
  * @param node node to check
  */
@@ -878,9 +1019,9 @@ function includesClassName(
     className: Template,
 ): boolean {
     if (typeof value === "string") {
-        return value.split(/\s+/u).some(s => className.matchString(s))
+        return value.split(/\s+/u).some((s) => className.matchString(s))
     }
-    return value.divide(/\s+/u).some(s => className.match(s))
+    return value.divide(/\s+/u).some((s) => className.match(s))
 }
 
 /**

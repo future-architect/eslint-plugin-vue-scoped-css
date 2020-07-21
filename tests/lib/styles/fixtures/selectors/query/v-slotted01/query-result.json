@@ -1,0 +1,11 @@
+{
+    ".bar ::v-slotted(#a,#c)": [
+        "ul.bar>slot",
+        "ul.bar>slot>li#a"
+    ],
+    ".bar ::v-slotted(#a,#b,#c,#d)": [
+        "ul.bar>slot",
+        "ul.bar>slot>li#a",
+        "ul.bar>slot>li#b"
+    ]
+}

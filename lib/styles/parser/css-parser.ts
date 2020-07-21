@@ -13,7 +13,7 @@ import {
     VCSSParsingError,
     VCSSUnknown,
 } from "../ast"
-import {
+import type {
     SourceCode,
     LineAndColumnData,
     PostCSSNode,
@@ -27,7 +27,7 @@ import {
 } from "../../types"
 import { isPostCSSContainer } from "./utils"
 import { isVCSSContainerNode } from "../utils/css-nodes"
-import { isDefined } from "../utils"
+import { isDefined } from "../../utils/utils"
 
 /**
  * CSS Parser
@@ -207,7 +207,7 @@ export class CSSParser {
         }
         if (isPostCSSContainer(node) && isVCSSContainerNode(astNode)) {
             astNode.nodes = node.nodes
-                .map(n =>
+                .map((n) =>
                     this._postcssNodeToASTNode(offsetLocation, n, astNode),
                 )
                 .filter(isDefined)

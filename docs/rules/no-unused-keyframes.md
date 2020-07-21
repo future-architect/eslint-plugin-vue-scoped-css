@@ -8,7 +8,7 @@ description: "Reports the `@keyframes` is not used in Scoped CSS."
 
 > Reports the `@keyframes` is not used in Scoped CSS.
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/recommended"` and `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
 This rule reports `@keyframes` is not used in Scoped CSS.
 

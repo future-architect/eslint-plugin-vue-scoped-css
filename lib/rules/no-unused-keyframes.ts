@@ -1,5 +1,5 @@
-import { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast"
-import { RuleContext } from "../types"
+import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast"
+import type { RuleContext, Rule } from "../types"
 import { Template } from "../styles/template"
 import {
     getStyleContexts,
@@ -8,11 +8,15 @@ import {
     StyleContext,
 } from "../styles/context"
 
+declare const module: {
+    exports: Rule
+}
+
 module.exports = {
     meta: {
         docs: {
             description: "Reports the `@keyframes` is not used in Scoped CSS.",
-            category: "recommended",
+            categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html",
@@ -27,7 +31,7 @@ module.exports = {
     create(context: RuleContext) {
         const styles = getStyleContexts(context)
             .filter(StyleContext.isValid)
-            .filter(style => style.scoped)
+            .filter((style) => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -111,7 +115,7 @@ module.exports = {
             const { keyframes, animationNames, animations } = extract(style)
 
             for (const decl of animationNames) {
-                for (const v of decl.value.split(",").map(s => s.trim())) {
+                for (const v of decl.value.split(",").map((s) => s.trim())) {
                     const value = Template.ofDeclValue(v, decl.lang)
                     for (
                         let index = keyframes.length - 1;
@@ -127,7 +131,7 @@ module.exports = {
             }
 
             for (const decl of animations) {
-                for (const v of decl.value.split(",").map(s => s.trim())) {
+                for (const v of decl.value.split(",").map((s) => s.trim())) {
                     const vals = v.trim().split(/\s+/u)
                     for (const val of vals) {
                         const value = Template.ofDeclValue(val, decl.lang)

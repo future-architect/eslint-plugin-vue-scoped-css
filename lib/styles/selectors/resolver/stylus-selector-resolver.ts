@@ -1,24 +1,24 @@
 import {
     isNestingAtRule,
     findNestingSelectors,
-    isSelectorCombinator,
     findNestingSelector,
     hasNodesSelector,
     NestingInfo,
+    isSelectorCombinator,
 } from "../../utils/selectors"
 import {
     VCSSSelectorCombinator,
-    VCSSSelectorValueNode,
     VCSSStyleRule,
     VCSSAtRule,
     VCSS,
+    VCSSSelectorNode,
 } from "../../ast"
 import {
     CSSSelectorResolver,
     ResolvedSelector,
     ResolvedSelectors,
 } from "./css-selector-resolver"
-import { PostCSSSPCombinatorNode } from "../../../types"
+import type { PostCSSSPCombinatorNode } from "../../../types"
 
 export class StylusSelectorResolver extends CSSSelectorResolver {
     /**
@@ -30,7 +30,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
      */
     protected resolveNestingSelectors(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         parentSelectors: ResolvedSelectors | null,
         container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {
@@ -60,7 +60,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
      */
     private resolveSelectorForStylusNesting(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         parentSelectors: ResolvedSelectors | null,
         container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {

@@ -23,6 +23,23 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
 | [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 
+## Recommended for Vue.js 3.x
+
+Enforce all the rules in this category with:
+
+```json
+{
+  "extends": "plugin:vue-scoped-css/vue3-recommended"
+}
+```
+
+| Rule ID | Description |    |
+|:--------|:------------|:---|
+| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
+| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
+| [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+
 ## Uncategorized
 
 No preset enables the rules in this category.

@@ -8,7 +8,7 @@ description: "Reports selectors defined in Scoped CSS not used in `<template>`."
 
 > Reports selectors defined in Scoped CSS not used in `<template>`.
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/recommended"` and `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
 ## :book: Rule Details
 

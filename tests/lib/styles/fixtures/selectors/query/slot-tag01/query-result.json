@@ -9,6 +9,6 @@
     ],
     ".foo>div>li.bar": [],
     ".foo>div": [
-        "ul.foo>slot>component"
+        "ul.foo>slot"
     ]
 }

@@ -5,7 +5,7 @@ import renderRulesTableContent from "./render-rules"
 const isWin = os.platform().startsWith("win")
 
 let insertText = `\n${renderRulesTableContent(
-    name =>
+    (name) =>
         `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/${name}.html`,
 )}\n`
 if (isWin) {

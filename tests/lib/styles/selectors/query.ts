@@ -12,18 +12,21 @@ import {
     deleteFixture,
     isExistsPath,
 } from "../test-utils"
-import { AST, RuleContext, VDirectiveKey } from "../../../../lib/types"
+import type { AST, RuleContext, VDirectiveKey } from "../../../../lib/types"
 import {
     isVDirectiveKeyV6,
     isVDirective,
 } from "../../../../lib/styles/utils/nodes"
-import { StyleContext, ValidStyleContext } from "../../../../lib/styles/context"
+import type {
+    StyleContext,
+    ValidStyleContext,
+} from "../../../../lib/styles/context"
 import { ParsedQueryOptions } from "../../../../lib/options"
 
 const ROOT = path.join(__dirname, "../fixtures/selectors/query")
 
 /**
- * Remove `parent` proeprties from the given AST.
+ * Remove `parent` properties from the given AST.
  * @param {string} key The key.
  * @param {any} value The value of the key.
  * @returns {any} The value of the key to output.
@@ -38,16 +41,16 @@ function replacer(key: string, value: any): any {
 function queries(style: StyleContext, context: RuleContext) {
     const selectors = getResolvedSelectors(style as ValidStyleContext)
     return selectors
-        .map(r => r.selector)
+        .map((r) => r.selector)
         .reduce((result, selector) => {
             let q = createQueryContext(context, ParsedQueryOptions.parse({}))
             for (const node of selector) {
                 q = q.queryStep(node)
             }
-            const elementsTexts = q.elements.map(e =>
+            const elementsTexts = q.elements.map((e) =>
                 buildElementText(e, context),
             )
-            const selectorText = selector.map(s => s.selector).join("")
+            const selectorText = selector.map((s) => s.selector).join("")
             result[selectorText] = elementsTexts
             return result
         }, {} as { [key: string]: string[] })
@@ -56,23 +59,29 @@ function queries(style: StyleContext, context: RuleContext) {
 function reverseQueries(style: StyleContext, context: RuleContext) {
     const selectors = getResolvedSelectors(style as ValidStyleContext)
     return selectors
-        .map(r => r.selector)
+        .map((r) => r.selector)
         .reduce((result, selector) => {
-            const elementQueris = createQueryContext(
+            const document = createQueryContext(
                 context,
                 ParsedQueryOptions.parse({}),
-            ).split()
-            const elementsTexts = elementQueris
-                .filter(elementQuery => {
+            )
+            const elementQueries = document.split()
+            const elementsTexts = elementQueries
+                .filter((elementQuery) => {
+                    // Set dummy document
+                    ;(elementQuery as any).document = elementQuery
+                    ;(elementQuery as any).context = (document as any).context
+                    ;(elementQuery as any).options = (document as any).options
+                    ;(elementQuery as any).docsModifiers = (document as any).docsModifiers
                     let q = elementQuery
                     for (let index = selector.length - 1; index >= 0; index--) {
                         q = q.reverseQueryStep(selector[index])
                     }
                     return Boolean(q.elements.length)
                 })
-                .map(elementQuery => elementQuery.elements[0])
-                .map(e => buildElementText(e, context))
-            const selectorText = selector.map(s => s.selector).join("")
+                .map((elementQuery) => elementQuery.elements[0])
+                .map((e) => buildElementText(e, context))
+            const selectorText = selector.map((s) => s.selector).join("")
             result[selectorText] = elementsTexts
             return result
         }, {} as { [key: string]: string[] })

@@ -27,12 +27,12 @@ for (const categoryId of Object.keys(categoryRules)) {
     }
 }
 
-module.exports = categoryIds.map(categoryId => ({
+module.exports = categoryIds.map((categoryId) => ({
     categoryId,
     title: categoryTitles[categoryId],
     configDescription: categoryConfigDescriptions[categoryId],
     rules: (categoryRules[categoryId] || []).filter(
-        rule => !rule.meta.deprecated
+        (rule) => !rule.meta.deprecated
     ),
 }))
 // .filter(category => category.rules.length >= 1)

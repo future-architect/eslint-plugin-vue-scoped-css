@@ -1,4 +1,4 @@
-import { Rule } from "../types"
+import type { Rule } from "../types"
 
 const baseRules = [
     {
@@ -28,7 +28,7 @@ const baseRules = [
     },
 ]
 
-export const rules = baseRules.map(obj => {
+export const rules = baseRules.map((obj) => {
     const rule = obj.rule
     rule.meta.docs.ruleName = obj.ruleName
     rule.meta.docs.ruleId = obj.ruleId
@@ -40,10 +40,12 @@ export const rules = baseRules.map(obj => {
  * @param {string} category category
  * @returns {Array} rules
  */
-export function collectRules(category?: string): { [key: string]: string } {
+export function collectRules(
+    category?: "recommended" | "vue3-recommended",
+): { [key: string]: string } {
     return rules.reduce((obj, rule) => {
         if (
-            (!category || rule.meta.docs.category === category) &&
+            (!category || rule.meta.docs.categories.includes(category)) &&
             !rule.meta.deprecated
         ) {
             obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error"

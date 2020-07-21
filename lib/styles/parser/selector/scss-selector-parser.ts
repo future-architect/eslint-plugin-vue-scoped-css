@@ -1,15 +1,11 @@
-import {
+import type {
     PostCSSSPRootNode,
     SourceLocation,
     PostCSSSPCommentNode,
 } from "../../../types"
 import { CSSSelectorParser } from "./css-selector-parser"
 import selectorParser from "postcss-selector-parser"
-import {
-    VCSSSelectorContainerNode,
-    VCSSInlineComment,
-    VCSSSelectorNode,
-} from "../../ast"
+import { VCSSInlineComment, VCSSSelectorNode, VCSSSelector } from "../../ast"
 import { replaceSelector, restoreReplacedSelector } from "./replace-utils"
 
 export class SCSSSelectorParser extends CSSSelectorParser {
@@ -61,7 +57,7 @@ export class SCSSSelectorParser extends CSSSelectorParser {
         loc: SourceLocation,
         start: number,
         end: number,
-        parent: VCSSSelectorContainerNode,
+        parent: VCSSSelector,
     ): VCSSSelectorNode | null {
         if (node.value.startsWith("//")) {
             // inline comment

@@ -20,12 +20,12 @@
                             v-for="(msg, i) in messages"
                             :key="
                                 msg.line +
-                                    ':' +
-                                    msg.column +
-                                    ':' +
-                                    msg.ruleId +
-                                    '@' +
-                                    i
+                                ':' +
+                                msg.column +
+                                ':' +
+                                msg.ruleId +
+                                '@' +
+                                i
                             "
                             class="message"
                         >
@@ -135,8 +135,8 @@ export default {
 }
 
 function equalsRules(a, b) {
-    const akeys = Object.keys(a).filter(k => a[k] !== "off")
-    const bkeys = Object.keys(b).filter(k => b[k] !== "off")
+    const akeys = Object.keys(a).filter((k) => a[k] !== "off")
+    const bkeys = Object.keys(b).filter((k) => b[k] !== "off")
     if (akeys.length !== bkeys.length) {
         return false
     }

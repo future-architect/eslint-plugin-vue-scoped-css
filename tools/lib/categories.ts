@@ -1,21 +1,27 @@
 import { rules } from "../../lib/utils/rules"
-import { Rule } from "../../lib/types"
+import type { Rule } from "../../lib/types"
 
 const categoryTitles = {
     base: "Base Rules (Enabling Plugin)",
     recommended: "Recommended",
+    "vue3-recommended": "Recommended for Vue.js 3.x",
 } as { [key: string]: string }
 
 const categoryConfigDescriptions = {
     base: "Enable this plugin using with:",
     recommended: "Enforce all the rules in this category with:",
+    "vue3-recommended": "Enforce all the rules in this category with:",
 } as { [key: string]: string }
 
 const categoryIds = Object.keys(categoryTitles)
 const categoryRules: { [key: string]: Rule[] } = rules.reduce((obj, rule) => {
-    const cat = rule.meta.docs.category || "uncategorized"
-    const categories = obj[cat] || (obj[cat] = [])
-    categories.push(rule)
+    const categoryNames = rule.meta.docs.categories.length
+        ? rule.meta.docs.categories
+        : ["uncategorized"]
+    for (const cat of categoryNames) {
+        const categories = obj[cat] || (obj[cat] = [])
+        categories.push(rule)
+    }
     return obj
 }, {} as { [key: string]: Rule[] })
 
@@ -28,12 +34,12 @@ for (const categoryId of Object.keys(categoryRules)) {
     }
 }
 
-export default categoryIds.map(categoryId => ({
+export default categoryIds.map((categoryId) => ({
     categoryId,
     title: categoryTitles[categoryId],
     configDescription: categoryConfigDescriptions[categoryId],
     rules: (categoryRules[categoryId] || []).filter(
-        rule => !rule.meta.deprecated,
+        (rule) => !rule.meta.deprecated,
     ),
 }))
 // .filter(category => category.rules.length >= 1)

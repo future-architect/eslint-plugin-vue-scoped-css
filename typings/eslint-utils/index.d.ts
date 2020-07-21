@@ -1,4 +1,4 @@
-import { ASTNode, AST } from "../../lib/types"
+import type { ASTNode, AST } from "../../lib/types"
 // eslint-disable-next-line @mysticatea/node/no-extraneous-import
 import { Scope } from "eslint-scope"
 

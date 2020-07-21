@@ -1,4 +1,4 @@
-import {
+import type {
     AST,
     VDirectiveKeyV6,
     VDirectiveKey,

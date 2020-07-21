@@ -1,9 +1,9 @@
 import { AST as vueAST } from "vue-eslint-parser"
 
 import findVueComponent from "./find-vue"
-import { RuleContext, ASTNode, AST } from "../../../types"
-import { Template } from "../../template"
-import { isDefined } from "../../utils"
+import type { RuleContext, ASTNode, AST } from "../../../types"
+import type { Template } from "../../template"
+import { isDefined } from "../../../utils/utils"
 
 const traverseNodes = vueAST.traverseNodes
 
@@ -246,7 +246,7 @@ function extractVueComponentComputed(
         if (value.type === "ObjectExpression") {
             const get = value.properties
                 .filter(isProperty)
-                .find(prop => getPropertyOrIdentifierName(prop) === "get")
+                .find((prop) => getPropertyOrIdentifierName(prop) === "get")
             if (get) {
                 func = get.value
             }
@@ -260,7 +260,7 @@ function extractVueComponentComputed(
             // `prop() { return ...}
             // `prop: function () { return ...}
             const exprs = getReturnStatements(func.body, context)
-                .map(r => r.argument)
+                .map((r) => r.argument)
                 .filter(isDefined)
             values.push(...exprs)
         } else if (
@@ -322,7 +322,7 @@ function getClassesOperatedByClassList(
                         : null
 
                 if ($refName != null) {
-                    if (!refNames.some(r => r.matchString($refName))) {
+                    if (!refNames.some((r) => r.matchString($refName))) {
                         // The ref name can be identified.
                         // It is also clear that there is no match.
                         return

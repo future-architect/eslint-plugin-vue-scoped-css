@@ -1,5 +1,5 @@
 import { AST } from "vue-eslint-parser"
-import { ASTNode, RuleContext } from "../../../types"
+import type { ASTNode, RuleContext } from "../../../types"
 import { unwrapTypesExpression } from "../../utils/nodes"
 
 const traverseNodes = AST.traverseNodes
@@ -52,7 +52,7 @@ function findVueComponent(
     const sourceCode = context.getSourceCode()
     const componentComments = sourceCode
         .getAllComments()
-        .filter(comment => /@vue\/component/gu.test(comment.value))
+        .filter((comment) => /@vue\/component/gu.test(comment.value))
     const foundNodes: ASTNode[] = []
 
     /**
@@ -61,7 +61,9 @@ function findVueComponent(
      * @returns {boolean} `true` if the given node is duplicate.
      */
     function isDuplicateNode(node: ASTNode) {
-        if (foundNodes.some(el => el.loc.start.line === node.loc.start.line)) {
+        if (
+            foundNodes.some((el) => el.loc.start.line === node.loc.start.line)
+        ) {
             return true
         }
         foundNodes.push(node)
@@ -83,7 +85,7 @@ function findVueComponent(
             if (node.type === "ObjectExpression") {
                 if (
                     !componentComments.some(
-                        el => el.loc.end.line === node.loc.start.line - 1,
+                        (el) => el.loc.end.line === node.loc.start.line - 1,
                     ) ||
                     isDuplicateNode(node)
                 ) {

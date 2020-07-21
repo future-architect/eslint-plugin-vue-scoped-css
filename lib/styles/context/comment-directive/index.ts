@@ -1,12 +1,12 @@
-import {
+import type {
     LineAndColumnData,
     ReportDescriptor,
     RuleContext,
     SourceLocation,
     ReportDescriptorSourceLocation,
 } from "../../../types"
-import { StyleContext } from "../style"
-import { VCSSCommentNode } from "../../ast"
+import type { StyleContext } from "../style"
+import type { VCSSCommentNode } from "../../ast"
 
 const COMMENT_DIRECTIVE_B = /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
 const COMMENT_DIRECTIVE_L = /^\s*(eslint-disable(?:-next)?-line)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
@@ -29,7 +29,7 @@ function parse(pattern: RegExp, comment: string): ParsingResult | null {
     const type = match[1]
     const rules = (match[2] || "")
         .split(",")
-        .map(s => s.trim())
+        .map((s) => s.trim())
         .filter(Boolean)
 
     return { type, rules }

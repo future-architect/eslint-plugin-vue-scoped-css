@@ -1,0 +1,15 @@
+{
+    "::v-global(#a)": [
+        "ul.bar>li#a"
+    ],
+    "::v-global(#a,#b)": [
+        "ul.bar>li#a",
+        "ul.bar>li#b"
+    ],
+    "::v-global(#c,#d)": [
+        "ul.bar>li#c",
+        "ul.bar>li#d"
+    ],
+    ".foo ::v-global(#a)": [],
+    ".foo ::v-global(#a,#b)": []
+}

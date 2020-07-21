@@ -49,7 +49,6 @@ tester.run("require-scoped", rule, {
                     column: 13,
                     endLine: 4,
                     endColumn: 20,
-                    // @ts-ignore
                     suggestions: [
                         {
                             desc: "Add `scoped` attribute.",
@@ -77,7 +76,6 @@ tester.run("require-scoped", rule, {
                     column: 13,
                     endLine: 4,
                     endColumn: 22,
-                    // @ts-ignore
                     suggestions: [
                         {
                             desc: "Add `scoped` attribute.",
@@ -126,7 +124,6 @@ tester.run("require-scoped", rule, {
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
-                    // @ts-ignore
                     suggestions: [
                         {
                             desc: "Remove `scoped` attribute.",
