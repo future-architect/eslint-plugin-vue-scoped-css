@@ -99,6 +99,7 @@ Enforce all the rules in this category with:
 | Rule ID | Description |    |
 |:--------|:------------|:---|
 | [vue-scoped-css/no-deprecated-deep-combinator](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-deep-combinator.html) | disallow using deprecated deep combinators | :wrench: |
+| [vue-scoped-css/no-parent-of-v-global](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parent-of-v-global.html) | disallow parent selector for `::v-global` pseudo-element |  |
 | [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | disallow parsing errors in `<style>` |  |
 | [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | disallow `@keyframes` which don't use in Scoped CSS |  |
 | [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |

@@ -7,6 +7,11 @@ const baseRules = [
         ruleId: "vue-scoped-css/no-deprecated-deep-combinator",
     },
     {
+        rule: require("../rules/no-parent-of-v-global"),
+        ruleName: "no-parent-of-v-global",
+        ruleId: "vue-scoped-css/no-parent-of-v-global",
+    },
+    {
         rule: require("../rules/no-parsing-error"),
         ruleName: "no-parsing-error",
         ruleId: "vue-scoped-css/no-parsing-error",
