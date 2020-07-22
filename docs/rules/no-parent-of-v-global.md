@@ -12,7 +12,7 @@ description: "disallow parent selector for `::v-global` pseudo-element"
 
 ## :book: Rule Details
 
-This rule reports parent selector for `::v-global` pseudo-element
+This rule reports parent selector for `::v-global` pseudo-element.
 
 <eslint-code-block :rules="{'vue-scoped-css/no-parent-of-v-global': ['error']}">
 
