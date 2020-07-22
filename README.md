@@ -104,6 +104,7 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
 | [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 | [vue-scoped-css/require-v-deep-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-argument.html) | require selector argument to be passed to `::v-deep()`. | :wrench: |
+| [vue-scoped-css/require-v-global-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-global-argument.html) | require selector argument to be passed to `::v-global()`. |  |
 | [vue-scoped-css/require-v-slotted-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-slotted-argument.html) | require selector argument to be passed to `::v-slotted()`. |  |
 
 ## Recommended for Vue.js 2.x

@@ -37,6 +37,11 @@ const baseRules = [
         ruleId: "vue-scoped-css/require-v-deep-argument",
     },
     {
+        rule: require("../rules/require-v-global-argument"),
+        ruleName: "require-v-global-argument",
+        ruleId: "vue-scoped-css/require-v-global-argument",
+    },
+    {
         rule: require("../rules/require-v-slotted-argument"),
         ruleName: "require-v-slotted-argument",
         ruleId: "vue-scoped-css/require-v-slotted-argument",
