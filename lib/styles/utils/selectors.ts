@@ -159,6 +159,17 @@ export function isVGlobalPseudo(
 }
 
 /**
+ * Checks whether the given pseudo node is empty arguments
+ * @param node node to check
+ */
+export function isPseudoEmptyArguments(node: VCSSSelectorPseudo): boolean {
+    return (
+        node.nodes.length === 0 ||
+        (node.nodes.length === 1 && node.nodes[0].nodes.length === 0)
+    )
+}
+
+/**
  * Checks whether the given node is VCSSTypeSelector
  * @param node node to check
  */
@@ -287,7 +298,7 @@ export function isDeepCombinator(
  * @param node node to check
  */
 export function isNestingAtRule(
-    node: VCSSNode | null,
+    node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null,
 ): node is VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] } {
     if (node == null) {
         return false

@@ -14,9 +14,8 @@ const isCategoryTest = {
     recommended: ({ deprecated, docs: { categories } }) =>
         !deprecated &&
         categories.length &&
-        categories.every(
-            (cat) => cat === "recommended" || cat === "vue3-recommended"
-        ),
+        categories.some((cat) => cat === "recommended") &&
+        categories.some((cat) => cat === "vue3-recommended"),
     "vue2-recommended": ({ deprecated, docs: { categories } }) =>
         !deprecated &&
         categories.length &&
