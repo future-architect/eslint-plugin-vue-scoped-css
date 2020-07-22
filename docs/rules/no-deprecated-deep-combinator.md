@@ -9,12 +9,13 @@ description: "disallow using deprecated deep combinators"
 > disallow using deprecated deep combinators
 
 - :gear: This rule is included in `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
+- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.
 
 ## :book: Rule Details
 
 This rule reports the use of deprecated deep combinators as errors.
 
-<eslint-code-block :rules="{'vue-scoped-css/no-deprecated-deep-combinator': ['error']}">
+<eslint-code-block fix :rules="{'vue-scoped-css/no-deprecated-deep-combinator': ['error']}">
 
 ```vue
 <style scoped>

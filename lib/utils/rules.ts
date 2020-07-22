@@ -36,6 +36,11 @@ const baseRules = [
         ruleName: "require-v-deep-argument",
         ruleId: "vue-scoped-css/require-v-deep-argument",
     },
+    {
+        rule: require("../rules/require-v-slotted-argument"),
+        ruleName: "require-v-slotted-argument",
+        ruleId: "vue-scoped-css/require-v-slotted-argument",
+    },
 ]
 
 export const rules = baseRules.map((obj) => {

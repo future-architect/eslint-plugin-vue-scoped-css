@@ -21,7 +21,7 @@ This rule reports `::v-deep` pseudo-element with no selector argument passed.
 <style scoped>
 /* ✗ BAD */
 .baz .qux ::v-deep .foo .bar {}
-.baz .qux ::v-deep() .foo .bar {}
+.baz .qux ::v-deep() {}
 
 /* ✓ GOOD */
 .baz .qux ::v-deep(.foo .bar) {}
