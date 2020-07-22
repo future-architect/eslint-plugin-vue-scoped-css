@@ -27,16 +27,16 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "require selector arguments to be passed to `::v-deep()`.",
+                "require selector argument to be passed to `::v-deep()`.",
             categories: ["vue3-recommended"],
             default: "warn",
             url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-arguments.html",
+                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-argument.html",
         },
         fixable: "code",
         messages: {
             missingArguments:
-                "Need to pass arguments to the `::v-deep` pseudo-element.",
+                "Need to pass argument to the `::v-deep` pseudo-element.",
         },
         schema: [],
         type: "suggestion", // "problem",

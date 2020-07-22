@@ -32,9 +32,9 @@ const baseRules = [
         ruleId: "vue-scoped-css/require-selector-used-inside",
     },
     {
-        rule: require("../rules/require-v-deep-arguments"),
-        ruleName: "require-v-deep-arguments",
-        ruleId: "vue-scoped-css/require-v-deep-arguments",
+        rule: require("../rules/require-v-deep-argument"),
+        ruleName: "require-v-deep-argument",
+        ruleId: "vue-scoped-css/require-v-deep-argument",
     },
 ]
 

@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../../lib/rules/require-v-deep-arguments")
+const rule = require("../../../lib/rules/require-v-deep-argument")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("require-v-deep-arguments", rule, {
+tester.run("require-v-deep-argument", rule, {
     valid: [
         `
         <template><div class="item">sample</div></template>
@@ -37,7 +37,7 @@ tester.run("require-v-deep-arguments", rule, {
             errors: [
                 {
                     message:
-                        "Need to pass arguments to the `::v-deep` pseudo-element.",
+                        "Need to pass argument to the `::v-deep` pseudo-element.",
                     line: 4,
                     column: 23,
                     endLine: 4,
@@ -45,7 +45,7 @@ tester.run("require-v-deep-arguments", rule, {
                 },
                 {
                     message:
-                        "Need to pass arguments to the `::v-deep` pseudo-element.",
+                        "Need to pass argument to the `::v-deep` pseudo-element.",
                     line: 5,
                     column: 23,
                     endLine: 5,
