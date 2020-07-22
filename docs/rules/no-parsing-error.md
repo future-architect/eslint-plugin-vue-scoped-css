@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/no-parsing-error"
-description: "Disallow parsing errors in `<style>`"
+description: "disallow parsing errors in `<style>`"
 ---
 # vue-scoped-css/no-parsing-error
 
-> Disallow parsing errors in `<style>`
+> disallow parsing errors in `<style>`
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

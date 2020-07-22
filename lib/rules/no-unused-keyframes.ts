@@ -15,7 +15,7 @@ declare const module: {
 module.exports = {
     meta: {
         docs: {
-            description: "Reports the `@keyframes` is not used in Scoped CSS.",
+            description: "disallow `@keyframes` which don't use in Scoped CSS",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:

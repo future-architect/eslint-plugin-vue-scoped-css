@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/no-unused-selector"
-description: "Reports selectors defined in Scoped CSS not used in `<template>`."
+description: "disallow selectors defined in Scoped CSS that don't use in `<template>`"
 ---
 # vue-scoped-css/no-unused-selector
 
-> Reports selectors defined in Scoped CSS not used in `<template>`.
+> disallow selectors defined in Scoped CSS that don't use in `<template>`
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

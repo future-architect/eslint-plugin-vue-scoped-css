@@ -13,7 +13,7 @@ declare const module: {
 module.exports = {
     meta: {
         docs: {
-            description: "Disallow parsing errors in `<style>`",
+            description: "disallow parsing errors in `<style>`",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:

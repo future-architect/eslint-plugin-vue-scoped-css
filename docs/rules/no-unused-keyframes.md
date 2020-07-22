@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/no-unused-keyframes"
-description: "Reports the `@keyframes` is not used in Scoped CSS."
+description: "disallow `@keyframes` which don't use in Scoped CSS"
 ---
 # vue-scoped-css/no-unused-keyframes
 
-> Reports the `@keyframes` is not used in Scoped CSS.
+> disallow `@keyframes` which don't use in Scoped CSS
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

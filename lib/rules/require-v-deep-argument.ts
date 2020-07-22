@@ -27,7 +27,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "require selector argument to be passed to `::v-deep()`.",
+                "require selector argument to be passed to `::v-deep()`",
             categories: ["vue3-recommended"],
             default: "warn",
             url:

@@ -13,7 +13,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "Enforce the `<style>` tags to has the `scoped` attribute.",
+                "enforce the `<style>` tags to has the `scoped` attribute",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:

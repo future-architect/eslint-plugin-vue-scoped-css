@@ -74,7 +74,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "Reports the defined selectors is not used inside `<template>`.",
+                "disallow selectors defined that is not used inside `<template>`",
             categories: [],
             default: "warn",
             url:

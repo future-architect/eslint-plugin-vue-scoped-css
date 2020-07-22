@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint"
 import semver from "semver"
-const rule = require("../../../lib/rules/no-parsing-error")
+import rule = require("../../../lib/rules/no-parsing-error")
 const parserVersion = require("vue-eslint-parser/package.json").version
 
 const tester = new RuleTester({
@@ -11,7 +11,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("no-parsing-error", rule, {
+tester.run("no-parsing-error", rule as any, {
     valid: [
         `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>

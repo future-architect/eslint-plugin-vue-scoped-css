@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../../lib/rules/require-v-slotted-argument")
+import rule = require("../../../lib/rules/require-v-slotted-argument")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("require-v-slotted-argument", rule, {
+tester.run("require-v-slotted-argument", rule as any, {
     valid: [
         `
         <template><div class="item">sample</div></template>

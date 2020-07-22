@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../../lib/rules/no-unused-keyframes")
+import rule = require("../../../lib/rules/no-unused-keyframes")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("no-unused-keyframes", rule, {
+tester.run("no-unused-keyframes", rule as any, {
     valid: [
         `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>

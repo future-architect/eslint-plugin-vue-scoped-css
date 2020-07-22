@@ -96,7 +96,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "Reports selectors defined in Scoped CSS not used in `<template>`.",
+                "disallow selectors defined in Scoped CSS that don't use in `<template>`",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:

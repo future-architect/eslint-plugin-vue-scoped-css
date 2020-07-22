@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/require-v-deep-argument"
-description: "require selector argument to be passed to `::v-deep()`."
+description: "require selector argument to be passed to `::v-deep()`"
 ---
 # vue-scoped-css/require-v-deep-argument
 
-> require selector argument to be passed to `::v-deep()`.
+> require selector argument to be passed to `::v-deep()`
 
 - :gear: This rule is included in `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 - :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.

@@ -19,13 +19,13 @@ Enforce all the rules in this category with:
 | Rule ID | Description |    |
 |:--------|:------------|:---|
 | [vue-scoped-css/no-deprecated-deep-combinator](./no-deprecated-deep-combinator.md) | disallow using deprecated deep combinators | :wrench: |
-| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
-| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
-| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
-| [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
-| [vue-scoped-css/require-v-deep-argument](./require-v-deep-argument.md) | require selector argument to be passed to `::v-deep()`. | :wrench: |
-| [vue-scoped-css/require-v-global-argument](./require-v-global-argument.md) | require selector argument to be passed to `::v-global()`. |  |
-| [vue-scoped-css/require-v-slotted-argument](./require-v-slotted-argument.md) | require selector argument to be passed to `::v-slotted()`. |  |
+| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | disallow `@keyframes` which don't use in Scoped CSS |  |
+| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |
+| [vue-scoped-css/require-scoped](./require-scoped.md) | enforce the `<style>` tags to has the `scoped` attribute |  |
+| [vue-scoped-css/require-v-deep-argument](./require-v-deep-argument.md) | require selector argument to be passed to `::v-deep()` | :wrench: |
+| [vue-scoped-css/require-v-global-argument](./require-v-global-argument.md) | require selector argument to be passed to `::v-global()` |  |
+| [vue-scoped-css/require-v-slotted-argument](./require-v-slotted-argument.md) | require selector argument to be passed to `::v-slotted()` |  |
 
 ## Recommended for Vue.js 2.x
 
@@ -39,10 +39,10 @@ Enforce all the rules in this category with:
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
-| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | Disallow parsing errors in `<style>` |  |
-| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
-| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
-| [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+| [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | disallow `@keyframes` which don't use in Scoped CSS |  |
+| [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |
+| [vue-scoped-css/require-scoped](./require-scoped.md) | enforce the `<style>` tags to has the `scoped` attribute |  |
 
 ## Uncategorized
 
@@ -61,4 +61,4 @@ For example:
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
-| [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | Reports the defined selectors is not used inside `<template>`. |  |
+| [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | disallow selectors defined that is not used inside `<template>` |  |

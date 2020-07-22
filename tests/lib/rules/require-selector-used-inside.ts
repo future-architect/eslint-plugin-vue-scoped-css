@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../../lib/rules/require-selector-used-inside")
+import rule = require("../../../lib/rules/require-selector-used-inside")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("require-selector-used-inside", rule, {
+tester.run("require-selector-used-inside", rule as any, {
     valid: [
         `
         <template>

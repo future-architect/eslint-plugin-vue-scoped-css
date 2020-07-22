@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/require-v-global-argument"
-description: "require selector argument to be passed to `::v-global()`."
+description: "require selector argument to be passed to `::v-global()`"
 ---
 # vue-scoped-css/require-v-global-argument
 
-> require selector argument to be passed to `::v-global()`.
+> require selector argument to be passed to `::v-global()`
 
 - :gear: This rule is included in `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

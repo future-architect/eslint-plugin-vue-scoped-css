@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/require-v-slotted-argument"
-description: "require selector argument to be passed to `::v-slotted()`."
+description: "require selector argument to be passed to `::v-slotted()`"
 ---
 # vue-scoped-css/require-v-slotted-argument
 
-> require selector argument to be passed to `::v-slotted()`.
+> require selector argument to be passed to `::v-slotted()`
 
 - :gear: This rule is included in `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint"
-const rule = require("../../../lib/rules/no-deprecated-deep-combinator")
+import rule = require("../../../lib/rules/no-deprecated-deep-combinator")
 
 const tester = new RuleTester({
     parser: require.resolve("vue-eslint-parser"),
@@ -9,7 +9,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("no-deprecated-deep-combinator", rule, {
+tester.run("no-deprecated-deep-combinator", rule as any, {
     valid: [
         `
         <template><div class="item">sample</div></template>

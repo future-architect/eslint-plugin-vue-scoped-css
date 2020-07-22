@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/require-scoped"
-description: "Enforce the `<style>` tags to has the `scoped` attribute."
+description: "enforce the `<style>` tags to has the `scoped` attribute"
 ---
 # vue-scoped-css/require-scoped
 
-> Enforce the `<style>` tags to has the `scoped` attribute.
+> enforce the `<style>` tags to has the `scoped` attribute
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 

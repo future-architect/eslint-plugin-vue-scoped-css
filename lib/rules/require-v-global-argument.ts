@@ -19,7 +19,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "require selector argument to be passed to `::v-global()`.",
+                "require selector argument to be passed to `::v-global()`",
             categories: ["vue3-recommended"],
             default: "warn",
             url:

@@ -1,6 +1,6 @@
 import { RuleTester } from "eslint"
 import semver from "semver"
-const rule = require("../../../lib/rules/require-scoped")
+import rule = require("../../../lib/rules/require-scoped")
 
 const parserVersion = require("vue-eslint-parser/package.json").version
 
@@ -12,7 +12,7 @@ const tester = new RuleTester({
     },
 })
 
-tester.run("require-scoped", rule, {
+tester.run("require-scoped", rule as any, {
     valid: [
         `
         <template>

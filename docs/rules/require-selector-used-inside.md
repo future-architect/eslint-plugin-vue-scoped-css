@@ -2,11 +2,11 @@
 pageClass: "rule-details"
 sidebarDepth: 0
 title: "vue-scoped-css/require-selector-used-inside"
-description: "Reports the defined selectors is not used inside `<template>`."
+description: "disallow selectors defined that is not used inside `<template>`"
 ---
 # vue-scoped-css/require-selector-used-inside
 
-> Reports the defined selectors is not used inside `<template>`.
+> disallow selectors defined that is not used inside `<template>`
 
 - :gear: This rule is included in `"plugin:vue-scoped-css/all"`.
 

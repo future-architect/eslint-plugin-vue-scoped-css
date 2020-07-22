@@ -19,7 +19,7 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "require selector argument to be passed to `::v-slotted()`.",
+                "require selector argument to be passed to `::v-slotted()`",
             categories: ["vue3-recommended"],
             default: "warn",
             url:
