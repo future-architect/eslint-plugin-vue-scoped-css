@@ -41,6 +41,11 @@ const baseRules = [
         ruleName: "require-v-global-argument",
         ruleId: "vue-scoped-css/require-v-global-argument",
     },
+    {
+        rule: require("../rules/require-v-slotted-argument"),
+        ruleName: "require-v-slotted-argument",
+        ruleId: "vue-scoped-css/require-v-slotted-argument",
+    },
 ]
 
 export const rules = baseRules.map((obj) => {

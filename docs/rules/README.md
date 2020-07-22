@@ -25,6 +25,7 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
 | [vue-scoped-css/require-v-deep-argument](./require-v-deep-argument.md) | require selector argument to be passed to `::v-deep()`. | :wrench: |
 | [vue-scoped-css/require-v-global-argument](./require-v-global-argument.md) | require selector argument to be passed to `::v-global()`. |  |
+| [vue-scoped-css/require-v-slotted-argument](./require-v-slotted-argument.md) | require selector argument to be passed to `::v-slotted()`. |  |
 
 ## Recommended for Vue.js 2.x
 
