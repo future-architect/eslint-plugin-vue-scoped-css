@@ -30,6 +30,13 @@ tester.run("no-deprecated-deep-combinator", rule, {
             a /deep/ .b {}
             </style>
             `,
+            output: `
+            <template><div class="item">sample</div></template>
+            <style scoped>
+            a ::v-deep .b {}
+            a ::v-deep .b {}
+            </style>
+            `,
             errors: [
                 {
                     message: "The deep combinator `>>>` is deprecated.",
@@ -45,6 +52,27 @@ tester.run("no-deprecated-deep-combinator", rule, {
                     endLine: 5,
                     endColumn: 21,
                 },
+            ],
+        },
+
+        {
+            code: `
+            <template><div class="item">sample</div></template>
+            <style scoped>
+            a>>>.b {}
+            a/deep/.b {}
+            </style>
+            `,
+            output: `
+            <template><div class="item">sample</div></template>
+            <style scoped>
+            a ::v-deep .b {}
+            a ::v-deep .b {}
+            </style>
+            `,
+            errors: [
+                "The deep combinator `>>>` is deprecated.",
+                "The deep combinator `/deep/` is deprecated.",
             ],
         },
     ],

@@ -5,7 +5,7 @@ import {
     ValidStyleContext,
 } from "../styles/context"
 import type { VCSSSelectorCombinator } from "../styles/ast"
-import type { RuleContext, Rule } from "../types"
+import type { RuleContext, Rule, Range } from "../types"
 import { isDeepCombinator } from "../styles/utils/selectors"
 
 declare const module: {
@@ -21,7 +21,7 @@ module.exports = {
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-deep-combinator.html",
         },
-        fixable: null,
+        fixable: "code",
         messages: {
             deprecated: "The deep combinator `{{value}}` is deprecated.",
         },
@@ -48,6 +48,19 @@ module.exports = {
                 messageId: "deprecated",
                 data: {
                     value: node.value.trim(),
+                },
+                fix(fixer) {
+                    const sourceCodeText = context.getSourceCode().text
+                    const range = [...node.range] as Range
+                    let newText = "::v-deep"
+                    if (sourceCodeText[range[0] - 1]?.trim()) {
+                        newText = ` ${newText}`
+                    }
+                    if (sourceCodeText[range[1]]?.trim()) {
+                        newText = `${newText} `
+                    }
+
+                    return fixer.replaceTextRange(range, newText)
                 },
             })
         }
