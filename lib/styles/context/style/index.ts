@@ -5,8 +5,8 @@ import type {
     RuleContext,
     LineAndColumnData,
 } from "../../../types"
-import type { VCSSStyleSheet, VCSSNode } from "../../ast"
-import { isVCSSContainerNode } from "../../utils/css-nodes"
+import type { VCSSStyleSheet, VCSSNode, VCSSSelectorNode } from "../../ast"
+import { isVCSSContainerNode, hasSelectorNodes } from "../../utils/css-nodes"
 
 /**
  * Check whether the program has invalid EOF or not.
@@ -109,11 +109,17 @@ function getLang(style: AST.VElement) {
     )
 }
 
-interface Visitor {
+interface VisitorVCSSNode {
     exit?: boolean
     break?: boolean
     enterNode(node: VCSSNode): void
-    leaveNode(node: VCSSNode): void
+    leaveNode?(node: VCSSNode): void
+}
+interface VisitorVCSSSelectorNode {
+    exit?: boolean
+    break?: boolean
+    enterNode(node: VCSSSelectorNode): void
+    leaveNode?(node: VCSSSelectorNode): void
 }
 
 interface BaseStyleContext {
@@ -121,7 +127,8 @@ interface BaseStyleContext {
     readonly sourceCode: SourceCode
     readonly scoped: boolean
     readonly lang: string
-    traverseNodes(visitor: Visitor): void
+    traverseNodes(visitor: VisitorVCSSNode): void
+    traverseSelectorNodes(visitor: VisitorVCSSSelectorNode): void
 }
 
 export interface ValidStyleContext extends BaseStyleContext {
@@ -206,10 +213,21 @@ export class StyleContextImpl {
         }
     }
 
-    public traverseNodes(visitor: Visitor): void {
+    public traverseNodes(visitor: VisitorVCSSNode): void {
         if (this.cssNode) {
             traverseNodes(this.cssNode, visitor)
         }
+    }
+    public traverseSelectorNodes(visitor: VisitorVCSSSelectorNode): void {
+        this.traverseNodes({
+            enterNode(node) {
+                if (hasSelectorNodes(node)) {
+                    for (const sel of node.selectors) {
+                        traverseSelectorNodes(sel, visitor)
+                    }
+                }
+            },
+        })
     }
 }
 
@@ -218,7 +236,7 @@ export class StyleContextImpl {
  * @param node The node to traverse.
  * @param visitor The node visitor.
  */
-function traverseNodes(node: VCSSNode, visitor: Visitor): void {
+function traverseNodes(node: VCSSNode, visitor: VisitorVCSSNode): void {
     visitor.break = false
     visitor.enterNode(node)
     if (visitor.exit || visitor.break) {
@@ -237,7 +255,37 @@ function traverseNodes(node: VCSSNode, visitor: Visitor): void {
         }
     }
 
-    visitor.leaveNode(node)
+    visitor.leaveNode?.(node)
+}
+
+/**
+ * Traverse the given node.
+ * @param node The node to traverse.
+ * @param visitor The node visitor.
+ */
+function traverseSelectorNodes(
+    node: VCSSSelectorNode,
+    visitor: VisitorVCSSSelectorNode,
+): void {
+    visitor.break = false
+    visitor.enterNode(node)
+    if (visitor.exit || visitor.break) {
+        return
+    }
+
+    if (node.type === "VCSSSelector" || node.type === "VCSSSelectorPseudo") {
+        for (const child of node.nodes) {
+            traverseSelectorNodes(child, visitor)
+            if (visitor.break) {
+                break
+            }
+            if (visitor.exit) {
+                return
+            }
+        }
+    }
+
+    visitor.leaveNode?.(node)
 }
 
 /**

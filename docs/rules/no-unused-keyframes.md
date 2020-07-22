@@ -10,6 +10,8 @@ description: "Reports the `@keyframes` is not used in Scoped CSS."
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
+## :book: Rule Details
+
 This rule reports `@keyframes` is not used in Scoped CSS.
 
 <eslint-code-block :rules="{'vue-scoped-css/no-unused-keyframes': ['error']}">
@@ -32,9 +34,9 @@ This rule reports `@keyframes` is not used in Scoped CSS.
 
 </eslint-code-block>
 
-## :books: Further reading
+## :wrench: Options
 
-- None
+Nothing.
 
 ## Implementation
 

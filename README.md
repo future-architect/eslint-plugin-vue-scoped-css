@@ -86,23 +86,6 @@ The `--fix` option on the [command line](https://eslint.org/docs/user-guide/comm
 
 <!--RULES_TABLE_START-->
 
-## Recommended
-
-Enforce all the rules in this category with:
-
-```json
-{
-  "extends": "plugin:vue-scoped-css/recommended"
-}
-```
-
-| Rule ID | Description |    |
-|:--------|:------------|:---|
-| [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | Disallow parsing errors in `<style>` |  |
-| [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | Reports the `@keyframes` is not used in Scoped CSS. |  |
-| [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
-| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
-
 ## Recommended for Vue.js 3.x
 
 Enforce all the rules in this category with:
@@ -110,6 +93,24 @@ Enforce all the rules in this category with:
 ```json
 {
   "extends": "plugin:vue-scoped-css/vue3-recommended"
+}
+```
+
+| Rule ID | Description |    |
+|:--------|:------------|:---|
+| [vue-scoped-css/no-deprecated-deep-combinator](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-deep-combinator.html) | disallow using deprecated deep combinators |  |
+| [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | Disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | Reports the `@keyframes` is not used in Scoped CSS. |  |
+| [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
+| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+
+## Recommended for Vue.js 2.x
+
+Enforce all the rules in this category with:
+
+```json
+{
+  "extends": "plugin:vue-scoped-css/recommended"
 }
 ```
 

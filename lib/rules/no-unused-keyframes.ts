@@ -97,9 +97,6 @@ module.exports = {
                         }
                     }
                 },
-                leaveNode() {
-                    // noop
-                },
             })
             return {
                 keyframes,

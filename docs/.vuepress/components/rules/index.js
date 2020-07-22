@@ -5,6 +5,8 @@ import pluginVue from "eslint-plugin-vue"
 const CATEGORY_TITLES = {
     base: "Base Rules",
     recommended: "Recommended",
+    "vue2-recommended": "Recommended for Vue.js 2.x",
+    "vue3-recommended": "Recommended for Vue.js 3.x",
     uncategorized: "Uncategorized",
     "eslint-plugin-vue": "eslint-plugin-vue rules",
     "eslint-core-rules@Possible Errors": "ESLint core rules(Possible Errors)",
@@ -18,7 +20,9 @@ const CATEGORY_TITLES = {
 }
 const CATEGORY_INDEX = {
     base: 0,
-    recommended: 2,
+    recommended: 1,
+    "vue2-recommended": 2,
+    "vue3-recommended": 3,
     uncategorized: 4,
     "eslint-plugin-vue": 5,
     "eslint-core-rules@Possible Errors": 6,
@@ -32,21 +36,37 @@ const CATEGORY_INDEX = {
 const CATEGORY_CLASSES = {
     base: "eslint-plugin-vue-scoped-css__category",
     recommended: "eslint-plugin-vue-scoped-css__category",
+    "vue2-recommended": "eslint-plugin-vue-scoped-css__category",
+    "vue3-recommended": "eslint-plugin-vue-scoped-css__category",
     uncategorized: "eslint-plugin-vue-scoped-css__category",
     "eslint-plugin-vue": "eslint-plugin-vue__category",
+}
+
+function getCategory({ deprecated, docs: { categories } }) {
+    if (deprecated) {
+        return "deprecated"
+    }
+    const v2 = categories.some((cat) => cat === "recommended")
+    const v3 = categories.some((cat) => cat === "vue3-recommended")
+    if (v2) {
+        return v3 ? "recommended" : "vue2-recommended"
+    } else if (v3) {
+        return "vue3-recommended"
+    }
+    return "uncategorized"
 }
 
 const allRules = []
 
 for (const k of Object.keys(plugin.rules)) {
     const rule = plugin.rules[k]
-    rule.meta.docs.category = rule.meta.docs.category || "uncategorized"
+    const category = getCategory(rule.meta)
     allRules.push({
         classes: "eslint-plugin-vue-scoped-css__rule",
-        category: rule.meta.docs.category,
+        category,
         ruleId: rule.meta.docs.ruleId,
         url: rule.meta.docs.url,
-        initChecked: CATEGORY_INDEX[rule.meta.docs.category] <= 3,
+        initChecked: CATEGORY_INDEX[category] <= 3,
     })
 }
 for (const k of Object.keys(pluginVue.rules)) {

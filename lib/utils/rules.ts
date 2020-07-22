@@ -2,6 +2,11 @@ import type { Rule } from "../types"
 
 const baseRules = [
     {
+        rule: require("../rules/no-deprecated-deep-combinator"),
+        ruleName: "no-deprecated-deep-combinator",
+        ruleId: "vue-scoped-css/no-deprecated-deep-combinator",
+    },
+    {
         rule: require("../rules/no-parsing-error"),
         ruleName: "no-parsing-error",
         ruleId: "vue-scoped-css/no-parsing-error",

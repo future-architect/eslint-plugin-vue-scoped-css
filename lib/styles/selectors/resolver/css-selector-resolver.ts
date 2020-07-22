@@ -21,9 +21,9 @@ import {
     VCSSSelectorPseudo,
 } from "../../ast"
 import {
-    isVCSSStyleRule,
     isVCSSAtRule,
     isVCSSContainerNode,
+    hasSelectorNodes,
 } from "../../utils/css-nodes"
 
 export class ResolvedSelectors {
@@ -479,18 +479,4 @@ function newNestingConcatRightSelectorNodes(
         value: `${parent.value}${right.selector}`,
     })
     return newNode
-}
-
-/**
- * Checks whether the given node has selectors.
- */
-function hasSelectorNodes(
-    node: VCSSNode,
-): node is
-    | (VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] })
-    | VCSSStyleRule {
-    if (isVCSSStyleRule(node) || isNestingAtRule(node)) {
-        return true
-    }
-    return false
 }

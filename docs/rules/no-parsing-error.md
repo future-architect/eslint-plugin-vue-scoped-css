@@ -10,6 +10,8 @@ description: "Disallow parsing errors in `<style>`"
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
+## :book: Rule Details
+
 This rule reports syntax errors in `<style>`. 
 
 <eslint-code-block :rules="{'vue-scoped-css/no-parsing-error': ['error']}">
@@ -23,9 +25,9 @@ This rule reports syntax errors in `<style>`.
 
 </eslint-code-block>
 
-## :books: Further reading
+## :wrench: Options
 
-- None
+Nothing.
 
 ## Implementation
 
