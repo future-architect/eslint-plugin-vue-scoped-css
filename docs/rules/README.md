@@ -23,6 +23,7 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | Reports the `@keyframes` is not used in Scoped CSS. |  |
 | [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
 | [vue-scoped-css/require-scoped](./require-scoped.md) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+| [vue-scoped-css/require-v-deep-arguments](./require-v-deep-arguments.md) | require selector arguments to be passed to `::v-deep()`. | :wrench: |
 
 ## Recommended for Vue.js 2.x
 
