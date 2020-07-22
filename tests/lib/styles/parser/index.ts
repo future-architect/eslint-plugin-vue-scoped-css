@@ -11,7 +11,11 @@ import SCSSStringifier from "postcss-scss/lib/scss-stringifier"
 import StylusStringifier from "postcss-styl/lib/stringifier"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
-import { VCSSNode, VCSSSelectorNode } from "../../../../lib/styles/ast"
+import type {
+    VCSSNode,
+    VCSSSelectorNode,
+    VCSSAtRule,
+} from "../../../../lib/styles/ast"
 
 function stringify(node: any, stringifier: any) {
     let semicolon = true
@@ -200,11 +204,11 @@ function checkCSSNodeLocations(
             )
         }
     } else if (node.type === "VCSSSelector") {
-        const { parent } = node
+        const parent = node.parent as VCSSAtRule
 
         if (parent.selectors) {
             // parent===VCSSStyleRule
-            const selectorTexts = parent.selectors.map(s =>
+            const selectorTexts = parent.selectors.map((s) =>
                 code.slice(...s.range),
             )
             const rawSelectorText = parent.rawSelectorText as string

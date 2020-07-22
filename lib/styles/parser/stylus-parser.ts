@@ -1,7 +1,7 @@
 import postcssStyl from "postcss-styl"
 import { CSSParser } from "./css-parser"
 import { VCSSInlineComment, VCSSContainerNode, VCSSNode } from "../ast"
-import { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
+import type { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
 import { StylusSelectorParser } from "./selector/stylus-selector-parser"
 /**
  * Stylus Parser

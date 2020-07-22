@@ -1,5 +1,5 @@
 import { getResolvedSelectors, ResolvedSelector } from "../styles/selectors"
-import { VCSSSelectorNode, VCSSSelectorCombinator } from "../styles/ast"
+import type { VCSSSelectorNode, VCSSSelectorCombinator } from "../styles/ast"
 import {
     isTypeSelector,
     isIDSelector,
@@ -10,10 +10,15 @@ import {
     isAdjacentSiblingCombinator,
     isGeneralSiblingCombinator,
     isDeepCombinator,
+    isVueSpecialPseudo,
+    isVDeepPseudo,
+    isVSlottedPseudo,
+    isVGlobalPseudo,
+    isDescendantCombinator,
 } from "../styles/utils/selectors"
 import { createQueryContext, QueryContext } from "../styles/selectors/query"
 import { isRootElement } from "../styles/selectors/query/elements"
-import { RuleContext } from "../types"
+import type { RuleContext, Rule } from "../types"
 import { ParsedQueryOptions } from "../options"
 import {
     ValidStyleContext,
@@ -21,7 +26,11 @@ import {
     StyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
-import { hasTemplateBlock } from "../utils/utils"
+import { hasTemplateBlock, isDefined } from "../utils/utils"
+
+declare const module: {
+    exports: Rule
+}
 
 /**
  * Gets scoped selectors.
@@ -30,21 +39,41 @@ import { hasTemplateBlock } from "../utils/utils"
  */
 function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
     const resolvedSelectors = getResolvedSelectors(style)
-    return resolvedSelectors.map(getScopedSelector)
+    return resolvedSelectors.map(getScopedSelector).filter(isDefined)
 }
 
 /**
  * Gets scoped selector.
- * @param {ResolvedSelector} resolvedSelector CSS selector
- * @returns {VCSSSelectorNode[]} scoped selector
+ * @param resolvedSelector CSS selector
+ * @returns scoped selector
  */
 function getScopedSelector(
     resolvedSelector: ResolvedSelector,
-): VCSSSelectorNode[] {
+): VCSSSelectorNode[] | null {
     const { selector } = resolvedSelector
-    const deepIndex = selector.findIndex(isDeepCombinator)
-    const scopedCandidateSelector =
-        deepIndex >= 0 ? selector.slice(0, deepIndex) : [...selector]
+    const specialNodeIndex = selector.findIndex(
+        (s) => isDeepCombinator(s) || isVueSpecialPseudo(s),
+    )
+    let scopedCandidateSelector: VCSSSelectorNode[]
+    if (specialNodeIndex >= 0) {
+        const specialNode = selector[specialNodeIndex]
+        if (isDeepCombinator(specialNode) || isVDeepPseudo(specialNode)) {
+            scopedCandidateSelector = selector.slice(0, specialNodeIndex)
+
+            const last = scopedCandidateSelector.pop()
+            if (last && !isDescendantCombinator(last)) {
+                scopedCandidateSelector.push(last)
+            }
+        } else if (isVSlottedPseudo(specialNode)) {
+            scopedCandidateSelector = selector.slice(0, specialNodeIndex + 1)
+        } else if (isVGlobalPseudo(specialNode)) {
+            return null
+        } else {
+            scopedCandidateSelector = [...selector]
+        }
+    } else {
+        scopedCandidateSelector = [...selector]
+    }
 
     const results = []
     for (const sel of scopedCandidateSelector.reverse()) {
@@ -68,7 +97,7 @@ module.exports = {
         docs: {
             description:
                 "Reports selectors defined in Scoped CSS not used in `<template>`.",
-            category: "recommended",
+            categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html",
@@ -106,7 +135,7 @@ module.exports = {
         }
         const styles = getStyleContexts(context)
             .filter(StyleContext.isValid)
-            .filter(style => style.scoped)
+            .filter((style) => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -127,7 +156,7 @@ module.exports = {
                     },
                     messageId: "unused",
                     data: {
-                        selector: nodes.map(n => n.selector).join(""),
+                        selector: nodes.map((n) => n.selector).join(""),
                     },
                 })
                 reportedSet.add(nodes[0])
@@ -172,13 +201,14 @@ module.exports = {
 
                 const classSelectors = selectorBlock.filter(isClassSelector)
                 const notClassSelectors = selectorBlock.filter(
-                    s =>
-                        // Filter verify target slector
+                    (s) =>
+                        // Filter verify target selector
                         // Other selectors are ignored because they are likely to be changed dynamically.
                         isSelectorCombinator(s) ||
                         isTypeSelector(s) ||
                         isIDSelector(s) ||
-                        isUniversalSelector(s),
+                        isUniversalSelector(s) ||
+                        isVueSpecialPseudo(s),
                 )
 
                 for (const selectorNode of notClassSelectors) {

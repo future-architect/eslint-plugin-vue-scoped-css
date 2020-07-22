@@ -1,8 +1,8 @@
 import { CSSParser } from "./css-parser"
 import { SCSSParser } from "./scss-parser"
 import { StylusParser } from "./stylus-parser"
-import { SourceCode, LineAndColumnData } from "../../types"
-import { VCSSStyleSheet } from "../ast"
+import type { SourceCode, LineAndColumnData } from "../../types"
+import type { VCSSStyleSheet } from "../ast"
 import { isSupportedStyleLang } from "../utils"
 
 const PARSERS = {

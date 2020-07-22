@@ -1,7 +1,7 @@
 import postcssScss from "postcss-scss"
 import { CSSParser } from "./css-parser"
 import { VCSSInlineComment, VCSSContainerNode, VCSSNode } from "../ast"
-import { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
+import type { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
 import { SCSSSelectorParser } from "./selector/scss-selector-parser"
 /**
  * SCSS Parser

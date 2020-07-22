@@ -352,6 +352,57 @@ tester.run("no-unused-selector", rule, {
         input {}
         </style>
         `,
+
+        // deep
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo ::v-deep #a {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo >>> #a {}
+        </style>
+        `,
+        // Vue.js 3.x
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo ::v-deep(#a) {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"><slot></slot></div></div>
+        </template>
+        <style scoped>
+        .foo ::v-slotted(.bar > .baz) {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"><slot></slot></div></div>
+        </template>
+        <style scoped>
+        .foo ::v-slotted(.bar > .baz) .qux {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo" /></div>
+        </template>
+        <style scoped>
+        .unknown ::v-global(.bar > .baz) .qux {}
+        </style>
+        `,
     ],
     invalid: [
         {
@@ -805,6 +856,148 @@ tester.run("no-unused-selector", rule, {
                     column: 13,
                     endLine: 12,
                     endColumn: 21,
+                },
+            ],
+        },
+
+        // Vue.js 3.x
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul ::v-deep(.a) {}
+            div > li ::v-deep(.a) {}
+            div > .list ::v-deep(.a) {}
+            div > .item ::v-deep(.a) {}
+            </style>
+            `,
+            errors: [
+                {
+                    message: "The selector `div>li` is unused.",
+                    line: 11,
+                    column: 13,
+                    endLine: 11,
+                    endColumn: 21,
+                },
+                {
+                    message: "The selector `.item` is unused.",
+                    line: 13,
+                    column: 19,
+                    endLine: 13,
+                    endColumn: 24,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <li/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) {}
+            </style>
+            `,
+            errors: [
+                {
+                    message: "The selector `::v-slotted(.a)` is unused.",
+                    line: 10,
+                    column: 24,
+                    endLine: 10,
+                    endColumn: 39,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                    <h3></h3>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) {}
+            div > li > ::v-slotted(.a) {}
+            div > .list > ::v-slotted(.a) {}
+            div > .item > ::v-slotted(.a) {}
+            div > h3 > ::v-slotted(.a) {}
+            </style>
+            `,
+            errors: [
+                {
+                    message: "The selector `li>::v-slotted(.a)` is unused.",
+                    line: 12,
+                    column: 19,
+                    endLine: 12,
+                    endColumn: 39,
+                },
+                {
+                    message: "The selector `.item>::v-slotted(.a)` is unused.",
+                    line: 14,
+                    column: 19,
+                    endLine: 14,
+                    endColumn: 42,
+                },
+                {
+                    message: "The selector `h3>::v-slotted(.a)` is unused.",
+                    line: 15,
+                    column: 19,
+                    endLine: 15,
+                    endColumn: 39,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                    <h3></h3>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) .bar {}
+            div > li > ::v-slotted(.a) .bar {}
+            div > .list > ::v-slotted(.a) .bar {}
+            div > .item > ::v-slotted(.a) .bar {}
+            div > h3 > ::v-slotted(.a) .bar {}
+            </style>
+            `,
+            errors: [
+                {
+                    message: "The selector `li>::v-slotted(.a)` is unused.",
+                    line: 12,
+                    column: 19,
+                    endLine: 12,
+                    endColumn: 39,
+                },
+                {
+                    message: "The selector `.item>::v-slotted(.a)` is unused.",
+                    line: 14,
+                    column: 19,
+                    endLine: 14,
+                    endColumn: 42,
+                },
+                {
+                    message: "The selector `h3>::v-slotted(.a)` is unused.",
+                    line: 15,
+                    column: 19,
+                    endLine: 15,
+                    endColumn: 39,
                 },
             ],
         },

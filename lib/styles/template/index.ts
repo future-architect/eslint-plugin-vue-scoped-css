@@ -1,7 +1,7 @@
-import { isDefined, escapeRegExp } from "../utils"
-import { AST } from "../../types"
+import { escapeRegExp } from "../utils"
+import type { AST } from "../../types"
 import { Interpolation } from "./interpolation"
-import {
+import type {
     VCSSIDSelector,
     VCSSClassSelector,
     VCSSTypeSelector,
@@ -11,6 +11,7 @@ import {
 import getSelectorTemplateElements from "./selector"
 import getAtRuleParamsTemplateElements from "./at-rule-params"
 import getDeclValueTemplateElements from "./decl-value"
+import { isDefined } from "../../utils/utils"
 
 export { Interpolation }
 
@@ -27,7 +28,7 @@ export class Template {
     ) {
         this.elements = elements
             .filter(isDefined)
-            .filter(e => e !== "")
+            .filter((e) => e !== "")
             .reduce((l, e) => {
                 if (l.length) {
                     const lastIndex = l.length - 1
@@ -169,7 +170,7 @@ export class Template {
     }
 
     public hasString(s: string): boolean {
-        return this.elements.some(e => {
+        return this.elements.some((e) => {
             if (typeof e === "string") {
                 return e.includes(s)
             }
@@ -204,7 +205,7 @@ export class Template {
 
     public toLowerCase(): Template {
         return new Template(
-            this.elements.map(e => {
+            this.elements.map((e) => {
                 if (typeof e === "string") {
                     return e.toLowerCase()
                 }

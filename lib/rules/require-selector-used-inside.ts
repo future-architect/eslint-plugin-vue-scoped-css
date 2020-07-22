@@ -6,10 +6,15 @@ import {
     isUniversalSelector,
     isSelectorCombinator,
     isDeepCombinator,
+    isVDeepPseudo,
+    isVueSpecialPseudo,
+    isDescendantCombinator,
+    isVSlottedPseudo,
+    isVGlobalPseudo,
 } from "../styles/utils/selectors"
 import { createQueryContext, QueryContext } from "../styles/selectors/query"
-import { VCSSSelectorNode } from "../styles/ast"
-import { RuleContext } from "../types"
+import type { VCSSSelectorNode } from "../styles/ast"
+import type { RuleContext, Rule } from "../types"
 import { ParsedQueryOptions } from "../options"
 import {
     ValidStyleContext,
@@ -17,7 +22,11 @@ import {
     StyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
-import { hasTemplateBlock } from "../utils/utils"
+import { hasTemplateBlock, isDefined } from "../utils/utils"
+
+declare const module: {
+    exports: Rule
+}
 
 /**
  * Gets scoped selectors.
@@ -26,7 +35,7 @@ import { hasTemplateBlock } from "../utils/utils"
  */
 function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
     const resolvedSelectors = getResolvedSelectors(style)
-    return resolvedSelectors.map(getScopedSelector)
+    return resolvedSelectors.map(getScopedSelector).filter(isDefined)
 }
 
 /**
@@ -36,10 +45,29 @@ function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
  */
 function getScopedSelector(
     resolvedSelector: ResolvedSelector,
-): VCSSSelectorNode[] {
+): VCSSSelectorNode[] | null {
     const { selector } = resolvedSelector
-    const deepIndex = selector.findIndex(isDeepCombinator)
-    return deepIndex >= 0 ? selector.slice(0, deepIndex) : [...selector]
+    const specialNodeIndex = selector.findIndex(
+        (s) => isDeepCombinator(s) || isVueSpecialPseudo(s),
+    )
+    if (specialNodeIndex >= 0) {
+        const specialNode = selector[specialNodeIndex]
+        if (isDeepCombinator(specialNode) || isVDeepPseudo(specialNode)) {
+            const scopedCandidateSelector = selector.slice(0, specialNodeIndex)
+
+            const last = scopedCandidateSelector.pop()
+            if (last && !isDescendantCombinator(last)) {
+                scopedCandidateSelector.push(last)
+            }
+            return scopedCandidateSelector
+        } else if (isVSlottedPseudo(specialNode)) {
+            return selector.slice(0, specialNodeIndex + 1)
+        } else if (isVGlobalPseudo(specialNode)) {
+            return null
+        }
+        return [...selector]
+    }
+    return [...selector]
 }
 
 module.exports = {
@@ -47,7 +75,7 @@ module.exports = {
         docs: {
             description:
                 "Reports the defined selectors is not used inside `<template>`.",
-            category: undefined,
+            categories: [],
             default: "warn",
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html",
@@ -85,7 +113,7 @@ module.exports = {
         }
         const styles = getStyleContexts(context)
             .filter(StyleContext.isValid)
-            .filter(style => style.scoped)
+            .filter((style) => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -107,7 +135,7 @@ module.exports = {
                     },
                     messageId: "unused",
                     data: {
-                        selector: nodes.map(n => n.selector).join(""),
+                        selector: nodes.map((n) => n.selector).join(""),
                     },
                 })
                 reportedSet.add(last)
@@ -123,15 +151,16 @@ module.exports = {
         ) {
             let targetsQueryContext = queryContext
             const selectorNodes = scopedSelector
-                // Filter verify target slector
+                // Filter verify target selector
                 // Other selectors are ignored because they are likely to be changed dynamically.
                 .filter(
-                    s =>
+                    (s) =>
                         isSelectorCombinator(s) ||
                         isTypeSelector(s) ||
                         isIDSelector(s) ||
                         isClassSelector(s) ||
-                        isUniversalSelector(s),
+                        isUniversalSelector(s) ||
+                        isVueSpecialPseudo(s),
                 )
 
             for (let index = 0; index < selectorNodes.length; index++) {

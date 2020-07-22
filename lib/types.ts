@@ -1,19 +1,24 @@
 // eslint-disable-next-line  @mysticatea/node/no-missing-import
-import AST from "vue-eslint-parser/ast"
-import postcss from "postcss"
-import selectorParser from "postcss-selector-parser"
+import type AST from "vue-eslint-parser/ast"
+import type postcss from "postcss"
+import type selectorParser from "postcss-selector-parser"
 // eslint-disable-next-line @mysticatea/node/no-extraneous-import
-import { ScopeManager } from "eslint-scope"
-import { Rule } from "eslint"
+import type { ScopeManager } from "eslint-scope"
+import type { Rule } from "eslint"
 
 export { AST }
 
+// type RuleListener = { [key: string]: (node: never) => void }
+interface RuleListener {
+    [key: string]: ((node: never) => void) | undefined
+}
+
 export type Rule = {
-    create(context: RuleContext): { [key: string]: Function }
+    create(context: RuleContext): RuleListener
     meta: {
         docs: {
             description: string
-            category: string
+            categories: ("recommended" | "vue3-recommended")[]
             ruleId?: string
             ruleName?: string
             default?: string
@@ -25,6 +30,7 @@ export type Rule = {
         fixable?: "code" | "whitespace" | null
         schema: any[]
         messages: { [key: string]: string }
+        type: "suggestion" | "problem"
     }
 }
 
@@ -83,8 +89,30 @@ export interface RuleContext {
     parserServices: ParserServices
 }
 
+interface Fix {
+    range: Range
+    text: string
+}
+export interface RuleFixer {
+    insertTextAfter(nodeOrToken: any, text: string): Fix
+
+    insertTextAfterRange(range: Range, text: string): Fix
+
+    insertTextBefore(nodeOrToken: any, text: string): Fix
+
+    insertTextBeforeRange(range: Range, text: string): Fix
+
+    remove(nodeOrToken: any): Fix
+
+    removeRange(range: Range): Fix
+
+    replaceText(nodeOrToken: any, text: string): Fix
+
+    replaceTextRange(range: Range, text: string): Fix
+}
+
 export type ReportSuggestion = ({ messageId: string } | { desc: string }) & {
-    fix?(fixer: Rule.RuleFixer): null | Rule.Fix | IterableIterator<Rule.Fix>
+    fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>
 }
 export type ReportDescriptorNodeLocation = { node: AST.HasLocation }
 export type ReportDescriptorSourceLocation = {

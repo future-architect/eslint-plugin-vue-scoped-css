@@ -10,8 +10,8 @@ import {
     CommentDirectives,
     createCommentDirectives,
 } from "./comment-directive"
-import { RuleContext } from "../../types"
-import { AST } from "vue-eslint-parser"
+import type { RuleContext } from "../../types"
+import type { AST } from "vue-eslint-parser"
 import {
     VueComponentContext,
     createVueComponentContext,

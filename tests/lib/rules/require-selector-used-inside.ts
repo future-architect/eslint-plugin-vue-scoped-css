@@ -314,6 +314,58 @@ tester.run("require-selector-used-inside", rule, {
         input {}
         </style>
         `,
+
+        // deep
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo ::v-deep #a {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo >>> #a {}
+        </style>
+        `,
+
+        // Vue.js 3.x
+        `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped>
+        .foo ::v-deep(#a) {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"><slot></slot></div></div>
+        </template>
+        <style scoped>
+        .foo ::v-slotted(.bar > .baz) {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo"><slot></slot></div></div>
+        </template>
+        <style scoped>
+        .foo ::v-slotted(.bar > .baz) .qux {}
+        </style>
+        `,
+        `
+        <template>
+            <div><div class="foo" /></div>
+        </template>
+        <style scoped>
+        .unknown ::v-global(.bar > .baz) .qux {}
+        </style>
+        `,
     ],
     invalid: [
         {
@@ -733,6 +785,94 @@ tester.run("require-selector-used-inside", rule, {
                     endLine: 19,
                     endColumn: 29,
                 },
+            ],
+        },
+
+        // Vue.js 3.x
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul ::v-deep(.a) {}
+            div > li ::v-deep(.a) {}
+            div > .list ::v-deep(.a) {}
+            div > .item ::v-deep(.a) {}
+            </style>
+            `,
+            errors: [
+                "The selector `div>li` is unused in the template.",
+                "The selector `div>.item` is unused in the template.",
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <li/>
+                    </ul>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) {}
+            </style>
+            `,
+            errors: [
+                "The selector `div>ul>::v-slotted(.a)` is unused in the template.",
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                    <h3><span /></h3>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) {}
+            div > li > ::v-slotted(.a) {}
+            div > .list > ::v-slotted(.a) {}
+            div > .item > ::v-slotted(.a) {}
+            div > h3 > ::v-slotted(.a) {}
+            </style>
+            `,
+            errors: [
+                "The selector `div>li` is unused in the template.",
+                "The selector `div>.item` is unused in the template.",
+                "The selector `div>h3>::v-slotted(.a)` is unused in the template.",
+            ],
+        },
+        {
+            code: `
+            <template>
+                <div>
+                    <ul class="list">
+                        <slot/>
+                    </ul>
+                    <h3></h3>
+                </div>
+            </template>
+            <style scoped>
+            div > ul > ::v-slotted(.a) .bar {}
+            div > li > ::v-slotted(.a) .bar {}
+            div > .list > ::v-slotted(.a) .bar {}
+            div > .item > ::v-slotted(.a) .bar {}
+            div > h3 > ::v-slotted(.a) .bar {}
+            </style>
+            `,
+            errors: [
+                "The selector `div>li` is unused in the template.",
+                "The selector `div>.item` is unused in the template.",
+                "The selector `div>h3>` is unused in the template.",
             ],
         },
     ],

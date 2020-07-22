@@ -1,5 +1,5 @@
 import categories from "./lib/categories"
-import { Rule } from "../lib/types"
+import type { Rule } from "../lib/types"
 import { rules } from "../lib/utils/rules"
 
 //eslint-disable-next-line require-jsdoc
@@ -7,9 +7,9 @@ export default function renderRulesTableContent(
     buildRulePath = (ruleName: string) => `./${ruleName}.md`,
 ) {
     const uncategorizedRules = rules.filter(
-        rule => !rule.meta.docs.category && !rule.meta.deprecated,
+        (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated,
     )
-    const deprecatedRules = rules.filter(rule => rule.meta.deprecated)
+    const deprecatedRules = rules.filter((rule) => rule.meta.deprecated)
 
     // -----------------------------------------------------------------------------
 
@@ -33,7 +33,9 @@ export default function renderRulesTableContent(
         )})`
         const replacedRules = rule.meta.docs.replacedBy || []
         const replacedBy = replacedRules
-            .map(name => `[vue-scoped-css/${name}](${buildRulePath(name)}.md)`)
+            .map(
+                (name) => `[vue-scoped-css/${name}](${buildRulePath(name)}.md)`,
+            )
             .join(", ")
 
         return `| ${link} | ${replacedBy || "(no replacement)"} |`
@@ -41,7 +43,7 @@ export default function renderRulesTableContent(
 
     // -----------------------------------------------------------------------------
     let rulesTableContent = categories
-        .map(category =>
+        .map((category) =>
             category.rules.length
                 ? `
 ## ${category.title}

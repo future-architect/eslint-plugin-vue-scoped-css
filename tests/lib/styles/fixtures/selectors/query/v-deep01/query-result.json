@@ -1,0 +1,12 @@
+{
+    ".bar ::v-deep#a": [
+        "ul.bar>li#a"
+    ],
+    ".bar ::v-deep(#a)": [
+        "ul.bar>li#a"
+    ],
+    ".bar ::v-deep(#a,#b)": [
+        "ul.bar>li#a",
+        "ul.bar>li#b"
+    ]
+}

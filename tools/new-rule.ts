@@ -2,8 +2,8 @@ import path from "path"
 import fs from "fs"
 const logger = console
 
-    // main
-;(ruleId => {
+// main
+;((ruleId) => {
     if (ruleId == null) {
         logger.error("Usage: npm run new <RuleID>")
         process.exitCode = 1
@@ -27,14 +27,18 @@ import {
     getCommentDirectivesReporter,
     StyleContext,
 } from "../styles"
-import { VCSSSelectorNode } from "../styles/ast"
-import { RuleContext } from "../types"
+import type { VCSSSelectorNode } from "../styles/ast"
+import type { RuleContext, Rule } from "../types"
+
+declare const module: {
+    exports: Rule
+}
 
 module.exports = {
     meta: {
         docs: {
             description: "",
-            category: undefined,
+            categories: [''],
             default: "warn",
             url: "",
         },

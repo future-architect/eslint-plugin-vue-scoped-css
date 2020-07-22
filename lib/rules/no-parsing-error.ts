@@ -1,16 +1,20 @@
-import { RuleContext } from "../types"
-import { VCSSParsingError } from "../styles/ast"
+import type { RuleContext, Rule } from "../types"
+import type { VCSSParsingError } from "../styles/ast"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
     InvalidStyleContext,
 } from "../styles/context"
 
+declare const module: {
+    exports: Rule
+}
+
 module.exports = {
     meta: {
         docs: {
             description: "Disallow parsing errors in `<style>`",
-            category: "recommended",
+            categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html",

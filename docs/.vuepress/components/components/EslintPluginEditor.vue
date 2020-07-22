@@ -129,7 +129,7 @@ export default {
 
             const vm = this
             const verifyAndFix = linter.verifyAndFix.bind(linter)
-            linter.verifyAndFix = function(...args) {
+            linter.verifyAndFix = function (...args) {
                 args[2].preprocess = vm.preprocess
                 args[2].postprocess = vm.postprocess
                 return verifyAndFix(...args)

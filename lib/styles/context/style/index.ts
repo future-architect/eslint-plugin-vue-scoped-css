@@ -1,6 +1,11 @@
 import { parse } from "../../parser"
-import { AST, SourceCode, RuleContext, LineAndColumnData } from "../../../types"
-import { VCSSStyleSheet, VCSSNode } from "../../ast"
+import type {
+    AST,
+    SourceCode,
+    RuleContext,
+    LineAndColumnData,
+} from "../../../types"
+import type { VCSSStyleSheet, VCSSNode } from "../../ast"
 import { isVCSSContainerNode } from "../../utils/css-nodes"
 
 /**
@@ -32,14 +37,15 @@ function getInvalidEOFError(
     }
     const error =
         errors.find(
-            err =>
+            (err) =>
                 typeof err.code === "string" &&
                 err.code.startsWith("eof-") &&
                 style.range[0] <= err.index &&
                 err.index < style.range[1],
         ) ||
         errors.find(
-            err => typeof err.code === "string" && err.code.startsWith("eof-"),
+            (err) =>
+                typeof err.code === "string" && err.code.startsWith("eof-"),
         )
     if (!error) {
         return null
@@ -72,7 +78,7 @@ function getStyleElements(context: RuleContext): AST.VElement[] {
     if (document) {
         return document.children
             .filter(isVElement)
-            .filter(element => element.name === "style")
+            .filter((element) => element.name === "style")
     }
     return []
 }
@@ -84,7 +90,7 @@ function getStyleElements(context: RuleContext): AST.VElement[] {
  */
 function isScoped(style: AST.VElement): boolean {
     const { startTag } = style
-    return startTag.attributes.some(attr => attr.key.name === "scoped")
+    return startTag.attributes.some((attr) => attr.key.name === "scoped")
 }
 
 /**
@@ -95,7 +101,7 @@ function isScoped(style: AST.VElement): boolean {
 function getLang(style: AST.VElement) {
     const { startTag } = style
     const lang =
-        startTag.attributes.find(attr => attr.key.name === "lang") || null
+        startTag.attributes.find((attr) => attr.key.name === "lang") || null
     return (
         lang?.type === "VAttribute" &&
         lang.value?.type === "VLiteral" &&
@@ -243,7 +249,7 @@ export function createStyleContexts(context: RuleContext): StyleContext[] {
     const styles = getStyleElements(context)
 
     return styles.map(
-        style => new StyleContextImpl(style, context) as StyleContext,
+        (style) => new StyleContextImpl(style, context) as StyleContext,
     )
 }
 

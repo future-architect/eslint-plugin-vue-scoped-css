@@ -1,5 +1,5 @@
 import { getVueComponentContext } from "../../context"
-import { RuleContext, AST, VDirectiveKey } from "../../../types"
+import type { RuleContext, AST, VDirectiveKey } from "../../../types"
 import { isVDirectiveKeyV6, isVDirective } from "../../utils/nodes"
 
 /**

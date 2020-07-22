@@ -1,4 +1,4 @@
-import { AST } from "../../../types"
+import type { AST } from "../../../types"
 
 /**
  * Checks whether the given element is the root element.
@@ -77,7 +77,9 @@ export function isSkipElement(element: AST.VElement | AST.VDocumentFragment) {
  * @param {VElement} element the element to check
  * @returns {boolean} `true` if the given element is the slot element.
  */
-export function isSlotElement(element: AST.VElement | AST.VDocumentFragment) {
+export function isSlotElement(
+    element: AST.VElement | AST.VDocumentFragment,
+): element is AST.VElement & { name: "slot" } {
     return element.type === "VElement" && element.name === "slot"
 }
 

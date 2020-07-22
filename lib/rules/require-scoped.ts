@@ -1,17 +1,20 @@
-import { RuleContext, AST, TokenStore } from "../types"
-import { Rule } from "eslint"
+import type { RuleContext, AST, TokenStore, Rule, RuleFixer } from "../types"
 import {
     getStyleContexts,
     StyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
 
+declare const module: {
+    exports: Rule
+}
+
 module.exports = {
     meta: {
         docs: {
             description:
                 "Enforce the `<style>` tags to has the `scoped` attribute.",
-            category: "recommended",
+            categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html",
@@ -48,15 +51,11 @@ module.exports = {
                 suggest: [
                     {
                         messageId: "add",
-                        fix(fixer: Rule.RuleFixer) {
+                        fix(fixer: RuleFixer) {
                             const close = tokenStore.getLastToken(node.startTag)
                             return (
                                 close &&
-                                fixer.insertTextBefore(
-                                    // @ts-ignore
-                                    close,
-                                    " scoped",
-                                )
+                                fixer.insertTextBefore(close, " scoped")
                             )
                         },
                     },
@@ -70,7 +69,7 @@ module.exports = {
          */
         function reportNever(node: AST.VElement) {
             const scopedAttr = node.startTag.attributes.find(
-                attr => attr.key.name === "scoped",
+                (attr) => attr.key.name === "scoped",
             )
             reporter.report({
                 node: scopedAttr!,
@@ -79,11 +78,8 @@ module.exports = {
                 suggest: [
                     {
                         messageId: "remove",
-                        fix(fixer: Rule.RuleFixer) {
-                            return fixer.remove(
-                                // @ts-ignore
-                                scopedAttr,
-                            )
+                        fix(fixer: RuleFixer) {
+                            return fixer.remove(scopedAttr)
                         },
                     },
                 ],

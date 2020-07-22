@@ -1,6 +1,6 @@
 import path from "path"
 import fs from "fs"
-import { isDefined } from "../../lib/styles/utils"
+import { isDefined } from "../../lib/utils/utils"
 
 type Config = {
     name: string
@@ -44,6 +44,6 @@ for (const config of configs) {
         ? config.config.extends
         : [config.config.extends]
     config.extends = extendsList
-        .map(p => configs.find(c => c.path === p))
+        .map((p) => configs.find((c) => c.path === p))
         .filter(isDefined)
 }

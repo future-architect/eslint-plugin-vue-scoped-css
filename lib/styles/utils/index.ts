@@ -9,13 +9,6 @@ export function isSupportedStyleLang(
 }
 
 /**
- * Checks whether the given node has defined
- */
-export function isDefined<T>(item: T | null | undefined): item is T {
-    return item !== null && item !== undefined
-}
-
-/**
  * Escape RegExp to given value
  * @param {string} value The base value
  * @returns {string} The escape string

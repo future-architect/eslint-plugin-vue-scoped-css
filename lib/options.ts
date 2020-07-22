@@ -22,7 +22,7 @@ export namespace ParsedQueryOptions {
         return {
             ignoreBEMModifier: ignoreBEMModifier ?? false,
             captureClassesFromDoc:
-                captureClassesFromDoc?.map(s => toRegExp(s, "g")) ?? [],
+                captureClassesFromDoc?.map((s) => toRegExp(s, "g")) ?? [],
         }
     }
 }

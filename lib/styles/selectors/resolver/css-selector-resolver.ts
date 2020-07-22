@@ -15,9 +15,10 @@ import {
     VCSSTypeSelector,
     VCSSNestingSelector,
     VCSSSelectorValueNode,
-    VCSSSelectorContainerNode,
     VCSSAtRule,
     VCSSStyleRule,
+    VCSSSelector,
+    VCSSSelectorPseudo,
 } from "../../ast"
 import {
     isVCSSStyleRule,
@@ -30,7 +31,7 @@ export class ResolvedSelectors {
         | (VCSSAtRule & { selectors: VCSSSelectorNode[] })
         | VCSSStyleRule
     public readonly selectors: ResolvedSelector[] = []
-    public readonly lebel: number
+    public readonly level: number
     public readonly parent: ResolvedSelectors | null
     public readonly children: ResolvedSelectors[] = []
     /**
@@ -46,22 +47,19 @@ export class ResolvedSelectors {
     ) {
         this.container = container
         this.parent = parent
-        this.lebel = (parent?.lebel ?? -1) + 1
+        this.level = (parent?.level ?? -1) + 1
     }
 }
 
 export class ResolvedSelector {
     public readonly owner: ResolvedSelectors
-    public readonly selector: VCSSSelectorValueNode[]
+    public readonly selector: VCSSSelectorNode[]
     /**
      * constructor
      * @param {Node[]} selector the selector
      * @param {Node} container the container node
      */
-    public constructor(
-        owner: ResolvedSelectors,
-        selector: VCSSSelectorValueNode[],
-    ) {
+    public constructor(owner: ResolvedSelectors, selector: VCSSSelectorNode[]) {
         this.owner = owner
         this.selector = selector
     }
@@ -125,7 +123,7 @@ export class CSSSelectorResolver {
         if (!parentSelector) {
             resolved.selectors.push(
                 ...selectorNodes.map(
-                    selectorNode =>
+                    (selectorNode) =>
                         new ResolvedSelector(resolved, selectorNode.nodes),
                 ),
             )
@@ -169,7 +167,7 @@ export class CSSSelectorResolver {
      */
     protected resolveNestingSelectors(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         parentSelectors: ResolvedSelectors | null,
         container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {
@@ -204,7 +202,7 @@ export class CSSSelectorResolver {
      */
     private resolveSelectorForNestPrefixed(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         parentSelectors: ResolvedSelectors | null,
         container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {
@@ -231,7 +229,7 @@ export class CSSSelectorResolver {
      */
     protected resolveSelectorForNestConcat(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         parentSelectors: ResolvedSelectors | null,
         _container: VCSSAtRule | VCSSStyleRule,
     ): ResolvedSelector[] {
@@ -246,7 +244,7 @@ export class CSSSelectorResolver {
             return [new ResolvedSelector(owner, [...nodes])]
         }
 
-        return parentSelectors.selectors.map(parentSelector => {
+        return parentSelectors.selectors.map((parentSelector) => {
             const nodes = [...selectorNodes]
             const parent = [...parentSelector.selector]
 
@@ -276,7 +274,7 @@ export class CSSSelectorResolver {
      */
     protected resolveSelectorForNestContaining(
         owner: ResolvedSelectors,
-        selectorNodes: VCSSSelectorValueNode[],
+        selectorNodes: VCSSSelectorNode[],
         nestingInfo: NestingInfo | null,
         parentSelectors: ResolvedSelectors | null,
         _container: VCSSAtRule | VCSSStyleRule,
@@ -311,7 +309,7 @@ export class CSSSelectorResolver {
         let resolved: ResolvedSelector[]
 
         if (parentSelectors) {
-            resolved = parentSelectors.selectors.map(p => {
+            resolved = parentSelectors.selectors.map((p) => {
                 const before = [...beforeSelector]
                 const after = [...afterSelector]
                 const parentSelector = [...p.selector]
@@ -385,25 +383,24 @@ export class CSSSelectorResolver {
         }
 
         let nestingTargetNode: VCSSSelectorNode = nestingNode
-        while (
-            !selectorNodes.includes(nestingTargetNode as VCSSSelectorValueNode)
-        ) {
-            const parent = nestingTargetNode.parent as VCSSSelectorContainerNode &
-                VCSSSelectorValueNode
+        while (!selectorNodes.includes(nestingTargetNode)) {
+            const parent = nestingTargetNode.parent as
+                | VCSSSelector
+                | VCSSSelectorPseudo
             const index: number = parent.parent.nodes.indexOf(parent as any)
             const before = parent.parent.nodes.slice(
                 0,
                 index,
-            ) as VCSSSelectorValueNode[]
+            ) as VCSSSelectorNode[]
             const after = parent.parent.nodes.slice(
                 index + 1,
-            ) as VCSSSelectorValueNode[]
-            resolved = resolved.map(selector => {
+            ) as VCSSSelectorNode[]
+            resolved = resolved.map((selector) => {
                 const newNode = parent.copy()
-                newNode.nodes = selector.selector
+                newNode.nodes = selector.selector as any
                 return new ResolvedSelector(owner, [
                     ...before,
-                    newNode as VCSSSelectorValueNode,
+                    newNode,
                     ...after,
                 ])
             })

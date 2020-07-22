@@ -9,7 +9,7 @@
 [![NPM downloads](https://img.shields.io/npm/dm/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dy/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
 [![NPM downloads](https://img.shields.io/npm/dt/eslint-plugin-vue-scoped-css.svg)](http://www.npmtrends.com/eslint-plugin-vue-scoped-css)
-[![Build Status](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css.svg?branch=master)](https://travis-ci.com/future-architect/eslint-plugin-vue-scoped-css)
+[![Build Status](https://github.com/future-architect/eslint-plugin-vue-scoped-css/workflows/CI/badge.svg?branch=master)](https://github.com/future-architect/eslint-plugin-vue-scoped-css/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/future-architect/eslint-plugin-vue-scoped-css/badge.svg?branch=master)](https://coveralls.io/github/future-architect/eslint-plugin-vue-scoped-css?branch=master)
 <!--
 [![Greenkeeper badge](https://badges.greenkeeper.io/future-architect/eslint-plugin-vue-scoped-css.svg)](https://greenkeeper.io/)
@@ -93,6 +93,23 @@ Enforce all the rules in this category with:
 ```json
 {
   "extends": "plugin:vue-scoped-css/recommended"
+}
+```
+
+| Rule ID | Description |    |
+|:--------|:------------|:---|
+| [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | Disallow parsing errors in `<style>` |  |
+| [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | Reports the `@keyframes` is not used in Scoped CSS. |  |
+| [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | Reports selectors defined in Scoped CSS not used in `<template>`. |  |
+| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | Enforce the `<style>` tags to has the `scoped` attribute. |  |
+
+## Recommended for Vue.js 3.x
+
+Enforce all the rules in this category with:
+
+```json
+{
+  "extends": "plugin:vue-scoped-css/vue3-recommended"
 }
 ```
 
