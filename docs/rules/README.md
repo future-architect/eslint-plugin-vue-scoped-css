@@ -19,6 +19,7 @@ Enforce all the rules in this category with:
 | Rule ID | Description |    |
 |:--------|:------------|:---|
 | [vue-scoped-css/no-deprecated-deep-combinator](./no-deprecated-deep-combinator.md) | disallow using deprecated deep combinators | :wrench: |
+| [vue-scoped-css/no-parent-of-v-global](./no-parent-of-v-global.md) | disallow parent selector for `::v-global` pseudo-element |  |
 | [vue-scoped-css/no-parsing-error](./no-parsing-error.md) | disallow parsing errors in `<style>` |  |
 | [vue-scoped-css/no-unused-keyframes](./no-unused-keyframes.md) | disallow `@keyframes` which don't use in Scoped CSS |  |
 | [vue-scoped-css/no-unused-selector](./no-unused-selector.md) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |
