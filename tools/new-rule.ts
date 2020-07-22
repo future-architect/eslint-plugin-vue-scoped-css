@@ -1,5 +1,6 @@
 import path from "path"
 import fs from "fs"
+import cp from "child_process"
 const logger = console
 
 // main
@@ -49,9 +50,9 @@ module.exports = {
         type: "suggestion", // "problem",
     },
     create(context: RuleContext) {
-        const styles = getStyleContexts(context).filter(
-            style => !style.invalid && style.scoped,
-        )
+        const styles = getStyleContexts(context)
+            .filter(StyleContext.isValid)
+            .filter((style) => style.scoped)
         if (!styles.length) {
             return {}
         }
@@ -182,4 +183,7 @@ This rule reports ??? as errors.
 
 `,
     )
+    cp.execSync(`code "${ruleFile}"`)
+    cp.execSync(`code "${testFile}"`)
+    cp.execSync(`code "${docFile}"`)
 })(process.argv[2])
