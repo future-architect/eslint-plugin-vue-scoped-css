@@ -27,7 +27,7 @@ import {
     getStyleContexts,
     getCommentDirectivesReporter,
     StyleContext,
-} from "../styles"
+} from "../styles/context"
 import type { VCSSSelectorNode } from "../styles/ast"
 import type { RuleContext, Rule } from "../types"
 
