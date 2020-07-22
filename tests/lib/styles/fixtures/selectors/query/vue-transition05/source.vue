@@ -32,11 +32,15 @@ export default {
 <style scoped>
 .t-enter {
 }
+.t-enter-from {
+}
 .t-enter-active{
 }
 .t-enter-to{
 }
 .t-leave{
+}
+.t-leave-from{
 }
 .t-leave-active{
 }

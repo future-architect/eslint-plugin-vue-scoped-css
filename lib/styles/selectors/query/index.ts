@@ -46,9 +46,11 @@ import { Template } from "../../template"
 
 const TRANSITION_CLASS_BASES = [
     "enter",
+    "enter-from",
     "enter-active",
     "enter-to",
     "leave",
+    "leave-from",
     "leave-active",
     "leave-to",
 ]

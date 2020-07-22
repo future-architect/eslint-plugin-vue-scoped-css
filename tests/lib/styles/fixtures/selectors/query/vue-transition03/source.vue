@@ -32,11 +32,15 @@ export default {
 <style scoped>
 .v-enter {
 }
+.v-enter-from {
+}
 .v-enter-active{
 }
 .v-enter-to{
 }
 .v-leave{
+}
+.v-leave-from{
 }
 .v-leave-active{
 }

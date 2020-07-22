@@ -23,11 +23,15 @@
 <style scoped>
 .custom-enter {
 }
+.custom-enter-from {
+}
 .custom-enter-active{
 }
 .custom-enter-to{
 }
 .custom-leave{
+}
+.custom-leave-from{
 }
 .custom-leave-active{
 }

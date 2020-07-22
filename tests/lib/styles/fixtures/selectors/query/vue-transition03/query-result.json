@@ -2,6 +2,9 @@
     ".v-enter": [
         "div#example-2>transition>p#a"
     ],
+    ".v-enter-from": [
+        "div#example-2>transition>p#a"
+    ],
     ".v-enter-active": [
         "div#example-2>transition>p#a"
     ],
@@ -9,6 +12,9 @@
         "div#example-2>transition>p#a"
     ],
     ".v-leave": [
+        "div#example-2>transition>p#a"
+    ],
+    ".v-leave-from": [
         "div#example-2>transition>p#a"
     ],
     ".v-leave-active": [

@@ -2,6 +2,9 @@
     ".ec": [
         "div#example-2>transition>p#c"
     ],
+    ".efc": [
+        "div#example-2>transition>p#c"
+    ],
     ".eac": [
         "div#example-2>transition>p#c"
     ],
@@ -9,6 +12,9 @@
         "div#example-2>transition>p#c"
     ],
     ".lc": [
+        "div#example-2>transition>p#d"
+    ],
+    ".lfc": [
         "div#example-2>transition>p#d"
     ],
     ".lac": [

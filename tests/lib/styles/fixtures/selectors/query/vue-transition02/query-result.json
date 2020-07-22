@@ -3,6 +3,10 @@
         "div#example-2>transition>p#b",
         "div#example-2>transition>p#c"
     ],
+    ".custom-enter-from": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
     ".custom-enter-active": [
         "div#example-2>transition>p#b",
         "div#example-2>transition>p#c"
@@ -12,6 +16,10 @@
         "div#example-2>transition>p#c"
     ],
     ".custom-leave": [
+        "div#example-2>transition>p#b",
+        "div#example-2>transition>p#c"
+    ],
+    ".custom-leave-from": [
         "div#example-2>transition>p#b",
         "div#example-2>transition>p#c"
     ],
