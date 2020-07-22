@@ -3,14 +3,14 @@ import type { Rule } from "../../lib/types"
 
 const categoryTitles = {
     base: "Base Rules (Enabling Plugin)",
-    recommended: "Recommended",
     "vue3-recommended": "Recommended for Vue.js 3.x",
+    recommended: "Recommended for Vue.js 2.x",
 } as { [key: string]: string }
 
 const categoryConfigDescriptions = {
     base: "Enable this plugin using with:",
-    recommended: "Enforce all the rules in this category with:",
     "vue3-recommended": "Enforce all the rules in this category with:",
+    recommended: "Enforce all the rules in this category with:",
 } as { [key: string]: string }
 
 const categoryIds = Object.keys(categoryTitles)

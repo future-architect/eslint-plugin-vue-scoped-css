@@ -4,7 +4,9 @@ import {
     VCSSStyleRule,
     VCSSContainerNode,
     VCSSStyleSheet,
+    VCSSSelectorNode,
 } from "../ast"
+import { isNestingAtRule } from "./selectors"
 
 /**
  * Checks whether the given node is VCSSAtRule
@@ -42,4 +44,18 @@ export function isVCSSContainerNode(
         isVCSSStyleSheet(node) ||
         node?.type === "VCSSUnknown"
     )
+}
+
+/**
+ * Checks whether the given node has selectors.
+ */
+export function hasSelectorNodes(
+    node: VCSSNode,
+): node is
+    | (VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] })
+    | VCSSStyleRule {
+    if (isVCSSStyleRule(node) || isNestingAtRule(node)) {
+        return true
+    }
+    return false
 }

@@ -3,20 +3,42 @@ const { rules } = require("../../dist/utils/rules")
 const categoryTitles = {
     base: "Base Rules (Enabling Plugin)",
     recommended: "Recommended",
+    "vue2-recommended": "Recommended for Vue.js 2.x",
+    "vue3-recommended": "Recommended for Vue.js 3.x",
+    uncategorized: "Uncategorized",
+    deprecated: "Deprecated",
 }
 
-const categoryConfigDescriptions = {
-    base: "Enable this plugin using with:",
-    recommended: "Enforce all the rules in this category with:",
+const isCategoryTest = {
+    base: () => false,
+    recommended: ({ deprecated, docs: { categories } }) =>
+        !deprecated &&
+        categories.length &&
+        categories.every(
+            (cat) => cat === "recommended" || cat === "vue3-recommended"
+        ),
+    "vue2-recommended": ({ deprecated, docs: { categories } }) =>
+        !deprecated &&
+        categories.length &&
+        categories.some((cat) => cat === "recommended") &&
+        categories.every((cat) => cat !== "vue3-recommended"),
+    "vue3-recommended": ({ deprecated, docs: { categories } }) =>
+        !deprecated &&
+        categories.length &&
+        categories.some((cat) => cat === "vue3-recommended") &&
+        categories.every((cat) => cat !== "recommended"),
+    uncategorized: ({ deprecated, docs: { categories } }) =>
+        !deprecated && !categories.length,
+    deprecated: ({ deprecated }) => deprecated,
 }
 
 const categoryIds = Object.keys(categoryTitles)
-const categoryRules = rules.reduce((obj, rule) => {
-    const cat = rule.meta.docs.category || "uncategorized"
-    const categories = obj[cat] || (obj[cat] = [])
-    categories.push(rule)
-    return obj
-}, {})
+const categoryRules = categoryIds
+    .map((cat) => [cat, rules.filter((rule) => isCategoryTest[cat](rule.meta))])
+    .reduce((ret, [key, value]) => {
+        ret[key] = value
+        return ret
+    }, {})
 
 // Throw if no title is defined for a category
 for (const categoryId of Object.keys(categoryRules)) {
@@ -30,7 +52,6 @@ for (const categoryId of Object.keys(categoryRules)) {
 module.exports = categoryIds.map((categoryId) => ({
     categoryId,
     title: categoryTitles[categoryId],
-    configDescription: categoryConfigDescriptions[categoryId],
     rules: (categoryRules[categoryId] || []).filter(
         (rule) => !rule.meta.deprecated
     ),

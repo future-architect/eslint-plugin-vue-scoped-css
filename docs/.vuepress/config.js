@@ -1,40 +1,6 @@
-const { rules } = require("../../dist/utils/rules")
 const categories = require("./categories")
 // eslint-disable-next-line @mysticatea/node/no-extraneous-require
 const webpack = require("webpack")
-
-const uncategorizedRules = rules.filter(
-    (rule) => !rule.meta.docs.category && !rule.meta.deprecated
-)
-const deprecatedRules = rules.filter((rule) => rule.meta.deprecated)
-
-const extraCategories = []
-if (uncategorizedRules.length > 0) {
-    extraCategories.push({
-        title: "Uncategorized",
-        collapsable: false,
-        children: uncategorizedRules.map(
-            ({
-                meta: {
-                    docs: { ruleId, ruleName },
-                },
-            }) => [`/rules/${ruleName}`, ruleId]
-        ),
-    })
-}
-if (deprecatedRules.length > 0) {
-    extraCategories.push({
-        title: "Deprecated",
-        collapsable: false,
-        children: deprecatedRules.map(
-            ({
-                meta: {
-                    docs: { ruleId, ruleName },
-                },
-            }) => [`/rules/${ruleName}`, ruleId]
-        ),
-    })
-}
 
 module.exports = {
     base: "/eslint-plugin-vue-scoped-css/",
@@ -50,6 +16,7 @@ module.exports = {
                     stylus: require.resolve("stylus/lib/stylus"),
                     glob: require.resolve("./shim/glob"),
                     "safer-buffer": require.resolve("./shim/safer-buffer"),
+                    module: require.resolve("./shim/module"),
                 },
             },
             plugins: [
@@ -100,9 +67,6 @@ module.exports = {
                         ),
                     }))
                     .filter((menu) => Boolean(menu.children.length)),
-
-                // Rules in no category.
-                ...extraCategories,
             ],
             "/": ["/", "/user-guide/", "/rules/", "/playground/"],
         },

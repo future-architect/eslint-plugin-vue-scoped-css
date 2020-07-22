@@ -1010,7 +1010,6 @@ export type VCSSSelectorNode =
     | VCSSSelectorPseudo
     | VCSSSelectorCombinator
     | VCSSUnknownSelector
-// export type VCSSSelectorContainerNode = VCSSSelector | VCSSSelectorPseudo
 export type VCSSSelectorValueNode =
     | VCSSTypeSelector
     | VCSSIDSelector

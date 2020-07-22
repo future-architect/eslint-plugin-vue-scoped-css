@@ -144,6 +144,8 @@ tester.run("${ruleId}", rule, {
         docFile,
         `#  (vue-scoped-css/${ruleId})
 
+> foo
+
 ## :book: Rule Details
 
 This rule reports ??? as errors.
