@@ -36,6 +36,11 @@ const baseRules = [
         ruleName: "require-v-deep-argument",
         ruleId: "vue-scoped-css/require-v-deep-argument",
     },
+    {
+        rule: require("../rules/require-v-global-argument"),
+        ruleName: "require-v-global-argument",
+        ruleId: "vue-scoped-css/require-v-global-argument",
+    },
 ]
 
 export const rules = baseRules.map((obj) => {
