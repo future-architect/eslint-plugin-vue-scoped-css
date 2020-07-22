@@ -177,11 +177,13 @@ tester.run("require-selector-used-inside", rule, {
         </template>
         <style scoped>
         .v-enter,
+        .v-enter-from,
         .v-enter-active,
         .v-enter-to,
         .v-leave,
-        .v-leave-to,
-        .v-leave-active {}
+        .v-leave-from,
+        .v-leave-active,
+        .v-leave-to {}
         </style>
         `,
         `
@@ -192,11 +194,13 @@ tester.run("require-selector-used-inside", rule, {
         </template>
         <style scoped>
         .foo-enter,
+        .foo-enter-from,
         .foo-enter-active,
         .foo-enter-to,
         .foo-leave,
-        .foo-leave-to,
-        .foo-leave-active {}
+        .foo-leave-from,
+        .foo-leave-active,
+        .foo-leave-to {}
         </style>
         `,
         `
@@ -208,11 +212,13 @@ tester.run("require-selector-used-inside", rule, {
         </template>
         <style scoped>
         .foo-enter,
+        .foo-enter-from,
         .foo-enter-active,
         .foo-enter-to,
         .foo-leave,
-        .foo-leave-to,
-        .foo-leave-active {}
+        .foo-leave-from,
+        .foo-leave-active,
+        .foo-leave-to {}
         </style>
         `,
         `

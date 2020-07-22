@@ -3,6 +3,10 @@
         "div#example-2>transition-group>p#a",
         "div#example-2>transition-group>p#c"
     ],
+    ".v-enter-from": [
+        "div#example-2>transition-group>p#a",
+        "div#example-2>transition-group>p#c"
+    ],
     ".v-enter-active": [
         "div#example-2>transition-group>p#a",
         "div#example-2>transition-group>p#c"
@@ -12,6 +16,10 @@
         "div#example-2>transition-group>p#c"
     ],
     ".v-leave": [
+        "div#example-2>transition-group>p#a",
+        "div#example-2>transition-group>p#c"
+    ],
+    ".v-leave-from": [
         "div#example-2>transition-group>p#a",
         "div#example-2>transition-group>p#c"
     ],

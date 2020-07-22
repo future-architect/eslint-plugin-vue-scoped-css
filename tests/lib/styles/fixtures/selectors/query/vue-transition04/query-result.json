@@ -2,6 +2,9 @@
     ".custom-enter": [
         "div#example-2>transition>p#b"
     ],
+    ".custom-enter-from": [
+        "div#example-2>transition>p#b"
+    ],
     ".custom-enter-active": [
         "div#example-2>transition>p#b"
     ],
@@ -9,6 +12,9 @@
         "div#example-2>transition>p#b"
     ],
     ".custom-leave": [
+        "div#example-2>transition>p#b"
+    ],
+    ".custom-leave-from": [
         "div#example-2>transition>p#b"
     ],
     ".custom-leave-active": [

@@ -16,6 +16,7 @@
         <transition
             name="custom"
             :enter-class="ec"
+            :enter-from-class="efc"
             :enter-active-class="eac"
             :enter-to-class="etc"
         >
@@ -26,6 +27,7 @@
         <transition
             name="custom"
             :leave-class="lc"
+            :leave-from-class="lfc"
             :leave-active-class="lac"
             :leave-to-class="ltc"
         >
