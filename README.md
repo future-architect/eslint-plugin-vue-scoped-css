@@ -70,7 +70,7 @@ module.exports = {
 
 ## Configs
 
-This plugin provides 3 predefined configs:
+This plugin provides some predefined configs:
 
 - `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
 - `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
