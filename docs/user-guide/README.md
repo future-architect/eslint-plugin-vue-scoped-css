@@ -24,7 +24,7 @@ module.exports = {
   extends: [
     // add more generic rulesets here, such as:
     // 'eslint:recommended',
-    'plugin:vue-scoped-css/recommended'
+    'plugin:vue-scoped-css/vue3-recommended'
   ],
   rules: {
     // override/add rules settings here, such as:
@@ -36,7 +36,8 @@ module.exports = {
 This plugin provides 3 predefined configs:
 
 - `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
-- `plugin:vue-scoped-css/recommended` - Above, plus rules for better ways to help you avoid problems
+- `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
+- `plugin:vue-scoped-css/vue3-recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
 
 See [the rule list](../rules/README.md) to get the `rules` that this plugin provides.
@@ -160,6 +161,7 @@ The most rules of `eslint-plugin-vue-scoped-css` require `vue-eslint-parser` to 
 
 Make sure you have one of the following settings in your **.eslintrc**:
 
+- `"extends": ["plugin:vue-scoped-css/vue3-recommended"]`
 - `"extends": ["plugin:vue-scoped-css/recommended"]`
 - `"extends": ["plugin:vue-scoped-css/base"]`
 - `"extends": ["plugin:vue/recommended"]`
