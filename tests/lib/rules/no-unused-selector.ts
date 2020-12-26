@@ -151,6 +151,40 @@ tester.run("no-unused-selector", rule as any, {
         }
         </script>
         `,
+        `
+        <template>
+            <div><div :class="classes"/></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        <script>
+        export default Vue.extend({
+            data () {
+                return {
+                    classes: 'foo'
+                }
+            }
+        })
+        </script>
+        `,
+        `
+        <template>
+            <div><div :class="classes"/></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        <script>
+        export default defineComponent({
+            data () {
+                return {
+                    classes: 'foo'
+                }
+            }
+        })
+        </script>
+        `,
         // computed
         `
         <template>
@@ -1006,6 +1040,48 @@ tester.run("no-unused-selector", rule as any, {
                     endColumn: 39,
                 },
             ],
+        },
+        {
+            code: `
+            <template>
+                <div><div :class="classes"/></div>
+            </template>
+            <style scoped>
+            .foo {}
+            .bar {}
+            </style>
+            <script>
+            export default Vue.extend({
+                data () {
+                    return {
+                        classes: 'foo'
+                    }
+                }
+            })
+            </script>
+            `,
+            errors: ["The selector `.bar` is unused."],
+        },
+        {
+            code: `
+            <template>
+                <div><div :class="classes"/></div>
+            </template>
+            <style scoped>
+            .foo {}
+            .bar {}
+            </style>
+            <script>
+            export default defineComponent({
+                data () {
+                    return {
+                        classes: 'foo'
+                    }
+                }
+            })
+            </script>
+            `,
+            errors: ["The selector `.bar` is unused."],
         },
     ],
 })
