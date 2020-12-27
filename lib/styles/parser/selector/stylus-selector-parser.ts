@@ -7,7 +7,8 @@ import type {
 } from "../../../types"
 import { CSSSelectorParser } from "./css-selector-parser"
 import selectorParser from "postcss-selector-parser"
-import { VCSSInlineComment, VCSSSelectorNode, VCSSSelector } from "../../ast"
+import type { VCSSSelectorNode, VCSSSelector } from "../../ast"
+import { VCSSInlineComment } from "../../ast"
 import { replaceSelector, restoreReplacedSelector } from "./replace-utils"
 
 /**
@@ -40,7 +41,6 @@ function restoreStylusNesting(
 }
 
 export class StylusSelectorParser extends CSSSelectorParser {
-    // eslint-disable-next-line class-methods-use-this
     protected parseInternal(selector: string): PostCSSSPRootNode {
         const replaceSelectorContext = replaceSelector(
             selector,

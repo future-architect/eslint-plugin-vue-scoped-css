@@ -1,8 +1,12 @@
 import getCSSTemplateElements from "./css"
 import getSCSSTemplateElements from "./scss"
 import getStylusTemplateElements from "./stylus"
-import { VCSSIDSelector, VCSSTypeSelector, VCSSClassSelector } from "../../ast"
-import { Interpolation } from "../interpolation"
+import type {
+    VCSSIDSelector,
+    VCSSTypeSelector,
+    VCSSClassSelector,
+} from "../../ast"
+import type { Interpolation } from "../interpolation"
 import { isSupportedStyleLang } from "../../utils"
 
 const BUILDERS = {

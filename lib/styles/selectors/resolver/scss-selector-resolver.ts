@@ -1,22 +1,19 @@
+import type { NestingInfo } from "../../utils/selectors"
 import {
     isNestingAtRule,
     findNestingSelectors,
     isSelectorCombinator,
     findNestingSelector,
-    NestingInfo,
 } from "../../utils/selectors"
-import {
-    VCSSSelectorCombinator,
+import type {
     VCSSSelectorValueNode,
     VCSSStyleRule,
     VCSSAtRule,
     VCSS,
 } from "../../ast"
-import {
-    CSSSelectorResolver,
-    ResolvedSelector,
-    ResolvedSelectors,
-} from "./css-selector-resolver"
+import { VCSSSelectorCombinator } from "../../ast"
+import type { ResolvedSelectors } from "./css-selector-resolver"
+import { CSSSelectorResolver, ResolvedSelector } from "./css-selector-resolver"
 import type { PostCSSSPCombinatorNode } from "../../../types"
 
 export class SCSSSelectorResolver extends CSSSelectorResolver {
@@ -123,7 +120,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
             },
             first.range[0],
             first.range[0],
-            first.parent as any,
+            first.parent as never,
         )
         comb.value = " "
         comb.selector = " "

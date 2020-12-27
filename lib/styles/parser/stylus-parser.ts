@@ -1,20 +1,21 @@
 import postcssStyl from "postcss-styl"
+import type postcss from "postcss"
 import { CSSParser } from "./css-parser"
-import { VCSSInlineComment, VCSSContainerNode, VCSSNode } from "../ast"
+import type { VCSSContainerNode, VCSSNode } from "../ast"
+import { VCSSInlineComment } from "../ast"
 import type { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
 import { StylusSelectorParser } from "./selector/stylus-selector-parser"
 /**
  * Stylus Parser
  */
 export class StylusParser extends CSSParser {
-    /* eslint-disable class-methods-use-this */
-    protected parseInternal(css: string) {
+    protected parseInternal(css: string): postcss.Root {
         return postcssStyl.parse(css)
     }
+
     protected createSelectorParser(): StylusSelectorParser {
         return new StylusSelectorParser(this.sourceCode, this.commentContainer)
     }
-    /* eslint-enable class-methods-use-this */
 
     /**
      * Convert comment Node
@@ -53,7 +54,7 @@ export class StylusParser extends CSSParser {
             keyName === "after"
         ) {
             const stylus = super.getRaw(
-                node as any,
+                node as never,
                 `stylus${keyName[0].toUpperCase()}${keyName.slice(1)}`,
             )
             if (stylus) {
@@ -62,12 +63,14 @@ export class StylusParser extends CSSParser {
         }
         const raw = super.getRaw(node, keyName)
         if (raw != null) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check stylus
             const stylus = (raw as any).stylus
             if (stylus != null) {
                 return {
                     raw: stylus,
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- stylus
                     value: (raw as any).value,
-                } as any
+                } as never
             }
         }
 

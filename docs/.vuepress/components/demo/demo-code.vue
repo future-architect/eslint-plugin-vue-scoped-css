@@ -2,7 +2,11 @@
     <div class="vue-input" :class="classes">
         <div class="vue-input__input-wrapper">
             <label> {{ label }} </label>
-            <input class="vue-input__input" value="value" @input="$emit('input', $event.target.value)">
+            <input
+                class="vue-input__input"
+                value="value"
+                @input="$emit('input', $event.target.value)"
+            />
         </div>
         <div>
             <slot name="trailing"></slot>
@@ -20,7 +24,8 @@
 .vue-input__input,
 .vue-input > .vue-input__input-wrapper > .vue-input__input,
 .vue-input >>> .child-classes,
-.vue-input--disabled { }
+.vue-input--disabled {
+}
 </style>
 
 <script>

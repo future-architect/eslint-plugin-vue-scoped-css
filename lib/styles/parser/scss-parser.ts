@@ -1,20 +1,21 @@
 import postcssScss from "postcss-scss"
+import type postcss from "postcss"
 import { CSSParser } from "./css-parser"
-import { VCSSInlineComment, VCSSContainerNode, VCSSNode } from "../ast"
+import type { VCSSContainerNode, VCSSNode } from "../ast"
+import { VCSSInlineComment } from "../ast"
 import type { SourceLocation, PostCSSComment, PostCSSNode } from "../../types"
 import { SCSSSelectorParser } from "./selector/scss-selector-parser"
 /**
  * SCSS Parser
  */
 export class SCSSParser extends CSSParser {
-    /* eslint-disable class-methods-use-this */
-    protected parseInternal(css: string) {
+    protected parseInternal(css: string): postcss.Root {
         return postcssScss.parse(css)
     }
+
     protected createSelectorParser(): SCSSSelectorParser {
         return new SCSSSelectorParser(this.sourceCode, this.commentContainer)
     }
-    /* eslint-enable class-methods-use-this */
 
     /**
      * Convert comment Node
@@ -49,12 +50,14 @@ export class SCSSParser extends CSSParser {
     ): N["raws"][K] {
         const raw = super.getRaw(node, keyName)
         if (raw != null) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check scss node
             const scss = (raw as any).scss
             if (scss != null) {
                 return {
                     raw: scss,
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- scss node
                     value: (raw as any).value,
-                } as any
+                } as never
             }
         }
 

@@ -11,7 +11,7 @@ import type {
 export function isPostCSSContainer(
     node: PostCSSNode,
 ): node is PostCSSContainer {
-    return (node as any).nodes != null
+    return (node as PostCSSContainer).nodes != null
 }
 
 /**
@@ -20,5 +20,5 @@ export function isPostCSSContainer(
 export function isPostCSSSPContainer(
     node: PostCSSSPNode,
 ): node is PostCSSSPContainer {
-    return (node as any).nodes != null
+    return (node as PostCSSSPContainer).nodes != null
 }

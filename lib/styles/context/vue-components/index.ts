@@ -29,8 +29,11 @@ type Properties = {
 
 export class VueComponentContext {
     private readonly node: AST.ESLintObjectExpression
+
     private readonly context: RuleContext
+
     private properties: Properties | null = null
+
     public constructor(node: AST.ESLintObjectExpression, context: RuleContext) {
         this.node = node
         this.context = context
@@ -268,7 +271,7 @@ function extractVueComponentComputed(
             func.body.type !== "BlockStatement"
         ) {
             // `prop: () => ({...})
-            values.push(func.body as any)
+            values.push(func.body as never)
         } else {
             // Unknown computed property.
             computed[UNKNOWN] = true

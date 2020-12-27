@@ -1,15 +1,13 @@
 import postcss from "postcss"
 import postcssSafeParser from "postcss-safe-parser"
 import { CSSSelectorParser } from "./selector/css-selector-parser"
+import type { VCSSCommentNode, VCSSNode, VCSSContainerNode } from "../ast"
 import {
     VCSSStyleSheet,
     VCSSStyleRule,
     VCSSDeclarationProperty,
     VCSSAtRule,
     VCSSComment,
-    VCSSCommentNode,
-    VCSSNode,
-    VCSSContainerNode,
     VCSSParsingError,
     VCSSUnknown,
 } from "../ast"
@@ -34,10 +32,16 @@ import { isDefined } from "../../utils/utils"
  */
 export class CSSParser {
     protected readonly sourceCode: SourceCode
+
     protected commentContainer: VCSSCommentNode[]
+
     private _selectorParser: CSSSelectorParser | null = null
+
     private readonly lang: string
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- errors
     private anyErrors: any[] = []
+
     /**
      * constructor.
      * @param {SourceCode} sourceCode the SourceCode object that you can use to work with the source that was passed to ESLint.
@@ -54,7 +58,10 @@ export class CSSParser {
      * @param {LineAndColumnData} offsetLocation start location of css.
      * @return {VCSSStyleSheet} parsed result
      */
-    public parse(css: string, offsetLocation: LineAndColumnData) {
+    public parse(
+        css: string,
+        offsetLocation: LineAndColumnData,
+    ): VCSSStyleSheet {
         const { sourceCode } = this
 
         this.commentContainer = []
@@ -82,7 +89,7 @@ export class CSSParser {
                 end: sourceCode.getLocFromIndex(endIndex),
             }
             return new VCSSStyleSheet(
-                null as any,
+                null as never,
                 styleLoc,
                 startIndex,
                 endIndex,
@@ -97,11 +104,12 @@ export class CSSParser {
         }
     }
 
-    private addError(error: any) {
+    private addError(error: Error) {
         this.anyErrors.push(error)
     }
 
     private collectErrors(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
         errors: any[],
         offsetLocation: LineAndColumnData,
     ): VCSSParsingError[] {
@@ -125,7 +133,7 @@ export class CSSParser {
             const errorIndex = this.sourceCode.getIndexFromLoc(errorLoc)
             errorNodes.push(
                 new VCSSParsingError(
-                    null as any,
+                    null as never,
                     {
                         start: errorLoc,
                         end: errorLoc,
@@ -152,7 +160,7 @@ export class CSSParser {
     /**
      * Convert PostCSS node to node that can be handled by ESLint.
      * @param {LineAndColumnData} offsetLocation start location of css.
-     * @param {object} node the PostCSS node to comvert
+     * @param {object} node the PostCSS node to convert
      * @param {Node?} parent parent node
      * @return {Node|null} converted node.
      */
@@ -160,11 +168,13 @@ export class CSSParser {
         offsetLocation: LineAndColumnData,
         node: PostCSSRoot,
     ): VCSSStyleSheet
+
     private _postcssNodeToASTNode(
         offsetLocation: LineAndColumnData,
         node: PostCSSNode,
         parent: VCSSContainerNode,
     ): VCSSNode | null
+
     private _postcssNodeToASTNode(
         offsetLocation: LineAndColumnData,
         node: PostCSSNode,
@@ -195,11 +205,11 @@ export class CSSParser {
         }
 
         const astNode = this[typeToConvertMethodName(node.type)](
-            node as any,
+            node as never,
             loc,
             start,
             end,
-            parent as any,
+            parent as never,
         )
 
         if (astNode == null) {
@@ -224,7 +234,6 @@ export class CSSParser {
         }
     }
 
-    /* eslint-disable class-methods-use-this */
     protected createSelectorParser(): CSSSelectorParser {
         return new CSSSelectorParser(this.sourceCode, this.commentContainer)
     }
@@ -280,7 +289,7 @@ export class CSSParser {
         return astNode
     }
 
-    protected parseRuleRawsBetween(node: PostCSSRule, astNode: VCSSNode) {
+    protected parseRuleRawsBetween(node: PostCSSRule, astNode: VCSSNode): void {
         const between = this.getRaw(node, "between")
         const rawSelector = this.getRaw(node, "selector")?.raw ?? node.selector
         const betweenStart = astNode.range[0] + rawSelector.length
@@ -311,7 +320,7 @@ export class CSSParser {
         const astNode = new VCSSAtRule(node, loc, start, end, {
             parent,
             rawParamsText: this.getRaw(node, "params")?.raw ?? null,
-            identifier: this.getRaw(node as any, "identifier") ?? "@",
+            identifier: this.getRaw(node as never, "identifier") ?? "@",
         })
         if (node.name === "nest") {
             // The parameters following `@nest` are parsed as selectors.
@@ -460,16 +469,15 @@ export class CSSParser {
         node: N,
         keyName: K,
     ): N["raws"][K] {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
         return (node.raws as any)[keyName]
     }
-
-    /* eslint-enable class-methods-use-this */
 }
 
 /**
  * Convert PostCSS location to ESLint location.
  * @param {LineAndColumnData} offsetLocation start location of selector.
- * @param {object} loc the PostCSS location to comvert
+ * @param {object} loc the PostCSS location to convert
  * @return {LineAndColumnData} converted location.
  */
 function getESLintLineAndColumnFromPostCSSPosition(
@@ -490,7 +498,7 @@ function getESLintLineAndColumnFromPostCSSPosition(
 /**
  * Convert PostCSS location to ESLint location.
  * @param {LineAndColumnData} offsetLocation location of inside the `<style>` node.
- * @param {object} node the PostCSS node to comvert
+ * @param {object} node the PostCSS node to convert
  * @param {"start"|"end"} locName the name of location
  * @return {LineAndColumnData} converted location.
  */

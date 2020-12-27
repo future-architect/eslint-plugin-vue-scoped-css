@@ -1,14 +1,14 @@
+import type { ValidStyleContext } from "../styles/context"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    StyleContext,
-    ValidStyleContext,
+    isValidStyleContext,
 } from "../styles/context"
 import type { RuleContext, Rule, Range } from "../types"
+import type { VDeepPseudo } from "../styles/utils/selectors"
 import {
     isVDeepPseudoV2,
     isVDeepPseudo,
-    VDeepPseudo,
     isPseudoEmptyArguments,
 } from "../styles/utils/selectors"
 import type { VCSSSelectorNode, VCSSAtRule, VCSSStyleRule } from "../styles/ast"
@@ -43,7 +43,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context)
-            .filter(StyleContext.isValid)
+            .filter(isValidStyleContext)
             .filter((style) => style.scoped)
         if (!styles.length) {
             return {}

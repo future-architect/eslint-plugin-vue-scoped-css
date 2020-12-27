@@ -1,5 +1,7 @@
 module.exports = {
-  rules: {
-    "@mysticatea/prettier": "off"
-  }
+    rules: {
+        "prettier/prettier": "off",
+        "vue/component-tags-order": "off",
+        "vue-scoped-css/no-unused-selector": "off"
+    },
 }

@@ -1,13 +1,14 @@
 import {
     createStyleContexts,
     StyleContext,
+    isValidStyleContext,
     ValidStyleContext,
     InvalidStyleContext,
 } from "./style"
+import type { CommentDirectives } from "./comment-directive"
 import {
     CommentDirectivesReporter,
     createCommentDirectivesReporter,
-    CommentDirectives,
     createCommentDirectives,
 } from "./comment-directive"
 import type { RuleContext } from "../../types"
@@ -87,6 +88,7 @@ export {
     InvalidStyleContext,
     CommentDirectivesReporter,
     VueComponentContext,
+    isValidStyleContext,
 }
 
 /**

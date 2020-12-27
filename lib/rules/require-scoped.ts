@@ -1,7 +1,7 @@
 import type { RuleContext, AST, TokenStore, Rule, RuleFixer } from "../types"
 import {
     getStyleContexts,
-    StyleContext,
+    isValidStyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
 
@@ -32,7 +32,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const always = context.options[0] !== "never"
-        const styles = getStyleContexts(context).filter(StyleContext.isValid)
+        const styles = getStyleContexts(context).filter(isValidStyleContext)
         if (!styles.length) {
             return {}
         }

@@ -1,8 +1,6 @@
-// eslint-disable-next-line  @mysticatea/node/no-missing-import
 import type AST from "vue-eslint-parser/ast"
 import type postcss from "postcss"
 import type selectorParser from "postcss-selector-parser"
-// eslint-disable-next-line @mysticatea/node/no-extraneous-import
 import type { ScopeManager } from "eslint-scope"
 import type { Rule } from "eslint"
 
@@ -28,7 +26,7 @@ export type Rule = {
         }
         deprecated?: boolean
         fixable?: "code" | "whitespace" | null
-        schema: any[]
+        schema: unknown[]
         messages: { [key: string]: string }
         type: "suggestion" | "problem"
     }
@@ -84,6 +82,7 @@ export interface RuleContext {
     id: string
     getSourceCode: () => SourceCode
     report: (descriptor: ReportDescriptor) => void
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
     options: any[]
     getFilename: () => string
     parserServices: ParserServices
@@ -94,6 +93,7 @@ interface Fix {
     text: string
 }
 export interface RuleFixer {
+    /* eslint-disable @typescript-eslint/no-explicit-any -- ignore */
     insertTextAfter(nodeOrToken: any, text: string): Fix
 
     insertTextAfterRange(range: Range, text: string): Fix
@@ -109,6 +109,8 @@ export interface RuleFixer {
     replaceText(nodeOrToken: any, text: string): Fix
 
     replaceTextRange(range: Range, text: string): Fix
+
+    /* eslint-enable @typescript-eslint/no-explicit-any -- ignore */
 }
 
 export type ReportSuggestion = ({ messageId: string } | { desc: string }) & {
@@ -154,6 +156,7 @@ export interface SourceCode {
     ast: AST.ESLintProgram
     lines: string[]
     hasBOM: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
     visitorKeys: any
     scopeManager: ScopeManager
     getAllComments: () => AST.Token[]

@@ -1,7 +1,7 @@
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    StyleContext,
+    isValidStyleContext,
 } from "../styles/context"
 import type {
     VCSSSelectorNode,
@@ -44,7 +44,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context)
-            .filter(StyleContext.isValid)
+            .filter(isValidStyleContext)
             .filter((style) => style.scoped)
         const reporter = getCommentDirectivesReporter(context)
 

@@ -29,20 +29,17 @@ import type {
 } from "../../ast"
 import type { AST, RuleContext, ASTNode } from "../../../types"
 import type { ParsedQueryOptions } from "../../../options"
+import type { ReferenceExpressions } from "./attribute-tracker"
 import {
     getAttributeValueNodes,
     getReferenceExpressions,
-    ReferenceExpressions,
 } from "./attribute-tracker"
-import {
-    getVueComponentContext,
-    getStyleContexts,
-    StyleContext,
-    ValidStyleContext,
-} from "../../context"
+import type { ValidStyleContext } from "../../context"
+import { getVueComponentContext, getStyleContexts } from "../../context"
 import { getStringFromNode } from "../../utils/nodes"
 import { Template } from "../../template"
 import { isVElement, isTransitionElement } from "../../../utils/templates"
+import { isValidStyleContext } from "../../context/style"
 
 const TRANSITION_CLASS_BASES = [
     "enter",
@@ -61,17 +58,20 @@ const TRANSITION_GROUP_CLASS_BASES = [...TRANSITION_CLASS_BASES, "move"]
  */
 export class QueryContext {
     public elements: AST.VElement[] = []
+
     protected readonly document: VueDocumentQueryContext
 
     protected constructor(document?: VueDocumentQueryContext) {
-        this.document = document || (this as any)
+        this.document = document || (this as never)
     }
+
     /**
      * Execute a one-step query and return contexts of the matched elements.
      * @param {Node} selectorNode selector node
      * @returns {ElementsQueryContext} elements
      */
     public queryStep(selectorNode: VCSSSelectorNode): ElementsQueryContext {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
         return new ElementsQueryContext(
             queryStep(this.elements, selectorNode, this.document),
             this.document,
@@ -86,6 +86,7 @@ export class QueryContext {
     public reverseQueryStep(
         selectorNode: VCSSSelectorNode,
     ): ElementsQueryContext {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
         return new ElementsQueryContext(
             reverseQueryStep(this.elements, selectorNode, this.document),
             this.document,
@@ -100,6 +101,7 @@ export class QueryContext {
     public filter<S extends AST.VElement>(
         predicate: (value: AST.VElement) => value is S,
     ): ElementsQueryContext {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
         return new ElementsQueryContext(
             this.elements.filter(predicate),
             this.document,
@@ -112,6 +114,7 @@ export class QueryContext {
      */
     public split(): ElementsQueryContext[] {
         return this.elements.map(
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
             (e) => new ElementsQueryContext([e], this.document),
         )
     }
@@ -122,8 +125,11 @@ export class QueryContext {
  */
 class VueDocumentQueryContext extends QueryContext {
     public context: RuleContext
+
     public options: ParsedQueryOptions
+
     public docsModifiers: string[]
+
     public constructor(context: RuleContext, options: ParsedQueryOptions) {
         super()
         const sourceCode = context.getSourceCode()
@@ -136,7 +142,7 @@ class VueDocumentQueryContext extends QueryContext {
 
         if (options.captureClassesFromDoc.length > 0) {
             this.docsModifiers = getStyleContexts(context)
-                .filter(StyleContext.isValid)
+                .filter(isValidStyleContext)
                 .filter((style) => style.scoped)
                 .map((style) =>
                     extractClassesFromDoc(style, options.captureClassesFromDoc),
@@ -282,9 +288,9 @@ function* queryStep(
      */
     function query(
         els: AST.VElement[],
-        sels: VCSSSelectorValueNode[],
+        selList: VCSSSelectorValueNode[],
     ): AST.VElement[] {
-        return sels.reduce(
+        return selList.reduce(
             (
                 res: AST.VElement[],
                 sel: VCSSSelectorValueNode,
@@ -352,9 +358,9 @@ function* reverseQueryStep(
      */
     function query(
         els: AST.VElement[],
-        sels: VCSSSelectorValueNode[],
+        selList: VCSSSelectorValueNode[],
     ): AST.VElement[] {
-        return sels.reduceRight(
+        return selList.reduceRight(
             (
                 res: AST.VElement[],
                 sel: VCSSSelectorValueNode,
@@ -546,7 +552,7 @@ function* genVDeepElements(
     params: VCSSSelector[],
     query: (
         els: AST.VElement[],
-        sels: VCSSSelectorValueNode[],
+        selList: VCSSSelectorValueNode[],
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
     if (params.length) {
@@ -573,7 +579,7 @@ function* genVSlottedElements(
     params: VCSSSelector[],
     query: (
         els: AST.VElement[],
-        sels: VCSSSelectorValueNode[],
+        selList: VCSSSelectorValueNode[],
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
     const found = new Set<AST.VElement>()
@@ -616,7 +622,7 @@ function* genVGlobalElements(
     document: VueDocumentQueryContext,
     query: (
         els: AST.VElement[],
-        sels: VCSSSelectorValueNode[],
+        selList: VCSSSelectorValueNode[],
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
     const found = new Set<AST.VElement>()

@@ -145,15 +145,13 @@ export interface InvalidStyleContext extends BaseStyleContext {
 }
 
 export type StyleContext = InvalidStyleContext | ValidStyleContext
-export namespace StyleContext {
-    /**
-     * Checks whether the given context is valid
-     */
-    export function isValid(
-        context: StyleContext,
-    ): context is ValidStyleContext {
-        return !context.invalid
-    }
+/**
+ * Checks whether the given context is valid
+ */
+export function isValidStyleContext(
+    context: StyleContext,
+): context is ValidStyleContext {
+    return !context.invalid
 }
 
 /**
@@ -161,16 +159,23 @@ export namespace StyleContext {
  */
 export class StyleContextImpl {
     public readonly styleElement: AST.VElement
+
     public readonly sourceCode: SourceCode
+
     public readonly invalid: {
         message: string
         needReport: boolean
         loc: LineAndColumnData
     } | null
+
     public readonly scoped: boolean
+
     public readonly lang: string
+
     private readonly cssText: string | null
+
     public readonly cssNode: VCSSStyleSheet | null
+
     public constructor(style: AST.VElement, context: RuleContext) {
         const sourceCode = context.getSourceCode()
         this.styleElement = style
@@ -218,6 +223,7 @@ export class StyleContextImpl {
             traverseNodes(this.cssNode, visitor)
         }
     }
+
     public traverseSelectorNodes(visitor: VisitorVCSSSelectorNode): void {
         this.traverseNodes({
             enterNode(node) {

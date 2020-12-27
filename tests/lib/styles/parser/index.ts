@@ -3,11 +3,11 @@ import assert from "assert"
 import fs from "fs"
 import path from "path"
 
-// @ts-ignore
+// @ts-expect-error -- ignore
 import CSSStringifier from "postcss/lib/stringifier"
-// @ts-ignore
+// @ts-expect-error -- ignore
 import SCSSStringifier from "postcss-scss/lib/scss-stringifier"
-// @ts-ignore
+// @ts-expect-error -- ignore
 import StylusStringifier from "postcss-styl/lib/stringifier"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
@@ -29,7 +29,7 @@ function stringify(node: any, stringifier: any) {
     stringifier.stringify(node, semicolon)
 }
 
-const Stringifys = {
+const STRINGIFYS = {
     scss(node: any, builder: any) {
         const stringifier = new SCSSStringifier(builder)
         stringify(node, stringifier)
@@ -123,7 +123,7 @@ describe("CSS Nodes Test.", () => {
     }
 })
 
-// eslint-disable-next-line complexity
+// eslint-disable-next-line complexity -- test
 function checkCSSNodeLocations(
     code: string,
     node: VCSSNode | VCSSSelectorNode,
@@ -131,7 +131,7 @@ function checkCSSNodeLocations(
 ) {
     if (node.node) {
         let rangeText = `${node.type}:\n${code.slice(...node.range)}`
-        let postcssText = (node.node as any).toString((Stringifys as any)[lang])
+        let postcssText = (node.node as any).toString((STRINGIFYS as any)[lang])
         if (node.type === "VCSSSelector" || node.type === "VCSSClassSelector") {
             postcssText = postcssText.replace(
                 /\s*\/\*(?![\s\S]*\*\/[\s\S]*\/\*)([\s\S]*?)\*\/\s*$/u,

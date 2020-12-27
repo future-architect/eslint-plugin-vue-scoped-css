@@ -1,14 +1,14 @@
+import type { NestingInfo } from "../../utils/selectors"
 import {
     isNestingSelector,
     isNestingAtRule,
     isTypeSelector,
     hasNodesSelector,
     isSelectorCombinator,
-    NestingInfo,
     findNestingSelector,
     isDescendantCombinator,
 } from "../../utils/selectors"
-import {
+import type {
     VCSSStyleSheet,
     VCSSNode,
     VCSSSelectorNode,
@@ -30,10 +30,15 @@ export class ResolvedSelectors {
     public readonly container:
         | (VCSSAtRule & { selectors: VCSSSelectorNode[] })
         | VCSSStyleRule
+
     public readonly selectors: ResolvedSelector[] = []
+
     public readonly level: number
+
     public readonly parent: ResolvedSelectors | null
+
     public readonly children: ResolvedSelectors[] = []
+
     /**
      * constructor
      * @param {Node[]} selector the selector
@@ -53,7 +58,9 @@ export class ResolvedSelectors {
 
 export class ResolvedSelector {
     public readonly owner: ResolvedSelectors
+
     public readonly selector: VCSSSelectorNode[]
+
     /**
      * constructor
      * @param {Node[]} selector the selector
@@ -147,8 +154,6 @@ export class CSSSelectorResolver {
         }
         return resolved
     }
-
-    /* eslint-disable class-methods-use-this */
 
     private isIgnoreNode(node: VCSSNode) {
         return (
@@ -387,7 +392,7 @@ export class CSSSelectorResolver {
             const parent = nestingTargetNode.parent as
                 | VCSSSelector
                 | VCSSSelectorPseudo
-            const index: number = parent.parent.nodes.indexOf(parent as any)
+            const index: number = parent.parent.nodes.indexOf(parent as never)
             const before = parent.parent.nodes.slice(
                 0,
                 index,
@@ -397,7 +402,7 @@ export class CSSSelectorResolver {
             ) as VCSSSelectorNode[]
             resolved = resolved.map((selector) => {
                 const newNode = parent.copy()
-                newNode.nodes = selector.selector as any
+                newNode.nodes = selector.selector as never
                 return new ResolvedSelector(owner, [
                     ...before,
                     newNode,
@@ -408,18 +413,16 @@ export class CSSSelectorResolver {
         }
         return resolved
     }
-
-    /* eslint-enable class-methods-use-this */
 }
 
 /**
- * Creates a selector node that concats the left and right selectors of the parent selector and the nested selector.
+ * Creates a selector node that concat the left and right selectors of the parent selector and the nested selector.
  */
 function newNestingConcatBothSelectorNodes(
     left: VCSSSelectorValueNode,
     parent: VCSSTypeSelector,
     right: VCSSTypeSelector,
-    _nesting: any,
+    _nesting: VCSSNestingSelector,
 ) {
     const loc = {
         start: left.loc.start,
@@ -437,7 +440,7 @@ function newNestingConcatBothSelectorNodes(
 }
 
 /**
- * Creates a selector node that concats the left selectors of the parent selector and the nested selector.
+ * Creates a selector node that concat the left selectors of the parent selector and the nested selector.
  */
 function newNestingConcatLeftSelectorNodes(
     left: VCSSSelectorValueNode,
@@ -459,7 +462,7 @@ function newNestingConcatLeftSelectorNodes(
 }
 
 /**
- * Creates a selector node that concats the right selectors of the parent selector and the nested selector.
+ * Creates a selector node that concat the right selectors of the parent selector and the nested selector.
  */
 function newNestingConcatRightSelectorNodes(
     parent: VCSSSelectorValueNode,

@@ -1,4 +1,13 @@
 import selectorParser from "postcss-selector-parser"
+import type {
+    VCSSCommentNode,
+    VCSSStyleRule,
+    VCSSAtRule,
+    VCSSSelectorNode,
+    VCSSNode,
+    VCSSContainerNode,
+    VCSSSelectorValueNode,
+} from "../../ast"
 import {
     VCSSSelector,
     VCSSTypeSelector,
@@ -11,13 +20,6 @@ import {
     VCSSSelectorCombinator,
     VCSSUnknownSelector,
     VCSSComment,
-    VCSSCommentNode,
-    VCSSStyleRule,
-    VCSSAtRule,
-    VCSSSelectorNode,
-    VCSSNode,
-    VCSSContainerNode,
-    VCSSSelectorValueNode,
 } from "../../ast"
 import {
     isSelectorCombinator,
@@ -49,9 +51,12 @@ import { isPostCSSSPContainer } from "../utils"
 import { isDefined } from "../../../utils/utils"
 
 export class CSSSelectorParser {
-    private sourceCode: SourceCode
+    private readonly sourceCode: SourceCode
+
     protected commentContainer: VCSSCommentNode[]
+
     protected lang = "css"
+
     /**
      * constructor.
      * @param {SourceCode} sourceCode the SourceCode object that you can use to work with the source that was passed to ESLint.
@@ -86,7 +91,6 @@ export class CSSSelectorParser {
         )
     }
 
-    /* eslint-disable class-methods-use-this */
     protected parseInternal(selector: string): PostCSSSPRootNode {
         return selectorParser().astSync(selector)
     }
@@ -94,7 +98,6 @@ export class CSSSelectorParser {
     protected parseCommentsInternal(selector: string): PostCSSSPRootNode {
         return selectorParser().astSync(selector)
     }
-    /* eslint-enable class-methods-use-this */
 
     /**
      * Convert `postcss-selector-parser` node to node that can be handled by ESLint.
@@ -108,16 +111,19 @@ export class CSSSelectorParser {
         node: PostCSSSPRootNode,
         parent: VCSSStyleRule | VCSSAtRule,
     ): VCSSSelector[]
+
     private _postcssSelectorParserNodeChiildrenToASTNodes(
         offsetLocation: LineAndColumnData,
         node: PostCSSSPContainer,
         parent: VCSSSelector,
     ): VCSSSelectorValueNode[]
+
     private _postcssSelectorParserNodeChiildrenToASTNodes(
         offsetLocation: LineAndColumnData,
         node: PostCSSSPPseudoNode,
         parent: VCSSSelectorPseudo,
     ): VCSSSelector[]
+
     private _postcssSelectorParserNodeChiildrenToASTNodes(
         offsetLocation: LineAndColumnData,
         node: PostCSSSPContainer | PostCSSSPPseudoNode,
@@ -184,11 +190,11 @@ export class CSSSelectorParser {
         const end = sourceCode.getIndexFromLoc(loc.end)
 
         const astNode = this[typeToConvertMethodName(node.type)](
-            node as any,
+            node as never,
             loc,
             start,
             end,
-            parent as any,
+            parent as never,
         )
 
         if (astNode == null) {
@@ -223,7 +229,7 @@ export class CSSSelectorParser {
         astNode: VCSSSelectorNode,
         node: PostCSSSPNode,
         parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo,
-    ) {
+    ): void {
         if (!hasRaws(node) || !node.raws.spaces) {
             return
         }
@@ -253,8 +259,6 @@ export class CSSSelectorParser {
         }
     }
 
-    /* eslint-disable class-methods-use-this */
-
     /**
      * Convert selector Node
      * @param  {object} node  The node.
@@ -278,7 +282,7 @@ export class CSSSelectorParser {
             // `.foo, .bar`
             //       ^
 
-            // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign -- ignore
             start = start + beforeSpaces[0].length
             loc.start = this.sourceCode.getLocFromIndex(start)
             source = source.slice(beforeSpaces[0].length)
@@ -287,7 +291,7 @@ export class CSSSelectorParser {
         if (afterSpaces?.[0]) {
             // adjust after spaces
 
-            // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign -- ignore
             end = end - afterSpaces[0].length
             loc.end = this.sourceCode.getLocFromIndex(end)
             source = source.slice(0, -afterSpaces[0].length)
@@ -299,10 +303,10 @@ export class CSSSelectorParser {
             // `:not(.bar)`
             //      ^    ^
 
-            // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign -- ignore
             start = start + beforeTrivials[0].length
             loc.start = this.sourceCode.getLocFromIndex(start)
-            // eslint-disable-next-line no-param-reassign
+            // eslint-disable-next-line no-param-reassign -- ignore
             end = end - afterTrivials[0].length
             loc.end = this.sourceCode.getLocFromIndex(end)
             source = source.slice(
@@ -567,7 +571,6 @@ export class CSSSelectorParser {
             parent,
         })
     }
-    /* eslint-enable class-methods-use-this */
 }
 
 /**
@@ -654,7 +657,7 @@ function removeInvalidDescendantCombinator(
             if (prev && !isSelectorCombinator(prev)) {
                 results.push(
                     new VCSSSelectorCombinator(
-                        node.node as any,
+                        node.node as never,
                         node.loc,
                         node.start,
                         node.end,
@@ -713,6 +716,7 @@ function typeToConvertMethodName(
  * Checks whether has raws
  */
 function hasRaws(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check to prop
     node: any,
 ): node is { raws: { spaces: { after?: string; before?: string } } } {
     return node.raws != null

@@ -1,18 +1,18 @@
+import type { NestingInfo } from "../../utils/selectors"
 import {
     isNestingAtRule,
     findNestingSelectors,
     findNestingSelector,
     hasNodesSelector,
-    NestingInfo,
     isSelectorCombinator,
 } from "../../utils/selectors"
-import {
-    VCSSSelectorCombinator,
+import type {
     VCSSStyleRule,
     VCSSAtRule,
     VCSS,
     VCSSSelectorNode,
 } from "../../ast"
+import { VCSSSelectorCombinator } from "../../ast"
 import {
     CSSSelectorResolver,
     ResolvedSelector,
@@ -132,7 +132,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
             },
             first.range[0],
             first.range[0],
-            first.parent as any,
+            first.parent as never,
         )
         comb.value = " "
         comb.selector = " "
