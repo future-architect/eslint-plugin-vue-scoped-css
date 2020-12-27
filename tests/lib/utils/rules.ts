@@ -14,7 +14,6 @@ function getDirRules() {
     for (const name of result) {
         const ruleName = name.replace(/\.ts$/u, "")
         const ruleId = `vue-scoped-css/${ruleName}`
-
         const rule = require(path.join(rulesRoot, name))
         rules[ruleId] = rule
     }

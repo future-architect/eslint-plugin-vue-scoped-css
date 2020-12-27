@@ -9,22 +9,28 @@ module.exports = {
     },
     plugins: ["internal-rules"],
     extends: [
-        "plugin:@mysticatea/es2015",
-        "plugin:@mysticatea/+node",
-        "plugin:@mysticatea/+eslint-plugin",
+        "plugin:@ota-meshi/recommended",
+        "plugin:@ota-meshi/+node",
+        "plugin:@ota-meshi/+typescript",
+        "plugin:@ota-meshi/+eslint-plugin",
+        "plugin:@ota-meshi/+prettier",
+        "plugin:@ota-meshi/+json",
     ],
     rules: {
         "require-jsdoc": "error",
         "no-warning-comments": "warn",
         "no-lonely-if": "off",
-        "@mysticatea/ts/ban-ts-ignore": "off",
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "eslint-comments/no-unused-disable": "error",
+        "@typescript-eslint/no-non-null-assertion": "off",
     },
     overrides: [
         {
             files: ["*.ts"],
+            parser: "@typescript-eslint/parser",
             rules: {
-                "@mysticatea/ts/no-require-imports": "off",
-                "@mysticatea/ts/no-var-requires": "off",
+                "@typescript-eslint/no-require-imports": "off",
+                "@typescript-eslint/no-var-requires": "off",
                 "no-implicit-globals": "off",
             },
             parserOptions: {
@@ -35,7 +41,7 @@ module.exports = {
         {
             files: ["lib/rules/**"],
             rules: {
-                "@mysticatea/eslint-plugin/report-message-format": [
+                "eslint-plugin/report-message-format": [
                     "error",
                     "[^a-z].*\\.$",
                 ],
@@ -46,7 +52,35 @@ module.exports = {
                             "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html",
                     },
                 ],
-                "@mysticatea/eslint-plugin/require-meta-docs-url": "off",
+                "eslint-plugin/require-meta-docs-url": "off",
+
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        selector: "default",
+                        format: ["camelCase"],
+                        leadingUnderscore: "allow",
+                        trailingUnderscore: "allow",
+                    },
+                    {
+                        selector: "variable",
+                        format: ["camelCase", "UPPER_CASE"],
+                        leadingUnderscore: "allow",
+                        trailingUnderscore: "allow",
+                    },
+                    {
+                        selector: "typeLike",
+                        format: ["PascalCase"],
+                    },
+                    {
+                        selector: "property",
+                        format: null,
+                    },
+                    {
+                        selector: "method",
+                        format: null,
+                    },
+                ],
             },
         },
         {
@@ -78,19 +112,15 @@ module.exports = {
                 ecmaVersion: 2019,
                 parser: "babel-eslint",
             },
+            extends: ["plugin:@ota-meshi/+vue2", "plugin:@ota-meshi/+prettier"],
             globals: {
                 window: true,
             },
             rules: {
                 "require-jsdoc": "off",
-                "@mysticatea/vue/html-closing-bracket-newline": "off",
-                "@mysticatea/vue/max-attributes-per-line": "off",
-                "@mysticatea/vue/comma-dangle": "off",
-                "@mysticatea/vue/html-indent": "off",
-                "@mysticatea/vue/html-self-closing": "off",
-                "@mysticatea/node/no-unsupported-features/es-syntax": "off",
-                "@mysticatea/node/no-missing-import": "off",
-                "@mysticatea/node/no-missing-require": "off",
+                "node/no-unsupported-features/es-syntax": "off",
+                "node/no-missing-import": "off",
+                "node/no-missing-require": "off",
             },
         },
     ],

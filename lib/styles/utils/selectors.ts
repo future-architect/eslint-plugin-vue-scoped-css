@@ -1,4 +1,4 @@
-import {
+import type {
     VCSSSelectorNode,
     VCSSIDSelector,
     VCSSClassSelector,
@@ -10,10 +10,10 @@ import {
     VCSSTypeSelector,
     VCSSSelectorPseudo,
     VCSSSelectorValueNode,
-    VCSSSelector,
 } from "../ast"
+import { VCSSSelector } from "../ast"
 import { isVCSSAtRule } from "./css-nodes"
-import { SourceLocation } from "../../types"
+import type { SourceLocation } from "../../types"
 
 /**
  * Checks whether the given node is VCSSTypeSelector
@@ -34,7 +34,7 @@ export function hasNodesSelector(
 export function normalizePseudoParams(
     pseudo: VCSSSelectorPseudo,
     nodes: VCSSSelectorNode[],
-) {
+): VCSSSelector[] {
     const results: VCSSSelector[] = []
     let buffer: VCSSSelectorValueNode[] = []
     for (const node of nodes) {
@@ -48,7 +48,7 @@ export function normalizePseudoParams(
                 }
                 results.push(
                     new VCSSSelector(
-                        buffer[0] as any,
+                        buffer[0] as never,
                         loc,
                         startNode.start,
                         endNode.end,
@@ -74,7 +74,7 @@ export function normalizePseudoParams(
         }
         results.push(
             new VCSSSelector(
-                buffer[0] as any,
+                buffer[0] as never,
                 loc,
                 startNode.start,
                 endNode.end,

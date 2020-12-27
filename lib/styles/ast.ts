@@ -30,12 +30,19 @@ type CopyProps = {
  */
 class Node<T extends string> {
     public readonly type: T
+
     public readonly loc: SourceLocation
+
     public start: number
+
     public end: number
+
     public range: Range
+
     public readonly node: PostCSSNode | PostCSSSPNode
+
     public readonly lang: string
+
     /**
      * constructor.
      * @param  {PostCSSNode | PostCSSSPNode} node PostCSS node.
@@ -72,6 +79,7 @@ class HasParentNode<
     P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo
 > extends Node<T> {
     public readonly parent: P
+
     protected constructor(
         node: PostCSSNode | PostCSSSPNode,
         type: T,
@@ -91,6 +99,7 @@ class HasParentNode<
  */
 export class VCSSParsingError extends Node<"VCSSParsingError"> {
     public readonly message: string
+
     /**
      * constructor.
      * @param  {PostCSSDeclaration} node  The node.
@@ -120,8 +129,11 @@ export class VCSSParsingError extends Node<"VCSSParsingError"> {
  */
 export class VCSSStyleSheet extends Node<"VCSSStyleSheet"> {
     public nodes: VCSSNode[]
+
     public comments: VCSSCommentNode[]
+
     public readonly errors: VCSSParsingError[]
+
     /**
      * constructor.
      * @param  {PostCSSRoot} node  The node.
@@ -166,9 +178,13 @@ export class VCSSStyleRule extends HasParentNode<
     VCSSContainerNode
 > {
     public nodes: VCSSNode[]
+
     public readonly selectorText: string
+
     public readonly rawSelectorText: string
+
     public selectors: VCSSSelectorNode[]
+
     /**
      * constructor.
      * @param  {AtRule} node  The node.
@@ -223,8 +239,11 @@ export class VCSSDeclarationProperty extends HasParentNode<
     VCSSContainerNode
 > {
     public readonly property: string
+
     public readonly value: string
+
     public readonly important: boolean
+
     /**
      * constructor.
      * @param  {PostCSSDeclaration} node  The node.
@@ -267,13 +286,21 @@ export class VCSSDeclarationProperty extends HasParentNode<
  */
 export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
     public nodes: VCSSNode[]
+
     public readonly name: string
+
     public readonly identifier: string
+
     public readonly paramsText: string
+
     public readonly rawParamsText: string
+
     public rawSelectorText?: string
+
     public selectors?: VCSSSelectorNode[]
+
     public readonly node: PostCSSAtRule
+
     /**
      * constructor.
      * @param  {PostCSSAtRule} node  The node.
@@ -331,7 +358,9 @@ export class VCSSUnknown extends HasParentNode<
     VCSSContainerNode
 > {
     public nodes: VCSSNode[]
+
     public unknownType?: string
+
     /**
      * constructor.
      * @param  {PostCSSNode} node  The node.
@@ -376,7 +405,9 @@ export class VCSSSelector extends HasParentNode<
     VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo
 > {
     public nodes: VCSSSelectorValueNode[]
+
     public parent: VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -423,7 +454,9 @@ export class VCSSTypeSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -470,7 +503,9 @@ export class VCSSIDSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -514,7 +549,9 @@ export class VCSSClassSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -558,7 +595,9 @@ export class VCSSNestingSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -602,7 +641,9 @@ export class VCSSUniversalSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -646,11 +687,17 @@ export class VCSSAttributeSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string | null
+
     public readonly attribute: string
+
     public readonly operator: string | null
+
     public readonly quoteMark: string | null
+
     public readonly insensitiveFlag: string | null
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -733,7 +780,9 @@ export class VCSSSelectorPseudo extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public nodes: VCSSSelector[]
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -790,7 +839,9 @@ export class VCSSSelectorCombinator extends HasParentNode<
     VCSSSelector
 > {
     public value: string
+
     public selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -835,7 +886,9 @@ export class VCSSUnknownSelector extends HasParentNode<
     VCSSSelector
 > {
     public readonly value: string
+
     public readonly selector: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -882,7 +935,9 @@ export class VCSSComment extends HasParentNode<
     VCSSContainerNode | VCSSSelector
 > {
     public readonly node: PostCSSComment | PostCSSSPCommentNode
+
     public readonly text: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -937,7 +992,9 @@ export class VCSSInlineComment extends HasParentNode<
     VCSSContainerNode | VCSSSelector
 > {
     public readonly node: PostCSSComment | PostCSSSPCommentNode
+
     public readonly text: string
+
     /**
      * constructor.
      * @param  {object} node  The node.
@@ -1028,6 +1085,7 @@ export type VCSSSelectorValueNode =
  * @param {string} name name of property
  */
 function getProp<N extends PostCSSNode | PostCSSSPNode, K extends keyof N>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
     props: any,
     node: N,
     name: K,
@@ -1048,7 +1106,8 @@ function copyStdNode<N extends Node<T>, T extends string, CP extends CopyProps>(
     astNode: N,
     props?: CP,
 ): N & Required<CP> {
-    const C = astNode.constructor as { new (...args: any[]): N & Required<CP> }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
+    const C = astNode.constructor as new (...args: any[]) => N & Required<CP>
     return new C(
         props?.node ?? astNode.node,
         props?.loc ?? astNode.loc,

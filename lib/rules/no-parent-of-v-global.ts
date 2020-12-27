@@ -1,8 +1,8 @@
+import type { ValidStyleContext } from "../styles/context"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    StyleContext,
-    ValidStyleContext,
+    isValidStyleContext,
 } from "../styles/context"
 import type { VCSSSelectorNode } from "../styles/ast"
 import type { RuleContext, Rule } from "../types"
@@ -32,7 +32,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context)
-            .filter(StyleContext.isValid)
+            .filter(isValidStyleContext)
             .filter((style) => style.scoped)
         if (!styles.length) {
             return {}

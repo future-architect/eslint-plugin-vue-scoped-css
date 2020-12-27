@@ -40,7 +40,9 @@ function isRootTemplate(
  * @param {VElement} element the element to check
  * @returns {boolean} `true` if the given element is the skip element.
  */
-export function isSkipElement(element: AST.VElement | AST.VDocumentFragment) {
+export function isSkipElement(
+    element: AST.VElement | AST.VDocumentFragment,
+): boolean {
     return (
         element.type === "VElement" &&
         (element.name === "template" || isTransitionElement(element))

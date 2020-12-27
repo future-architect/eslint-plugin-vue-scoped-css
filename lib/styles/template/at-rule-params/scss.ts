@@ -1,4 +1,4 @@
-import { Interpolation } from "../interpolation"
+import type { Interpolation } from "../interpolation"
 import { processText } from "../scss/util"
 
 /**

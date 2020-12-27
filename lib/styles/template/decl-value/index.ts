@@ -1,7 +1,7 @@
 import getCSSTemplateElements from "./css"
 import getSCSSTemplateElements from "./scss"
 import getStylusTemplateElements from "./stylus"
-import { Interpolation } from "../interpolation"
+import type { Interpolation } from "../interpolation"
 import { isSupportedStyleLang } from "../../utils"
 
 const BUILDERS = {

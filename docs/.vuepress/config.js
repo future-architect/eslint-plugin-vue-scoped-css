@@ -1,5 +1,5 @@
 const categories = require("./categories")
-// eslint-disable-next-line @mysticatea/node/no-extraneous-require
+// eslint-disable-next-line node/no-extraneous-require -- demo
 const webpack = require("webpack")
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
         return {
             resolve: {
                 alias: {
-                    // eslint-disable-next-line @mysticatea/node/no-extraneous-require
+                    // eslint-disable-next-line node/no-extraneous-require -- demo
                     stylus: require.resolve("stylus/lib/stylus"),
                     glob: require.resolve("./shim/glob"),
                     "safer-buffer": require.resolve("./shim/safer-buffer"),
@@ -63,7 +63,7 @@ module.exports = {
                                 meta: {
                                     docs: { ruleId, ruleName },
                                 },
-                            }) => [`/rules/${ruleName}`, ruleId]
+                            }) => [`/rules/${ruleName}`, ruleId],
                         ),
                     }))
                     .filter((menu) => Boolean(menu.children.length)),

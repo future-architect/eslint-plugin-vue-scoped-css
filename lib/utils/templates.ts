@@ -6,7 +6,7 @@ import type { AST, RuleContext, VDirectiveKey, VDirectiveKeyV6 } from "../types"
 export function getElements(
     context: RuleContext,
     predicate: (element: AST.VElement) => boolean,
-) {
+): AST.VElement[] {
     const node = context.getSourceCode().ast
     const body = node.templateBody
     if (!body) {
@@ -47,7 +47,7 @@ export function isVElement(
  */
 export function isTransitionElement(
     element: AST.VElement | AST.VDocumentFragment,
-) {
+): boolean {
     return (
         element.type === "VElement" &&
         (element.name === "transition" || element.rawName === "Transition")
@@ -61,7 +61,7 @@ export function isTransitionElement(
  */
 export function isTransitionGroupElement(
     element: AST.VElement | AST.VDocumentFragment,
-) {
+): boolean {
     return (
         element.type === "VElement" &&
         (element.name === "transition-group" ||
@@ -110,7 +110,7 @@ export function isVDirective(
  * @param {VDirectiveKey} key directive key to check
  * @returns {boolean} `true` if the given key is a `v-bind` directive.
  */
-export function isVBind(key: VDirectiveKey) {
+export function isVBind(key: VDirectiveKey): boolean {
     if (isVDirectiveKeyV6(key)) {
         if (key.name.name !== "bind") {
             return false
@@ -131,7 +131,7 @@ export function isVBind(key: VDirectiveKey) {
  * @param {VDirectiveKey} key directive key
  * @returns {string|null} the directive argument of the given key. `null` if the directive argument is unknown.
  */
-export function getArgument(key: VDirectiveKey) {
+export function getArgument(key: VDirectiveKey): string | null {
     if (isVDirectiveKeyV6(key)) {
         const argument = key.argument
         if (argument == null) {

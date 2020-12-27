@@ -126,7 +126,9 @@ export class CommentDirectives {
             [key: string]: boolean
         }
     }
+
     private _disableBlocks: { [key: string]: BlockData[] }
+
     /**
      * constructor
      * @param {StyleContext[]} styles The styles
@@ -152,14 +154,14 @@ export class CommentDirectives {
         }
     }
 
-    public disableLineAll(loc: LineAndColumnData) {
+    public disableLineAll(loc: LineAndColumnData): void {
         const disableLine =
             this._disableLines[loc.line] ||
             (this._disableLines[loc.line] = { all: true })
         disableLine.all = true
     }
 
-    public disableLineRules(loc: LineAndColumnData, rules: string[]) {
+    public disableLineRules(loc: LineAndColumnData, rules: string[]): void {
         const disableLine =
             this._disableLines[loc.line] ||
             (this._disableLines[loc.line] = { all: false })
@@ -168,13 +170,13 @@ export class CommentDirectives {
         }
     }
 
-    public disableAll(loc: LineAndColumnData) {
+    public disableAll(loc: LineAndColumnData): void {
         const disableBlock =
             this._disableBlocks.all || (this._disableBlocks.all = [])
         disableBlock.push({ loc, disable: true })
     }
 
-    public disableRules(loc: LineAndColumnData, rules: string[]) {
+    public disableRules(loc: LineAndColumnData, rules: string[]): void {
         for (const rule of rules) {
             const disableBlock =
                 this._disableBlocks[rule] || (this._disableBlocks[rule] = [])
@@ -182,13 +184,13 @@ export class CommentDirectives {
         }
     }
 
-    public enableAll(loc: LineAndColumnData) {
+    public enableAll(loc: LineAndColumnData): void {
         const disableBlock =
             this._disableBlocks.all || (this._disableBlocks.all = [])
         disableBlock.push({ loc, disable: false })
     }
 
-    public enableRules(loc: LineAndColumnData, rules: string[]) {
+    public enableRules(loc: LineAndColumnData, rules: string[]): void {
         for (const rule of rules) {
             const disableBlock =
                 this._disableBlocks[rule] || (this._disableBlocks[rule] = [])
@@ -196,19 +198,19 @@ export class CommentDirectives {
         }
     }
 
-    public clear(loc: LineAndColumnData) {
+    public clear(loc: LineAndColumnData): void {
         for (const rule of Object.keys(this._disableBlocks)) {
             this._disableBlocks[rule].push({ loc, disable: false })
         }
     }
 
     /**
-     * Chacks if rule is enabled or not
+     * Checks if rule is enabled or not
      * @param {string} rule
      * @param {ReportDescriptor} descriptor ESLint report descriptor
      * @returns {boolean} `true` if rule is enabled
      */
-    public isEnabled(rule: string, descriptor: ReportDescriptor) {
+    public isEnabled(rule: string, descriptor: ReportDescriptor): boolean {
         const loc = hasSourceLocation(descriptor)
             ? descriptor.loc
             : descriptor.node?.loc
@@ -245,8 +247,10 @@ export class CommentDirectives {
 }
 
 export class CommentDirectivesReporter {
-    private context: RuleContext
-    private commentDirectives: CommentDirectives
+    private readonly context: RuleContext
+
+    private readonly commentDirectives: CommentDirectives
+
     /**
      * constructor
      * @param {RuleContext} context ESLint rule context
@@ -266,7 +270,7 @@ export class CommentDirectivesReporter {
      * @param {ReportDescriptor} descriptor ESLint report descriptor
      * @returns {void}
      */
-    public report(descriptor: ReportDescriptor) {
+    public report(descriptor: ReportDescriptor): void {
         if (this.commentDirectives.isEnabled(this.context.id, descriptor)) {
             this.context.report(descriptor)
         }
@@ -303,7 +307,12 @@ export function createCommentDirectivesReporter(
  * @param {*} a The first value
  * @param {*} b The second value
  */
-function compare(a: any, b: any) {
+function compare(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
+    a: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
+    b: any,
+) {
     return a === b ? 0 : a > b ? 1 : -1
 }
 

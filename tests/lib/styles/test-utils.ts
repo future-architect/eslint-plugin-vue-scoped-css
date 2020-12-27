@@ -4,7 +4,8 @@ import fs from "fs"
 import path from "path"
 
 import type { RuleContext } from "../../../lib/types"
-import { StyleContext, getStyleContexts } from "../../../lib/styles/context"
+import type { StyleContext } from "../../../lib/styles/context"
+import { getStyleContexts } from "../../../lib/styles/context"
 
 const ROOT = path.join(__dirname, "./fixtures/index")
 
@@ -53,7 +54,15 @@ function executeLint(
     return { style, context }
 }
 
-export function* getStyleFixtureResults(rootDir = ROOT) {
+export function* getStyleFixtureResults(
+    rootDir = ROOT,
+): IterableIterator<{
+    name: string
+    style: StyleContext
+    source: string
+    context: RuleContext
+    dir: string
+}> {
     for (const name of fs.readdirSync(rootDir)) {
         if (name === ".DS_Store") {
             continue
@@ -72,19 +81,19 @@ export function* getStyleFixtureResults(rootDir = ROOT) {
     }
 }
 
-export function writeFixture(expectFilepath: string, content: string) {
-    // eslint-disable-next-line no-process-env
+export function writeFixture(expectFilepath: string, content: string): void {
+    // eslint-disable-next-line no-process-env -- test
     if (process.env.UPDATE_FIXTURE) {
         fs.writeFileSync(expectFilepath, content, "utf8")
     }
 }
-export function deleteFixture(filepath: string) {
-    // eslint-disable-next-line no-process-env
+export function deleteFixture(filepath: string): void {
+    // eslint-disable-next-line no-process-env -- test
     if (process.env.UPDATE_FIXTURE) {
         fs.unlinkSync(filepath)
     }
 }
-export function isExistsPath(filepath: string) {
+export function isExistsPath(filepath: string): boolean {
     try {
         fs.statSync(filepath)
         return true

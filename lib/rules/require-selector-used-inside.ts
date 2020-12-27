@@ -1,4 +1,5 @@
-import { getResolvedSelectors, ResolvedSelector } from "../styles/selectors"
+import type { ResolvedSelector } from "../styles/selectors"
+import { getResolvedSelectors } from "../styles/selectors"
 import {
     isTypeSelector,
     isIDSelector,
@@ -12,17 +13,18 @@ import {
     isVSlottedPseudo,
     isVGlobalPseudo,
 } from "../styles/utils/selectors"
-import { createQueryContext, QueryContext } from "../styles/selectors/query"
+import type { QueryContext } from "../styles/selectors/query"
+import { createQueryContext } from "../styles/selectors/query"
 import type { VCSSSelectorNode } from "../styles/ast"
 import type { RuleContext, Rule } from "../types"
-import { ParsedQueryOptions } from "../options"
+import type { ValidStyleContext } from "../styles/context"
 import {
-    ValidStyleContext,
     getStyleContexts,
-    StyleContext,
     getCommentDirectivesReporter,
 } from "../styles/context"
 import { hasTemplateBlock, isDefined } from "../utils/utils"
+import { parseQueryOptions } from "../options"
+import { isValidStyleContext } from "../styles/context/style"
 
 declare const module: {
     exports: Rule
@@ -112,7 +114,7 @@ module.exports = {
             return {}
         }
         const styles = getStyleContexts(context)
-            .filter(StyleContext.isValid)
+            .filter(isValidStyleContext)
             .filter((style) => style.scoped)
         if (!styles.length) {
             return {}
@@ -180,7 +182,7 @@ module.exports = {
             "Program:exit"() {
                 const queryContext = createQueryContext(
                     context,
-                    ParsedQueryOptions.parse(context.options[0]),
+                    parseQueryOptions(context.options[0]),
                 )
 
                 for (const style of styles) {

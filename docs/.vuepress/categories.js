@@ -43,7 +43,7 @@ const categoryRules = categoryIds
 for (const categoryId of Object.keys(categoryRules)) {
     if (categoryId !== "uncategorized" && !categoryTitles[categoryId]) {
         throw new Error(
-            `Category "${categoryId}" does not have a title defined.`
+            `Category "${categoryId}" does not have a title defined.`,
         )
     }
 }
@@ -52,7 +52,7 @@ module.exports = categoryIds.map((categoryId) => ({
     categoryId,
     title: categoryTitles[categoryId],
     rules: (categoryRules[categoryId] || []).filter(
-        (rule) => !rule.meta.deprecated
+        (rule) => !rule.meta.deprecated,
     ),
 }))
 // .filter(category => category.rules.length >= 1)

@@ -17,7 +17,7 @@ import type {
     StyleContext,
     ValidStyleContext,
 } from "../../../../lib/styles/context"
-import { ParsedQueryOptions } from "../../../../lib/options"
+import { parseQueryOptions } from "../../../../lib/options"
 import {
     isVDirective,
     isVDirectiveKeyV6,
@@ -43,7 +43,7 @@ function queries(style: StyleContext, context: RuleContext) {
     return selectors
         .map((r) => r.selector)
         .reduce((result, selector) => {
-            let q = createQueryContext(context, ParsedQueryOptions.parse({}))
+            let q = createQueryContext(context, parseQueryOptions({}))
             for (const node of selector) {
                 q = q.queryStep(node)
             }
@@ -61,10 +61,7 @@ function reverseQueries(style: StyleContext, context: RuleContext) {
     return selectors
         .map((r) => r.selector)
         .reduce((result, selector) => {
-            const document = createQueryContext(
-                context,
-                ParsedQueryOptions.parse({}),
-            )
+            const document = createQueryContext(context, parseQueryOptions({}))
             const elementQueries = document.split()
             const elementsTexts = elementQueries
                 .filter((elementQuery) => {
@@ -111,7 +108,7 @@ function buildElementText(e: AST.VElement, context: RuleContext): string {
     return text
 }
 
-// eslint-disable-next-line complexity
+// eslint-disable-next-line complexity -- test
 function getAttrText(
     element: AST.VElement,
     name: string,

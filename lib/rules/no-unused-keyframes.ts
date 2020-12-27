@@ -1,12 +1,12 @@
 import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast"
 import type { RuleContext, Rule } from "../types"
 import { Template } from "../styles/template"
+import type { ValidStyleContext } from "../styles/context"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    ValidStyleContext,
-    StyleContext,
 } from "../styles/context"
+import { isValidStyleContext } from "../styles/context/style"
 
 declare const module: {
     exports: Rule
@@ -30,7 +30,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context)
-            .filter(StyleContext.isValid)
+            .filter(isValidStyleContext)
             .filter((style) => style.scoped)
         if (!styles.length) {
             return {}

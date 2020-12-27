@@ -1,8 +1,8 @@
-import { ValidStyleContext } from "../context"
+import type { ValidStyleContext } from "../context"
+import type { ResolvedSelectors } from "./resolver/css-selector-resolver"
 import {
     CSSSelectorResolver,
     ResolvedSelector,
-    ResolvedSelectors,
 } from "./resolver/css-selector-resolver"
 import { SCSSSelectorResolver } from "./resolver/scss-selector-resolver"
 import { StylusSelectorResolver } from "./resolver/stylus-selector-resolver"
@@ -23,6 +23,7 @@ export function getResolvedSelectors(
     style: ValidStyleContext,
 ): ResolvedSelector[] {
     const lang = style.lang
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- classes
     const Resolver = isSupportedStyleLang(lang)
         ? RESOLVERS[lang]
         : CSSSelectorResolver

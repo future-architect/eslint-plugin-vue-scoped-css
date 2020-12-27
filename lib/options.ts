@@ -10,19 +10,17 @@ export interface ParsedQueryOptions {
     captureClassesFromDoc: RegExp[]
 }
 
-export namespace ParsedQueryOptions {
-    /**
-     * Parse options
-     */
-    export function parse(
-        options: QueryOptions | undefined,
-    ): ParsedQueryOptions {
-        const { ignoreBEMModifier, captureClassesFromDoc } = options || {}
+/**
+ * Parse options
+ */
+export function parseQueryOptions(
+    options: QueryOptions | undefined,
+): ParsedQueryOptions {
+    const { ignoreBEMModifier, captureClassesFromDoc } = options || {}
 
-        return {
-            ignoreBEMModifier: ignoreBEMModifier ?? false,
-            captureClassesFromDoc:
-                captureClassesFromDoc?.map((s) => toRegExp(s, "g")) ?? [],
-        }
+    return {
+        ignoreBEMModifier: ignoreBEMModifier ?? false,
+        captureClassesFromDoc:
+            captureClassesFromDoc?.map((s) => toRegExp(s, "g")) ?? [],
     }
 }

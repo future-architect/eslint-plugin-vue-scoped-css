@@ -19,10 +19,16 @@ export { Interpolation }
  * This class checks whether the identifiers match including interpolation.
  */
 export class Template {
+    public static interpolationTemplate = new Template([new Interpolation("?")])
+
     public elements: (Interpolation | string)[]
+
     public readonly string: string | null = null
+
     private _text: string | null = null
+
     private _regexp: RegExp | null = null
+
     public constructor(
         elements: (Interpolation | string | null | undefined)[],
     ) {
@@ -59,19 +65,23 @@ export class Template {
     public static of(value: string): Template {
         return new Template([value])
     }
+
     public static ofSelector(
         node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector,
     ): Template {
         return new Template(getSelectorTemplateElements(node))
     }
-    public static ofParams(node: VCSSAtRule) {
+
+    public static ofParams(node: VCSSAtRule): Template {
         return new Template(
             getAtRuleParamsTemplateElements(node.paramsText.trim(), node.lang),
         )
     }
 
     public static ofDeclValue(text: string, lang: string): Template
+
     public static ofDeclValue(node: VCSSDeclarationProperty): Template
+
     public static ofDeclValue(
         nodeOrText: VCSSDeclarationProperty | string,
         lang?: string,
@@ -85,6 +95,7 @@ export class Template {
             getDeclValueTemplateElements(nodeOrText.value, nodeOrText.lang),
         )
     }
+
     public static ofNode(
         node:
             | AST.ESLintBlockStatement
@@ -117,9 +128,9 @@ export class Template {
             if (left && right) {
                 return left.concat(right)
             } else if (left) {
-                return left.concat(interpolationTemplate)
+                return left.concat(Template.interpolationTemplate)
             } else if (right) {
-                return interpolationTemplate.concat(right)
+                return Template.interpolationTemplate.concat(right)
             }
         }
         return null
@@ -137,6 +148,7 @@ export class Template {
         }
         return false
     }
+
     public matchString(s: string): boolean {
         if (this.string != null) {
             return this.string === s
@@ -177,6 +189,7 @@ export class Template {
             return false
         })
     }
+
     public divide(s: string | RegExp): Template[] {
         const results: Template[] = []
         let elements: (string | Interpolation | undefined)[] = []
@@ -217,9 +230,11 @@ export class Template {
     private get text(): string {
         return this._text || (this._text = this.buildText())
     }
+
     private get regexp(): RegExp {
         return this._regexp || (this._regexp = this.buildRegexp())
     }
+
     private buildRegexp(): RegExp {
         let expr = "^"
         for (const e of this.elements) {
@@ -245,5 +260,3 @@ export class Template {
         return text
     }
 }
-
-const interpolationTemplate = new Template([new Interpolation("?")])

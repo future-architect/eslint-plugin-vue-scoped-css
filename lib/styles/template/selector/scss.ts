@@ -1,5 +1,9 @@
-import { VCSSIDSelector, VCSSClassSelector, VCSSTypeSelector } from "../../ast"
-import { Interpolation } from "../interpolation"
+import type {
+    VCSSIDSelector,
+    VCSSClassSelector,
+    VCSSTypeSelector,
+} from "../../ast"
+import type { Interpolation } from "../interpolation"
 import { processText } from "../scss/util"
 
 /**

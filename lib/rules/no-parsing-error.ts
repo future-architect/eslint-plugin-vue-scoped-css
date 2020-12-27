@@ -1,9 +1,9 @@
 import type { RuleContext, Rule } from "../types"
 import type { VCSSParsingError } from "../styles/ast"
+import type { InvalidStyleContext } from "../styles/context"
 import {
     getStyleContexts,
     getCommentDirectivesReporter,
-    InvalidStyleContext,
 } from "../styles/context"
 
 declare const module: {

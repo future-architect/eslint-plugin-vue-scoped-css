@@ -3,8 +3,10 @@ import type { LineAndColumnData, PostCSSSPNode } from "../../../types"
 import { isPostCSSSPContainer } from "../utils"
 
 class SourceCodeLocationResolver {
-    private text: string
-    private lineStartIndices: number[]
+    private readonly text: string
+
+    private readonly lineStartIndices: number[]
+
     /**
      * constructor
      */
@@ -60,10 +62,17 @@ class SourceCodeLocationResolver {
 }
 
 class RemapIndexContext {
-    private mappers: { org: [number, number]; new: [number, number] }[] = []
+    private readonly mappers: {
+        org: [number, number]
+        new: [number, number]
+    }[] = []
+
     private orgIndex = 0
+
     private newIndex = 0
+
     private batchLengthOrg = 0
+
     private batchLengthNew = 0
 
     public applyEq(length: number) {
@@ -97,6 +106,7 @@ class RemapIndexContext {
             this.batchLengthNew = 0
         }
     }
+
     private addMap(orgRange: [number, number], newRange: [number, number]) {
         if (orgRange[0] === newRange[0] && orgRange[1] === newRange[1]) {
             return
@@ -139,8 +149,11 @@ interface ReplaceInfo {
 
 class Pattern {
     public readonly name: string
+
     private readonly pattern: RegExp
+
     private finished = false
+
     private lastResult: RegExpExecArray | null = null
 
     public constructor(name: string, pattern: RegExp) {
@@ -207,11 +220,17 @@ export function* definePatternsSearchGenerator<
 
 export class ReplaceSelectorContext {
     public readonly cssSelector: string
+
     public readonly remapContext: RemapIndexContext
+
     public readonly replaces: ReplaceInfo[]
+
     public readonly comments: ReplaceInfo[]
+
     public readonly cssSourceCode: SourceCodeLocationResolver
+
     public readonly originalSourceCode: SourceCodeLocationResolver
+
     public constructor(
         cssSelector: string,
         originalSelector: string,
@@ -237,7 +256,7 @@ export class ReplaceSelectorContext {
     }
 }
 
-export type SelectorRelpaser = {
+export type SelectorReplacer = {
     regexp: RegExp
     replace: (
         result: RegExpExecArray,
@@ -258,9 +277,9 @@ export type SelectorRelpaser = {
  */
 export function replaceSelector(
     selector: string,
-    regexps: SelectorRelpaser[],
-    commentRegexps: SelectorRelpaser[] = [],
-    trivialRegexps: SelectorRelpaser[] = [],
+    regexps: SelectorReplacer[],
+    commentRegexps: SelectorReplacer[] = [],
+    trivialRegexps: SelectorReplacer[] = [],
 ): ReplaceSelectorContext {
     const remapContext = new RemapIndexContext()
     const replaces: ReplaceInfo[] = []
@@ -302,8 +321,7 @@ export function replaceSelector(
             start = res.index + text.length
             continue
         }
-        let replacers: SelectorRelpaser[]
-        let container: ReplaceInfo[]
+        let replacers: SelectorReplacer[], container: ReplaceInfo[]
         if (name.endsWith("comment")) {
             // inline comment
             replacers = commentRegexps
@@ -543,6 +561,7 @@ function restoreReplaceNodeProp(
  * Checks whether has raws
  */
 function hasRaws(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check to prop
     node: any,
 ): node is { raws: { spaces: { after?: string; before?: string } } } {
     return node.raws != null

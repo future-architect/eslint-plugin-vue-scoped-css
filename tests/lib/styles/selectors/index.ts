@@ -5,7 +5,7 @@ import path from "path"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
 import { getResolvedSelectors } from "../../../../lib/styles/selectors"
-import { ValidStyleContext } from "../../../../lib/styles/context"
+import type { ValidStyleContext } from "../../../../lib/styles/context"
 
 /**
  * Remove `parent` proeprties from the given AST.
@@ -48,6 +48,7 @@ describe("CSS Selectors Test.", () => {
 
                 const actual = JSON.stringify(
                     getResolvedSelectors(style as ValidStyleContext).map((r) =>
+                        // eslint-disable-next-line max-nested-callbacks -- test
                         r.selector.map((s) => s.selector),
                     ),
                     replacer,

@@ -1,7 +1,6 @@
 import type { AST, TSAsExpression, RuleContext } from "../../types"
 import eslintUtils from "eslint-utils"
-// eslint-disable-next-line @mysticatea/node/no-extraneous-import
-import { ScopeManager, Scope } from "eslint-scope"
+import type { ScopeManager, Scope } from "eslint-scope"
 
 /**
  * Unwrap typescript types like "X as F"
@@ -17,7 +16,7 @@ export function unwrapTypesExpression<
         | TSAsExpression
 >(node: T): T {
     return node?.type === "TSAsExpression"
-        ? ((node as TSAsExpression).expression as any)
+        ? ((node as TSAsExpression).expression as T)
         : node
 }
 
@@ -56,7 +55,7 @@ function getScope(
         node;
         node = node.parent as AST.ESLintNode
     ) {
-        const scope = scopeManager.acquire(node as any, inner)
+        const scope = scopeManager.acquire(node as never, inner)
 
         if (scope) {
             if (scope.type === "function-expression-name") {
