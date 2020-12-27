@@ -18,7 +18,10 @@ function getVueComponentObject(
     if (declaration.type === "ObjectExpression") {
         return declaration
     }
-    if (declaration.type === "CallExpression") {
+    if (
+        declaration.type === "CallExpression" &&
+        declaration.arguments.length >= 1
+    ) {
         const callee = declaration.callee
 
         if (callee.type === "MemberExpression") {
@@ -28,9 +31,20 @@ function getVueComponentObject(
                 calleeObject.type === "Identifier" &&
                 calleeObject.name === "Vue" &&
                 callee.property.type === "Identifier" &&
-                callee.property.name === "extend" &&
-                declaration.arguments.length >= 1
+                callee.property.name === "extend"
             ) {
+                // for Vue.js 2.x
+                // Vue.extend({})
+                const object = unwrapTypesExpression(declaration.arguments[0])
+                if (object.type === "ObjectExpression") {
+                    return object
+                }
+            }
+        }
+        if (callee.type === "Identifier") {
+            if (callee.name === "defineComponent") {
+                // for Vue.js 3.x
+                // defineComponent({})
                 const object = unwrapTypesExpression(declaration.arguments[0])
                 if (object.type === "ObjectExpression") {
                     return object
