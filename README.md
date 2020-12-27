@@ -136,13 +136,14 @@ For example:
 ```json
 {
   "rules": {
-    "vue-scoped-css/require-selector-used-inside": "error"
+    "vue-scoped-css/no-deprecated-v-enter-v-leave-class": "error"
   }
 }
 ```
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
+| [vue-scoped-css/no-deprecated-v-enter-v-leave-class](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-v-enter-v-leave-class.html) | disallow v-enter and v-leave classes. |  |
 | [vue-scoped-css/require-selector-used-inside](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html) | disallow selectors defined that is not used inside `<template>` |  |
 
 <!--RULES_TABLE_END-->

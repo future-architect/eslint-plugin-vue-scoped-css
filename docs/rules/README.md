@@ -55,11 +55,12 @@ For example:
 ```json
 {
   "rules": {
-    "vue-scoped-css/require-selector-used-inside": "error"
+    "vue-scoped-css/no-deprecated-v-enter-v-leave-class": "error"
   }
 }
 ```
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
+| [vue-scoped-css/no-deprecated-v-enter-v-leave-class](./no-deprecated-v-enter-v-leave-class.md) | disallow v-enter and v-leave classes. |  |
 | [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | disallow selectors defined that is not used inside `<template>` |  |

@@ -1,33 +1,7 @@
-import type {
-    AST,
-    VDirectiveKeyV6,
-    VDirectiveKey,
-    TSAsExpression,
-    RuleContext,
-} from "../../types"
+import type { AST, TSAsExpression, RuleContext } from "../../types"
 import eslintUtils from "eslint-utils"
 // eslint-disable-next-line @mysticatea/node/no-extraneous-import
 import { ScopeManager, Scope } from "eslint-scope"
-
-/**
- * Checks whether the given node is VDirectiveKey in vue-eslint-parser@6
- * @param node node to check
- */
-export function isVDirectiveKeyV6(
-    node: VDirectiveKey,
-): node is VDirectiveKeyV6 {
-    return typeof node.name !== "string"
-}
-
-/**
- * Checks whether the given node is VDirective
- * @param node node to check
- */
-export function isVDirective(
-    node: AST.VAttribute | AST.VDirective,
-): node is AST.VDirective {
-    return node.type === "VAttribute" && node.directive
-}
 
 /**
  * Unwrap typescript types like "X as F"

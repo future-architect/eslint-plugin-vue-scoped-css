@@ -19,7 +19,6 @@ import {
     isSkipElement,
     isElementWrappedInTransition,
     getWrapperTransition,
-    isTransitionElement,
     isRootElement,
     isSlotElement,
 } from "./elements"
@@ -43,6 +42,7 @@ import {
 } from "../../context"
 import { getStringFromNode } from "../../utils/nodes"
 import { Template } from "../../template"
+import { isVElement, isTransitionElement } from "../../../utils/templates"
 
 const TRANSITION_CLASS_BASES = [
     "enter",
@@ -840,7 +840,7 @@ function matchTransitionClassName(
             document.context,
         )
         if (classNameNodes == null) {
-            // Unknown attrbute are found
+            // Unknown attribute are found
             // So the class is considered a match.
             return true
         }
@@ -1001,16 +1001,6 @@ function matchClassNameForObjectExpression(
         }
     }
     return false
-}
-
-/**
- * Checks whether the given node is VElement
- * @param node node to check
- */
-function isVElement(
-    node: AST.VElement | AST.VText | AST.VExpressionContainer,
-): node is AST.VElement {
-    return node?.type === "VElement"
 }
 
 /**
