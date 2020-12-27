@@ -13,15 +13,15 @@ import {
     isExistsPath,
 } from "../test-utils"
 import type { AST, RuleContext, VDirectiveKey } from "../../../../lib/types"
-import {
-    isVDirectiveKeyV6,
-    isVDirective,
-} from "../../../../lib/styles/utils/nodes"
 import type {
     StyleContext,
     ValidStyleContext,
 } from "../../../../lib/styles/context"
 import { ParsedQueryOptions } from "../../../../lib/options"
+import {
+    isVDirective,
+    isVDirectiveKeyV6,
+} from "../../../../lib/utils/templates"
 
 const ROOT = path.join(__dirname, "../fixtures/selectors/query")
 

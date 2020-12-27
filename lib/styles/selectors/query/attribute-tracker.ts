@@ -1,61 +1,6 @@
 import { getVueComponentContext } from "../../context"
-import type { RuleContext, AST, VDirectiveKey } from "../../../types"
-import { isVDirectiveKeyV6, isVDirective } from "../../utils/nodes"
-
-/**
- * Checks if the given key is a `v-bind` directive.
- * @param {VDirectiveKey} key directive key to check
- * @returns {boolean} `true` if the given key is a `v-bind` directive.
- */
-function isVBind(key: VDirectiveKey) {
-    if (isVDirectiveKeyV6(key)) {
-        if (key.name.name !== "bind") {
-            return false
-        }
-        return true
-    }
-    if (
-        // vue-eslint-parser@<6.0.0
-        key.name !== "bind"
-    ) {
-        return false
-    }
-    return true
-}
-
-/**
- * Get the directive argument of the given key.
- * @param {VDirectiveKey} key directive key
- * @returns {string|null} the directive argument of the given key. `null` if the directive argument is unknown.
- */
-function getArgument(key: VDirectiveKey) {
-    if (isVDirectiveKeyV6(key)) {
-        const argument = key.argument
-        if (argument == null) {
-            // `v-bind="..."` can not identify names.
-            return null
-        }
-        if (argument.type === "VExpressionContainer") {
-            // Dynamic arguments can not identify names.
-            return null
-        }
-        if (argument.type === "VIdentifier") {
-            return argument.name
-        }
-        return null
-    }
-    const argument = key.argument
-    if (argument == null) {
-        // `v-bind="..."` can not identify names.
-        return null
-    }
-    // vue-eslint-parser@<6.0.0
-    if (/^\[.*\]$/u.test(argument)) {
-        // Dynamic arguments?
-        return null
-    }
-    return argument || ""
-}
+import type { RuleContext, AST } from "../../../types"
+import { isVDirective, isVBind, getArgument } from "../../../utils/templates"
 
 /**
  * Gets the value nodes of attribute of given name as Array. Returns `null` If the given name can not be identified.

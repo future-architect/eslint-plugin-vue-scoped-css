@@ -20,7 +20,7 @@ export { Interpolation }
  */
 export class Template {
     public elements: (Interpolation | string)[]
-    private string: string | null = null
+    public readonly string: string | null = null
     private _text: string | null = null
     private _regexp: RegExp | null = null
     public constructor(

@@ -1,4 +1,8 @@
 import type { AST } from "../../../types"
+import {
+    isTransitionElement,
+    isTransitionGroupElement,
+} from "../../../utils/templates"
 
 /**
  * Checks whether the given element is the root element.
@@ -28,35 +32,6 @@ function isRootTemplate(
         element.type === "VElement" &&
         element.name === "template" &&
         element.parent.type === "VDocumentFragment"
-    )
-}
-
-/**
- * Checks whether the given element is the `<transition>` element.
- * @param {VElement} element the element to check
- * @returns {boolean} `true` if the given element is the `<transition>` element.
- */
-export function isTransitionElement(
-    element: AST.VElement | AST.VDocumentFragment,
-) {
-    return (
-        element.type === "VElement" &&
-        (element.name === "transition" || element.rawName === "Transition")
-    )
-}
-
-/**
- * Checks whether the given element is the `<transition-group>` element.
- * @param {VElement} element the element to check
- * @returns {boolean} `true` if the given element is the `<transition-group>` element.
- */
-function isTransitionGroupElement(
-    element: AST.VElement | AST.VDocumentFragment,
-) {
-    return (
-        element.type === "VElement" &&
-        (element.name === "transition-group" ||
-            element.rawName === "TransitionGroup")
     )
 }
 
