@@ -37,7 +37,7 @@ export interface VDirectiveKeyV5 extends AST.HasLocation, AST.HasParent {
     name: string
     argument: string | null
     modifiers: string[]
-    parent: AST.VAttribute
+    parent: AST.VDirective
     shorthand: boolean
     raw: {
         name: string
@@ -47,7 +47,7 @@ export interface VDirectiveKeyV5 extends AST.HasLocation, AST.HasParent {
 }
 export interface VDirectiveKeyV6 extends AST.HasLocation, AST.HasParent {
     type: "VDirectiveKey"
-    parent: AST.VAttribute
+    parent: AST.VDirective
     name: AST.VIdentifier
     argument: AST.VExpressionContainer | AST.VIdentifier | null
     modifiers: AST.VIdentifier[]
