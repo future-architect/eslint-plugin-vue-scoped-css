@@ -91,7 +91,7 @@
     "postcss-safe-parser": "^4.0.2",
     "postcss-scss": "^2.1.1",
     "postcss-selector-parser": "^6.0.2",
-    "postcss-styl": "^0.7.1"
+    "postcss-styl": "^0.8.0"
   },
   "peerDependencies": {
     "eslint": ">=6.0.0",
