@@ -1,6 +1,5 @@
-import postcss from "postcss"
+import type * as postcss from "postcss"
 
 declare module "postcss-scss" {
-    const parse: postcss.Parser
-    const stringify: postcss.Stringifier
+    const parse: postcss.Parser, stringify: postcss.Stringifier
 }
