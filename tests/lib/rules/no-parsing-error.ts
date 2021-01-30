@@ -63,12 +63,12 @@ tester.run("no-parsing-error", rule as any, {
             <style scoped>
             .item {
             </style>
-            <doc></doc`,
+            <doc></doc  `,
                       errors: [
                           {
                               message: "Parsing error: eof-in-tag.",
                               line: 5,
-                              column: 23,
+                              column: 25,
                           },
                       ],
                   },
