@@ -87,7 +87,7 @@
   "dependencies": {
     "eslint-utils": "^2.1.0",
     "lodash": "^4.17.19",
-    "postcss": "^7.0.32",
+    "postcss": "^8.0.0",
     "postcss-safe-parser": "^4.0.2",
     "postcss-scss": "^2.1.1",
     "postcss-selector-parser": "^6.0.2",
