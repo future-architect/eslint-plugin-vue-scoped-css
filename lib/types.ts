@@ -1,5 +1,5 @@
 import type AST from "vue-eslint-parser/ast"
-import type postcss from "postcss"
+import type * as postcss from "postcss"
 import type selectorParser from "postcss-selector-parser"
 import type { ScopeManager } from "eslint-scope"
 import type { Rule } from "eslint"
@@ -192,7 +192,7 @@ export interface TokenStore {
     ): AST.Token[]
 }
 type HasPostCSSSource = {
-    source: postcss.NodeSource
+    source: postcss.Source
 }
 export type PostCSSNode =
     | PostCSSRoot
@@ -209,7 +209,7 @@ type PostCSSChildNode = (
     postcss.ChildNode
 export interface PostCSSRoot extends postcss.Root, HasPostCSSSource {
     nodes: PostCSSChildNode[]
-    source: postcss.NodeSource & {
+    source: postcss.Source & {
         input: postcss.Input & {
             css: string
         }
@@ -217,28 +217,28 @@ export interface PostCSSRoot extends postcss.Root, HasPostCSSSource {
 }
 export interface PostCSSAtRule extends postcss.AtRule, HasPostCSSSource {
     nodes: PostCSSChildNode[]
-    raws: postcss.AtRuleRaws & {
+    raws: postcss.AtRule["raws"] & {
         params?: {
             raw: string
         }
     }
-    source: postcss.NodeSource
+    source: postcss.Source
 }
 export interface PostCSSRule extends postcss.Rule, HasPostCSSSource {
     nodes: PostCSSChildNode[]
-    raws: postcss.RuleRaws & {
+    raws: postcss.Rule["raws"] & {
         selector?: {
             raw: string
         }
     }
-    source: postcss.NodeSource
+    source: postcss.Source
 }
 export type PostCSSDeclaration = postcss.Declaration & HasPostCSSSource
 export interface PostCSSComment extends postcss.Comment, HasPostCSSSource {
-    raws: postcss.NodeRaws & {
+    raws: postcss.Comment["raws"] & {
         inline?: boolean
     }
-    source: postcss.NodeSource
+    source: postcss.Source
 }
 export type PostCSSContainer = PostCSSRoot | PostCSSAtRule | PostCSSRule
 

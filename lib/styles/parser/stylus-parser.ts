@@ -1,5 +1,5 @@
 import postcssStyl from "postcss-styl"
-import type postcss from "postcss"
+import type * as postcss from "postcss"
 import { CSSParser } from "./css-parser"
 import type { VCSSContainerNode, VCSSNode } from "../ast"
 import { VCSSInlineComment } from "../ast"

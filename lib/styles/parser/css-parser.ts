@@ -1,4 +1,4 @@
-import postcss from "postcss"
+import * as postcss from "postcss"
 import postcssSafeParser from "postcss-safe-parser"
 import { CSSSelectorParser } from "./selector/css-selector-parser"
 import type { VCSSCommentNode, VCSSNode, VCSSContainerNode } from "../ast"
