@@ -10,5 +10,8 @@ export default () =>
             if (typeof window.global === "undefined") {
                 window.global = {}
             }
+            if (typeof window.process === "undefined") {
+                window.process = { cwd: () => "" }
+            }
         }
     }
