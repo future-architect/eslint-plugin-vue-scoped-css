@@ -2,10 +2,10 @@ import categories from "./lib/categories"
 import type { Rule } from "../lib/types"
 import { rules } from "../lib/utils/rules"
 
-//eslint-disable-next-line require-jsdoc
+//eslint-disable-next-line require-jsdoc -- tools
 export default function renderRulesTableContent(
     buildRulePath = (ruleName: string) => `./${ruleName}.md`,
-) {
+): string {
     const uncategorizedRules = rules.filter(
         (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated,
     )
@@ -13,7 +13,7 @@ export default function renderRulesTableContent(
 
     // -----------------------------------------------------------------------------
 
-    //eslint-disable-next-line require-jsdoc
+    //eslint-disable-next-line require-jsdoc -- tools
     function toRuleRow(rule: Rule) {
         const mark = `${rule.meta.fixable ? ":wrench:" : ""}${
             rule.meta.deprecated ? ":warning:" : ""
@@ -26,7 +26,7 @@ export default function renderRulesTableContent(
         return `| ${link} | ${description} | ${mark} |`
     }
 
-    //eslint-disable-next-line require-jsdoc
+    //eslint-disable-next-line require-jsdoc -- tools
     function toDeprecatedRuleRow(rule: Rule) {
         const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
             rule.meta.docs.ruleName || "",

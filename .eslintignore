@@ -1,6 +1,12 @@
 /.nyc_output
 /coverage
+/dist
 /node_modules
 /assets
-/dist
 /docs/.vuepress/dist
+/fixtures
+/tests/lib/styles/fixtures
+/package-lock.json
+!/.github
+!/.vscode
+!/docs/.vuepress
