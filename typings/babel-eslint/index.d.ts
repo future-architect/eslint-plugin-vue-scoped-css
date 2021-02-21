@@ -1,8 +1,8 @@
-import { Linter } from "eslint"
+import type { Linter } from "eslint"
 
 declare module "babel-eslint" {
     function parseForESLint(
         text: string,
-        options?: any,
+        options?: unknown,
     ): Linter.ESLintParseResult
 }

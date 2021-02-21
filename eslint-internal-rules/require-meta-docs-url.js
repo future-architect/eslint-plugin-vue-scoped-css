@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 
 const path = require("path")
-// eslint-disable-next-line @mysticatea/node/no-extraneous-require
+// eslint-disable-next-line node/no-extraneous-require -- ignore
 const util = require("eslint-plugin-eslint-plugin/lib/utils")
 
 // -----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ module.exports = {
                 node &&
                     node.type === "Literal" &&
                     typeof node.value === "string" &&
-                    (expectedUrl === undefined || node.value === expectedUrl)
+                    (expectedUrl === undefined || node.value === expectedUrl),
             )
         }
 
@@ -75,9 +75,9 @@ module.exports = {
             }
             return fixer.insertTextAfter(
                 sourceCode.getLastToken(
-                    node.properties[node.properties.length - 1]
+                    node.properties[node.properties.length - 1],
                 ),
-                `,\n${propertyText}`
+                `,\n${propertyText}`,
             )
         }
 
@@ -93,17 +93,17 @@ module.exports = {
                     metaNode &&
                     metaNode.properties &&
                     metaNode.properties.find(
-                        p =>
+                        (p) =>
                             p.type === "Property" &&
-                            util.getKeyName(p) === "docs"
+                            util.getKeyName(p) === "docs",
                     )
                 const urlPropNode =
                     docsPropNode &&
                     docsPropNode.value.properties &&
                     docsPropNode.value.properties.find(
-                        p =>
+                        (p) =>
                             p.type === "Property" &&
-                            util.getKeyName(p) === "url"
+                            util.getKeyName(p) === "url",
                     )
 
                 if (isExpectedUrl(urlPropNode && urlPropNode.value)) {
@@ -133,7 +133,7 @@ module.exports = {
                             if (urlPropNode) {
                                 return fixer.replaceText(
                                     urlPropNode.value,
-                                    urlString
+                                    urlString,
                                 )
                             }
                             if (
@@ -143,7 +143,7 @@ module.exports = {
                                 return insertProperty(
                                     fixer,
                                     docsPropNode.value,
-                                    `url: ${urlString}`
+                                    `url: ${urlString}`,
                                 )
                             }
                             if (
@@ -154,7 +154,7 @@ module.exports = {
                                 return insertProperty(
                                     fixer,
                                     metaNode,
-                                    `docs: {\nurl: ${urlString}\n}`
+                                    `docs: {\nurl: ${urlString}\n}`,
                                 )
                             }
                         }

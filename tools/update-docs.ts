@@ -4,7 +4,7 @@ import { rules } from "../lib/utils/rules"
 import { configs } from "./lib/load-configs"
 import type { Rule } from "../lib/types"
 
-//eslint-disable-next-line require-jsdoc
+//eslint-disable-next-line require-jsdoc -- tools
 function formatItems(items: string[]) {
     if (items.length <= 2) {
         return items.join(" and ")
@@ -14,7 +14,7 @@ function formatItems(items: string[]) {
     }`
 }
 
-//eslint-disable-next-line require-jsdoc
+//eslint-disable-next-line require-jsdoc -- tools
 function getPresets(categories: string[]) {
     const categoryConfigs = configs.filter((conf) =>
         categories.includes(conf.name),
@@ -33,7 +33,7 @@ function getPresets(categories: string[]) {
     return [...presets]
 }
 
-//eslint-disable-next-line require-jsdoc
+//eslint-disable-next-line require-jsdoc, @typescript-eslint/no-explicit-any -- tools
 function yamlValue(val: any) {
     if (typeof val === "string") {
         return `"${val.replace(/"/gu, '\\"')}"`
@@ -44,9 +44,12 @@ function yamlValue(val: any) {
 const ROOT = path.resolve(__dirname, "../docs/rules")
 
 class DocFile {
-    private rule: Rule
-    private filePath: string
+    private readonly rule: Rule
+
+    private readonly filePath: string
+
     private content: string
+
     public constructor(rule: Rule) {
         this.rule = rule
         this.filePath = path.join(ROOT, `${rule.meta.docs.ruleName}.md`)
@@ -176,6 +179,7 @@ class DocFile {
             description,
         }
         const computed = `---\n${Object.keys(fileIntro)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tools
             .map((key) => `${key}: ${yamlValue((fileIntro as any)[key])}`)
             .join("\n")}\n---\n`
 

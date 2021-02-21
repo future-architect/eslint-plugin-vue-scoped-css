@@ -5,6 +5,7 @@ import { isDefined } from "../../lib/utils/utils"
 type Config = {
     name: string
     configId: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tools
     config: any
     path: string
     extends: Config[]

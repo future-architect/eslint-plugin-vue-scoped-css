@@ -1,5 +1,4 @@
-// eslint-disable-next-line @mysticatea/node/no-missing-import
-import * as estree from "estree"
+import type * as estree from "estree"
 
 export interface AnalysisOptions {
     optimistic?: boolean
@@ -7,7 +6,7 @@ export interface AnalysisOptions {
     ignoreEval?: boolean
     nodejsScope?: boolean
     impliedStrict?: boolean
-    fallback?: string | Function
+    // fallback?: string | Function
     sourceType?: "script" | "module"
     ecmaVersion?: number
 }
@@ -70,6 +69,6 @@ export interface Reference {
 }
 
 declare const eslintScope: {
-    analyze(ast: object, options?: AnalysisOptions): ScopeManager
+    analyze(ast: unknown, options?: AnalysisOptions): ScopeManager
 }
 export default eslintScope

@@ -13,8 +13,9 @@ module.exports = {
         "plugin:@ota-meshi/+node",
         "plugin:@ota-meshi/+typescript",
         "plugin:@ota-meshi/+eslint-plugin",
-        "plugin:@ota-meshi/+prettier",
         "plugin:@ota-meshi/+json",
+        "plugin:@ota-meshi/+yaml",
+        "plugin:@ota-meshi/+prettier",
     ],
     rules: {
         "require-jsdoc": "error",
