@@ -46,5 +46,5 @@ fs.writeFileSync(
             /\(https:\/\/future-architect.github.io\/eslint-plugin-vue-scoped-css/gu,
             "(.",
         )
-        .replace(/\n\n\n+/gu, "\n\n"),
+        .replace(/\n{3,}/gu, "\n\n"),
 )
