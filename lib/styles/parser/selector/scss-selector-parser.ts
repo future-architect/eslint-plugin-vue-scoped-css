@@ -15,13 +15,13 @@ export class SCSSSelectorParser extends CSSSelectorParser {
             selector,
             [
                 {
-                    regexp: /#\{(?:[\s\S]+?)\}/gu, // interpolation
+                    regexp: /#\{[\s\S]+?\}/gu, // interpolation
                     replace: (_res, random) => `_${random}_`,
                 },
             ],
             [
                 {
-                    regexp: /\/\/[^\r\n\u2028\u2029]*/gu, // inline comment
+                    regexp: /\/\/[^\n\r\u2028\u2029]*/gu, // inline comment
                     replace: (_res, random) => `/*${random}*/`,
                 },
             ],

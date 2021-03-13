@@ -46,11 +46,11 @@ export class StylusSelectorParser extends CSSSelectorParser {
             selector,
             [
                 {
-                    regexp: /\{(?:[\s\S]+?)\}/gu, // interpolation
+                    regexp: /\{[\s\S]+?\}/gu, // interpolation
                     replace: (_res, random) => `_${random}_`,
                 },
                 {
-                    regexp: /\^\[(?:[\s\S]+?)\]/gu, // partial reference
+                    regexp: /\^\[[\s\S]+?\]/gu, // partial reference
                     replace: replaceStylusNesting,
                     restore: restoreStylusNesting,
                 },
@@ -72,13 +72,13 @@ export class StylusSelectorParser extends CSSSelectorParser {
             ],
             [
                 {
-                    regexp: /\/\/[^\r\n\u2028\u2029]*/gu, // inline comment
+                    regexp: /\/\/[^\n\r\u2028\u2029]*/gu, // inline comment
                     replace: (_res, random) => `/*${random}*/`,
                 },
             ],
             [
                 {
-                    regexp: /([\r\n\u2028\u2029])(\s*)/gu, // comma
+                    regexp: /([\n\r\u2028\u2029])(\s*)/gu, // comma
                     replace(res, _random, { beforeCss }) {
                         const before = [...beforeCss]
                         let prev = before.pop()
@@ -97,10 +97,10 @@ export class StylusSelectorParser extends CSSSelectorParser {
                         while (
                             (next = after
                                 .replace(
-                                    /^\s*\/\/[^\r\n\u2028\u2029]*\s*/gu,
+                                    /^\s*\/\/[^\n\r\u2028\u2029]*\s*/gu,
                                     "",
                                 )
-                                .replace(/^\s*\/\*(?:[\s\S]+?)\*\/\s*/gu, "")
+                                .replace(/^\s*\/\*[\s\S]+?\*\/\s*/gu, "")
                                 .trim()) &&
                             next !== after
                         ) {

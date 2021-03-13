@@ -14,5 +14,5 @@ export function isSupportedStyleLang(
  * @returns {string} The escape string
  */
 export function escapeRegExp(value: string): string {
-    return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&") // $& means the whole matched string
+    return value.replace(/[$(-+.?[-^{-}]/gu, "\\$&") // $& means the whole matched string
 }

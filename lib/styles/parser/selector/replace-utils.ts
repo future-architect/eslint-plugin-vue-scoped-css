@@ -14,7 +14,7 @@ class SourceCodeLocationResolver {
         const lineStartIndices = [0]
 
         let match = undefined
-        const lineEndingPattern = /\r\n|[\r\n\u2028\u2029]/gu
+        const lineEndingPattern = /\r\n|[\n\r\u2028\u2029]/gu
         while ((match = lineEndingPattern.exec(code))) {
             lineStartIndices.push(match.index + match[0].length)
         }
@@ -289,9 +289,9 @@ export function replaceSelector(
     let start = 0
     for (const { name, result: res } of definePatternsSearchGenerator(
         {
-            block: /\/\*(?:[\s\S]+?)\*\//gu, // block comment
-            dstr: /"(?:[^\\"]|\\.)*"/gu, // string
-            sstr: /'(?:[^\\']|\\.)*'/gu, // string
+            block: /\/\*[\s\S]+?\*\//gu, // block comment
+            dstr: /"(?:[^"\\]|\\.)*"/gu, // string
+            sstr: /'(?:[^'\\]|\\.)*'/gu, // string
             ...commentRegexps.reduce((o, r, i) => {
                 o[`${i}comment`] = r.regexp
                 return o
