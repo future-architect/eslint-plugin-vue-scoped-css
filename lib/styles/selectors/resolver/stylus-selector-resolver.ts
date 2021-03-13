@@ -292,7 +292,7 @@ function parsePartialRefValue(partialRefValue: string, length: number) {
         }
     }
 
-    const rangeValues = /^([-+]?\d+)\.\.([-+]?\d+)$/u.exec(partialRefValue)
+    const rangeValues = /^([+-]?\d+)\.\.([+-]?\d+)$/u.exec(partialRefValue)
 
     if (rangeValues) {
         // The nestingNode is ranges in partial references.

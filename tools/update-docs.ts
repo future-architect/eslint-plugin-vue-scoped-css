@@ -150,7 +150,7 @@ class DocFile {
         const { meta } = this.rule
 
         this.content = this.content.replace(
-            /<eslint-code-block\s(:?fix[^\s]*)?\s*/gu,
+            /<eslint-code-block\s(:?fix\S*)?\s*/gu,
             `<eslint-code-block ${meta.fixable ? "fix " : ""}`,
         )
         return this
