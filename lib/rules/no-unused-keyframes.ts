@@ -88,11 +88,11 @@ module.exports = {
                         }
                     } else if (node.type === "VCSSDeclarationProperty") {
                         // individual animation-name declaration
-                        if (/^(-\w+-)?animation-name$/u.test(node.property)) {
+                        if (/^(?:-\w+-)?animation-name$/u.test(node.property)) {
                             animationNames.push(node)
                         }
                         // shorthand
-                        if (/^(-\w+-)?animation$/u.test(node.property)) {
+                        if (/^(?:-\w+-)?animation$/u.test(node.property)) {
                             animations.push(node)
                         }
                     }
