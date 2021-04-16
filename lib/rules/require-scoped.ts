@@ -22,16 +22,31 @@ module.exports = {
         },
         fixable: null,
         messages: {
-            missing: "Missing `scoped` attribute.",
-            forbidden: "`scoped` attribute are forbidden.",
-            add: "Add `scoped` attribute.",
-            remove: "Remove `scoped` attribute.",
+            missingScoped: "Missing `scoped` attribute.",
+            forbiddenScoped: "`scoped` attribute is forbidden.",
+            forbiddenModule: "`module` attribute is forbidden.",
+            addScoped: "Add `scoped` attribute.",
+            changeToScoped: "Change `module` attribute to `scoped`.",
+            removeScoped: "Remove `scoped` attribute.",
+            removeModule: "Remove `module` attribute.",
         },
-        schema: [{ enum: ["always", "never"] }],
+        schema: [
+            { enum: ["always", "never"] },
+            {
+                type: "object",
+                properties: {
+                    acceptCssModules: {
+                        type: "boolean",
+                    },
+                },
+                additionalProperties: false,
+            },
+        ],
         type: "suggestion",
     },
     create(context: RuleContext) {
         const always = context.options[0] !== "never"
+        const acceptCssModules = context.options[1]?.acceptCssModules
         const styles = getStyleContexts(context).filter(isValidStyleContext)
         if (!styles.length) {
             return {}
@@ -43,23 +58,32 @@ module.exports = {
          * Reports the given node.
          * @param {ASTNode} node node to report
          */
-        function reportAlways(node: AST.VElement) {
+        function reportAlways(node: AST.VElement, hasModule?: boolean) {
+            const suggestion = hasModule
+                ? {
+                      messageId: "changeToScoped",
+                      fix(fixer: RuleFixer) {
+                          const moduleAttr = node.startTag.attributes.find(
+                              (attr) => attr.key.name === "module",
+                          )
+                          return fixer.replaceText(moduleAttr, "scoped")
+                      },
+                  }
+                : {
+                      messageId: "addScoped",
+                      fix(fixer: RuleFixer) {
+                          const close = tokenStore.getLastToken(node.startTag)
+                          return (
+                              close && fixer.insertTextBefore(close, " scoped")
+                          )
+                      },
+                  }
+
             reporter.report({
                 node: node.startTag,
-                messageId: "missing",
+                messageId: "missingScoped",
                 data: {},
-                suggest: [
-                    {
-                        messageId: "add",
-                        fix(fixer: RuleFixer) {
-                            const close = tokenStore.getLastToken(node.startTag)
-                            return (
-                                close &&
-                                fixer.insertTextBefore(close, " scoped")
-                            )
-                        },
-                    },
-                ],
+                suggest: [suggestion],
             })
         }
 
@@ -67,19 +91,20 @@ module.exports = {
          * Reports the given node.
          * @param {ASTNode} node node to report
          */
-        function reportNever(node: AST.VElement) {
-            const scopedAttr = node.startTag.attributes.find(
-                (attr) => attr.key.name === "scoped",
+        function reportNever(node: AST.VElement, hasModule?: boolean) {
+            const attrName = hasModule ? "module" : "scoped"
+            const attrNode = node.startTag.attributes.find(
+                (attr) => attr.key.name === attrName,
             )
             reporter.report({
-                node: scopedAttr!,
-                messageId: "forbidden",
+                node: attrNode!,
+                messageId: hasModule ? "forbiddenModule" : "forbiddenScoped",
                 data: {},
                 suggest: [
                     {
-                        messageId: "remove",
+                        messageId: hasModule ? "removeModule" : "removeScoped",
                         fix(fixer: RuleFixer) {
-                            return fixer.remove(scopedAttr)
+                            return fixer.remove(attrNode)
                         },
                     },
                 ],
@@ -90,9 +115,23 @@ module.exports = {
             "Program:exit"() {
                 for (const style of styles) {
                     if (always && !style.scoped) {
-                        reportAlways(style.styleElement)
-                    } else if (!always && style.scoped) {
-                        reportNever(style.styleElement)
+                        if (acceptCssModules && !style.module) {
+                            reportAlways(style.styleElement)
+                        } else if (!acceptCssModules) {
+                            reportAlways(
+                                style.styleElement,
+                                Boolean(style.module),
+                            )
+                        }
+                    } else if (!always) {
+                        if (style.scoped) {
+                            reportNever(style.styleElement)
+                        } else if (acceptCssModules) {
+                            reportNever(
+                                style.styleElement,
+                                Boolean(style.module),
+                            )
+                        }
                     }
                 }
             },

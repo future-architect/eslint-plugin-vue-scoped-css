@@ -33,6 +33,43 @@ tester.run("require-scoped", rule as any, {
             `,
             options: ["never"],
         },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    acceptCssModules: true,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module="$style">
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    acceptCssModules: true,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: ["never"],
+        },
     ],
     invalid: [
         {
@@ -44,7 +81,7 @@ tester.run("require-scoped", rule as any, {
             `,
             errors: [
                 {
-                    messageId: "missing",
+                    messageId: "missingScoped",
                     line: 4,
                     column: 13,
                     endLine: 4,
@@ -71,7 +108,7 @@ tester.run("require-scoped", rule as any, {
             `,
             errors: [
                 {
-                    messageId: "missing",
+                    messageId: "missingScoped",
                     line: 4,
                     column: 13,
                     endLine: 4,
@@ -99,7 +136,7 @@ tester.run("require-scoped", rule as any, {
                         `,
                       errors: [
                           {
-                              messageId: "missing",
+                              messageId: "missingScoped",
                               line: 4,
                               column: 25,
                               endLine: 4,
@@ -119,7 +156,7 @@ tester.run("require-scoped", rule as any, {
             options: ["never"],
             errors: [
                 {
-                    messageId: "forbidden",
+                    messageId: "forbiddenScoped",
                     line: 4,
                     column: 20,
                     endLine: 4,
@@ -127,6 +164,69 @@ tester.run("require-scoped", rule as any, {
                     suggestions: [
                         {
                             desc: "Remove `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style >
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: ["always"],
+            errors: [
+                {
+                    messageId: "missingScoped",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 27,
+                    suggestions: [
+                        {
+                            desc: "Change `module` attribute to `scoped`.",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "never",
+                {
+                    acceptCssModules: true,
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenModule",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                    suggestions: [
+                        {
+                            desc: "Remove `module` attribute.",
                             output: `
             <template>
             </template>

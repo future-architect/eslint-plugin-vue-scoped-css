@@ -94,6 +94,16 @@ function isScoped(style: AST.VElement): boolean {
 }
 
 /**
+ * Check whether `module` attribute is given to `<style>` node.
+ * @param {VElement} style `<style>` node to check.
+ * @returns {boolean} `true` if it has invalid EOF.
+ */
+function isCssModule(style: AST.VElement): boolean {
+    const { startTag } = style
+    return startTag.attributes.some((attr) => attr.key.name === "module")
+}
+
+/**
  * Get the language of `<style>`
  * @param {VElement} style `<style>` node
  * @returns {string} the language of `<style>`
@@ -126,6 +136,7 @@ interface BaseStyleContext {
     readonly styleElement: AST.VElement
     readonly sourceCode: SourceCode
     readonly scoped: boolean
+    readonly module: boolean
     readonly lang: string
     traverseNodes(visitor: VisitorVCSSNode): void
     traverseSelectorNodes(visitor: VisitorVCSSSelectorNode): void
@@ -170,6 +181,8 @@ export class StyleContextImpl {
 
     public readonly scoped: boolean
 
+    public readonly module: boolean
+
     public readonly lang: string
 
     private readonly cssText: string | null
@@ -199,6 +212,7 @@ export class StyleContextImpl {
         }
 
         this.scoped = Boolean(style && isScoped(style))
+        this.module = Boolean(style && isCssModule(style))
 
         this.lang = ((style && getLang(style)) || "css").toLowerCase()
 
