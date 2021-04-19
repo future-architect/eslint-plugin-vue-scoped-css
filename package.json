@@ -92,7 +92,7 @@
         "lodash": "^4.17.19",
         "postcss": "^8.2.4",
         "postcss-safe-parser": "^5.0.0",
-        "postcss-scss": "^3.0.0",
+        "postcss-scss": "^3.0.4",
         "postcss-selector-parser": "^6.0.2",
         "postcss-styl": "^0.8.0"
     },
