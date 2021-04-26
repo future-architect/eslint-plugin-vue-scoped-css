@@ -28,22 +28,13 @@ tester.run("require-scoped", rule as any, {
             code: `
             <template>
             </template>
-            <style>
-            </style>
-            `,
-            options: ["never"],
-        },
-        {
-            code: `
-            <template>
-            </template>
             <style module>
             </style>
             `,
             options: [
                 "always",
                 {
-                    acceptCssModules: true,
+                    module: "accept",
                 },
             ],
         },
@@ -57,7 +48,7 @@ tester.run("require-scoped", rule as any, {
             options: [
                 "always",
                 {
-                    acceptCssModules: true,
+                    module: "accept",
                 },
             ],
         },
@@ -68,7 +59,86 @@ tester.run("require-scoped", rule as any, {
             <style module>
             </style>
             `,
+            options: [
+                "always",
+                {
+                    module: "enforce",
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module="$style">
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    module: "enforce",
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
             options: ["never"],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: ["never"],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "never",
+                {
+                    module: "accept",
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "never",
+                {
+                    module: "accept",
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "never",
+                {
+                    module: "enforce",
+                },
+            ],
         },
     ],
     invalid: [
@@ -88,7 +158,7 @@ tester.run("require-scoped", rule as any, {
                     endColumn: 20,
                     suggestions: [
                         {
-                            desc: "Add `scoped` attribute.",
+                            messageId: "addScoped",
                             output: `
             <template>
             </template>
@@ -115,7 +185,7 @@ tester.run("require-scoped", rule as any, {
                     endColumn: 22,
                     suggestions: [
                         {
-                            desc: "Add `scoped` attribute.",
+                            messageId: "addScoped",
                             output: `
             <template>
             </template>
@@ -150,6 +220,134 @@ tester.run("require-scoped", rule as any, {
             code: `
             <template>
             </template>
+            <style module />
+            `,
+            errors: [
+                {
+                    messageId: "missingScoped",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 29,
+                    suggestions: [
+                        {
+                            messageId: "changeToScoped",
+                            output: `
+            <template>
+            </template>
+            <style scoped />
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    module: "accept",
+                },
+            ],
+            errors: [
+                {
+                    messageId: "missingScoped",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                    suggestions: [
+                        {
+                            messageId: "addScoped",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    module: "enforce",
+                },
+            ],
+            errors: [
+                {
+                    messageId: "missingModule",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                    suggestions: [
+                        {
+                            messageId: "addModule",
+                            output: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "always",
+                {
+                    module: "enforce",
+                },
+            ],
+            errors: [
+                {
+                    messageId: "missingModule",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 27,
+                    suggestions: [
+                        {
+                            messageId: "changeToModule",
+                            output: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
             <style scoped>
             </style>
             `,
@@ -163,7 +361,41 @@ tester.run("require-scoped", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `scoped` attribute.",
+                            messageId: "removeScoped",
+                            output: `
+            <template>
+            </template>
+            <style >
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "never",
+                {
+                    module: "accept",
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenScoped",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                    suggestions: [
+                        {
+                            messageId: "removeScoped",
                             output: `
             <template>
             </template>
@@ -182,39 +414,10 @@ tester.run("require-scoped", rule as any, {
             <style module>
             </style>
             `,
-            options: ["always"],
-            errors: [
-                {
-                    messageId: "missingScoped",
-                    line: 4,
-                    column: 13,
-                    endLine: 4,
-                    endColumn: 27,
-                    suggestions: [
-                        {
-                            desc: "Change `module` attribute to `scoped`.",
-                            output: `
-            <template>
-            </template>
-            <style scoped>
-            </style>
-            `,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
             options: [
                 "never",
                 {
-                    acceptCssModules: true,
+                    module: "enforce",
                 },
             ],
             errors: [
@@ -226,7 +429,7 @@ tester.run("require-scoped", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `module` attribute.",
+                            messageId: "removeModule",
                             output: `
             <template>
             </template>

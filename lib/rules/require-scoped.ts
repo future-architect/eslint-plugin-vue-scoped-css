@@ -9,6 +9,8 @@ declare const module: {
     exports: Rule
 }
 
+type ModuleOption = undefined | "accept" | "enforce"
+
 module.exports = {
     meta: {
         docs: {
@@ -23,10 +25,13 @@ module.exports = {
         fixable: null,
         messages: {
             missingScoped: "Missing `scoped` attribute.",
+            missingModule: "Missing `module` attribute.",
             forbiddenScoped: "`scoped` attribute is forbidden.",
             forbiddenModule: "`module` attribute is forbidden.",
             addScoped: "Add `scoped` attribute.",
+            addModule: "Add `module` attribute.",
             changeToScoped: "Change `module` attribute to `scoped`.",
+            changeToModule: "Change `scoped` attribute to `module`.",
             removeScoped: "Remove `scoped` attribute.",
             removeModule: "Remove `module` attribute.",
         },
@@ -35,8 +40,8 @@ module.exports = {
             {
                 type: "object",
                 properties: {
-                    acceptCssModules: {
-                        type: "boolean",
+                    module: {
+                        enum: ["accept", "enforce"],
                     },
                 },
                 additionalProperties: false,
@@ -46,7 +51,7 @@ module.exports = {
     },
     create(context: RuleContext) {
         const always = context.options[0] !== "never"
-        const acceptCssModules = context.options[1]?.acceptCssModules
+        const moduleOption: ModuleOption = context.options[1]?.module
         const styles = getStyleContexts(context).filter(isValidStyleContext)
         if (!styles.length) {
             return {}
@@ -58,30 +63,48 @@ module.exports = {
          * Reports the given node.
          * @param {ASTNode} node node to report
          */
-        function reportAlways(node: AST.VElement, hasModule?: boolean) {
-            const suggestion = hasModule
-                ? {
-                      messageId: "changeToScoped",
-                      fix(fixer: RuleFixer) {
-                          const moduleAttr = node.startTag.attributes.find(
-                              (attr) => attr.key.name === "module",
-                          )
-                          return fixer.replaceText(moduleAttr, "scoped")
-                      },
-                  }
-                : {
-                      messageId: "addScoped",
-                      fix(fixer: RuleFixer) {
-                          const close = tokenStore.getLastToken(node.startTag)
-                          return (
-                              close && fixer.insertTextBefore(close, " scoped")
-                          )
-                      },
-                  }
+        function reportAlways(node: AST.VElement, enforceModule?: boolean) {
+            const moduleAttr = node.startTag.attributes.find(
+                (attr) => attr.key.name === "module",
+            )
+            const scopedAttr = node.startTag.attributes.find(
+                (attr) => attr.key.name === "scoped",
+            )
+
+            let suggestion
+            if (moduleAttr && !enforceModule) {
+                suggestion = {
+                    messageId: "changeToScoped",
+                    fix(fixer: RuleFixer) {
+                        return fixer.replaceText(moduleAttr, "scoped")
+                    },
+                }
+            } else if (scopedAttr && enforceModule) {
+                suggestion = {
+                    messageId: "changeToModule",
+                    fix(fixer: RuleFixer) {
+                        return fixer.replaceText(scopedAttr, "module")
+                    },
+                }
+            } else {
+                suggestion = {
+                    messageId: enforceModule ? "addModule" : "addScoped",
+                    fix(fixer: RuleFixer) {
+                        const close = tokenStore.getLastToken(node.startTag)
+                        return (
+                            close &&
+                            fixer.insertTextBefore(
+                                close,
+                                enforceModule ? " module" : " scoped",
+                            )
+                        )
+                    },
+                }
+            }
 
             reporter.report({
                 node: node.startTag,
-                messageId: "missingScoped",
+                messageId: enforceModule ? "missingModule" : "missingScoped",
                 data: {},
                 suggest: [suggestion],
             })
@@ -114,23 +137,27 @@ module.exports = {
         return {
             "Program:exit"() {
                 for (const style of styles) {
-                    if (always && !style.scoped) {
-                        if (acceptCssModules && !style.module) {
-                            reportAlways(style.styleElement)
-                        } else if (!acceptCssModules) {
-                            reportAlways(
-                                style.styleElement,
-                                Boolean(style.module),
-                            )
+                    if (always) {
+                        if (moduleOption === "enforce") {
+                            if (!style.module) {
+                                reportAlways(style.styleElement, true)
+                            }
+                        } else if (moduleOption === "accept") {
+                            if (!style.scoped && !style.module) {
+                                reportAlways(style.styleElement, false)
+                            }
+                        } else if (!style.scoped) {
+                            reportAlways(style.styleElement, false)
                         }
-                    } else if (!always) {
-                        if (style.scoped) {
+                    } else {
+                        if (moduleOption === "enforce") {
+                            if (style.module) {
+                                reportNever(style.styleElement, true)
+                            }
+                        } else if (moduleOption === "accept" && style.scoped) {
                             reportNever(style.styleElement)
-                        } else if (acceptCssModules) {
-                            reportNever(
-                                style.styleElement,
-                                Boolean(style.module),
-                            )
+                        } else if (style.scoped) {
+                            reportNever(style.styleElement)
                         }
                     }
                 }
