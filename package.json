@@ -46,7 +46,7 @@
         "dist"
     ],
     "devDependencies": {
-        "@ota-meshi/eslint-plugin": "^0.6.0",
+        "@ota-meshi/eslint-plugin": "^0.7.0",
         "@types/eslint": "^7.2.0",
         "@types/eslint-visitor-keys": "^1.0.0",
         "@types/estree": "^0.0.47",
@@ -66,7 +66,7 @@
         "eslint-plugin-jsonc": "^1.0.0",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-prettier": "^3.3.0",
-        "eslint-plugin-regexp": "^0.9.0",
+        "eslint-plugin-regexp": "^0.10.0",
         "eslint-plugin-vue": "^7.5.0",
         "eslint-plugin-vue-scoped-css": "^1.0.0",
         "eslint-plugin-yml": "^0.9.0",
@@ -88,7 +88,7 @@
         "vuepress": "^1.7.1"
     },
     "dependencies": {
-        "eslint-utils": "^2.1.0",
+        "eslint-utils": "^3.0.0",
         "lodash": "^4.17.19",
         "postcss": "^8.2.4",
         "postcss-safe-parser": "^5.0.0",
@@ -97,7 +97,7 @@
         "postcss-styl": "^0.8.0"
     },
     "peerDependencies": {
-        "eslint": "7.25.0",
+        "eslint": "7.26.0",
         "vue-eslint-parser": "^7.1.0"
     },
     "nyc": {
