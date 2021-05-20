@@ -28,76 +28,13 @@ tester.run("require-scoped", rule as any, {
             code: `
             <template>
             </template>
-            <style module>
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "accept",
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style module="$style">
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "accept",
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "enforce",
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style module="$style">
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "enforce",
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
             <style>
             </style>
             `,
             options: ["never"],
         },
-        {
-            code: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
-            options: ["never"],
-        },
+
+        // Modern API
         {
             code: `
             <template>
@@ -106,23 +43,9 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "never",
+                "error",
                 {
-                    module: "accept",
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
-            options: [
-                "never",
-                {
-                    module: "accept",
+                    allows: ["plain"],
                 },
             ],
         },
@@ -134,14 +57,85 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "never",
+                "error",
                 {
-                    module: "enforce",
+                    allows: ["scoped"],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["module"],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module="$s">
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["module"],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain", "scoped", "module"],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain", "scoped", "module"],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain", "scoped", "module"],
                 },
             ],
         },
     ],
     invalid: [
+        // Deprecated API
         {
             code: `
             <template>
@@ -151,14 +145,14 @@ tester.run("require-scoped", rule as any, {
             `,
             errors: [
                 {
-                    messageId: "missingScoped",
+                    messageId: "missing",
                     line: 4,
                     column: 13,
                     endLine: 4,
                     endColumn: 20,
                     suggestions: [
                         {
-                            messageId: "addScoped",
+                            desc: "Add `scoped` attribute.",
                             output: `
             <template>
             </template>
@@ -178,14 +172,14 @@ tester.run("require-scoped", rule as any, {
             `,
             errors: [
                 {
-                    messageId: "missingScoped",
+                    messageId: "missing",
                     line: 4,
                     column: 13,
                     endLine: 4,
                     endColumn: 22,
                     suggestions: [
                         {
-                            messageId: "addScoped",
+                            desc: "Add `scoped` attribute.",
                             output: `
             <template>
             </template>
@@ -206,7 +200,7 @@ tester.run("require-scoped", rule as any, {
                         `,
                       errors: [
                           {
-                              messageId: "missingScoped",
+                              messageId: "missing",
                               line: 4,
                               column: 25,
                               endLine: 4,
@@ -220,152 +214,157 @@ tester.run("require-scoped", rule as any, {
             code: `
             <template>
             </template>
-            <style module />
-            `,
-            errors: [
-                {
-                    messageId: "missingScoped",
-                    line: 4,
-                    column: 13,
-                    endLine: 4,
-                    endColumn: 29,
-                    suggestions: [
-                        {
-                            messageId: "changeToScoped",
-                            output: `
-            <template>
-            </template>
-            <style scoped />
-            `,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style>
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "accept",
-                },
-            ],
-            errors: [
-                {
-                    messageId: "missingScoped",
-                    line: 4,
-                    column: 13,
-                    endLine: 4,
-                    endColumn: 20,
-                    suggestions: [
-                        {
-                            messageId: "addScoped",
-                            output: `
-            <template>
-            </template>
-            <style scoped>
-            </style>
-            `,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style>
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "enforce",
-                },
-            ],
-            errors: [
-                {
-                    messageId: "missingModule",
-                    line: 4,
-                    column: 13,
-                    endLine: 4,
-                    endColumn: 20,
-                    suggestions: [
-                        {
-                            messageId: "addModule",
-                            output: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
-            <style scoped>
-            </style>
-            `,
-            options: [
-                "always",
-                {
-                    module: "enforce",
-                },
-            ],
-            errors: [
-                {
-                    messageId: "missingModule",
-                    line: 4,
-                    column: 13,
-                    endLine: 4,
-                    endColumn: 27,
-                    suggestions: [
-                        {
-                            messageId: "changeToModule",
-                            output: `
-            <template>
-            </template>
-            <style module>
-            </style>
-            `,
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            code: `
-            <template>
-            </template>
             <style scoped>
             </style>
             `,
             options: ["never"],
             errors: [
                 {
-                    messageId: "forbiddenScoped",
+                    messageId: "forbidden",
                     line: 4,
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
                     suggestions: [
                         {
-                            messageId: "removeScoped",
+                            desc: "Remove `scoped` attribute.",
                             output: `
             <template>
             </template>
             <style >
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+
+        // Modern API
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: ["error"],
+            errors: [
+                {
+                    messageId: "forbiddenPlain",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                    suggestions: [
+                        {
+                            desc: "Add `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["scoped"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenPlain",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                    suggestions: [
+                        {
+                            desc: "Add `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["scoped"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenStyle",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                    suggestions: [
+                        {
+                            messageId: "change",
+                            output: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["module"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenPlain",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                    suggestions: [
+                        {
+                            desc: "Add `module` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style module>
             </style>
             `,
                         },
@@ -381,21 +380,55 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "never",
+                "error",
                 {
-                    module: "accept",
+                    allows: ["module"],
                 },
             ],
             errors: [
                 {
-                    messageId: "forbiddenScoped",
+                    messageId: "forbiddenStyle",
                     line: 4,
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
                     suggestions: [
                         {
-                            messageId: "removeScoped",
+                            desc: "Change `scoped` to `module` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenStyle",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                    suggestions: [
+                        {
+                            desc: "Remove `scoped` attribute.",
                             output: `
             <template>
             </template>
@@ -415,21 +448,21 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "never",
+                "error",
                 {
-                    module: "enforce",
+                    allows: ["plain"],
                 },
             ],
             errors: [
                 {
-                    messageId: "forbiddenModule",
+                    messageId: "forbiddenStyle",
                     line: 4,
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
                     suggestions: [
                         {
-                            messageId: "removeModule",
+                            desc: "Remove `module` attribute.",
                             output: `
             <template>
             </template>
@@ -438,6 +471,75 @@ tester.run("require-scoped", rule as any, {
             `,
                         },
                     ],
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["scoped", "module"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenPlain",
+                    line: 4,
+                    column: 13,
+                    endLine: 4,
+                    endColumn: 20,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style module>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain", "scoped"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenStyle",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
+                },
+            ],
+        },
+        {
+            code: `
+            <template>
+            </template>
+            <style scoped>
+            </style>
+            `,
+            options: [
+                "error",
+                {
+                    allows: ["plain", "module"],
+                },
+            ],
+            errors: [
+                {
+                    messageId: "forbiddenStyle",
+                    line: 4,
+                    column: 20,
+                    endLine: 4,
+                    endColumn: 26,
                 },
             ],
         },

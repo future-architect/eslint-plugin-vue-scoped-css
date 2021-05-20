@@ -212,6 +212,7 @@ export class StyleContextImpl {
         }
 
         this.scoped = Boolean(style && isScoped(style))
+
         this.module = Boolean(style && isCssModule(style))
 
         this.lang = ((style && getLang(style)) || "css").toLowerCase()

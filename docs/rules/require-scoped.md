@@ -6,13 +6,13 @@ description: "enforce the `<style>` tags to has the `scoped` attribute"
 ---
 # vue-scoped-css/require-scoped
 
-> enforce the `<style>` tags to has the `scoped` or `module` attribute
+> enforce the `<style>` tags to has the `scoped` attribute
 
 - :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
 ## :book: Rule Details
 
-This rule reports the `<style>` tags missing the `scoped` (or `module`) attribute.
+This rule reports the `<style>` tags missing the `scoped` attribute.
 
 <eslint-code-block :rules="{'vue-scoped-css/require-scoped': ['error']}">
 
@@ -37,65 +37,12 @@ Default is set to `always`.
 
 ```json
 {
-  "vue-scoped-css/require-scoped": ["error", "always" | "never", {
-    "module": undefined | "accept" | "enforce"
-  }]
+  "vue-scoped-css/require-scoped": ["error", "always" | "never"]
 }
 ```
 
 - `"always"` (default) ... requires `scoped`.
-- `"never"` ... disallows `scoped`.
-- `module` ... Set to `accept` if you want to accept CSS Modules as an alternative to scoped styles. Set to `enforce` if the styles should be scoped via CSS Modules. Default is `undefined`.
-
-### `"module": "accept"`
-
-<eslint-code-block :rules="{'vue-scoped-css/require-scoped': ['error', 'always', { module: 'accept' }]}">
-
-```vue
-<template>
-</template>
-
-<!-- ✗ BAD -->
-<style>
-</style>
-
-<!-- ✓ GOOD -->
-<style scoped>
-</style>
-
-<style module>
-</style>
-
-<style module="$style">
-</style>
-```
-
-</eslint-code-block>
-
-### `"module": "enforce"`
-
-<eslint-code-block :rules="{'vue-scoped-css/require-scoped': ['error', 'always', { module: 'enforce' }]}">
-
-```vue
-<template>
-</template>
-
-<!-- ✗ BAD -->
-<style>
-</style>
-
-<style scoped>
-</style>
-
-<!-- ✓ GOOD -->
-<style module>
-</style>
-
-<style module="$style">
-</style>
-```
-
-</eslint-code-block>
+- `"never"` ... disallowed `scoped`.
 
 ### `"never"`
 
@@ -109,39 +56,8 @@ Default is set to `always`.
 <style>
 </style>
 
-<style module>
-</style>
-
-<style module="$styles">
-</style>
-
 <!-- ✗ BAD -->
 <style scoped>
-</style>
-```
-
-</eslint-code-block>
-
-### `["never", { module: "enforce" }]`
-
-<eslint-code-block :rules="{'vue-scoped-css/require-scoped': ['error', 'never', { module: 'enforce' }]}">
-
-```vue
-<template>
-</template>
-
-<!-- ✓ GOOD -->
-<style>
-</style>
-
-<style scoped>
-</style>
-
-<!-- ✗ BAD -->
-<style module>
-</style>
-
-<style module="$styles">
 </style>
 ```
 
