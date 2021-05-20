@@ -494,6 +494,7 @@ tester.run("require-scoped", rule as any, {
                     column: 13,
                     endLine: 4,
                     endColumn: 20,
+                    suggestions: [],
                 },
             ],
         },
@@ -517,6 +518,17 @@ tester.run("require-scoped", rule as any, {
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
+                    suggestions: [
+                        {
+                            desc: "Remove `module` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style >
+            </style>
+            `,
+                        },
+                    ],
                 },
             ],
         },
@@ -540,6 +552,17 @@ tester.run("require-scoped", rule as any, {
                     column: 20,
                     endLine: 4,
                     endColumn: 26,
+                    suggestions: [
+                        {
+                            desc: "Remove `scoped` attribute.",
+                            output: `
+            <template>
+            </template>
+            <style >
+            </style>
+            `,
+                        },
+                    ],
                 },
             ],
         },
