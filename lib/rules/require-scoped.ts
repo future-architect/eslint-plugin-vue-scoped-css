@@ -36,26 +36,27 @@ module.exports = {
         },
         schema: [
             {
-                enum: [
-                    "always", // deprecated
-                    "never", // deprecated
-                    "error",
-                ],
-            },
-            {
-                type: "object",
-                properties: {
-                    allows: {
-                        type: "array",
-                        minItems: 1,
-                        uniqueItems: true,
-                        items: {
-                            type: "string",
-                            enum: ["plain", "scoped", "module"],
-                        },
+                anyOf: [
+                    // deprecated
+                    {
+                        enum: ["always", "never"],
                     },
-                },
-                additionalProperties: false,
+                    {
+                        type: "object",
+                        properties: {
+                            allows: {
+                                type: "array",
+                                minItems: 1,
+                                uniqueItems: true,
+                                items: {
+                                    type: "string",
+                                    enum: ["plain", "scoped", "module"],
+                                },
+                            },
+                        },
+                        additionalProperties: false,
+                    },
+                ],
             },
         ],
         type: "suggestion",
@@ -70,8 +71,8 @@ module.exports = {
         const tokenStore = context.parserServices.getTemplateBodyTokenStore?.() as TokenStore
         const { options } = context
 
-        if (options[0] === "error") {
-            const allows: AllowsOption = options[1]?.allows ?? ["scoped"]
+        if (typeof options[0] === "object") {
+            const allows: AllowsOption = options[0]?.allows ?? ["scoped"]
 
             /**
              * Reports the given node.

@@ -43,7 +43,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain"],
                 },
@@ -57,7 +56,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["scoped"],
                 },
@@ -71,7 +69,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["module"],
                 },
@@ -85,7 +82,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["module"],
                 },
@@ -99,7 +95,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain", "scoped", "module"],
                 },
@@ -113,7 +108,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain", "scoped", "module"],
                 },
@@ -127,7 +121,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain", "scoped", "module"],
                 },
@@ -248,7 +241,7 @@ tester.run("require-scoped", rule as any, {
             <style>
             </style>
             `,
-            options: ["error"],
+            options: [{}],
             errors: [
                 {
                     messageId: "forbiddenPlain",
@@ -278,7 +271,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["scoped"],
                 },
@@ -312,7 +304,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["scoped"],
                 },
@@ -346,7 +337,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["module"],
                 },
@@ -380,7 +370,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["module"],
                 },
@@ -414,7 +403,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain"],
                 },
@@ -448,7 +436,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain"],
                 },
@@ -482,7 +469,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["scoped", "module"],
                 },
@@ -506,7 +492,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain", "scoped"],
                 },
@@ -540,7 +525,6 @@ tester.run("require-scoped", rule as any, {
             </style>
             `,
             options: [
-                "error",
                 {
                     allows: ["plain", "module"],
                 },
