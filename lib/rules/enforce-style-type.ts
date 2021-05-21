@@ -27,8 +27,8 @@ module.exports = {
         },
         fixable: null,
         messages: {
-            add: "Add `{{ attribute }}` attribute.",
-            remove: "Remove `{{ attribute }}` attribute.",
+            add: "Add attribute `{{ attribute }}`.",
+            remove: "Remove attribute `{{ attribute }}`.",
             removeMultiple: "Remove attributes {{ attributes }}.",
             change:
                 "Change `{{ fromAttribute }}` to `{{ toAttribute }}` attribute.",
@@ -193,20 +193,36 @@ module.exports = {
                 messageId: "forbiddenScopedModule",
                 suggest: forbiddenAttrs.length
                     ? [
-                          {
-                              messageId: "removeMultiple",
-                              data: {
-                                  attributes: forbiddenAttrs
-                                      .map((attr) => `\`${attr.key.name}\``)
-                                      .join(", "),
-                              },
-                              fix(fixer: RuleFixer) {
-                                  return lodash.flatMap(
-                                      forbiddenAttrs,
-                                      (attr) => removeAttr(fixer, attr),
-                                  )
-                              },
-                          },
+                          forbiddenAttrs.length === 1
+                              ? {
+                                    messageId: "remove",
+                                    data: {
+                                        attribute: forbiddenAttrs[0].key.name.toString(),
+                                    },
+                                    fix(fixer: RuleFixer) {
+                                        return removeAttr(
+                                            fixer,
+                                            forbiddenAttrs[0],
+                                        )
+                                    },
+                                }
+                              : {
+                                    messageId: "removeMultiple",
+                                    data: {
+                                        attributes: forbiddenAttrs
+                                            .map(
+                                                (attr) =>
+                                                    `\`${attr.key.name}\``,
+                                            )
+                                            .join(", "),
+                                    },
+                                    fix(fixer: RuleFixer) {
+                                        return lodash.flatMap(
+                                            forbiddenAttrs,
+                                            (attr) => removeAttr(fixer, attr),
+                                        )
+                                    },
+                                },
                       ]
                     : undefined,
             })

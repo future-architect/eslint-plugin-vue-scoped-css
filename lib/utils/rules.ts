@@ -2,6 +2,11 @@ import type { Rule } from "../types"
 
 const baseRules = [
     {
+        rule: require("../rules/enforce-style-type"),
+        ruleName: "enforce-style-type",
+        ruleId: "vue-scoped-css/enforce-style-type",
+    },
+    {
         rule: require("../rules/no-deprecated-deep-combinator"),
         ruleName: "no-deprecated-deep-combinator",
         ruleId: "vue-scoped-css/no-deprecated-deep-combinator",

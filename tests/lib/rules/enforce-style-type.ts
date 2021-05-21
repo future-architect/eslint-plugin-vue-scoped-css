@@ -140,7 +140,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 20,
                     suggestions: [
                         {
-                            desc: "Add `scoped` attribute.",
+                            desc: "Add attribute `scoped`.",
                             output: `
             <template>
             </template>
@@ -173,7 +173,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 20,
                     suggestions: [
                         {
-                            desc: "Add `scoped` attribute.",
+                            desc: "Add attribute `scoped`.",
                             output: `
             <template>
             </template>
@@ -239,7 +239,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 20,
                     suggestions: [
                         {
-                            desc: "Add `module` attribute.",
+                            desc: "Add attribute `module`.",
                             output: `
             <template>
             </template>
@@ -305,7 +305,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `scoped` attribute.",
+                            desc: "Remove attribute `scoped`.",
                             output: `
             <template>
             </template>
@@ -338,7 +338,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `module` attribute.",
+                            desc: "Remove attribute `module`.",
                             output: `
             <template>
             </template>
@@ -394,7 +394,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `module` attribute.",
+                            desc: "Remove attribute `module`.",
                             output: `
             <template>
             </template>
@@ -427,7 +427,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 26,
                     suggestions: [
                         {
-                            desc: "Remove `scoped` attribute.",
+                            desc: "Remove attribute `scoped`.",
                             output: `
             <template>
             </template>
@@ -455,7 +455,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 34,
                     suggestions: [
                         {
-                            desc: "Remove attributes `module`.",
+                            desc: "Remove attribute `module`.",
                             output: `
             <template>
             </template>
@@ -488,7 +488,7 @@ tester.run("enforce-style-type", rule as any, {
                     endColumn: 34,
                     suggestions: [
                         {
-                            desc: "Remove attributes `scoped`.",
+                            desc: "Remove attribute `scoped`.",
                             output: `
             <template>
             </template>
