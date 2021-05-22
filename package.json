@@ -97,7 +97,7 @@
         "postcss-styl": "^0.8.0"
     },
     "peerDependencies": {
-        "eslint": "7.26.0",
+        "eslint": "7.27.0",
         "vue-eslint-parser": "^7.1.0"
     },
     "nyc": {
