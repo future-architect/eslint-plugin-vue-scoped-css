@@ -35,7 +35,7 @@ module.exports = {
             change:
                 "Change `{{ fromAttribute }}` to `{{ toAttribute }}` attribute.",
             forbiddenStyle: "`{{ attribute }}` attribute is forbidden.",
-            forbiddenPlain: "Missing atributes {{ attributes }}.",
+            forbiddenPlain: "Missing attribute {{ attributes }}.",
             forbiddenScopedModule:
                 "Cannot use both `scoped` and `module` attributes.",
         },
@@ -151,7 +151,9 @@ module.exports = {
                 node: node.startTag,
                 messageId: "forbiddenPlain",
                 data: {
-                    attribute: allows.map((allow) => `\`${allow}\``).join(", "),
+                    attributes: allows
+                        .map((allow) => `\`${allow}\``)
+                        .join(" or "),
                 },
                 suggest: singleAllow
                     ? [
