@@ -18,7 +18,9 @@ module.exports = {
     meta: {
         docs: {
             description:
-                "enforce the `<style>` tags to has the `scoped` attribute",
+                "enforce the `<style>` tags to be plain or have the `scoped` or `module` attribute",
+            // It will be changed to recommended in the major version upgrade.
+            // categories: ["recommended", "vue3-recommended"],
             categories: [],
             default: "warn",
             url:

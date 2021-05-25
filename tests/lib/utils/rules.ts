@@ -25,8 +25,11 @@ const dirRules = getDirRules()
 describe("Check if the struct of all rules is correct", () => {
     it("rule count equals (collectRules)", () => {
         const collect = collectRules()
+
+        const deprecatedRules = allRules.filter((r) => r.meta.deprecated)
         assert.ok(
-            Object.keys(collect).length === Object.keys(dirRules).length,
+            Object.keys(collect).length + deprecatedRules.length ===
+                Object.keys(dirRules).length,
             `Did not equal the number of rules. expect:${
                 Object.keys(dirRules).length
             } actual:${Object.keys(collect).length}`,
