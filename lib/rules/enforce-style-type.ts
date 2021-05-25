@@ -153,7 +153,7 @@ module.exports = {
                 data: {
                     attributes: allows
                         .map((allow) => `\`${allow}\``)
-                        .join(", "),
+                        .join(" or "),
                 },
                 suggest: singleAllow
                     ? [
