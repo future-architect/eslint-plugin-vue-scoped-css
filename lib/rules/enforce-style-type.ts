@@ -151,7 +151,7 @@ module.exports = {
                 node: node.startTag,
                 messageId: "forbiddenPlain",
                 data: {
-                    attribute: allows.map((allow) => `\`${allow}\``).join(", "),
+                    attributes: allows.map((allow) => `\`${allow}\``).join(", "),
                 },
                 suggest: singleAllow
                     ? [
