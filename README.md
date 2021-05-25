@@ -104,7 +104,6 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | disallow parsing errors in `<style>` |  |
 | [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | disallow `@keyframes` which don't use in Scoped CSS |  |
 | [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |
-| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | enforce the `<style>` tags to has the `scoped` attribute |  |
 | [vue-scoped-css/require-v-deep-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-argument.html) | require selector argument to be passed to `::v-deep()` | :wrench: |
 | [vue-scoped-css/require-v-global-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-global-argument.html) | require selector argument to be passed to `::v-global()` |  |
 | [vue-scoped-css/require-v-slotted-argument](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-slotted-argument.html) | require selector argument to be passed to `::v-slotted()` |  |
@@ -124,7 +123,6 @@ Enforce all the rules in this category with:
 | [vue-scoped-css/no-parsing-error](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html) | disallow parsing errors in `<style>` |  |
 | [vue-scoped-css/no-unused-keyframes](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html) | disallow `@keyframes` which don't use in Scoped CSS |  |
 | [vue-scoped-css/no-unused-selector](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html) | disallow selectors defined in Scoped CSS that don't use in `<template>` |  |
-| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | enforce the `<style>` tags to has the `scoped` attribute |  |
 
 ## Uncategorized
 
@@ -136,15 +134,25 @@ For example:
 ```json
 {
   "rules": {
-    "vue-scoped-css/no-deprecated-v-enter-v-leave-class": "error"
+    "vue-scoped-css/enforce-style-type": "error"
   }
 }
 ```
 
 | Rule ID | Description |    |
 |:--------|:------------|:---|
+| [vue-scoped-css/enforce-style-type](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/enforce-style-type.html) | enforce the `<style>` tags to be plain or have the `scoped` or `module` attribute |  |
 | [vue-scoped-css/no-deprecated-v-enter-v-leave-class](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-v-enter-v-leave-class.html) | disallow v-enter and v-leave classes. |  |
 | [vue-scoped-css/require-selector-used-inside](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html) | disallow selectors defined that is not used inside `<template>` |  |
+
+## Deprecated
+
+- :warning: We're going to remove deprecated rules in the next major release. Please migrate to successor/new rules.
+- :innocent: We don't fix bugs which are in deprecated rules since we don't have enough resources.
+
+| Rule ID | Replaced by |
+|:--------|:------------|
+| [vue-scoped-css/require-scoped](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html) | [vue-scoped-css/enforce-style-type](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/enforce-style-type.html.md) |
 
 <!--RULES_TABLE_END-->
 <!--RULES_SECTION_END-->

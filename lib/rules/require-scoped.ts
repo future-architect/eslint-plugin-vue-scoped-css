@@ -11,6 +11,7 @@ declare const module: {
 
 module.exports = {
     meta: {
+        deprecated: true,
         docs: {
             description:
                 "enforce the `<style>` tags to has the `scoped` attribute",
@@ -19,6 +20,7 @@ module.exports = {
             url:
                 "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html",
             suggestion: true,
+            replacedBy: ["enforce-style-type"],
         },
         fixable: null,
         messages: {

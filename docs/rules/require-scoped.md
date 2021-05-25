@@ -8,7 +8,7 @@ description: "enforce the `<style>` tags to has the `scoped` attribute"
 
 > enforce the `<style>` tags to has the `scoped` attribute
 
-- :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
+- :warning: This rule was **deprecated** and replaced by [vue-scoped-css/enforce-style-type](enforce-style-type.md) rule.
 
 ## :book: Rule Details
 
