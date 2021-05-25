@@ -114,7 +114,7 @@ export interface RuleFixer {
 }
 
 export type ReportSuggestion = ({ messageId: string } | { desc: string }) & {
-    fix?(fixer: RuleFixer): null | Fix | IterableIterator<Fix>
+    fix?(fixer: RuleFixer): null | Fix | Fix[] | IterableIterator<Fix>
 }
 export type ReportDescriptorNodeLocation = { node: AST.HasLocation }
 export type ReportDescriptorSourceLocation = {
@@ -190,6 +190,8 @@ export interface TokenStore {
         beforeCount?: number,
         afterCount?: number,
     ): AST.Token[]
+    getTokenBefore(node: AST.Node): AST.Token
+    getTokenAfter(node: AST.Node): AST.Token
 }
 type HasPostCSSSource = {
     source: postcss.Source
