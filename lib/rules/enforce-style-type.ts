@@ -35,7 +35,7 @@ module.exports = {
             change:
                 "Change `{{ fromAttribute }}` to `{{ toAttribute }}` attribute.",
             forbiddenStyle: "`{{ attribute }}` attribute is forbidden.",
-            forbiddenPlain: "Missing atributes {{ attributes }}.",
+            forbiddenPlain: "Missing attributes {{ attributes }}.",
             forbiddenScopedModule:
                 "Cannot use both `scoped` and `module` attributes.",
         },
