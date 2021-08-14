@@ -139,6 +139,7 @@ function checkCSSNodeLocations(
             )
             postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\/\s*/u, "")
             postcssText = postcssText.replace(/^\s*\/\/([^\n]*)\s*/u, "")
+            // eslint-disable-next-line regexp/no-super-linear-backtracking -- for test
             postcssText = postcssText.replace(/\s*\/\/([^\n]*)\s*$/u, "")
         } else if (node.type === "VCSSSelectorCombinator") {
             postcssText = postcssText.replace(
@@ -146,7 +147,9 @@ function checkCSSNodeLocations(
                 "",
             )
             postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\//u, "")
+            // eslint-disable-next-line regexp/no-super-linear-backtracking -- for test
             postcssText = postcssText.replace(/\/\/([^\n]*)\s*$/u, "")
+            // eslint-disable-next-line regexp/no-super-linear-backtracking -- for test
             postcssText = postcssText.replace(/\s*\/\/([^\n]*)\s*$/u, "")
         }
         if (
