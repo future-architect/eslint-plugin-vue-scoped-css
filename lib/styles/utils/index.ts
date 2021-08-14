@@ -14,5 +14,6 @@ export function isSupportedStyleLang(
  * @returns {string} The escape string
  */
 export function escapeRegExp(value: string): string {
+    // eslint-disable-next-line regexp/no-obscure-range -- ignore
     return value.replace(/[$(-+.?[-^{-}]/gu, "\\$&") // $& means the whole matched string
 }

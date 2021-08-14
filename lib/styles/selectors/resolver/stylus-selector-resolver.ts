@@ -187,7 +187,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         }
 
         if (
-            /^(?:\.\.\/)+$/gu.test(nesting.node.value) &&
+            /^(?:\.\.\/)+$/u.test(nesting.node.value) &&
             nesting.nestingIndex === 0
         ) {
             // The nestingNode is relative reference. e.g. `../`

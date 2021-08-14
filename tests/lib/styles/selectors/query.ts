@@ -93,7 +93,7 @@ function buildElementText(e: AST.VElement, context: RuleContext): string {
     const classText = className
         ? `.${
               className.type === "value"
-                  ? className.value.split(/\s+/gu).join(".")
+                  ? className.value.split(/\s+/u).join(".")
                   : `{${className.value}}`
           }`
         : ""

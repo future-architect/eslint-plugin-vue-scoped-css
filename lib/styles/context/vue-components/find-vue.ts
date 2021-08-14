@@ -66,7 +66,7 @@ function findVueComponent(
     const sourceCode = context.getSourceCode()
     const componentComments = sourceCode
         .getAllComments()
-        .filter((comment) => /@vue\/component/gu.test(comment.value))
+        .filter((comment) => comment.value.includes("@vue/component"))
     const foundNodes: ASTNode[] = []
 
     /**

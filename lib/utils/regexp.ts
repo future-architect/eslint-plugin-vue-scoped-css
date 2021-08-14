@@ -1,4 +1,4 @@
-const RE_REGEXP_STR = /^\/(.+)\/(.*)$/u
+const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u
 
 /**
  * Convert a string to the `RegExp`.
