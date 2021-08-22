@@ -31,6 +31,7 @@ module.exports = {
         },
         schema: [{ enum: ["always", "never"] }],
         type: "suggestion",
+        hasSuggestions: true,
     },
     create(context: RuleContext) {
         const always = context.options[0] !== "never"

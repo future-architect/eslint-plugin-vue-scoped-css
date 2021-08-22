@@ -57,6 +57,7 @@ module.exports = {
             },
         ],
         type: "suggestion",
+        hasSuggestions: true,
     },
     create(context: RuleContext) {
         const styles = getStyleContexts(context).filter(isValidStyleContext)
