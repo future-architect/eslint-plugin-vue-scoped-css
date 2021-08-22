@@ -54,6 +54,7 @@ module.exports = {
                     },
                 ],
                 "eslint-plugin/require-meta-docs-url": "off",
+                "eslint-plugin/require-meta-has-suggestions": "off", // false positive
 
                 "@typescript-eslint/naming-convention": [
                     "error",

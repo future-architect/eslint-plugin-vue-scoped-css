@@ -1,3 +1,7 @@
+/**
+ * @author Toru Nagashima <https://github.com/mysticatea>
+ */
+
 "use strict"
 
 // -----------------------------------------------------------------------------
@@ -7,6 +11,8 @@
 const path = require("path")
 // eslint-disable-next-line node/no-extraneous-require -- ignore
 const util = require("eslint-plugin-eslint-plugin/lib/utils")
+// eslint-disable-next-line node/no-extraneous-require -- ignore
+const { getStaticValue } = require("eslint-utils")
 
 // -----------------------------------------------------------------------------
 // Rule Definition
@@ -14,12 +20,13 @@ const util = require("eslint-plugin-eslint-plugin/lib/utils")
 
 module.exports = {
     meta: {
+        type: "suggestion",
         docs: {
-            description: "require rules to implement a meta.docs.url property",
+            description:
+                "require rules to implement a `meta.docs.url` property",
             category: "Rules",
             recommended: false,
         },
-        type: "suggestion",
         fixable: "code",
         schema: [
             {
@@ -30,6 +37,11 @@ module.exports = {
                 additionalProperties: false,
             },
         ],
+        messages: {
+            mismatch: "`meta.docs.url` property must be `{{expectedUrl}}`.",
+            missing: "`meta.docs.url` property is missing.",
+            wrongType: "`meta.docs.url` property must be a string.",
+        },
     },
 
     /**
@@ -46,44 +58,24 @@ module.exports = {
         const expectedUrl =
             !options.pattern || !ruleName
                 ? undefined
-                : options.pattern.replace(/\{\{\s*name\s*\}\}/gu, ruleName)
+                : options.pattern.replace(/\{\{\s*name\s*\}\}/g, ruleName)
 
         /**
-         * Check whether a given node is the expected URL.
-         * @param {Node} node The node of property value to check.
+         * Check whether a given URL is the expected URL.
+         * @param {string} url The URL to check.
          * @returns {boolean} `true` if the node is the expected URL.
          */
-        function isExpectedUrl(node) {
+        function isExpectedUrl(url) {
             return Boolean(
-                node &&
-                    node.type === "Literal" &&
-                    typeof node.value === "string" &&
-                    (expectedUrl === undefined || node.value === expectedUrl),
-            )
-        }
-
-        /**
-         * Insert a given property into a given object literal.
-         * @param {SourceCodeFixer} fixer The fixer.
-         * @param {Node} node The ObjectExpression node to insert a property.
-         * @param {string} propertyText The property code to insert.
-         * @returns {void}
-         */
-        function insertProperty(fixer, node, propertyText) {
-            if (node.properties.length === 0) {
-                return fixer.replaceText(node, `{\n${propertyText}\n}`)
-            }
-            return fixer.insertTextAfter(
-                sourceCode.getLastToken(
-                    node.properties[node.properties.length - 1],
-                ),
-                `,\n${propertyText}`,
+                typeof url === "string" &&
+                    (expectedUrl === undefined || url === expectedUrl),
             )
         }
 
         return {
-            Program(node) {
-                const info = util.getRuleInfo(node)
+            // eslint-disable-next-line complexity -- ignore
+            Program() {
+                const info = util.getRuleInfo(sourceCode)
                 if (info === null) {
                     return
                 }
@@ -106,58 +98,75 @@ module.exports = {
                             util.getKeyName(p) === "url",
                     )
 
-                if (isExpectedUrl(urlPropNode && urlPropNode.value)) {
+                const staticValue = urlPropNode
+                    ? getStaticValue(urlPropNode.value, context.getScope())
+                    : undefined
+                if (urlPropNode && !staticValue) {
+                    // Ignore non-static values since we can't determine what they look like.
+                    return
+                }
+
+                if (isExpectedUrl(staticValue && staticValue.value)) {
                     return
                 }
 
                 context.report({
-                    loc:
-                        (urlPropNode && urlPropNode.value.loc) ||
-                        (docsPropNode && docsPropNode.value.loc) ||
-                        (metaNode && metaNode.loc) ||
-                        node.loc.start,
+                    node:
+                        (urlPropNode && urlPropNode.value) ||
+                        (docsPropNode && docsPropNode.value) ||
+                        metaNode ||
+                        info.create,
 
-                    message: !urlPropNode
-                        ? "Rules should export a `meta.docs.url` property."
+                    messageId: !urlPropNode
+                        ? "missing"
                         : !expectedUrl
-                        ? "`meta.docs.url` property must be a string."
-                        : /* otherwise */ "`meta.docs.url` property must be `{{expectedUrl}}`.",
+                        ? "wrongType"
+                        : /* otherwise */ "mismatch",
 
                     data: {
                         expectedUrl,
                     },
 
                     fix(fixer) {
-                        if (expectedUrl) {
-                            const urlString = JSON.stringify(expectedUrl)
-                            if (urlPropNode) {
+                        if (!expectedUrl) {
+                            return null
+                        }
+
+                        const urlString = JSON.stringify(expectedUrl)
+                        if (urlPropNode) {
+                            if (
+                                urlPropNode.value.type === "Literal" ||
+                                (urlPropNode.value.type === "Identifier" &&
+                                    urlPropNode.value.name === "undefined")
+                            ) {
                                 return fixer.replaceText(
                                     urlPropNode.value,
                                     urlString,
                                 )
                             }
-                            if (
-                                docsPropNode &&
-                                docsPropNode.value.type === "ObjectExpression"
-                            ) {
-                                return insertProperty(
-                                    fixer,
-                                    docsPropNode.value,
-                                    `url: ${urlString}`,
-                                )
-                            }
-                            if (
-                                !docsPropNode &&
-                                metaNode &&
-                                metaNode.type === "ObjectExpression"
-                            ) {
-                                return insertProperty(
-                                    fixer,
-                                    metaNode,
-                                    `docs: {\nurl: ${urlString}\n}`,
-                                )
-                            }
+                        } else if (
+                            docsPropNode &&
+                            docsPropNode.value.type === "ObjectExpression"
+                        ) {
+                            return util.insertProperty(
+                                fixer,
+                                docsPropNode.value,
+                                `url: ${urlString}`,
+                                sourceCode,
+                            )
+                        } else if (
+                            !docsPropNode &&
+                            metaNode &&
+                            metaNode.type === "ObjectExpression"
+                        ) {
+                            return util.insertProperty(
+                                fixer,
+                                metaNode,
+                                `docs: {\nurl: ${urlString}\n}`,
+                                sourceCode,
+                            )
                         }
+
                         return null
                     },
                 })

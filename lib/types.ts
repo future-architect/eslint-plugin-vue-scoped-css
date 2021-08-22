@@ -26,6 +26,7 @@ export type Rule = {
         }
         deprecated?: boolean
         fixable?: "code" | "whitespace" | null
+        hasSuggestions?: boolean
         schema: unknown[]
         messages: { [key: string]: string }
         type: "suggestion" | "problem"
