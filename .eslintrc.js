@@ -111,8 +111,7 @@ module.exports = {
             files: ["docs/.vuepress/**"],
             parserOptions: {
                 sourceType: "module",
-                ecmaVersion: 2019,
-                parser: "babel-eslint",
+                ecmaVersion: 2020,
             },
             extends: ["plugin:@ota-meshi/+vue2", "plugin:@ota-meshi/+prettier"],
             globals: {
