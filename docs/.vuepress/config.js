@@ -19,7 +19,7 @@ module.exports = {
                     glob: require.resolve("./shim/glob"),
                     "safer-buffer": require.resolve("./shim/safer-buffer"),
                     module: require.resolve("./shim/module"),
-                    postcss$: require.resolve("postcss/lib/postcss.mjs"),
+                    postcss$: path.resolve(__dirname, "../../node_modules/postcss/lib/postcss.mjs"),
                 },
             },
             plugins: [
