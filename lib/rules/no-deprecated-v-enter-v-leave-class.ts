@@ -30,8 +30,7 @@ module.exports = {
             description: "disallow v-enter and v-leave classes.",
             categories: [],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-v-enter-v-leave-class.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-v-enter-v-leave-class.html",
         },
         fixable: null,
         messages: {
@@ -216,10 +215,8 @@ module.exports = {
                         isTransitionElement(element) ||
                         isTransitionGroupElement(element),
                 )) {
-                    const {
-                        hasEnterClass,
-                        hasLeaveClass,
-                    } = verifyTransitionElementNode(transition)
+                    const { hasEnterClass, hasLeaveClass } =
+                        verifyTransitionElementNode(transition)
                     if (hasEnterClass && hasLeaveClass) {
                         continue
                     }

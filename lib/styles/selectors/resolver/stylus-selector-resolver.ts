@@ -216,10 +216,8 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         let resolvedSelectors: ResolvedSelectors | null = null
         let next = stack.shift()
         while (next != null) {
-            const targetResolvedSelectors: ResolvedSelectors = new ResolvedSelectors(
-                next.container,
-                resolvedSelectors,
-            )
+            const targetResolvedSelectors: ResolvedSelectors =
+                new ResolvedSelectors(next.container, resolvedSelectors)
             for (const selector of next.container.selectors.filter(
                 hasNodesSelector,
             )) {

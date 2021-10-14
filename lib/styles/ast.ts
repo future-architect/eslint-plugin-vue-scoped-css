@@ -76,7 +76,7 @@ class Node<T extends string> {
  */
 class HasParentNode<
     T extends string,
-    P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo
+    P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo,
 > extends Node<T> {
     public readonly parent: P
 

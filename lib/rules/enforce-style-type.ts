@@ -23,8 +23,7 @@ module.exports = {
             // categories: ["recommended", "vue3-recommended"],
             categories: [],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/enforce-style-type.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/enforce-style-type.html",
             suggestion: true,
         },
         fixable: null,
@@ -32,8 +31,7 @@ module.exports = {
             add: "Add attribute `{{ attribute }}`.",
             remove: "Remove attribute `{{ attribute }}`.",
             removeMultiple: "Remove attributes {{ attributes }}.",
-            change:
-                "Change `{{ fromAttribute }}` to `{{ toAttribute }}` attribute.",
+            change: "Change `{{ fromAttribute }}` to `{{ toAttribute }}` attribute.",
             forbiddenStyle: "`{{ attribute }}` attribute is forbidden.",
             forbiddenPlain: "Missing attribute {{ attributes }}.",
             forbiddenScopedModule:
@@ -66,7 +64,8 @@ module.exports = {
         }
 
         const reporter = getCommentDirectivesReporter(context)
-        const tokenStore = context.parserServices.getTemplateBodyTokenStore?.() as TokenStore
+        const tokenStore =
+            context.parserServices.getTemplateBodyTokenStore?.() as TokenStore
         const { options } = context
 
         const allows: AllowsOption = options[0]?.allows ?? ["scoped"]
@@ -202,7 +201,8 @@ module.exports = {
                               ? {
                                     messageId: "remove",
                                     data: {
-                                        attribute: forbiddenAttrs[0].key.name.toString(),
+                                        attribute:
+                                            forbiddenAttrs[0].key.name.toString(),
                                     },
                                     fix(fixer: RuleFixer) {
                                         return removeAttr(

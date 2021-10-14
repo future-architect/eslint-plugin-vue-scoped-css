@@ -214,11 +214,12 @@ export class CSSSelectorParser {
                     ),
                 )
             } else if (astNode.type === "VCSSSelector") {
-                astNode.nodes = this._postcssSelectorParserNodeChiildrenToASTNodes(
-                    offsetLocation,
-                    node,
-                    astNode,
-                )
+                astNode.nodes =
+                    this._postcssSelectorParserNodeChiildrenToASTNodes(
+                        offsetLocation,
+                        node,
+                        astNode,
+                    )
             }
         }
 

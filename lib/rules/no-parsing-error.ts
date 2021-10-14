@@ -16,8 +16,7 @@ module.exports = {
             description: "disallow parsing errors in `<style>`",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html",
         },
         fixable: null,
         messages: {},

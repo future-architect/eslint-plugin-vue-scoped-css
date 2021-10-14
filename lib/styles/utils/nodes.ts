@@ -13,11 +13,9 @@ export function unwrapTypesExpression<
         | AST.ESLintSuper
         | AST.ESLintDeclaration
         | AST.ESLintSpreadElement
-        | TSAsExpression
+        | TSAsExpression,
 >(node: T): T {
-    return node?.type === "TSAsExpression"
-        ? ((node as TSAsExpression).expression as T)
-        : node
+    return node?.type === "TSAsExpression" ? (node.expression as T) : node
 }
 
 /**

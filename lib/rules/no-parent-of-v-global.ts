@@ -19,8 +19,7 @@ module.exports = {
                 "disallow parent selector for `::v-global` pseudo-element",
             categories: ["vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parent-of-v-global.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parent-of-v-global.html",
         },
         fixable: null,
         messages: {

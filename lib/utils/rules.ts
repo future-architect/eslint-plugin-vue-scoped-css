@@ -75,9 +75,9 @@ export const rules = baseRules.map((obj) => {
  * @param {string} category category
  * @returns {Array} rules
  */
-export function collectRules(
-    category?: "recommended" | "vue3-recommended",
-): { [key: string]: string } {
+export function collectRules(category?: "recommended" | "vue3-recommended"): {
+    [key: string]: string
+} {
     return rules.reduce((obj, rule) => {
         if (
             (!category || rule.meta.docs.categories.includes(category)) &&

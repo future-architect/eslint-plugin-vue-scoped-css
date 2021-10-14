@@ -17,8 +17,7 @@ module.exports = {
                 "enforce the `<style>` tags to has the `scoped` attribute",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html",
             suggestion: true,
             replacedBy: ["enforce-style-type"],
         },
@@ -40,7 +39,8 @@ module.exports = {
             return {}
         }
         const reporter = getCommentDirectivesReporter(context)
-        const tokenStore = context.parserServices.getTemplateBodyTokenStore?.() as TokenStore
+        const tokenStore =
+            context.parserServices.getTemplateBodyTokenStore?.() as TokenStore
 
         /**
          * Reports the given node.

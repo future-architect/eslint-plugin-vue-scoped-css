@@ -79,8 +79,7 @@ module.exports = {
                 "disallow selectors defined that is not used inside `<template>`",
             categories: [],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html",
         },
         fixable: null,
         messages: {
@@ -168,9 +167,8 @@ module.exports = {
             for (let index = 0; index < selectorNodes.length; index++) {
                 const selectorNode = selectorNodes[index]
 
-                targetsQueryContext = targetsQueryContext.queryStep(
-                    selectorNode,
-                )
+                targetsQueryContext =
+                    targetsQueryContext.queryStep(selectorNode)
                 if (!targetsQueryContext.elements.length) {
                     report(selectorNodes.slice(0, index + 1))
                     break

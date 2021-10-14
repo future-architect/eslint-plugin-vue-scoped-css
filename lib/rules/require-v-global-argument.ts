@@ -22,8 +22,7 @@ module.exports = {
                 "require selector argument to be passed to `::v-global()`",
             categories: ["vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-global-argument.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-global-argument.html",
         },
         fixable: null,
         messages: {

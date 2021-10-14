@@ -101,8 +101,7 @@ module.exports = {
                 "disallow selectors defined in Scoped CSS that don't use in `<template>`",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html",
         },
         fixable: null,
         messages: {
@@ -176,9 +175,8 @@ module.exports = {
             let targetsQueryContext = queryContext
             let reverseVerifySelector = [...scopedSelector].reverse()
             while (reverseVerifySelector.length) {
-                const combIndex = reverseVerifySelector.findIndex(
-                    isSelectorCombinator,
-                )
+                const combIndex =
+                    reverseVerifySelector.findIndex(isSelectorCombinator)
                 let comb: VCSSSelectorCombinator | null = null
                 let selectorBlock: VCSSSelectorNode[] = []
 
@@ -214,9 +212,8 @@ module.exports = {
                 )
 
                 for (const selectorNode of notClassSelectors) {
-                    targetsQueryContext = targetsQueryContext.reverseQueryStep(
-                        selectorNode,
-                    )
+                    targetsQueryContext =
+                        targetsQueryContext.reverseQueryStep(selectorNode)
                 }
 
                 const roots = targetsQueryContext.filter(isRootElement)
@@ -232,9 +229,8 @@ module.exports = {
                     }
                 }
                 for (const selectorNode of classSelectors) {
-                    targetsQueryContext = targetsQueryContext.reverseQueryStep(
-                        selectorNode,
-                    )
+                    targetsQueryContext =
+                        targetsQueryContext.reverseQueryStep(selectorNode)
                 }
                 reportSelectorNodes.push(...selectorBlock)
                 if (comb) {
@@ -245,9 +241,8 @@ module.exports = {
                     if (targetsQueryContext.elements.some(isRootElement)) {
                         return
                     }
-                    targetsQueryContext = targetsQueryContext.reverseQueryStep(
-                        comb,
-                    )
+                    targetsQueryContext =
+                        targetsQueryContext.reverseQueryStep(comb)
                     reportSelectorNodes.push(comb)
                 }
             }

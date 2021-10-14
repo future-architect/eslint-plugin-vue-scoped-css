@@ -54,9 +54,7 @@ function executeLint(
     return { style, context }
 }
 
-export function* getStyleFixtureResults(
-    rootDir = ROOT,
-): IterableIterator<{
+export function* getStyleFixtureResults(rootDir = ROOT): IterableIterator<{
     name: string
     style: StyleContext
     source: string
@@ -97,7 +95,7 @@ export function isExistsPath(filepath: string): boolean {
     try {
         fs.statSync(filepath)
         return true
-    } catch (error) {
+    } catch (error: any) {
         if (error.code === "ENOENT") {
             return false
         }

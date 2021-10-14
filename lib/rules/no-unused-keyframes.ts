@@ -18,8 +18,7 @@ module.exports = {
             description: "disallow `@keyframes` which don't use in Scoped CSS",
             categories: ["recommended", "vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-keyframes.html",
         },
         fixable: null,
         messages: {
@@ -63,9 +62,7 @@ module.exports = {
         /**
          * Extract nodes
          */
-        function extract(
-            style: ValidStyleContext,
-        ): {
+        function extract(style: ValidStyleContext): {
             keyframes: { node: VCSSAtRule; params: Template }[]
             animationNames: VCSSDeclarationProperty[]
             animations: VCSSDeclarationProperty[]

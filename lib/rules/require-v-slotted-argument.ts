@@ -22,8 +22,7 @@ module.exports = {
                 "require selector argument to be passed to `::v-slotted()`",
             categories: ["vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-slotted-argument.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-slotted-argument.html",
         },
         fixable: null,
         messages: {

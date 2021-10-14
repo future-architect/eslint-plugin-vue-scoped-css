@@ -30,8 +30,7 @@ module.exports = {
                 "require selector argument to be passed to `::v-deep()`",
             categories: ["vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-argument.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-v-deep-argument.html",
         },
         fixable: "code",
         messages: {

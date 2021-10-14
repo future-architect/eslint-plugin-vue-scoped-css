@@ -18,8 +18,7 @@ module.exports = {
             description: "disallow using deprecated deep combinators",
             categories: ["vue3-recommended"],
             default: "warn",
-            url:
-                "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-deep-combinator.html",
+            url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-deep-combinator.html",
         },
         fixable: "code",
         messages: {

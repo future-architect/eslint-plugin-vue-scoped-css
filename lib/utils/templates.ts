@@ -80,18 +80,18 @@ export function findAttribute(
         return findAttribute(node.startTag, name)
     }
     return (
-        node.attributes.find((attr): attr is
-            | AST.VAttribute
-            | AST.VDirective => {
-            if (isVDirective(attr)) {
-                if (isVBind(attr.key)) {
-                    return getArgument(attr.key) === name
+        node.attributes.find(
+            (attr): attr is AST.VAttribute | AST.VDirective => {
+                if (isVDirective(attr)) {
+                    if (isVBind(attr.key)) {
+                        return getArgument(attr.key) === name
+                    }
+                } else {
+                    return attr.key.name === name
                 }
-            } else {
-                return attr.key.name === name
-            }
-            return false
-        }) || null
+                return false
+            },
+        ) || null
     )
 }
 

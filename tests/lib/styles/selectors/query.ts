@@ -69,7 +69,9 @@ function reverseQueries(style: StyleContext, context: RuleContext) {
                     ;(elementQuery as any).document = elementQuery
                     ;(elementQuery as any).context = (document as any).context
                     ;(elementQuery as any).options = (document as any).options
-                    ;(elementQuery as any).docsModifiers = (document as any).docsModifiers
+                    ;(elementQuery as any).docsModifiers = (
+                        document as any
+                    ).docsModifiers
                     let q = elementQuery
                     for (let index = selector.length - 1; index >= 0; index--) {
                         q = q.reverseQueryStep(selector[index])

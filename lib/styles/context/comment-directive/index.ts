@@ -8,8 +8,10 @@ import type {
 import type { StyleContext } from "../style"
 import type { VCSSCommentNode } from "../../ast"
 
-const COMMENT_DIRECTIVE_B = /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
-const COMMENT_DIRECTIVE_L = /^\s*(eslint-disable(?:-next)?-line)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
+const COMMENT_DIRECTIVE_B =
+    /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
+const COMMENT_DIRECTIVE_L =
+    /^\s*(eslint-disable(?:-next)?-line)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
 
 type ParsingResult = { type: string; rules: string[] }
 type BlockData = { loc: LineAndColumnData; disable: boolean }

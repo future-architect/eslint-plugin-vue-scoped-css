@@ -185,7 +185,7 @@ class Pattern {
  * Define generator to search patterns.
  */
 export function* definePatternsSearchGenerator<
-    REGS extends { [name: string]: RegExp }
+    REGS extends { [name: string]: RegExp },
 >(
     regexps: REGS,
     str: string,
@@ -404,9 +404,8 @@ export function restoreReplacedSelector(
                 column: cssLoc.column - 1,
             })
             const originalIndex = remapContext.remapIndex(index)
-            const originalLoc = originalSourceCode.getLocFromIndex(
-                originalIndex,
-            )
+            const originalLoc =
+                originalSourceCode.getLocFromIndex(originalIndex)
             originalLoc.column++
             node.source.start = originalLoc
             cssStartIndex = index
