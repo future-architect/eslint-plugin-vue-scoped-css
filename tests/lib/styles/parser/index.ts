@@ -3,12 +3,9 @@ import assert from "assert"
 import fs from "fs"
 import path from "path"
 
-// @ts-expect-error -- ignore
-import CSSStringifier from "postcss/lib/stringifier"
-// @ts-expect-error -- ignore
-import SCSSStringifier from "postcss-scss/lib/scss-stringifier"
-// @ts-expect-error -- ignore
-import StylusStringifier from "postcss-styl/lib/stringifier"
+import css from "postcss"
+import scss from "postcss-scss"
+import stylus from "postcss-styl"
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils"
 import type {
@@ -17,30 +14,27 @@ import type {
     VCSSAtRule,
 } from "../../../../lib/styles/ast"
 
-function stringify(node: any, stringifier: any) {
-    let semicolon = true
-    if (node.parent && node.parent.last === node) {
-        semicolon = node.parent.raws.semicolon
-    }
-    const beforeText = node.raws.before && /[^\s/]$/u.exec(node.raws.before)
-    if (beforeText) {
-        stringifier.builder(beforeText[0])
-    }
-    stringifier.stringify(node, semicolon)
-}
+// function stringify(node: any, stringifier: any) {
+//     let semicolon = true
+//     if (node.parent && node.parent.last === node) {
+//         semicolon = node.parent.raws.semicolon
+//     }
+//     const beforeText = node.raws.before && /[^\s/]$/u.exec(node.raws.before)
+//     if (beforeText) {
+//         stringifier.builder(beforeText[0])
+//     }
+//     stringifier.stringify(node, semicolon)
+// }
 
 const STRINGIFYS = {
     scss(node: any, builder: any) {
-        const stringifier = new SCSSStringifier(builder)
-        stringify(node, stringifier)
+        scss.stringify(node, builder)
     },
     css(node: any, builder: any) {
-        const stringifier = new CSSStringifier(builder)
-        stringify(node, stringifier)
+        css.stringify(node, builder)
     },
     stylus(node: any, builder: any) {
-        const stringifier = new StylusStringifier(builder)
-        stringify(node, stringifier)
+        stylus.stringify(node, builder)
     },
 }
 
@@ -130,7 +124,7 @@ function checkCSSNodeLocations(
     lang: string,
 ) {
     if (node.node) {
-        let rangeText = `${node.type}:\n${code.slice(...node.range)}`
+        let rangeText = code.slice(...node.range)
         let postcssText = (node.node as any).toString((STRINGIFYS as any)[lang])
         if (node.type === "VCSSSelector" || node.type === "VCSSClassSelector") {
             postcssText = postcssText.replace(
@@ -162,10 +156,19 @@ function checkCSSNodeLocations(
             postcssText = postcssText.trim()
         } else if (node.type === "VCSSStyleSheet") {
             // noop
+        } else if (node.type === "VCSSDeclarationProperty") {
+            rangeText = rangeText.replace(/^\*|\s*;\s*$/g, "")
+            postcssText = postcssText.trim()
+        } else if (node.type === "VCSSAtRule") {
+            rangeText = rangeText.replace(/\s*;\s*$/g, "")
+            postcssText = postcssText.trim()
         } else {
             postcssText = postcssText.trim()
         }
-        assert.strictEqual(rangeText, `${node.type}:\n${postcssText}`)
+        assert.strictEqual(
+            `${node.type}:\n${rangeText}`,
+            `${node.type}:\n${postcssText}`,
+        )
     }
     if (node.type === "VCSSStyleSheet") {
         if (node.errors.length) {
