@@ -8,7 +8,7 @@ description: "enforce the `<style>` tags to be plain or have the `scoped` or `mo
 
 > enforce the `<style>` tags to be plain or have the `scoped` or `module` attribute
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
 
 ## :book: Rule Details
 
