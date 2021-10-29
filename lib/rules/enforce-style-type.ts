@@ -19,9 +19,7 @@ module.exports = {
         docs: {
             description:
                 "enforce the `<style>` tags to be plain or have the `scoped` or `module` attribute",
-            // It will be changed to recommended in the major version upgrade.
-            // categories: ["recommended", "vue3-recommended"],
-            categories: [],
+            categories: ["recommended", "vue3-recommended"],
             default: "warn",
             url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/enforce-style-type.html",
             suggestion: true,
