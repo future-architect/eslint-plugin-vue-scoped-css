@@ -1,6 +1,6 @@
 {
     "name": "eslint-plugin-vue-scoped-css",
-    "version": "1.3.0",
+    "version": "2.0.0",
     "description": "ESLint plugin for Scoped CSS in Vue.js",
     "main": "dist/index.js",
     "scripts": {
@@ -116,6 +116,6 @@
         ]
     },
     "engines": {
-        "node": "^8.10.0 || ^10.13.0 || ^12.13.0 || ^13.0.0 || >=14.0.0"
+        "node": "^12.22 || ^14.17 || >=16"
     }
 }
