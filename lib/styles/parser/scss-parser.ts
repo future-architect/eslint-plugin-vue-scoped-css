@@ -10,7 +10,7 @@ import { SCSSSelectorParser } from "./selector/scss-selector-parser"
  */
 export class SCSSParser extends CSSParser {
     protected parseInternal(css: string): postcss.Root {
-        return postcssScss.parse(css)
+        return postcssScss.parse(css) as postcss.Root
     }
 
     protected createSelectorParser(): SCSSSelectorParser {

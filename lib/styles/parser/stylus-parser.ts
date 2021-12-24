@@ -10,7 +10,7 @@ import { StylusSelectorParser } from "./selector/stylus-selector-parser"
  */
 export class StylusParser extends CSSParser {
     protected parseInternal(css: string): postcss.Root {
-        return postcssStyl.parse(css)
+        return postcssStyl.parse(css) as postcss.Root
     }
 
     protected createSelectorParser(): StylusSelectorParser {
