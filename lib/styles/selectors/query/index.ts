@@ -443,105 +443,118 @@ function* genChildElements(
 /**
  * Get the parent elements.
  */
-function* genParentElements(
+function genParentElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    const found = new Set<AST.VElement>()
-    for (const element of elements) {
-        const parent = getParentElement(element)
-        if (parent) {
-            if (!found.has(parent)) {
-                yield parent
-                found.add(parent)
-            }
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            yield getParentElement(element)
         }
-    }
+    })
 }
 
 /**
  * Get the adjacent sibling elements.
  */
-function* genAdjacentSiblingElements(
+function genAdjacentSiblingElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    for (const element of elements) {
-        const parent = getParentElement(element)
-        if (parent == null) {
-            continue
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            if (hasVFor(element)) {
+                yield element
+            }
+            const vForTemplate = getVForTemplate(element)
+            if (vForTemplate) {
+                const children = [...genChildElements([vForTemplate])]
+                const index = children.indexOf(element)
+                yield children[index + 1] || children[0]
+            }
+            const parent = getParentElement(element)
+            if (parent) {
+                const children = [...genChildElements([parent])]
+                const index = children.indexOf(element)
+                yield children[index + 1]
+            }
         }
-        const children = [...genChildElements([parent])]
-        const index = children.indexOf(element)
-        const e = children[index + 1]
-        if (e) {
-            yield e
-        }
-    }
+    })
 }
 
 /**
  * Gets the previous adjacent sibling elements.
  */
-function* genPrevAdjacentSiblingElements(
+function genPrevAdjacentSiblingElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    for (const element of elements) {
-        const parent = getParentElement(element)
-        if (parent == null) {
-            continue
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            if (hasVFor(element)) {
+                yield element
+            }
+            const vForTemplate = getVForTemplate(element)
+            if (vForTemplate) {
+                const children = [...genChildElements([vForTemplate])]
+                const index = children.indexOf(element)
+                yield children[index - 1] || children[children.length - 1]
+            }
+            const parent = getParentElement(element)
+            if (parent) {
+                const children = [...genChildElements([parent])]
+                const index = children.indexOf(element)
+                yield children[index - 1]
+            }
         }
-        const children = [...genChildElements([parent])]
-        const index = children.indexOf(element)
-        const e = children[index - 1]
-        if (e) {
-            yield e
-        }
-    }
+    })
 }
 
 /**
  * Gets the general sibling elements.
  */
-function* genGeneralSiblingElements(
+function genGeneralSiblingElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    const found = new Set<AST.VElement>()
-    for (const element of elements) {
-        const parent = getParentElement(element)
-        if (parent == null) {
-            continue
-        }
-        const children = [...genChildElements([parent])]
-        const index = children.indexOf(element)
-        for (const n of children.slice(index + 1)) {
-            if (!found.has(n)) {
-                yield n
-                found.add(n)
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            if (hasVFor(element)) {
+                yield element
+            }
+            const vForTemplate = getVForTemplate(element)
+            if (vForTemplate) {
+                yield* genChildElements([vForTemplate])
+            }
+            const parent = getParentElement(element)
+            if (parent) {
+                const children = [...genChildElements([parent])]
+                const index = children.indexOf(element)
+                yield* children.slice(index + 1)
             }
         }
-    }
+    })
 }
 
 /**
  * Gets the previous general sibling elements.
  */
-function* genPrevGeneralSiblingElements(
+function genPrevGeneralSiblingElements(
     elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    const found = new Set<AST.VElement>()
-    for (const element of elements) {
-        const parent = getParentElement(element)
-        if (parent == null) {
-            continue
-        }
-        const children = [...genChildElements([parent])]
-        const index = children.indexOf(element)
-        for (const p of children.slice(0, index)) {
-            if (!found.has(p)) {
-                yield p
-                found.add(p)
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            if (hasVFor(element)) {
+                yield element
+            }
+            const vForTemplate = getVForTemplate(element)
+            if (vForTemplate) {
+                yield* genChildElements([vForTemplate])
+            }
+            const parent = getParentElement(element)
+            if (parent) {
+                const children = [...genChildElements([parent])]
+                const index = children.indexOf(element)
+                yield* children.slice(0, index)
             }
         }
-    }
+    })
 }
 
 /**
@@ -556,16 +569,11 @@ function* genVDeepElements(
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
     if (params.length) {
-        const found = new Set<AST.VElement>()
-        for (const node of params) {
-            const els = query(elements, node.nodes)
-            for (const e of els) {
-                if (!found.has(e)) {
-                    yield e
-                    found.add(e)
-                }
+        yield* iterateUnique(function* () {
+            for (const node of params) {
+                yield* query(elements, node.nodes)
             }
-        }
+        })
     } else {
         yield* elements
     }
@@ -574,7 +582,7 @@ function* genVDeepElements(
 /**
  * Gets the v-slotted elements
  */
-function* genVSlottedElements(
+function genVSlottedElements(
     elements: AST.VElement[],
     params: VCSSSelector[],
     query: (
@@ -582,25 +590,22 @@ function* genVSlottedElements(
         selList: VCSSSelectorValueNode[],
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    const found = new Set<AST.VElement>()
-    for (const element of elements) {
-        if (isSlotElement(element)) {
-            if (!found.has(element)) {
+    return iterateUnique(function* () {
+        for (const element of elements) {
+            if (isSlotElement(element)) {
                 yield element
-                found.add(element)
             }
         }
-    }
 
-    for (const node of params) {
-        const els = query(elements, node.nodes)
-        for (const e of els) {
-            if (!found.has(e) && inSlot(e)) {
-                yield e
-                found.add(e)
+        for (const node of params) {
+            const els = query(elements, node.nodes)
+            for (const e of els) {
+                if (inSlot(e)) {
+                    yield e
+                }
             }
         }
-    }
+    })
 
     /**
      * Checks if givin element within slot
@@ -616,7 +621,7 @@ function* genVSlottedElements(
 /**
  * Gets the v-global elements
  */
-function* genVGlobalElements(
+function genVGlobalElements(
     _elements: AST.VElement[],
     params: VCSSSelector[],
     document: VueDocumentQueryContext,
@@ -625,16 +630,11 @@ function* genVGlobalElements(
         selList: VCSSSelectorValueNode[],
     ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
-    const found = new Set<AST.VElement>()
-    for (const node of params) {
-        const els = query(document.elements, node.nodes)
-        for (const e of els) {
-            if (!found.has(e)) {
-                yield e
-                found.add(e)
-            }
+    return iterateUnique(function* () {
+        for (const node of params) {
+            yield* query(document.elements, node.nodes)
         }
-    }
+    })
 }
 
 /**
@@ -1034,4 +1034,45 @@ function withinTemplate(
     return (
         templateRange[0] <= expr.range[0] && expr.range[1] <= templateRange[1]
     )
+}
+
+/**
+ * Iterate unique items
+ */
+function* iterateUnique<T>(
+    gen: () => IterableIterator<T | null>,
+): IterableIterator<T> {
+    const found = new Set<T>()
+    for (const e of gen()) {
+        if (e != null && !found.has(e)) {
+            yield e
+            found.add(e)
+        }
+    }
+}
+
+/**
+ * Checks if givin element has v-for
+ */
+function hasVFor(element: AST.VElement) {
+    return element.startTag.attributes.some(
+        (attr) => attr.directive && attr.key.name.name === "for",
+    )
+}
+
+/**
+ * Get the <template v-for> from givin element within
+ */
+function getVForTemplate(element: AST.VElement) {
+    let parent = element.parent
+    while (parent) {
+        if (parent.type !== "VElement" || parent.name !== "template") {
+            return null
+        }
+        if (hasVFor(parent)) {
+            return parent
+        }
+        parent = parent.parent
+    }
+    return null
 }
