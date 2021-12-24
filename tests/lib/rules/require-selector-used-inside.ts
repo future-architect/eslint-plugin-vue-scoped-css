@@ -372,6 +372,34 @@ tester.run("require-selector-used-inside", rule as any, {
         .unknown ::v-global(.bar > .baz) .qux {}
         </style>
         `,
+        // with v-for
+        `
+        <template>
+            <div>
+                <div v-for="item in list"class="foo">{{ item }}</div>
+            </div>
+        </template>
+        <style lang="scss" scoped>
+        .foo {
+            & + .foo {}
+        }
+        </style>
+        `,
+        `
+        <template>
+            <div>
+                <template v-for="item in list" >
+                    <div class="foo">{{ item }}</div>
+                    <div class="bar">{{ item }}</div>
+                </template>
+            </div>
+        </template>
+        <style lang="scss" scoped>
+        .foo {
+            & ~ .foo {}
+        }
+        </style>
+        `,
     ],
     invalid: [
         {
