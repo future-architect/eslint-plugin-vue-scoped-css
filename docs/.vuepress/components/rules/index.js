@@ -1,6 +1,8 @@
-import * as coreRules from "../../../../node_modules/eslint4b/dist/core-rules"
+import { Linter } from "eslint/lib/linter"
 import plugin from "../../../../"
 import pluginVue from "eslint-plugin-vue"
+
+const coreRules = Object.fromEntries(new Linter().getRules())
 
 const CATEGORY_TITLES = {
     base: "Base Rules",
@@ -9,14 +11,9 @@ const CATEGORY_TITLES = {
     "vue3-recommended": "Recommended for Vue.js 3.x",
     uncategorized: "Uncategorized",
     "eslint-plugin-vue": "eslint-plugin-vue rules",
-    "eslint-core-rules@Possible Errors": "ESLint core rules(Possible Errors)",
-    "eslint-core-rules@Best Practices": "ESLint core rules(Best Practices)",
-    "eslint-core-rules@Strict Mode": "ESLint core rules(Strict Mode)",
-    "eslint-core-rules@Variables": "ESLint core rules(Variables)",
-    "eslint-core-rules@Node.js and CommonJS":
-        "ESLint core rules(Node.js and CommonJS)",
-    "eslint-core-rules@Stylistic Issues": "ESLint core rules(Stylistic Issues)",
-    "eslint-core-rules@ECMAScript 6": "ESLint core rules(ECMAScript 6)",
+    "eslint-core-rules@problem": "ESLint core rules(Possible Errors)",
+    "eslint-core-rules@suggestion": "ESLint core rules(Suggestions)",
+    "eslint-core-rules@layout": "ESLint core rules(Layout & Formatting)",
 }
 const CATEGORY_INDEX = {
     base: 0,
@@ -25,21 +22,20 @@ const CATEGORY_INDEX = {
     "vue3-recommended": 3,
     uncategorized: 4,
     "eslint-plugin-vue": 5,
-    "eslint-core-rules@Possible Errors": 6,
-    "eslint-core-rules@Best Practices": 7,
-    "eslint-core-rules@Strict Mode": 8,
-    "eslint-core-rules@Variables": 9,
-    "eslint-core-rules@Node.js and CommonJS": 10,
-    "eslint-core-rules@Stylistic Issues": 11,
-    "eslint-core-rules@ECMAScript 6": 12,
+    "eslint-core-rules@problem": 20,
+    "eslint-core-rules@suggestion": 21,
+    "eslint-core-rules@layout": 22,
 }
 const CATEGORY_CLASSES = {
-    base: "eslint-plugin-vue-scoped-css__category",
-    recommended: "eslint-plugin-vue-scoped-css__category",
-    "vue2-recommended": "eslint-plugin-vue-scoped-css__category",
-    "vue3-recommended": "eslint-plugin-vue-scoped-css__category",
-    uncategorized: "eslint-plugin-vue-scoped-css__category",
-    "eslint-plugin-vue": "eslint-plugin-vue__category",
+    base: "eslint-plugin-vue-scoped-css-category",
+    recommended: "eslint-plugin-vue-scoped-css-category",
+    "vue2-recommended": "eslint-plugin-vue-scoped-css-category",
+    "vue3-recommended": "eslint-plugin-vue-scoped-css-category",
+    uncategorized: "eslint-plugin-vue-scoped-css-category",
+    "eslint-plugin-vue": "eslint-plugin-vue-category",
+    "eslint-core-rules@problem": "eslint-core-category",
+    "eslint-core-rules@suggestion": "eslint-core-category",
+    "eslint-core-rules@layout": "eslint-core-category",
 }
 
 function getCategory({ deprecated, docs: { categories } }) {
@@ -60,33 +56,39 @@ const allRules = []
 
 for (const k of Object.keys(plugin.rules)) {
     const rule = plugin.rules[k]
+    if (rule.meta.deprecated) {
+        continue
+    }
     const category = getCategory(rule.meta)
     allRules.push({
-        classes: "eslint-plugin-vue-scoped-css__rule",
+        classes: "eslint-plugin-vue-scoped-css-rule",
         category,
         ruleId: rule.meta.docs.ruleId,
         url: rule.meta.docs.url,
-        initChecked: CATEGORY_INDEX[category] <= 3,
+        init: CATEGORY_INDEX[category] <= 3 ? "error" : "off",
     })
 }
 for (const k of Object.keys(pluginVue.rules)) {
     const rule = pluginVue.rules[k]
     allRules.push({
+        classes: "eslint-plugin-vue-rule",
         category: "eslint-plugin-vue",
-        fallbackTitle: "eslint-plugin-vue rules",
         ruleId: `vue/${k}`,
         url: rule.meta.docs.url,
-        initChecked: false,
+        init: "off",
     })
 }
 for (const k of Object.keys(coreRules)) {
     const rule = coreRules[k]
+    if (rule.meta.deprecated) {
+        continue
+    }
     allRules.push({
-        category: `eslint-core-rules@${rule.meta.docs.category}`,
-        fallbackTitle: `ESLint core rules(${rule.meta.docs.category})`,
+        classes: "eslint-core-rule",
+        category: `eslint-core-rules@${rule.meta.type}`,
         ruleId: k,
         url: rule.meta.docs.url,
-        initChecked: false, // rule.meta.docs.recommended,
+        init: plugin.configs.recommended.rules[k] || "off",
     })
 }
 
@@ -97,7 +99,7 @@ allRules.sort((a, b) =>
 export const categories = []
 
 for (const rule of allRules) {
-    const title = CATEGORY_TITLES[rule.category] || rule.fallbackTitle
+    const title = CATEGORY_TITLES[rule.category]
     let category = categories.find((c) => c.title === title)
     if (!category) {
         category = {
@@ -127,9 +129,27 @@ export const DEFAULT_RULES_CONFIG = allRules.reduce((c, r) => {
     if (r.ruleId === "vue/no-parsing-error") {
         c[r.ruleId] = "error"
     } else {
-        c[r.ruleId] = r.initChecked ? "error" : "off"
+        c[r.ruleId] = r.init
     }
     return c
 }, {})
 
 export const rules = allRules
+
+export function getRule(ruleId) {
+    if (!ruleId) {
+        return null
+    }
+    for (const category of categories) {
+        for (const rule of category.rules) {
+            if (rule.ruleId === ruleId) {
+                return rule
+            }
+        }
+    }
+    return {
+        ruleId,
+        url: "",
+        classes: "",
+    }
+}

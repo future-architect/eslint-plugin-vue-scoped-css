@@ -1,7 +1,7 @@
+const path = require("path")
 const categories = require("./categories")
 // eslint-disable-next-line node/no-extraneous-require -- demo
 const webpack = require("webpack")
-const path = require("path")
 
 module.exports = {
     base: "/eslint-plugin-vue-scoped-css/",
@@ -11,9 +11,20 @@ module.exports = {
     evergreen: true,
     configureWebpack(_config, _isServer) {
         return {
+            externals: {
+                typescript: "typescript",
+            },
             resolve: {
                 alias: {
-                    eslint: path.resolve(__dirname, "./shim/eslint"),
+                    esquery: path.resolve(
+                        __dirname,
+                        "../../node_modules/esquery/dist/esquery.min.js",
+                    ),
+                    "@eslint/eslintrc/universal": path.resolve(
+                        __dirname,
+                        "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs",
+                    ),
+                    eslint$: require.resolve("./shim/eslint"),
                     // eslint-disable-next-line node/no-extraneous-require -- demo
                     stylus: require.resolve("stylus/lib/stylus"),
                     glob: require.resolve("./shim/glob"),

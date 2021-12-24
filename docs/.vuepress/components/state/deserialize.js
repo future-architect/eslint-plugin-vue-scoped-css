@@ -36,7 +36,7 @@ export function deserializeState(serializedString) {
             }
         }
     } catch (error) {
-        // eslint-disable-next-line no-console -- demo
+        //eslint-disable-next-line no-console -- demo
         console.error(error)
     }
 
