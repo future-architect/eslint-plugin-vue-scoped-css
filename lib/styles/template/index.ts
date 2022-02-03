@@ -101,6 +101,7 @@ export class Template {
             | AST.ESLintBlockStatement
             | AST.ESLintExpression
             | AST.ESLintPattern
+            | AST.ESLintPrivateIdentifier
             | AST.VLiteral
             | AST.VFilterSequenceExpression
             | AST.VForExpression
@@ -116,7 +117,7 @@ export class Template {
         if (node.type === "TemplateLiteral") {
             const elements: (string | Interpolation | undefined)[] = []
             for (const element of node.quasis) {
-                elements.push(element.value.cooked)
+                elements.push(element.value.cooked || element.value.raw)
                 elements.push(new Interpolation("${}"))
             }
             elements.pop()
