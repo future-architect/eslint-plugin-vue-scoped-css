@@ -11,10 +11,10 @@
         }
     },
     "start": 49,
-    "end": 84,
+    "end": 86,
     "range": [
         49,
-        84
+        86
     ],
     "nodes": [
         {
@@ -30,13 +30,13 @@
                 }
             },
             "start": 55,
-            "end": 83,
+            "end": 85,
             "range": [
                 55,
-                83
+                85
             ],
-            "selectorText": ".foo,.bar",
-            "rawSelectorText": ".foo/*2*/,/*3*/.bar",
+            "selectorText": ".foo , .bar",
+            "rawSelectorText": ".foo/*2*/ , /*3*/.bar",
             "selectors": [
                 {
                     "type": "VCSSSelector",
@@ -85,18 +85,18 @@
                     "loc": {
                         "start": {
                             "line": 5,
-                            "column": 20
+                            "column": 22
                         },
                         "end": {
                             "line": 5,
-                            "column": 24
+                            "column": 26
                         }
                     },
-                    "start": 70,
-                    "end": 74,
+                    "start": 72,
+                    "end": 76,
                     "range": [
-                        70,
-                        74
+                        72,
+                        76
                     ],
                     "nodes": [
                         {
@@ -104,18 +104,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 20
+                                    "column": 22
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 24
+                                    "column": 26
                                 }
                             },
-                            "start": 70,
-                            "end": 74,
+                            "start": 72,
+                            "end": 76,
                             "range": [
-                                70,
-                                74
+                                72,
+                                76
                             ],
                             "value": "bar",
                             "selector": ".bar"
@@ -172,18 +172,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 15
+                    "column": 17
                 },
                 "end": {
                     "line": 5,
-                    "column": 20
+                    "column": 22
                 }
             },
-            "start": 65,
-            "end": 70,
+            "start": 67,
+            "end": 72,
             "range": [
-                65,
-                70
+                67,
+                72
             ],
             "text": "3"
         },
@@ -192,18 +192,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 24
+                    "column": 26
                 },
                 "end": {
                     "line": 5,
-                    "column": 29
+                    "column": 31
                 }
             },
-            "start": 74,
-            "end": 79,
+            "start": 76,
+            "end": 81,
             "range": [
-                74,
-                79
+                76,
+                81
             ],
             "text": "4"
         }

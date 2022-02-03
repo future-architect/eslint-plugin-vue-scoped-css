@@ -28,18 +28,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 20
+                    "column": 22
                 },
                 "end": {
                     "line": 5,
-                    "column": 23
+                    "column": 25
                 }
             },
-            "start": 70,
-            "end": 73,
+            "start": 72,
+            "end": 75,
             "range": [
-                70,
-                73
+                72,
+                75
             ],
             "value": "div",
             "selector": "div"
@@ -49,18 +49,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 28
+                    "column": 30
                 },
                 "end": {
                     "line": 5,
-                    "column": 32
+                    "column": 34
                 }
             },
-            "start": 78,
-            "end": 82,
+            "start": 80,
+            "end": 84,
             "range": [
-                78,
-                82
+                80,
+                84
             ],
             "value": "bar",
             "selector": ".bar"
@@ -70,18 +70,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 37
+                    "column": 40
                 },
                 "end": {
                     "line": 5,
-                    "column": 38
+                    "column": 41
                 }
             },
-            "start": 87,
-            "end": 88,
+            "start": 90,
+            "end": 91,
             "range": [
-                87,
-                88
+                90,
+                91
             ],
             "value": ">",
             "selector": ">"
@@ -91,18 +91,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 43
+                    "column": 47
                 },
                 "end": {
                     "line": 5,
-                    "column": 45
+                    "column": 49
                 }
             },
-            "start": 93,
-            "end": 95,
+            "start": 97,
+            "end": 99,
             "range": [
-                93,
-                95
+                97,
+                99
             ],
             "value": "li",
             "selector": "li"
@@ -112,18 +112,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 50
+                    "column": 54
                 },
                 "end": {
                     "line": 5,
-                    "column": 54
+                    "column": 58
                 }
             },
-            "start": 100,
-            "end": 104,
+            "start": 104,
+            "end": 108,
             "range": [
-                100,
-                104
+                104,
+                108
             ],
             "value": "baz",
             "selector": ".baz"
@@ -133,18 +133,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 59
+                    "column": 64
                 },
                 "end": {
                     "line": 5,
-                    "column": 62
+                    "column": 67
                 }
             },
-            "start": 109,
-            "end": 112,
+            "start": 114,
+            "end": 117,
             "range": [
-                109,
-                112
+                114,
+                117
             ],
             "value": ">>>",
             "selector": ">>>"
@@ -154,18 +154,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 67
+                    "column": 73
                 },
                 "end": {
                     "line": 5,
-                    "column": 70
+                    "column": 76
                 }
             },
-            "start": 117,
-            "end": 120,
+            "start": 123,
+            "end": 126,
             "range": [
-                117,
-                120
+                123,
+                126
             ],
             "value": "qux",
             "selector": "qux"

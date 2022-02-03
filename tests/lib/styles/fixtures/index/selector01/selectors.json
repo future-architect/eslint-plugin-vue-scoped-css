@@ -28,18 +28,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 20
+                    "column": 22
                 },
                 "end": {
                     "line": 5,
-                    "column": 24
+                    "column": 26
                 }
             },
-            "start": 70,
-            "end": 74,
+            "start": 72,
+            "end": 76,
             "range": [
-                70,
-                74
+                72,
+                76
             ],
             "value": "bar",
             "selector": ".bar"
