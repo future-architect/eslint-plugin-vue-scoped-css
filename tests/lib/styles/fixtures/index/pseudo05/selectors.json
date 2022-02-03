@@ -50,14 +50,14 @@
                         },
                         "end": {
                             "line": 5,
-                            "column": 25
+                            "column": 24
                         }
                     },
                     "start": 72,
-                    "end": 75,
+                    "end": 74,
                     "range": [
                         72,
-                        75
+                        74
                     ],
                     "nodes": [
                         {
@@ -80,27 +80,6 @@
                             ],
                             "value": "b",
                             "selector": ".b"
-                        },
-                        {
-                            "type": "VCSSSelectorCombinator",
-                            "loc": {
-                                "start": {
-                                    "line": 5,
-                                    "column": 24
-                                },
-                                "end": {
-                                    "line": 5,
-                                    "column": 25
-                                }
-                            },
-                            "start": 74,
-                            "end": 75,
-                            "range": [
-                                74,
-                                75
-                            ],
-                            "value": " ",
-                            "selector": " "
                         }
                     ]
                 }

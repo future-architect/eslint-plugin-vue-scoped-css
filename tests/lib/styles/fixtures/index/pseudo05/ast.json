@@ -36,7 +36,7 @@
                 90
             ],
             "selectorText": "a/*2*/:not( .b )",
-            "rawSelectorText": "a/*2*/:not(/*3*/ .b /*4*/)",
+            "rawSelectorText": "a/*2*/:not(/*3*/ .b/*4*/ )",
             "selectors": [
                 {
                     "type": "VCSSSelector",
@@ -107,14 +107,14 @@
                                         },
                                         "end": {
                                             "line": 5,
-                                            "column": 25
+                                            "column": 24
                                         }
                                     },
                                     "start": 72,
-                                    "end": 75,
+                                    "end": 74,
                                     "range": [
                                         72,
-                                        75
+                                        74
                                     ],
                                     "nodes": [
                                         {
@@ -137,27 +137,6 @@
                                             ],
                                             "value": "b",
                                             "selector": ".b"
-                                        },
-                                        {
-                                            "type": "VCSSSelectorCombinator",
-                                            "loc": {
-                                                "start": {
-                                                    "line": 5,
-                                                    "column": 24
-                                                },
-                                                "end": {
-                                                    "line": 5,
-                                                    "column": 25
-                                                }
-                                            },
-                                            "start": 74,
-                                            "end": 75,
-                                            "range": [
-                                                74,
-                                                75
-                                            ],
-                                            "value": " ",
-                                            "selector": " "
                                         }
                                     ]
                                 }
@@ -235,18 +214,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 25
+                    "column": 24
                 },
                 "end": {
                     "line": 5,
-                    "column": 30
+                    "column": 29
                 }
             },
-            "start": 75,
-            "end": 80,
+            "start": 74,
+            "end": 79,
             "range": [
-                75,
-                80
+                74,
+                79
             ],
             "text": "4"
         },
