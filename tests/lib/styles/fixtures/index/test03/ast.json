@@ -11,10 +11,10 @@
         }
     },
     "start": 49,
-    "end": 130,
+    "end": 136,
     "range": [
         49,
-        130
+        136
     ],
     "nodes": [
         {
@@ -30,13 +30,13 @@
                 }
             },
             "start": 55,
-            "end": 129,
+            "end": 135,
             "range": [
                 55,
-                129
+                135
             ],
-            "selectorText": ".foo,div/*3*/.bar>li/*6*/.baz>>>qux",
-            "rawSelectorText": ".foo/*1*/,/*2*/div/*3*/.bar/*4*/>/*5*/li/*6*/.baz/*7*/>>>/*8*/qux",
+            "selectorText": ".foo , div/*3*/.bar > li/*6*/.baz >>> qux",
+            "rawSelectorText": ".foo /*1*/, /*2*/div/*3*/.bar /*4*/> /*5*/li/*6*/.baz /*7*/>>> /*8*/qux",
             "selectors": [
                 {
                     "type": "VCSSSelector",
@@ -85,18 +85,18 @@
                     "loc": {
                         "start": {
                             "line": 5,
-                            "column": 20
+                            "column": 22
                         },
                         "end": {
                             "line": 5,
-                            "column": 70
+                            "column": 76
                         }
                     },
-                    "start": 70,
-                    "end": 120,
+                    "start": 72,
+                    "end": 126,
                     "range": [
-                        70,
-                        120
+                        72,
+                        126
                     ],
                     "nodes": [
                         {
@@ -104,18 +104,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 20
+                                    "column": 22
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 23
+                                    "column": 25
                                 }
                             },
-                            "start": 70,
-                            "end": 73,
+                            "start": 72,
+                            "end": 75,
                             "range": [
-                                70,
-                                73
+                                72,
+                                75
                             ],
                             "value": "div",
                             "selector": "div"
@@ -125,18 +125,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 28
+                                    "column": 30
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 32
+                                    "column": 34
                                 }
                             },
-                            "start": 78,
-                            "end": 82,
+                            "start": 80,
+                            "end": 84,
                             "range": [
-                                78,
-                                82
+                                80,
+                                84
                             ],
                             "value": "bar",
                             "selector": ".bar"
@@ -146,18 +146,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 37
+                                    "column": 40
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 38
+                                    "column": 41
                                 }
                             },
-                            "start": 87,
-                            "end": 88,
+                            "start": 90,
+                            "end": 91,
                             "range": [
-                                87,
-                                88
+                                90,
+                                91
                             ],
                             "value": ">",
                             "selector": ">"
@@ -167,18 +167,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 43
+                                    "column": 47
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 45
+                                    "column": 49
                                 }
                             },
-                            "start": 93,
-                            "end": 95,
+                            "start": 97,
+                            "end": 99,
                             "range": [
-                                93,
-                                95
+                                97,
+                                99
                             ],
                             "value": "li",
                             "selector": "li"
@@ -188,18 +188,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 50
+                                    "column": 54
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 54
+                                    "column": 58
                                 }
                             },
-                            "start": 100,
-                            "end": 104,
+                            "start": 104,
+                            "end": 108,
                             "range": [
-                                100,
-                                104
+                                104,
+                                108
                             ],
                             "value": "baz",
                             "selector": ".baz"
@@ -209,18 +209,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 59
+                                    "column": 64
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 62
+                                    "column": 67
                                 }
                             },
-                            "start": 109,
-                            "end": 112,
+                            "start": 114,
+                            "end": 117,
                             "range": [
-                                109,
-                                112
+                                114,
+                                117
                             ],
                             "value": ">>>",
                             "selector": ">>>"
@@ -230,18 +230,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 67
+                                    "column": 73
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 70
+                                    "column": 76
                                 }
                             },
-                            "start": 117,
-                            "end": 120,
+                            "start": 123,
+                            "end": 126,
                             "range": [
-                                117,
-                                120
+                                123,
+                                126
                             ],
                             "value": "qux",
                             "selector": "qux"
@@ -278,18 +278,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 9
+                    "column": 10
                 },
                 "end": {
                     "line": 5,
-                    "column": 14
+                    "column": 15
                 }
             },
-            "start": 59,
-            "end": 64,
+            "start": 60,
+            "end": 65,
             "range": [
-                59,
-                64
+                60,
+                65
             ],
             "text": "1"
         },
@@ -298,18 +298,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 15
+                    "column": 17
                 },
                 "end": {
                     "line": 5,
-                    "column": 20
+                    "column": 22
                 }
             },
-            "start": 65,
-            "end": 70,
+            "start": 67,
+            "end": 72,
             "range": [
-                65,
-                70
+                67,
+                72
             ],
             "text": "2"
         },
@@ -318,18 +318,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 23
+                    "column": 25
                 },
                 "end": {
                     "line": 5,
-                    "column": 28
+                    "column": 30
                 }
             },
-            "start": 73,
-            "end": 78,
+            "start": 75,
+            "end": 80,
             "range": [
-                73,
-                78
+                75,
+                80
             ],
             "text": "3"
         },
@@ -338,18 +338,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 32
+                    "column": 35
                 },
                 "end": {
                     "line": 5,
-                    "column": 37
+                    "column": 40
                 }
             },
-            "start": 82,
-            "end": 87,
+            "start": 85,
+            "end": 90,
             "range": [
-                82,
-                87
+                85,
+                90
             ],
             "text": "4"
         },
@@ -358,18 +358,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 38
+                    "column": 42
                 },
                 "end": {
                     "line": 5,
-                    "column": 43
+                    "column": 47
                 }
             },
-            "start": 88,
-            "end": 93,
+            "start": 92,
+            "end": 97,
             "range": [
-                88,
-                93
+                92,
+                97
             ],
             "text": "5"
         },
@@ -378,18 +378,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 45
+                    "column": 49
                 },
                 "end": {
                     "line": 5,
-                    "column": 50
+                    "column": 54
                 }
             },
-            "start": 95,
-            "end": 100,
+            "start": 99,
+            "end": 104,
             "range": [
-                95,
-                100
+                99,
+                104
             ],
             "text": "6"
         },
@@ -398,18 +398,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 54
+                    "column": 59
                 },
                 "end": {
                     "line": 5,
-                    "column": 59
+                    "column": 64
                 }
             },
-            "start": 104,
-            "end": 109,
+            "start": 109,
+            "end": 114,
             "range": [
-                104,
-                109
+                109,
+                114
             ],
             "text": "7"
         },
@@ -418,18 +418,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 62
+                    "column": 68
                 },
                 "end": {
                     "line": 5,
-                    "column": 67
+                    "column": 73
                 }
             },
-            "start": 112,
-            "end": 117,
+            "start": 118,
+            "end": 123,
             "range": [
-                112,
-                117
+                118,
+                123
             ],
             "text": "8"
         },
@@ -438,18 +438,18 @@
             "loc": {
                 "start": {
                     "line": 5,
-                    "column": 70
+                    "column": 76
                 },
                 "end": {
                     "line": 5,
-                    "column": 75
+                    "column": 81
                 }
             },
-            "start": 120,
-            "end": 125,
+            "start": 126,
+            "end": 131,
             "range": [
-                120,
-                125
+                126,
+                131
             ],
             "text": "9"
         }

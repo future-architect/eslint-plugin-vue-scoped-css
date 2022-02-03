@@ -30,14 +30,14 @@
                 },
                 "end": {
                     "line": 5,
-                    "column": 29
+                    "column": 31
                 }
             },
             "start": 61,
-            "end": 79,
+            "end": 81,
             "range": [
                 61,
-                79
+                81
             ],
             "value": ":not",
             "nodes": [
@@ -46,18 +46,18 @@
                     "loc": {
                         "start": {
                             "line": 5,
-                            "column": 21
+                            "column": 22
                         },
                         "end": {
                             "line": 5,
-                            "column": 23
+                            "column": 24
                         }
                     },
-                    "start": 71,
-                    "end": 73,
+                    "start": 72,
+                    "end": 74,
                     "range": [
-                        71,
-                        73
+                        72,
+                        74
                     ],
                     "nodes": [
                         {
@@ -65,18 +65,18 @@
                             "loc": {
                                 "start": {
                                     "line": 5,
-                                    "column": 21
+                                    "column": 22
                                 },
                                 "end": {
                                     "line": 5,
-                                    "column": 23
+                                    "column": 24
                                 }
                             },
-                            "start": 71,
-                            "end": 73,
+                            "start": 72,
+                            "end": 74,
                             "range": [
-                                71,
-                                73
+                                72,
+                                74
                             ],
                             "value": "b",
                             "selector": ".b"
