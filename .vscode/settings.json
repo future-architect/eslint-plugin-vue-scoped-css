@@ -19,7 +19,6 @@
         "source.fixAll.stylelint": true
     },
     "editor.codeActionsOnSaveTimeout": 7500,
-    "stylelint.customSyntax": "stylelint-plugin-stylus/custom-syntax",
     "stylelint.validate": [
         "css",
         "html",
