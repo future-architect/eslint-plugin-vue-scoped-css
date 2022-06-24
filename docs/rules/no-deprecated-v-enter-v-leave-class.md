@@ -15,7 +15,7 @@ description: "disallow v-enter and v-leave classes."
 This rule reports the use of the `v-enter` and `v-leave` classes renamed in Vue 3 as an error.  
 You should change it to use the `v-enter-from` and `v-leave-from` classes instead.
 
-See [Migration from Vue 2 - Transition Class Change] for more details.
+See [Vue 3 Migration Guide - Transition Class Change] for more details.
 
 <eslint-code-block :rules="{'vue-scoped-css/no-deprecated-v-enter-v-leave-class': ['error']}">
 
@@ -101,9 +101,9 @@ Nothing.
 
 ## :books: Further reading
 
-- [Migration from Vue 2 - Transition Class Change]
+- [Vue 3 Migration Guide - Transition Class Change]
 
-[Migration from Vue 2 - Transition Class Change]: https://v3.vuejs.org/guide/migration/transition.html
+[Vue 3 Migration Guide - Transition Class Change]: https://v3-migration.vuejs.org/breaking-changes/transition.html
 
 ## Implementation
 
