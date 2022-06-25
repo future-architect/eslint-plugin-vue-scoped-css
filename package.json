@@ -50,7 +50,7 @@
         "@ota-meshi/eslint-plugin": "^0.10.0",
         "@types/eslint": "^8.0.0",
         "@types/eslint-visitor-keys": "^1.0.0",
-        "@types/estree": "^0.0.51",
+        "@types/estree": "^0.0.52",
         "@types/lodash": "^4.14.158",
         "@types/mocha": "^9.0.0",
         "@types/semver": "^7.3.1",
