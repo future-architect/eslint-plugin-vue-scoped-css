@@ -1,6 +1,6 @@
 {
-    "name": "eslint-plugin-internal-rules",
-    "version": "0.2.0",
-    "private": true,
-    "main": "index.js"
+  "name": "eslint-plugin-internal-rules",
+  "version": "0.2.0",
+  "private": true,
+  "main": "index.js"
 }

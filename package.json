@@ -1,122 +1,122 @@
 {
-    "name": "eslint-plugin-vue-scoped-css",
-    "version": "2.2.0",
-    "description": "ESLint plugin for Scoped CSS in Vue.js",
-    "main": "dist/index.js",
-    "scripts": {
-        "prebuild": "npm run -s clean",
-        "build": "tsc --project ./tsconfig.build.json",
-        "clean": "rimraf .nyc_output dist coverage",
-        "lint": "eslint . --ext .js,.vue,.ts,.json",
-        "eslint-fix": "eslint . --ext .js,.vue,.ts,.json --fix",
-        "pretest": "npm run build",
-        "test:base": "mocha --require ts-node/register \"tests/**/*.ts\" --reporter dot --timeout 60000",
-        "test": "npm run test:nyc",
-        "test:nyc": "nyc --reporter=lcov npm run test:base",
-        "test:debug": "mocha --require ts-node/register/transpile-only \"tests/**/*.ts\" --reporter dot",
-        "test:watch": "npm run test:base -- --watch",
-        "update": "ts-node ./tools/update.ts && npm run eslint-fix && npm run test:nyc",
-        "new": "ts-node ./tools/new-rule.ts",
-        "docs:watch": "vuepress dev --debug docs",
-        "docs:build": "npm run build && vuepress build docs --no-cache",
-        "preversion": "npm test && npm run update && git add .",
-        "version": "npm run lint -- --fix && git add .",
-        "updatefixture": "cross-env UPDATE_FIXTURE=\"true\" npm run test:base"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/future-architect/eslint-plugin-vue-scoped-css.git"
-    },
-    "author": "Yosuke Ota",
-    "funding": "https://github.com/sponsors/ota-meshi",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues"
-    },
-    "homepage": "https://future-architect.github.io/eslint-plugin-vue-scoped-css/",
-    "keywords": [
-        "eslint",
-        "eslintplugin",
-        "eslint-plugin",
-        "vue",
-        "style",
-        "scoped",
-        "css"
+  "name": "eslint-plugin-vue-scoped-css",
+  "version": "2.2.0",
+  "description": "ESLint plugin for Scoped CSS in Vue.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "prebuild": "npm run -s clean",
+    "build": "tsc --project ./tsconfig.build.json",
+    "clean": "rimraf .nyc_output dist coverage",
+    "lint": "eslint . --ext .js,.vue,.ts,.json",
+    "eslint-fix": "eslint . --ext .js,.vue,.ts,.json --fix",
+    "pretest": "npm run build",
+    "test:base": "mocha --require ts-node/register \"tests/**/*.ts\" --reporter dot --timeout 60000",
+    "test": "npm run test:nyc",
+    "test:nyc": "nyc --reporter=lcov npm run test:base",
+    "test:debug": "mocha --require ts-node/register/transpile-only \"tests/**/*.ts\" --reporter dot",
+    "test:watch": "npm run test:base -- --watch",
+    "update": "ts-node ./tools/update.ts && npm run eslint-fix && npm run test:nyc",
+    "new": "ts-node ./tools/new-rule.ts",
+    "docs:watch": "vuepress dev --debug docs",
+    "docs:build": "npm run build && vuepress build docs --no-cache",
+    "preversion": "npm test && npm run update && git add .",
+    "version": "npm run lint -- --fix && git add .",
+    "updatefixture": "cross-env UPDATE_FIXTURE=\"true\" npm run test:base"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/future-architect/eslint-plugin-vue-scoped-css.git"
+  },
+  "author": "Yosuke Ota",
+  "funding": "https://github.com/sponsors/ota-meshi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/future-architect/eslint-plugin-vue-scoped-css/issues"
+  },
+  "homepage": "https://future-architect.github.io/eslint-plugin-vue-scoped-css/",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "vue",
+    "style",
+    "scoped",
+    "css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@ota-meshi/eslint-plugin": "^0.11.0",
+    "@types/eslint": "^8.0.0",
+    "@types/eslint-visitor-keys": "^1.0.0",
+    "@types/estree": "^0.0.52",
+    "@types/lodash": "^4.14.158",
+    "@types/mocha": "^9.0.0",
+    "@types/semver": "^7.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-eslint-plugin": "^4.0.0",
+    "eslint-plugin-internal-rules": "file:./eslint-internal-rules",
+    "eslint-plugin-json-schema-validator": "^3.0.0",
+    "eslint-plugin-jsonc": "^2.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-regexp": "^1.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "eslint-plugin-vue-scoped-css": "^2.0.0",
+    "eslint-plugin-yml": "^1.0.0",
+    "mocha": "^10.0.0",
+    "nyc": "^15.1.0",
+    "pack": "^2.2.0",
+    "prettier": "^2.0.5",
+    "raw-loader": "^4.0.1",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.2",
+    "stylelint": "^14.9.1",
+    "stylelint-config-recommended-vue": "^1.1.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-stylus": "^0.16.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.1.3",
+    "vue-eslint-editor": "^1.1.0",
+    "vue-eslint-parser": "^9.0.0",
+    "vuepress": "^1.8.2"
+  },
+  "dependencies": {
+    "eslint-utils": "^3.0.0",
+    "lodash": "^4.17.21",
+    "postcss": "^8.4.6",
+    "postcss-safe-parser": "^6.0.0",
+    "postcss-scss": "^4.0.3",
+    "postcss-selector-parser": "^6.0.9",
+    "postcss-styl": "^0.11.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=5.0.0",
+    "vue-eslint-parser": ">=7.1.0"
+  },
+  "nyc": {
+    "include": [
+      "lib/*.ts",
+      "lib/**/*.ts"
     ],
-    "files": [
-        "dist"
+    "extension": [
+      ".ts"
     ],
-    "devDependencies": {
-        "@ota-meshi/eslint-plugin": "^0.11.0",
-        "@types/eslint": "^8.0.0",
-        "@types/eslint-visitor-keys": "^1.0.0",
-        "@types/estree": "^0.0.52",
-        "@types/lodash": "^4.14.158",
-        "@types/mocha": "^9.0.0",
-        "@types/semver": "^7.3.1",
-        "@typescript-eslint/eslint-plugin": "^5.0.0",
-        "@typescript-eslint/parser": "^5.0.0",
-        "cross-env": "^7.0.2",
-        "eslint": "^8.0.0",
-        "eslint-config-prettier": "^8.0.0",
-        "eslint-plugin-eslint-comments": "^3.2.0",
-        "eslint-plugin-eslint-plugin": "^4.0.0",
-        "eslint-plugin-internal-rules": "file:./eslint-internal-rules",
-        "eslint-plugin-json-schema-validator": "^3.0.0",
-        "eslint-plugin-jsonc": "^2.0.0",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "eslint-plugin-regexp": "^1.0.0",
-        "eslint-plugin-vue": "^9.0.0",
-        "eslint-plugin-vue-scoped-css": "^2.0.0",
-        "eslint-plugin-yml": "^1.0.0",
-        "mocha": "^10.0.0",
-        "nyc": "^15.1.0",
-        "pack": "^2.2.0",
-        "prettier": "^2.0.5",
-        "raw-loader": "^4.0.1",
-        "rimraf": "^3.0.2",
-        "semver": "^7.3.2",
-        "stylelint": "^14.9.1",
-        "stylelint-config-recommended-vue": "^1.1.0",
-        "stylelint-config-standard": "^26.0.0",
-        "stylelint-stylus": "^0.16.1",
-        "ts-node": "^10.0.0",
-        "typescript": "^4.1.3",
-        "vue-eslint-editor": "^1.1.0",
-        "vue-eslint-parser": "^9.0.0",
-        "vuepress": "^1.8.2"
-    },
-    "dependencies": {
-        "eslint-utils": "^3.0.0",
-        "lodash": "^4.17.21",
-        "postcss": "^8.4.6",
-        "postcss-safe-parser": "^6.0.0",
-        "postcss-scss": "^4.0.3",
-        "postcss-selector-parser": "^6.0.9",
-        "postcss-styl": "^0.11.0"
-    },
-    "peerDependencies": {
-        "eslint": ">=5.0.0",
-        "vue-eslint-parser": ">=7.1.0"
-    },
-    "nyc": {
-        "include": [
-            "lib/*.ts",
-            "lib/**/*.ts"
-        ],
-        "extension": [
-            ".ts"
-        ],
-        "require": [
-            "ts-node/register"
-        ],
-        "exclude": [
-            "**/*.spec.js",
-            "tests/**/*.js"
-        ]
-    },
-    "engines": {
-        "node": "^12.22 || ^14.17 || >=16"
-    }
+    "require": [
+      "ts-node/register"
+    ],
+    "exclude": [
+      "**/*.spec.js",
+      "tests/**/*.js"
+    ]
+  },
+  "engines": {
+    "node": "^12.22 || ^14.17 || >=16"
+  }
 }
