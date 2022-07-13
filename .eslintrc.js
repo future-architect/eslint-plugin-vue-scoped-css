@@ -7,7 +7,6 @@ module.exports = {
     sourceType: "script",
     ecmaVersion: 2018,
   },
-  plugins: ["internal-rules"],
   extends: [
     "plugin:@ota-meshi/recommended",
     "plugin:@ota-meshi/+node",
@@ -43,14 +42,13 @@ module.exports = {
       files: ["lib/rules/**"],
       rules: {
         "eslint-plugin/report-message-format": ["error", "[^a-z].*\\.$"],
-        "internal-rules/require-meta-docs-url": [
+        "eslint-plugin/require-meta-docs-url": [
           "warn",
           {
             pattern:
               "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/{{name}}.html",
           },
         ],
-        "eslint-plugin/require-meta-docs-url": "off",
         "eslint-plugin/require-meta-has-suggestions": "off", // false positive
 
         "@typescript-eslint/naming-convention": [
