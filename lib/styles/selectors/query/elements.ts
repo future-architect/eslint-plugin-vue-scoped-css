@@ -1,8 +1,8 @@
-import type { AST } from "../../../types"
+import type { AST } from "../../../types";
 import {
-    isTransitionElement,
-    isTransitionGroupElement,
-} from "../../../utils/templates"
+  isTransitionElement,
+  isTransitionGroupElement,
+} from "../../../utils/templates";
 
 /**
  * Checks whether the given element is the root element.
@@ -10,11 +10,11 @@ import {
  * @returns {boolean} `true` if the given element is the root element.
  */
 export function isRootElement(
-    element: AST.VElement | AST.VDocumentFragment,
+  element: AST.VElement | AST.VDocumentFragment
 ): element is AST.VElement & {
-    parent: AST.VDocumentFragment
+  parent: AST.VDocumentFragment;
 } {
-    return element.type === "VElement" && isRootTemplate(element.parent)
+  return element.type === "VElement" && isRootTemplate(element.parent);
 }
 
 /**
@@ -23,16 +23,16 @@ export function isRootElement(
  * @returns {boolean} `true` if the given element is the root `<template>` element.
  */
 function isRootTemplate(
-    element: AST.VElement | AST.VDocumentFragment,
+  element: AST.VElement | AST.VDocumentFragment
 ): element is AST.VElement & {
-    name: "template"
-    parent: AST.VDocumentFragment
+  name: "template";
+  parent: AST.VDocumentFragment;
 } {
-    return (
-        element.type === "VElement" &&
-        element.name === "template" &&
-        element.parent.type === "VDocumentFragment"
-    )
+  return (
+    element.type === "VElement" &&
+    element.name === "template" &&
+    element.parent.type === "VDocumentFragment"
+  );
 }
 
 /**
@@ -41,12 +41,12 @@ function isRootTemplate(
  * @returns {boolean} `true` if the given element is the skip element.
  */
 export function isSkipElement(
-    element: AST.VElement | AST.VDocumentFragment,
+  element: AST.VElement | AST.VDocumentFragment
 ): boolean {
-    return (
-        element.type === "VElement" &&
-        (element.name === "template" || isTransitionElement(element))
-    )
+  return (
+    element.type === "VElement" &&
+    (element.name === "template" || isTransitionElement(element))
+  );
 }
 
 /**
@@ -55,9 +55,9 @@ export function isSkipElement(
  * @returns {boolean} `true` if the given element is the slot element.
  */
 export function isSlotElement(
-    element: AST.VElement | AST.VDocumentFragment,
+  element: AST.VElement | AST.VDocumentFragment
 ): element is AST.VElement & { name: "slot" } {
-    return element.type === "VElement" && element.name === "slot"
+  return element.type === "VElement" && element.name === "slot";
 }
 
 /**
@@ -66,19 +66,19 @@ export function isSlotElement(
  * @returns {VElement} the wrapper `<transition>` element.
  */
 export function getWrapperTransition(
-    element: AST.VElement,
+  element: AST.VElement
 ): AST.VElement | null {
-    let parent: AST.VElement | AST.VDocumentFragment | null = element.parent
-    while (parent.type === "VElement") {
-        if (isTransitionElement(parent) || isTransitionGroupElement(parent)) {
-            return parent
-        }
-        if (!isSlotElement(parent) && !isSkipElement(parent)) {
-            return null
-        }
-        parent = parent.parent
+  let parent: AST.VElement | AST.VDocumentFragment | null = element.parent;
+  while (parent.type === "VElement") {
+    if (isTransitionElement(parent) || isTransitionGroupElement(parent)) {
+      return parent;
     }
-    return null
+    if (!isSlotElement(parent) && !isSkipElement(parent)) {
+      return null;
+    }
+    parent = parent.parent;
+  }
+  return null;
 }
 
 /**
@@ -87,7 +87,7 @@ export function getWrapperTransition(
  * @returns {VElement} `true` the given element is wrapped in the `<transition>` or `<transition-group>`.
  */
 export function isElementWrappedInTransition(element: AST.VElement): boolean {
-    return Boolean(getWrapperTransition(element))
+  return Boolean(getWrapperTransition(element));
 }
 
 /**
@@ -96,15 +96,15 @@ export function isElementWrappedInTransition(element: AST.VElement): boolean {
  * @returns {VElement} the parent element.
  */
 export function getParentElement(element: AST.VElement): AST.VElement | null {
-    if (isRootElement(element)) {
-        return null
+  if (isRootElement(element)) {
+    return null;
+  }
+  let parent: AST.VElement | AST.VDocumentFragment | null = element.parent;
+  while (parent && (isSkipElement(parent) || isSlotElement(parent))) {
+    if (isRootElement(parent)) {
+      return null;
     }
-    let parent: AST.VElement | AST.VDocumentFragment | null = element.parent
-    while (parent && (isSkipElement(parent) || isSlotElement(parent))) {
-        if (isRootElement(parent)) {
-            return null
-        }
-        parent = parent.parent
-    }
-    return parent?.type === "VElement" ? parent : null
+    parent = parent.parent;
+  }
+  return parent?.type === "VElement" ? parent : null;
 }

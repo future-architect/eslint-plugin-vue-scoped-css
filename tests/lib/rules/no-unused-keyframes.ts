@@ -1,17 +1,17 @@
-import { RuleTester } from "eslint"
-import rule = require("../../../lib/rules/no-unused-keyframes")
+import { RuleTester } from "eslint";
+import rule = require("../../../lib/rules/no-unused-keyframes");
 
 const tester = new RuleTester({
-    parser: require.resolve("vue-eslint-parser"),
-    parserOptions: {
-        ecmaVersion: 2019,
-        sourceType: "module",
-    },
-})
+  parser: require.resolve("vue-eslint-parser"),
+  parserOptions: {
+    ecmaVersion: 2019,
+    sourceType: "module",
+  },
+});
 
 tester.run("no-unused-keyframes", rule as any, {
-    valid: [
-        `
+  valid: [
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped>
         .item {
@@ -21,7 +21,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped>
         .item {
@@ -31,7 +31,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="scss">
         .item {
@@ -50,7 +50,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="stylus">
         .item
@@ -69,7 +69,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="scss">
         .item {
@@ -79,7 +79,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="stylus">
         .item
@@ -88,7 +88,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="stylus">
         .item
@@ -97,7 +97,7 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped lang="scss">
         .item {
@@ -109,10 +109,10 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
-    ],
-    invalid: [
-        {
-            code: `
+  ],
+  invalid: [
+    {
+      code: `
             <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
             <style scoped>
             .item {
@@ -122,19 +122,19 @@ tester.run("no-unused-keyframes", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { params: "unused" },
-                    line: 7,
-                    column: 24,
-                    endLine: 7,
-                    endColumn: 30,
-                },
-            ],
-        },
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { params: "unused" },
+          line: 7,
+          column: 24,
+          endLine: 7,
+          endColumn: 30,
+        },
+      ],
+    },
+    {
+      code: `
             <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
             <style scoped lang="scss">
             .item {
@@ -144,19 +144,19 @@ tester.run("no-unused-keyframes", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { params: "fadein" },
-                    line: 7,
-                    column: 24,
-                    endLine: 7,
-                    endColumn: 30,
-                },
-            ],
-        },
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { params: "fadein" },
+          line: 7,
+          column: 24,
+          endLine: 7,
+          endColumn: 30,
+        },
+      ],
+    },
+    {
+      code: `
             <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
             <style scoped lang="stylus">
             .item
@@ -166,16 +166,16 @@ tester.run("no-unused-keyframes", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { params: "fadein" },
-                    line: 7,
-                    column: 24,
-                    endLine: 7,
-                    endColumn: 30,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { params: "fadein" },
+          line: 7,
+          column: 24,
+          endLine: 7,
+          endColumn: 30,
         },
-    ],
-})
+      ],
+    },
+  ],
+});

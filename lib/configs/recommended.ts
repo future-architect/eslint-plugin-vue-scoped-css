@@ -1,6 +1,6 @@
-import { collectRules } from "../utils/rules"
+import { collectRules } from "../utils/rules";
 
 export = {
-    extends: require.resolve("./base"),
-    rules: collectRules("recommended"),
-}
+  extends: require.resolve("./base"),
+  rules: collectRules("recommended"),
+};

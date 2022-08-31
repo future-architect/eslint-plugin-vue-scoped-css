@@ -1,3 +1,3 @@
-import postcss from "postcss"
+import postcss from "postcss";
 
-export default postcss.parse
+export default postcss.parse;

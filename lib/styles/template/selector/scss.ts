@@ -1,16 +1,16 @@
 import type {
-    VCSSIDSelector,
-    VCSSClassSelector,
-    VCSSTypeSelector,
-} from "../../ast"
-import type { Interpolation } from "../interpolation"
-import { processText } from "../scss/util"
+  VCSSIDSelector,
+  VCSSClassSelector,
+  VCSSTypeSelector,
+} from "../../ast";
+import type { Interpolation } from "../interpolation";
+import { processText } from "../scss/util";
 
 /**
  * Returns the template elements that the given selector node define.
  */
 export default function (
-    node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector,
+  node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector
 ): (Interpolation | string)[] {
-    return processText(node.value)
+  return processText(node.value);
 }

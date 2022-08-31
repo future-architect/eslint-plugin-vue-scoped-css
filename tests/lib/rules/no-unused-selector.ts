@@ -1,17 +1,17 @@
-import { RuleTester } from "eslint"
-import rule = require("../../../lib/rules/no-unused-selector")
+import { RuleTester } from "eslint";
+import rule = require("../../../lib/rules/no-unused-selector");
 
 const tester = new RuleTester({
-    parser: require.resolve("vue-eslint-parser"),
-    parserOptions: {
-        ecmaVersion: 2019,
-        sourceType: "module",
-    },
-})
+  parser: require.resolve("vue-eslint-parser"),
+  parserOptions: {
+    ecmaVersion: 2019,
+    sourceType: "module",
+  },
+});
 
 tester.run("no-unused-selector", rule as any, {
-    valid: [
-        `
+  valid: [
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -20,7 +20,7 @@ tester.run("no-unused-selector", rule as any, {
         div {color:red;}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -29,7 +29,7 @@ tester.run("no-unused-selector", rule as any, {
         div {color:red;}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -40,7 +40,7 @@ tester.run("no-unused-selector", rule as any, {
           color red
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -48,7 +48,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo, div {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"><div id="bar"></div></div></div>
         </template>
@@ -56,7 +56,7 @@ tester.run("no-unused-selector", rule as any, {
         div.foo /* comment */ #bar {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div>
                 <li class="foo"/>
@@ -66,8 +66,8 @@ tester.run("no-unused-selector", rule as any, {
         div > .foo {}
         </style>
         `,
-        // nesting
-        `
+    // nesting
+    `
         <template>
             <div>
                 <div>
@@ -79,7 +79,7 @@ tester.run("no-unused-selector", rule as any, {
         div { & > .foo {} }
         </style>
         `,
-        `
+    `
         <template>
             <div class="foo">
                 <ul>
@@ -91,8 +91,8 @@ tester.run("no-unused-selector", rule as any, {
         .foo { @nest .bar&-baz {} }
         </style>
         `,
-        // expressions
-        `
+    // expressions
+    `
         <template>
             <div><div :class="'foo bar'"/></div>
         </template>
@@ -100,7 +100,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div :class="['foo bar']"/></div>
         </template>
@@ -108,7 +108,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div :class="['foo', 'bar']"/></div>
         </template>
@@ -116,7 +116,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div :class="{foo, bar: b}"/></div>
         </template>
@@ -124,7 +124,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div :class="{'foo': f, 'bar': b}"/></div>
         </template>
@@ -132,9 +132,9 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-        // identifier
-        // data
-        `
+    // identifier
+    // data
+    `
         <template>
             <div><div :class="classes"/></div>
         </template>
@@ -151,7 +151,7 @@ tester.run("no-unused-selector", rule as any, {
         }
         </script>
         `,
-        `
+    `
         <template>
             <div><div :class="classes"/></div>
         </template>
@@ -168,7 +168,7 @@ tester.run("no-unused-selector", rule as any, {
         })
         </script>
         `,
-        `
+    `
         <template>
             <div><div :class="classes"/></div>
         </template>
@@ -185,8 +185,8 @@ tester.run("no-unused-selector", rule as any, {
         })
         </script>
         `,
-        // computed
-        `
+    // computed
+    `
         <template>
             <div><div :class="classes"/></div>
         </template>
@@ -203,9 +203,9 @@ tester.run("no-unused-selector", rule as any, {
         }
         </script>
         `,
-        // unknown
-        // complex script
-        `
+    // unknown
+    // complex script
+    `
         <template>
             <div><div :class="data.classes"/></div>
         </template>
@@ -213,8 +213,8 @@ tester.run("no-unused-selector", rule as any, {
         .foo {}
         </style>
         `,
-        // complex selector
-        `
+    // complex selector
+    `
         <template>
             <div><div class="b"/></div>
         </template>
@@ -222,8 +222,8 @@ tester.run("no-unused-selector", rule as any, {
         :not(.a) {}
         </style>
         `,
-        // The root element is considered to match if it matches at least one Class Selector.
-        `
+    // The root element is considered to match if it matches at least one Class Selector.
+    `
         <template>
             <div class="foo"/>
         </template>
@@ -231,8 +231,8 @@ tester.run("no-unused-selector", rule as any, {
         .foo.bar {}
         </style>
         `,
-        // apply parent classes
-        `
+    // apply parent classes
+    `
         <template>
             <div/>
         </template>
@@ -240,8 +240,8 @@ tester.run("no-unused-selector", rule as any, {
         .foo > div {}
         </style>
         `,
-        // transition
-        `
+    // transition
+    `
         <template>
             <transition>
                 <div/>
@@ -258,7 +258,7 @@ tester.run("no-unused-selector", rule as any, {
         .v-leave-to {}
         </style>
         `,
-        `
+    `
         <template>
             <transition name="foo">
                 <div/>
@@ -275,7 +275,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo-leave-to {}
         </style>
         `,
-        `
+    `
         <template>
             <!-- transition + slot -->
             <transition name="foo">
@@ -293,7 +293,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo-leave-to {}
         </style>
         `,
-        `
+    `
         <script></script>
         <style scoped lang="scss">
         .no-template {
@@ -301,10 +301,10 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
-        // options
-        // ignoreBEMModifier
-        {
-            code: `
+    // options
+    // ignoreBEMModifier
+    {
+      code: `
             <template>
                 <div class="foo"/>
             </template>
@@ -312,11 +312,11 @@ tester.run("no-unused-selector", rule as any, {
             .foo--bar {}
             </style>
             `,
-            options: [{ ignoreBEMModifier: true }],
-        },
-        // captureClassesFromDoc
-        {
-            code: `
+      options: [{ ignoreBEMModifier: true }],
+    },
+    // captureClassesFromDoc
+    {
+      code: `
             <template>
                 <div>
                     <a class="button star"></a>
@@ -340,16 +340,16 @@ tester.run("no-unused-selector", rule as any, {
                 }
             }
             </style>`,
-            options: [
-                {
-                    captureClassesFromDoc: [
-                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
-                    ],
-                },
-            ],
-        },
+      options: [
         {
-            code: `
+          captureClassesFromDoc: [
+            "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+          ],
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div></div>
             </template>
@@ -362,17 +362,17 @@ tester.run("no-unused-selector", rule as any, {
                 color: red;
             }
             </style>`,
-            options: [
-                {
-                    ignoreBEMModifier: true,
-                    captureClassesFromDoc: [
-                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
-                    ],
-                },
-            ],
+      options: [
+        {
+          ignoreBEMModifier: true,
+          captureClassesFromDoc: [
+            "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+          ],
         },
-        // ignore nodes
-        `
+      ],
+    },
+    // ignore nodes
+    `
         <template>
             <div><div :class="data.classes"/></div>
         </template>
@@ -383,8 +383,8 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
-        // not scoped
-        `
+    // not scoped
+    `
         <template>
             <div></div>
         </template>
@@ -393,8 +393,8 @@ tester.run("no-unused-selector", rule as any, {
         </style>
         `,
 
-        // deep
-        `
+    // deep
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -402,7 +402,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo ::v-deep #a {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -410,8 +410,8 @@ tester.run("no-unused-selector", rule as any, {
         .foo >>> #a {}
         </style>
         `,
-        // Vue.js 3.x
-        `
+    // Vue.js 3.x
+    `
         <template>
             <div><div class="foo"/></div>
         </template>
@@ -419,7 +419,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo ::v-deep(#a) {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"><slot></slot></div></div>
         </template>
@@ -427,7 +427,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo ::v-slotted(.bar > .baz) {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo"><slot></slot></div></div>
         </template>
@@ -435,7 +435,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo ::v-slotted(.bar > .baz) .qux {}
         </style>
         `,
-        `
+    `
         <template>
             <div><div class="foo" /></div>
         </template>
@@ -443,8 +443,8 @@ tester.run("no-unused-selector", rule as any, {
         .unknown ::v-global(.bar > .baz) .qux {}
         </style>
         `,
-        // with v-for
-        `
+    // with v-for
+    `
         <template>
             <div>
                 <div v-for="item in list" class="foo">{{ item }}</div>
@@ -456,7 +456,7 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template>
             <div>
                 <template v-for="item in list" >
@@ -471,10 +471,10 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
-    ],
-    invalid: [
-        {
-            code: `
+  ],
+  invalid: [
+    {
+      code: `
             <template>
                 <li class="bar"/>
             </template>
@@ -483,27 +483,27 @@ tester.run("no-unused-selector", rule as any, {
             div {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 6,
-                    column: 13,
-                    endLine: 6,
-                    endColumn: 17,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "div" },
-                    line: 7,
-                    column: 13,
-                    endLine: 7,
-                    endColumn: 16,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 6,
+          column: 13,
+          endLine: 6,
+          endColumn: 17,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div" },
+          line: 7,
+          column: 13,
+          endLine: 7,
+          endColumn: 16,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <li class="bar"/>
             </template>
@@ -512,27 +512,27 @@ tester.run("no-unused-selector", rule as any, {
             div {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 6,
-                    column: 13,
-                    endLine: 6,
-                    endColumn: 17,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "div" },
-                    line: 7,
-                    column: 13,
-                    endLine: 7,
-                    endColumn: 16,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 6,
+          column: 13,
+          endLine: 6,
+          endColumn: 17,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div" },
+          line: 7,
+          column: 13,
+          endLine: 7,
+          endColumn: 16,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <li class="bar"/>
             </template>
@@ -543,27 +543,27 @@ tester.run("no-unused-selector", rule as any, {
               color red;
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 6,
-                    column: 13,
-                    endLine: 6,
-                    endColumn: 17,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "div" },
-                    line: 8,
-                    column: 13,
-                    endLine: 8,
-                    endColumn: 16,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 6,
+          column: 13,
+          endLine: 6,
+          endColumn: 17,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div" },
+          line: 8,
+          column: 13,
+          endLine: 8,
+          endColumn: 16,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <li class="bar"/>
             </template>
@@ -571,27 +571,27 @@ tester.run("no-unused-selector", rule as any, {
             .foo, /* comment */ div {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 6,
-                    column: 13,
-                    endLine: 6,
-                    endColumn: 17,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "div" },
-                    line: 6,
-                    column: 33,
-                    endLine: 6,
-                    endColumn: 36,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 6,
+          column: 13,
+          endLine: 6,
+          endColumn: 17,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div" },
+          line: 6,
+          column: 33,
+          endLine: 6,
+          endColumn: 36,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div><ul>
                     <li class="bar"/>
@@ -603,35 +603,35 @@ tester.run("no-unused-selector", rule as any, {
             div > li.bar {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 8,
-                    column: 19,
-                    endLine: 8,
-                    endColumn: 23,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "li.foo" },
-                    line: 9,
-                    column: 19,
-                    endLine: 9,
-                    endColumn: 25,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "div>li.bar" },
-                    line: 10,
-                    column: 13,
-                    endLine: 10,
-                    endColumn: 25,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 8,
+          column: 19,
+          endLine: 8,
+          endColumn: 23,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "li.foo" },
+          line: 9,
+          column: 19,
+          endLine: 9,
+          endColumn: 25,
+        },
+        {
+          messageId: "unused",
+          data: { selector: "div>li.bar" },
+          line: 10,
+          column: 13,
+          endLine: 10,
+          endColumn: 25,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div><ul>
                     <li class="bar"/>
@@ -645,35 +645,35 @@ tester.run("no-unused-selector", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: "div>li.bar" },
-                    line: 8,
-                    column: 13,
-                    endLine: 11,
-                    endColumn: 27,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo" },
-                    line: 9,
-                    column: 21,
-                    endLine: 9,
-                    endColumn: 25,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: "li.foo" },
-                    line: 10,
-                    column: 21,
-                    endLine: 10,
-                    endColumn: 27,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: "div>li.bar" },
+          line: 8,
+          column: 13,
+          endLine: 11,
+          endColumn: 27,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".foo" },
+          line: 9,
+          column: 21,
+          endLine: 9,
+          endColumn: 25,
+        },
+        {
+          messageId: "unused",
+          data: { selector: "li.foo" },
+          line: 10,
+          column: 21,
+          endLine: 10,
+          endColumn: 27,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div class="foo">
                     <ul>
@@ -685,19 +685,19 @@ tester.run("no-unused-selector", rule as any, {
             .foo { @nest .bar&-baz {} }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".bar.foo-baz" },
-                    line: 10,
-                    column: 26,
-                    endLine: 10,
-                    endColumn: 35,
-                },
-            ],
-        },
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".bar.foo-baz" },
+          line: 10,
+          column: 26,
+          endLine: 10,
+          endColumn: 35,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <div class="a"></div>
@@ -708,21 +708,21 @@ tester.run("no-unused-selector", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: "div.b:not(.a)" },
-                    line: 8,
-                    column: 19,
-                    endLine: 8,
-                    endColumn: 32,
-                },
-            ],
-        },
-        // options
-        // ignoreBEMModifier
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div.b:not(.a)" },
+          line: 8,
+          column: 19,
+          endLine: 8,
+          endColumn: 32,
+        },
+      ],
+    },
+    // options
+    // ignoreBEMModifier
+    {
+      code: `
             <template>
                 <div>
                     <div class="foo"/>
@@ -732,21 +732,21 @@ tester.run("no-unused-selector", rule as any, {
             .foo--bar--baz {}
             </style>
             `,
-            options: [{ ignoreBEMModifier: true }],
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".foo--bar--baz" },
-                    line: 8,
-                    column: 13,
-                    endLine: 8,
-                    endColumn: 27,
-                },
-            ],
-        },
-        // captureClassesFromDoc
+      options: [{ ignoreBEMModifier: true }],
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".foo--bar--baz" },
+          line: 8,
+          column: 13,
+          endLine: 8,
+          endColumn: 27,
+        },
+      ],
+    },
+    // captureClassesFromDoc
+    {
+      code: `
             <template>
                 <div>
                     <a class="button star"></a>
@@ -772,27 +772,27 @@ tester.run("no-unused-selector", rule as any, {
                 }
             }
             </style>`,
-            options: [
-                {
-                    captureClassesFromDoc: [
-                        "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
-                    ],
-                },
-            ],
-            errors: [
-                {
-                    message: "The selector `a.button.star.unknown` is unused.",
-                    line: 18,
-                    column: 13,
-                    endLine: 23,
-                    endColumn: 26,
-                },
-            ],
-        },
-
-        // deep
+      options: [
         {
-            code: `
+          captureClassesFromDoc: [
+            "/(\\.[a-z-]+)(?::[a-z-]+)?\\s+-\\s*[^\\r\\n]+/i",
+          ],
+        },
+      ],
+      errors: [
+        {
+          message: "The selector `a.button.star.unknown` is unused.",
+          line: 18,
+          column: 13,
+          endLine: 23,
+          endColumn: 26,
+        },
+      ],
+    },
+
+    // deep
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -807,27 +807,27 @@ tester.run("no-unused-selector", rule as any, {
             div > .item >>> .a {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: "div>li" },
-                    line: 11,
-                    column: 13,
-                    endLine: 11,
-                    endColumn: 21,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: ".item" },
-                    line: 13,
-                    column: 19,
-                    endLine: 13,
-                    endColumn: 24,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: "div>li" },
+          line: 11,
+          column: 13,
+          endLine: 11,
+          endColumn: 21,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".item" },
+          line: 13,
+          column: 19,
+          endLine: 13,
+          endColumn: 24,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -842,27 +842,27 @@ tester.run("no-unused-selector", rule as any, {
             div > .item /deep/ .a {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: "div>li" },
-                    line: 11,
-                    column: 13,
-                    endLine: 11,
-                    endColumn: 21,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: ".item" },
-                    line: 13,
-                    column: 19,
-                    endLine: 13,
-                    endColumn: 24,
-                },
-            ],
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: "div>li" },
+          line: 11,
+          column: 13,
+          endLine: 11,
+          endColumn: 21,
         },
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".item" },
+          line: 13,
+          column: 19,
+          endLine: 13,
+          endColumn: 24,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -877,29 +877,29 @@ tester.run("no-unused-selector", rule as any, {
             div > .item ::v-deep .a {}
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: "div>li" },
-                    line: 11,
-                    column: 13,
-                    endLine: 11,
-                    endColumn: 21,
-                },
-                {
-                    messageId: "unused",
-                    data: { selector: ".item" },
-                    line: 13,
-                    column: 19,
-                    endLine: 13,
-                    endColumn: 24,
-                },
-            ],
-        },
-
-        // multiple children parents
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { selector: "div>li" },
+          line: 11,
+          column: 13,
+          endLine: 11,
+          endColumn: 21,
+        },
+        {
+          messageId: "unused",
+          data: { selector: ".item" },
+          line: 13,
+          column: 19,
+          endLine: 13,
+          endColumn: 24,
+        },
+      ],
+    },
+
+    // multiple children parents
+    {
+      code: `
             <template>
                 <div class="foo">
                     <input class="bar baz">
@@ -916,21 +916,21 @@ tester.run("no-unused-selector", rule as any, {
             }
             </style>
             `,
-            errors: [
-                {
-                    messageId: "unused",
-                    data: { selector: ".unknown" },
-                    line: 12,
-                    column: 13,
-                    endLine: 12,
-                    endColumn: 21,
-                },
-            ],
-        },
-
-        // Vue.js 3.x
+      errors: [
         {
-            code: `
+          messageId: "unused",
+          data: { selector: ".unknown" },
+          line: 12,
+          column: 13,
+          endLine: 12,
+          endColumn: 21,
+        },
+      ],
+    },
+
+    // Vue.js 3.x
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -945,25 +945,25 @@ tester.run("no-unused-selector", rule as any, {
             div > .item ::v-deep(.a) {}
             </style>
             `,
-            errors: [
-                {
-                    message: "The selector `div>li` is unused.",
-                    line: 11,
-                    column: 13,
-                    endLine: 11,
-                    endColumn: 21,
-                },
-                {
-                    message: "The selector `.item` is unused.",
-                    line: 13,
-                    column: 19,
-                    endLine: 13,
-                    endColumn: 24,
-                },
-            ],
+      errors: [
+        {
+          message: "The selector `div>li` is unused.",
+          line: 11,
+          column: 13,
+          endLine: 11,
+          endColumn: 21,
         },
         {
-            code: `
+          message: "The selector `.item` is unused.",
+          line: 13,
+          column: 19,
+          endLine: 13,
+          endColumn: 24,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -975,18 +975,18 @@ tester.run("no-unused-selector", rule as any, {
             div > ul > ::v-slotted(.a) {}
             </style>
             `,
-            errors: [
-                {
-                    message: "The selector `::v-slotted(.a)` is unused.",
-                    line: 10,
-                    column: 24,
-                    endLine: 10,
-                    endColumn: 39,
-                },
-            ],
-        },
+      errors: [
         {
-            code: `
+          message: "The selector `::v-slotted(.a)` is unused.",
+          line: 10,
+          column: 24,
+          endLine: 10,
+          endColumn: 39,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -1003,32 +1003,32 @@ tester.run("no-unused-selector", rule as any, {
             div > h3 > ::v-slotted(.a) {}
             </style>
             `,
-            errors: [
-                {
-                    message: "The selector `li>::v-slotted(.a)` is unused.",
-                    line: 12,
-                    column: 19,
-                    endLine: 12,
-                    endColumn: 39,
-                },
-                {
-                    message: "The selector `.item>::v-slotted(.a)` is unused.",
-                    line: 14,
-                    column: 19,
-                    endLine: 14,
-                    endColumn: 42,
-                },
-                {
-                    message: "The selector `h3>::v-slotted(.a)` is unused.",
-                    line: 15,
-                    column: 19,
-                    endLine: 15,
-                    endColumn: 39,
-                },
-            ],
+      errors: [
+        {
+          message: "The selector `li>::v-slotted(.a)` is unused.",
+          line: 12,
+          column: 19,
+          endLine: 12,
+          endColumn: 39,
         },
         {
-            code: `
+          message: "The selector `.item>::v-slotted(.a)` is unused.",
+          line: 14,
+          column: 19,
+          endLine: 14,
+          endColumn: 42,
+        },
+        {
+          message: "The selector `h3>::v-slotted(.a)` is unused.",
+          line: 15,
+          column: 19,
+          endLine: 15,
+          endColumn: 39,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div>
                     <ul class="list">
@@ -1045,32 +1045,32 @@ tester.run("no-unused-selector", rule as any, {
             div > h3 > ::v-slotted(.a) .bar {}
             </style>
             `,
-            errors: [
-                {
-                    message: "The selector `li>::v-slotted(.a)` is unused.",
-                    line: 12,
-                    column: 19,
-                    endLine: 12,
-                    endColumn: 39,
-                },
-                {
-                    message: "The selector `.item>::v-slotted(.a)` is unused.",
-                    line: 14,
-                    column: 19,
-                    endLine: 14,
-                    endColumn: 42,
-                },
-                {
-                    message: "The selector `h3>::v-slotted(.a)` is unused.",
-                    line: 15,
-                    column: 19,
-                    endLine: 15,
-                    endColumn: 39,
-                },
-            ],
+      errors: [
+        {
+          message: "The selector `li>::v-slotted(.a)` is unused.",
+          line: 12,
+          column: 19,
+          endLine: 12,
+          endColumn: 39,
         },
         {
-            code: `
+          message: "The selector `.item>::v-slotted(.a)` is unused.",
+          line: 14,
+          column: 19,
+          endLine: 14,
+          endColumn: 42,
+        },
+        {
+          message: "The selector `h3>::v-slotted(.a)` is unused.",
+          line: 15,
+          column: 19,
+          endLine: 15,
+          endColumn: 39,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <div><div :class="classes"/></div>
             </template>
@@ -1088,10 +1088,10 @@ tester.run("no-unused-selector", rule as any, {
             })
             </script>
             `,
-            errors: ["The selector `.bar` is unused."],
-        },
-        {
-            code: `
+      errors: ["The selector `.bar` is unused."],
+    },
+    {
+      code: `
             <template>
                 <div><div :class="classes"/></div>
             </template>
@@ -1109,7 +1109,7 @@ tester.run("no-unused-selector", rule as any, {
             })
             </script>
             `,
-            errors: ["The selector `.bar` is unused."],
-        },
-    ],
-})
+      errors: ["The selector `.bar` is unused."],
+    },
+  ],
+});

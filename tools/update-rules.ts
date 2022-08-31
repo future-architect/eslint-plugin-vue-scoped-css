@@ -1,24 +1,24 @@
-import path from "path"
-import fs from "fs"
-import os from "os"
+import path from "path";
+import fs from "fs";
+import os from "os";
 // import eslint from "eslint"
-import { rules } from "./lib/load-rules"
-const isWin = os.platform().startsWith("win")
+import { rules } from "./lib/load-rules";
+const isWin = os.platform().startsWith("win");
 
 let content = `
 import type { Rule } from "../types"
 
 const baseRules = [
     ${rules
-        .map(
-            (rule) => `{
+      .map(
+        (rule) => `{
     rule: require("../rules/${rule.meta.docs.ruleName}"),
     ruleName: "${rule.meta.docs.ruleName}",
     ruleId: "${rule.meta.docs.ruleId}",
     },
-    `,
-        )
-        .join("")}
+    `
+      )
+      .join("")}
 ]
 
 export const rules = baseRules.map(obj => {
@@ -46,19 +46,19 @@ export function collectRules(
         return obj
     }, {} as { [key: string]: string })
 }
-`
+`;
 
-const filePath = path.resolve(__dirname, "../lib/utils/rules.ts")
+const filePath = path.resolve(__dirname, "../lib/utils/rules.ts");
 
 if (isWin) {
-    content = content
-        .replace(/\r?\n/gu, "\n")
-        .replace(/\r/gu, "\n")
-        .replace(/\n/gu, "\r\n")
+  content = content
+    .replace(/\r?\n/gu, "\n")
+    .replace(/\r/gu, "\n")
+    .replace(/\n/gu, "\r\n");
 }
 
 // Update file.
-fs.writeFileSync(filePath, content)
+fs.writeFileSync(filePath, content);
 
 // Format files.
 // const linter = new eslint.CLIEngine({ fix: true })
