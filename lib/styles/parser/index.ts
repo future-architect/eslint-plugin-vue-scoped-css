@@ -1,15 +1,15 @@
-import { CSSParser } from "./css-parser"
-import { SCSSParser } from "./scss-parser"
-import { StylusParser } from "./stylus-parser"
-import type { SourceCode, LineAndColumnData } from "../../types"
-import type { VCSSStyleSheet } from "../ast"
-import { isSupportedStyleLang } from "../utils"
+import { CSSParser } from "./css-parser";
+import { SCSSParser } from "./scss-parser";
+import { StylusParser } from "./stylus-parser";
+import type { SourceCode, LineAndColumnData } from "../../types";
+import type { VCSSStyleSheet } from "../ast";
+import { isSupportedStyleLang } from "../utils";
 
 const PARSERS = {
-    scss: SCSSParser,
-    css: CSSParser,
-    stylus: StylusParser,
-}
+  scss: SCSSParser,
+  css: CSSParser,
+  stylus: StylusParser,
+};
 
 /**
  * Parse the CSS.
@@ -20,13 +20,13 @@ const PARSERS = {
  * @return {VCSSStyleSheet} parsed result
  */
 export function parse(
-    sourceCode: SourceCode,
-    offsetLocation: LineAndColumnData,
-    css: string,
-    lang: string,
+  sourceCode: SourceCode,
+  offsetLocation: LineAndColumnData,
+  css: string,
+  lang: string
 ): VCSSStyleSheet {
-    // eslint-disable-next-line @typescript-eslint/naming-convention -- class
-    const Parser = isSupportedStyleLang(lang) ? PARSERS[lang] : CSSParser
-    const parser = new Parser(sourceCode, lang)
-    return parser.parse(css, offsetLocation)
+  // eslint-disable-next-line @typescript-eslint/naming-convention -- class
+  const Parser = isSupportedStyleLang(lang) ? PARSERS[lang] : CSSParser;
+  const parser = new Parser(sourceCode, lang);
+  return parser.parse(css, offsetLocation);
 }

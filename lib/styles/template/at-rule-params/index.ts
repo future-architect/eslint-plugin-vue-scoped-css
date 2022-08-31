@@ -1,24 +1,24 @@
-import getCSSTemplateElements from "./css"
-import getSCSSTemplateElements from "./scss"
-import getStylusTemplateElements from "./stylus"
-import type { Interpolation } from "../interpolation"
-import { isSupportedStyleLang } from "../../utils"
+import getCSSTemplateElements from "./css";
+import getSCSSTemplateElements from "./scss";
+import getStylusTemplateElements from "./stylus";
+import type { Interpolation } from "../interpolation";
+import { isSupportedStyleLang } from "../../utils";
 
 const BUILDERS = {
-    css: getCSSTemplateElements,
-    scss: getSCSSTemplateElements,
-    stylus: getStylusTemplateElements,
-}
+  css: getCSSTemplateElements,
+  scss: getSCSSTemplateElements,
+  stylus: getStylusTemplateElements,
+};
 
 /**
  * Returns the template elements that the given atrule params.
  */
 export default function getAtRuleParamsTemplateElements(
-    text: string,
-    lang: string,
+  text: string,
+  lang: string
 ): (Interpolation | string)[] {
-    const templateBuilder = isSupportedStyleLang(lang)
-        ? BUILDERS[lang]
-        : getCSSTemplateElements
-    return templateBuilder(text.trim())
+  const templateBuilder = isSupportedStyleLang(lang)
+    ? BUILDERS[lang]
+    : getCSSTemplateElements;
+  return templateBuilder(text.trim());
 }

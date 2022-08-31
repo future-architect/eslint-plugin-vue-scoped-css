@@ -1,51 +1,49 @@
-import categories from "./lib/categories"
-import type { Rule } from "../lib/types"
-import { rules } from "../lib/utils/rules"
+import categories from "./lib/categories";
+import type { Rule } from "../lib/types";
+import { rules } from "../lib/utils/rules";
 
 //eslint-disable-next-line require-jsdoc -- tools
 export default function renderRulesTableContent(
-    buildRulePath = (ruleName: string) => `./${ruleName}.md`,
+  buildRulePath = (ruleName: string) => `./${ruleName}.md`
 ): string {
-    const uncategorizedRules = rules.filter(
-        (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated,
-    )
-    const deprecatedRules = rules.filter((rule) => rule.meta.deprecated)
+  const uncategorizedRules = rules.filter(
+    (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated
+  );
+  const deprecatedRules = rules.filter((rule) => rule.meta.deprecated);
 
-    // -----------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------
 
-    //eslint-disable-next-line require-jsdoc -- tools
-    function toRuleRow(rule: Rule) {
-        const mark = `${rule.meta.fixable ? ":wrench:" : ""}${
-            rule.meta.deprecated ? ":warning:" : ""
-        }`
-        const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-            rule.meta.docs.ruleName || "",
-        )})`
-        const description = rule.meta.docs.description || "(no description)"
+  //eslint-disable-next-line require-jsdoc -- tools
+  function toRuleRow(rule: Rule) {
+    const mark = `${rule.meta.fixable ? ":wrench:" : ""}${
+      rule.meta.deprecated ? ":warning:" : ""
+    }`;
+    const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
+      rule.meta.docs.ruleName || ""
+    )})`;
+    const description = rule.meta.docs.description || "(no description)";
 
-        return `| ${link} | ${description} | ${mark} |`
-    }
+    return `| ${link} | ${description} | ${mark} |`;
+  }
 
-    //eslint-disable-next-line require-jsdoc -- tools
-    function toDeprecatedRuleRow(rule: Rule) {
-        const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-            rule.meta.docs.ruleName || "",
-        )})`
-        const replacedRules = rule.meta.docs.replacedBy || []
-        const replacedBy = replacedRules
-            .map(
-                (name) => `[vue-scoped-css/${name}](${buildRulePath(name)}.md)`,
-            )
-            .join(", ")
+  //eslint-disable-next-line require-jsdoc -- tools
+  function toDeprecatedRuleRow(rule: Rule) {
+    const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
+      rule.meta.docs.ruleName || ""
+    )})`;
+    const replacedRules = rule.meta.docs.replacedBy || [];
+    const replacedBy = replacedRules
+      .map((name) => `[vue-scoped-css/${name}](${buildRulePath(name)}.md)`)
+      .join(", ");
 
-        return `| ${link} | ${replacedBy || "(no replacement)"} |`
-    }
+    return `| ${link} | ${replacedBy || "(no replacement)"} |`;
+  }
 
-    // -----------------------------------------------------------------------------
-    let rulesTableContent = categories
-        .map((category) =>
-            category.rules.length
-                ? `
+  // -----------------------------------------------------------------------------
+  let rulesTableContent = categories
+    .map((category) =>
+      category.rules.length
+        ? `
 ## ${category.title}
 
 ${category.configDescription}
@@ -60,13 +58,13 @@ ${category.configDescription}
 |:--------|:------------|:---|
 ${category.rules.map(toRuleRow).join("\n")}
 `
-                : "",
-        )
-        .join("")
+        : ""
+    )
+    .join("");
 
-    // -----------------------------------------------------------------------------
-    if (uncategorizedRules.length >= 1) {
-        rulesTableContent += `
+  // -----------------------------------------------------------------------------
+  if (uncategorizedRules.length >= 1) {
+    rulesTableContent += `
 ## Uncategorized
 
 No preset enables the rules in this category.
@@ -85,12 +83,12 @@ For example:
 | Rule ID | Description |    |
 |:--------|:------------|:---|
 ${uncategorizedRules.map(toRuleRow).join("\n")}
-`
-    }
+`;
+  }
 
-    // -----------------------------------------------------------------------------
-    if (deprecatedRules.length >= 1) {
-        rulesTableContent += `
+  // -----------------------------------------------------------------------------
+  if (deprecatedRules.length >= 1) {
+    rulesTableContent += `
 ## Deprecated
 
 - :warning: We're going to remove deprecated rules in the next major release. Please migrate to successor/new rules.
@@ -99,7 +97,7 @@ ${uncategorizedRules.map(toRuleRow).join("\n")}
 | Rule ID | Replaced by |
 |:--------|:------------|
 ${deprecatedRules.map(toDeprecatedRuleRow).join("\n")}
-`
-    }
-    return rulesTableContent
+`;
+  }
+  return rulesTableContent;
 }

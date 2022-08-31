@@ -1,17 +1,17 @@
-import { RuleTester } from "eslint"
-import rule = require("../../../lib/rules/no-deprecated-v-enter-v-leave-class")
+import { RuleTester } from "eslint";
+import rule = require("../../../lib/rules/no-deprecated-v-enter-v-leave-class");
 
 const tester = new RuleTester({
-    parser: require.resolve("vue-eslint-parser"),
-    parserOptions: {
-        ecmaVersion: 2019,
-        sourceType: "module",
-    },
-})
+  parser: require.resolve("vue-eslint-parser"),
+  parserOptions: {
+    ecmaVersion: 2019,
+    sourceType: "module",
+  },
+});
 
 tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
-    valid: [
-        `
+  valid: [
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
         </template>
@@ -20,7 +20,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .v-leave-from {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
         </template>
@@ -29,7 +29,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .v-leave, .v-leave-from {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition
               enter-from-class="foo"
@@ -42,7 +42,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition
               enter-from-class="foo"
@@ -57,7 +57,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .bar {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition name="xx"><div v-if="foo"/></Transition>
         </template>
@@ -66,7 +66,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .xx-leave, .xx-leave-from {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
             <Transition name="xx"><div v-if="foo"/></Transition>
@@ -78,7 +78,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .foo ::v-deep(.xx-leave) { .v-enter {} }
         </style>
         `,
-        `
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
         </template>
@@ -89,7 +89,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template>
             <Transition :name="name"><div v-if="foo"/></Transition>
         </template>
@@ -103,7 +103,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .xx-leave {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition :name="name"><div v-if="foo"/></Transition>
         </template>
@@ -119,7 +119,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .xx-leave {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
         </template>
@@ -130,7 +130,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         }
         </style>
         `,
-        `
+    `
         <template>
             <Transition><div v-if="foo"/></Transition>
         </template>
@@ -139,7 +139,7 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .v-leave {}
         </style>
         `,
-        `
+    `
         <template>
             <Transition :name="name"><div v-if="foo"/></Transition>
         </template>
@@ -155,10 +155,10 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
         .xx-leave {}
         </style>
         `,
-    ],
-    invalid: [
-        {
-            code: `
+  ],
+  invalid: [
+    {
+      code: `
             <template>
                 <Transition><div v-if="foo"/></Transition>
             </template>
@@ -167,21 +167,21 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             .v-leave {}
             </style>
             `,
-            errors: [
-                {
-                    message: "The `v-enter` class is renamed in Vue 3.",
-                    line: 6,
-                    column: 13,
-                },
-                {
-                    message: "The `v-leave` class is renamed in Vue 3.",
-                    line: 7,
-                    column: 13,
-                },
-            ],
+      errors: [
+        {
+          message: "The `v-enter` class is renamed in Vue 3.",
+          line: 6,
+          column: 13,
         },
         {
-            code: `
+          message: "The `v-leave` class is renamed in Vue 3.",
+          line: 7,
+          column: 13,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition
                   enter-class="foo"
@@ -194,23 +194,23 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             .bar {}
             </style>
             `,
-            errors: [
-                {
-                    message:
-                        "The `enter-class` prop is renamed in Vue 3. Rename to `enter-from-class`.",
-                    line: 4,
-                    column: 19,
-                },
-                {
-                    message:
-                        "The `leave-class` prop is renamed in Vue 3. Rename to `leave-from-class`.",
-                    line: 5,
-                    column: 19,
-                },
-            ],
+      errors: [
+        {
+          message:
+            "The `enter-class` prop is renamed in Vue 3. Rename to `enter-from-class`.",
+          line: 4,
+          column: 19,
         },
         {
-            code: `
+          message:
+            "The `leave-class` prop is renamed in Vue 3. Rename to `leave-from-class`.",
+          line: 5,
+          column: 19,
+        },
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition name="xx"><div v-if="foo"/></Transition>
             </template>
@@ -219,13 +219,13 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             .xx-leave {}
             </style>
             `,
-            errors: [
-                "The `v-enter` class is renamed in Vue 3.",
-                "The `v-leave` class is renamed in Vue 3.",
-            ],
-        },
-        {
-            code: `
+      errors: [
+        "The `v-enter` class is renamed in Vue 3.",
+        "The `v-leave` class is renamed in Vue 3.",
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition><div v-if="foo"/></Transition>
             </template>
@@ -236,13 +236,13 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             }
             </style>
             `,
-            errors: [
-                "The `v-enter` class is renamed in Vue 3.",
-                "The `v-leave` class is renamed in Vue 3.",
-            ],
-        },
-        {
-            code: `
+      errors: [
+        "The `v-enter` class is renamed in Vue 3.",
+        "The `v-leave` class is renamed in Vue 3.",
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition><div v-if="foo"/></Transition>
             </template>
@@ -253,13 +253,13 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             }
             </style>
             `,
-            errors: [
-                "The `v-enter` class is renamed in Vue 3.",
-                "The `v-leave` class is renamed in Vue 3.",
-            ],
-        },
-        {
-            code: `
+      errors: [
+        "The `v-enter` class is renamed in Vue 3.",
+        "The `v-leave` class is renamed in Vue 3.",
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition :name="name"><div v-if="foo"/></Transition>
             </template>
@@ -275,13 +275,13 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             .xx-leave {}
             </style>
             `,
-            errors: [
-                "The `v-enter` class is renamed in Vue 3.",
-                "The `v-leave` class is renamed in Vue 3.",
-            ],
-        },
-        {
-            code: `
+      errors: [
+        "The `v-enter` class is renamed in Vue 3.",
+        "The `v-leave` class is renamed in Vue 3.",
+      ],
+    },
+    {
+      code: `
             <template>
                 <Transition :name="name"><div v-if="foo"/></Transition>
             </template>
@@ -297,10 +297,10 @@ tester.run("no-deprecated-v-enter-v-leave-class", rule as any, {
             .xx-leave {}
             </style>
             `,
-            errors: [
-                "The `v-enter` class is renamed in Vue 3.",
-                "The `v-leave` class is renamed in Vue 3.",
-            ],
-        },
-    ],
-})
+      errors: [
+        "The `v-enter` class is renamed in Vue 3.",
+        "The `v-leave` class is renamed in Vue 3.",
+      ],
+    },
+  ],
+});

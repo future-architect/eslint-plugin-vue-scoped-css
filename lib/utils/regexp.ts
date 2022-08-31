@@ -1,4 +1,4 @@
-const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u
+const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u;
 
 /**
  * Convert a string to the `RegExp`.
@@ -9,16 +9,16 @@ const RE_REGEXP_STR = /^\/(.+)\/([A-Za-z]*)$/u
  * @returns {RegExp} Returns the `RegExp`.
  */
 export function toRegExp(string: string, flags?: string): RegExp {
-    const parts = RE_REGEXP_STR.exec(string)
-    if (parts) {
-        let flagArgs: string
-        if (flags) {
-            flagArgs = [...new Set(parts[2] + flags)].join("")
-        } else {
-            flagArgs = parts[2]
-        }
-
-        return new RegExp(parts[1], flagArgs)
+  const parts = RE_REGEXP_STR.exec(string);
+  if (parts) {
+    let flagArgs: string;
+    if (flags) {
+      flagArgs = [...new Set(parts[2] + flags)].join("");
+    } else {
+      flagArgs = parts[2];
     }
-    return new RegExp(string, flags)
+
+    return new RegExp(parts[1], flagArgs);
+  }
+  return new RegExp(string, flags);
 }

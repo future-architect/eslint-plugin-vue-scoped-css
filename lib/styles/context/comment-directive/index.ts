@@ -1,20 +1,20 @@
 import type {
-    LineAndColumnData,
-    ReportDescriptor,
-    RuleContext,
-    SourceLocation,
-    ReportDescriptorSourceLocation,
-} from "../../../types"
-import type { StyleContext } from "../style"
-import type { VCSSCommentNode } from "../../ast"
+  LineAndColumnData,
+  ReportDescriptor,
+  RuleContext,
+  SourceLocation,
+  ReportDescriptorSourceLocation,
+} from "../../../types";
+import type { StyleContext } from "../style";
+import type { VCSSCommentNode } from "../../ast";
 
 const COMMENT_DIRECTIVE_B =
-    /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
+  /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u;
 const COMMENT_DIRECTIVE_L =
-    /^\s*(eslint-disable(?:-next)?-line)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u
+  /^\s*(eslint-disable(?:-next)?-line)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u;
 
-type ParsingResult = { type: string; rules: string[] }
-type BlockData = { loc: LineAndColumnData; disable: boolean }
+type ParsingResult = { type: string; rules: string[] };
+type BlockData = { loc: LineAndColumnData; disable: boolean };
 
 /**
  * Parse a given comment.
@@ -23,18 +23,18 @@ type BlockData = { loc: LineAndColumnData; disable: boolean }
  * @returns {({type:string,rules:string[]})|null} The parsing result.
  */
 function parse(pattern: RegExp, comment: string): ParsingResult | null {
-    const match = pattern.exec(comment)
-    if (match == null) {
-        return null
-    }
+  const match = pattern.exec(comment);
+  if (match == null) {
+    return null;
+  }
 
-    const type = match[1]
-    const rules = (match[2] || "")
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean)
+  const type = match[1];
+  const rules = (match[2] || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
-    return { type, rules }
+  return { type, rules };
 }
 
 /**
@@ -45,15 +45,15 @@ function parse(pattern: RegExp, comment: string): ParsingResult | null {
  * @returns {void}
  */
 function enable(
-    commentDirectives: CommentDirectives,
-    loc: LineAndColumnData,
-    rules: string[],
+  commentDirectives: CommentDirectives,
+  loc: LineAndColumnData,
+  rules: string[]
 ) {
-    if (rules.length === 0) {
-        commentDirectives.enableAll(loc)
-    } else {
-        commentDirectives.enableRules(loc, rules)
-    }
+  if (rules.length === 0) {
+    commentDirectives.enableAll(loc);
+  } else {
+    commentDirectives.enableRules(loc, rules);
+  }
 }
 
 /**
@@ -64,15 +64,15 @@ function enable(
  * @returns {void}
  */
 function disable(
-    commentDirectives: CommentDirectives,
-    loc: LineAndColumnData,
-    rules: string[],
+  commentDirectives: CommentDirectives,
+  loc: LineAndColumnData,
+  rules: string[]
 ) {
-    if (rules.length === 0) {
-        commentDirectives.disableAll(loc)
-    } else {
-        commentDirectives.disableRules(loc, rules)
-    }
+  if (rules.length === 0) {
+    commentDirectives.disableAll(loc);
+  } else {
+    commentDirectives.disableRules(loc, rules);
+  }
 }
 
 /**
@@ -83,17 +83,17 @@ function disable(
  * @returns {void}
  */
 function processBlock(
-    commentDirectives: CommentDirectives,
-    comment: VCSSCommentNode,
+  commentDirectives: CommentDirectives,
+  comment: VCSSCommentNode
 ) {
-    const parsed = parse(COMMENT_DIRECTIVE_B, comment.text)
-    if (parsed != null) {
-        if (parsed.type === "eslint-disable") {
-            disable(commentDirectives, comment.loc.start, parsed.rules)
-        } else {
-            enable(commentDirectives, comment.loc.start, parsed.rules)
-        }
+  const parsed = parse(COMMENT_DIRECTIVE_B, comment.text);
+  if (parsed != null) {
+    if (parsed.type === "eslint-disable") {
+      disable(commentDirectives, comment.loc.start, parsed.rules);
+    } else {
+      enable(commentDirectives, comment.loc.start, parsed.rules);
     }
+  }
 }
 
 /**
@@ -104,179 +104,178 @@ function processBlock(
  * @returns {void}
  */
 function processLine(
-    commentDirectives: CommentDirectives,
-    comment: VCSSCommentNode,
+  commentDirectives: CommentDirectives,
+  comment: VCSSCommentNode
 ) {
-    const parsed = parse(COMMENT_DIRECTIVE_L, comment.text)
-    if (parsed != null && comment.loc.start.line === comment.loc.end.line) {
-        const line =
-            comment.loc.start.line +
-            (parsed.type === "eslint-disable-line" ? 0 : 1)
-        const column = -1
-        if (!parsed.rules.length) {
-            commentDirectives.disableLineAll({ line, column })
-        } else {
-            commentDirectives.disableLineRules({ line, column }, parsed.rules)
-        }
+  const parsed = parse(COMMENT_DIRECTIVE_L, comment.text);
+  if (parsed != null && comment.loc.start.line === comment.loc.end.line) {
+    const line =
+      comment.loc.start.line + (parsed.type === "eslint-disable-line" ? 0 : 1);
+    const column = -1;
+    if (!parsed.rules.length) {
+      commentDirectives.disableLineAll({ line, column });
+    } else {
+      commentDirectives.disableLineRules({ line, column }, parsed.rules);
     }
+  }
 }
 
 export class CommentDirectives {
-    private _disableLines: {
-        [key: number]: {
-            all: boolean
-            [key: string]: boolean
+  private _disableLines: {
+    [key: number]: {
+      all: boolean;
+      [key: string]: boolean;
+    };
+  };
+
+  private _disableBlocks: { [key: string]: BlockData[] };
+
+  /**
+   * constructor
+   * @param {StyleContext[]} styles The styles
+   * @returns {void}
+   */
+  public constructor(styles: StyleContext[]) {
+    this._disableLines = {};
+    this._disableBlocks = {};
+
+    for (const style of styles) {
+      const cssNode = style.cssNode;
+      if (cssNode != null) {
+        for (const comment of cssNode.comments) {
+          processBlock(this, comment);
+          processLine(this, comment);
         }
+        this.clear(cssNode.loc.end);
+      }
     }
 
-    private _disableBlocks: { [key: string]: BlockData[] }
+    for (const rule of Object.keys(this._disableBlocks)) {
+      this._disableBlocks[rule].sort((a, b) => compareLoc(a.loc, b.loc));
+    }
+  }
 
-    /**
-     * constructor
-     * @param {StyleContext[]} styles The styles
-     * @returns {void}
-     */
-    public constructor(styles: StyleContext[]) {
-        this._disableLines = {}
-        this._disableBlocks = {}
+  public disableLineAll(loc: LineAndColumnData): void {
+    const disableLine =
+      this._disableLines[loc.line] ||
+      (this._disableLines[loc.line] = { all: true });
+    disableLine.all = true;
+  }
 
-        for (const style of styles) {
-            const cssNode = style.cssNode
-            if (cssNode != null) {
-                for (const comment of cssNode.comments) {
-                    processBlock(this, comment)
-                    processLine(this, comment)
-                }
-                this.clear(cssNode.loc.end)
-            }
-        }
+  public disableLineRules(loc: LineAndColumnData, rules: string[]): void {
+    const disableLine =
+      this._disableLines[loc.line] ||
+      (this._disableLines[loc.line] = { all: false });
+    for (const rule of rules) {
+      disableLine[rule] = true;
+    }
+  }
 
-        for (const rule of Object.keys(this._disableBlocks)) {
-            this._disableBlocks[rule].sort((a, b) => compareLoc(a.loc, b.loc))
-        }
+  public disableAll(loc: LineAndColumnData): void {
+    const disableBlock =
+      this._disableBlocks.all || (this._disableBlocks.all = []);
+    disableBlock.push({ loc, disable: true });
+  }
+
+  public disableRules(loc: LineAndColumnData, rules: string[]): void {
+    for (const rule of rules) {
+      const disableBlock =
+        this._disableBlocks[rule] || (this._disableBlocks[rule] = []);
+      disableBlock.push({ loc, disable: true });
+    }
+  }
+
+  public enableAll(loc: LineAndColumnData): void {
+    const disableBlock =
+      this._disableBlocks.all || (this._disableBlocks.all = []);
+    disableBlock.push({ loc, disable: false });
+  }
+
+  public enableRules(loc: LineAndColumnData, rules: string[]): void {
+    for (const rule of rules) {
+      const disableBlock =
+        this._disableBlocks[rule] || (this._disableBlocks[rule] = []);
+      disableBlock.push({ loc, disable: false });
+    }
+  }
+
+  public clear(loc: LineAndColumnData): void {
+    for (const rule of Object.keys(this._disableBlocks)) {
+      this._disableBlocks[rule].push({ loc, disable: false });
+    }
+  }
+
+  /**
+   * Checks if rule is enabled or not
+   * @param {string} rule
+   * @param {ReportDescriptor} descriptor ESLint report descriptor
+   * @returns {boolean} `true` if rule is enabled
+   */
+  public isEnabled(rule: string, descriptor: ReportDescriptor): boolean {
+    const loc = hasSourceLocation(descriptor)
+      ? descriptor.loc
+      : descriptor.node?.loc;
+    if (!loc) {
+      return false;
+    }
+    const locStart = (loc as SourceLocation).start || loc;
+
+    const disableLine = this._disableLines[locStart.line];
+    if (disableLine) {
+      if (disableLine.all || disableLine[rule]) {
+        return false;
+      }
     }
 
-    public disableLineAll(loc: LineAndColumnData): void {
-        const disableLine =
-            this._disableLines[loc.line] ||
-            (this._disableLines[loc.line] = { all: true })
-        disableLine.all = true
-    }
-
-    public disableLineRules(loc: LineAndColumnData, rules: string[]): void {
-        const disableLine =
-            this._disableLines[loc.line] ||
-            (this._disableLines[loc.line] = { all: false })
-        for (const rule of rules) {
-            disableLine[rule] = true
+    for (const ruleId of [rule, "all"]) {
+      const disableBlock = this._disableBlocks[ruleId];
+      if (disableBlock) {
+        let disableState = false;
+        for (const block of disableBlock) {
+          if (compareLoc(locStart, block.loc) < 0) {
+            break;
+          }
+          disableState = block.disable;
         }
-    }
-
-    public disableAll(loc: LineAndColumnData): void {
-        const disableBlock =
-            this._disableBlocks.all || (this._disableBlocks.all = [])
-        disableBlock.push({ loc, disable: true })
-    }
-
-    public disableRules(loc: LineAndColumnData, rules: string[]): void {
-        for (const rule of rules) {
-            const disableBlock =
-                this._disableBlocks[rule] || (this._disableBlocks[rule] = [])
-            disableBlock.push({ loc, disable: true })
+        if (disableState) {
+          return false;
         }
+      }
     }
 
-    public enableAll(loc: LineAndColumnData): void {
-        const disableBlock =
-            this._disableBlocks.all || (this._disableBlocks.all = [])
-        disableBlock.push({ loc, disable: false })
-    }
-
-    public enableRules(loc: LineAndColumnData, rules: string[]): void {
-        for (const rule of rules) {
-            const disableBlock =
-                this._disableBlocks[rule] || (this._disableBlocks[rule] = [])
-            disableBlock.push({ loc, disable: false })
-        }
-    }
-
-    public clear(loc: LineAndColumnData): void {
-        for (const rule of Object.keys(this._disableBlocks)) {
-            this._disableBlocks[rule].push({ loc, disable: false })
-        }
-    }
-
-    /**
-     * Checks if rule is enabled or not
-     * @param {string} rule
-     * @param {ReportDescriptor} descriptor ESLint report descriptor
-     * @returns {boolean} `true` if rule is enabled
-     */
-    public isEnabled(rule: string, descriptor: ReportDescriptor): boolean {
-        const loc = hasSourceLocation(descriptor)
-            ? descriptor.loc
-            : descriptor.node?.loc
-        if (!loc) {
-            return false
-        }
-        const locStart = (loc as SourceLocation).start || loc
-
-        const disableLine = this._disableLines[locStart.line]
-        if (disableLine) {
-            if (disableLine.all || disableLine[rule]) {
-                return false
-            }
-        }
-
-        for (const ruleId of [rule, "all"]) {
-            const disableBlock = this._disableBlocks[ruleId]
-            if (disableBlock) {
-                let disableState = false
-                for (const block of disableBlock) {
-                    if (compareLoc(locStart, block.loc) < 0) {
-                        break
-                    }
-                    disableState = block.disable
-                }
-                if (disableState) {
-                    return false
-                }
-            }
-        }
-
-        return true
-    }
+    return true;
+  }
 }
 
 export class CommentDirectivesReporter {
-    private readonly context: RuleContext
+  private readonly context: RuleContext;
 
-    private readonly commentDirectives: CommentDirectives
+  private readonly commentDirectives: CommentDirectives;
 
-    /**
-     * constructor
-     * @param {RuleContext} context ESLint rule context
-     * @param {CommentDirectives} commentDirectives The comment directives context.
-     * @returns {void}
-     */
-    public constructor(
-        context: RuleContext,
-        commentDirectives: CommentDirectives,
-    ) {
-        this.context = context
-        this.commentDirectives = commentDirectives
+  /**
+   * constructor
+   * @param {RuleContext} context ESLint rule context
+   * @param {CommentDirectives} commentDirectives The comment directives context.
+   * @returns {void}
+   */
+  public constructor(
+    context: RuleContext,
+    commentDirectives: CommentDirectives
+  ) {
+    this.context = context;
+    this.commentDirectives = commentDirectives;
+  }
+
+  /**
+   * Reports a problem in the code.
+   * @param {ReportDescriptor} descriptor ESLint report descriptor
+   * @returns {void}
+   */
+  public report(descriptor: ReportDescriptor): void {
+    if (this.commentDirectives.isEnabled(this.context.id, descriptor)) {
+      this.context.report(descriptor);
     }
-
-    /**
-     * Reports a problem in the code.
-     * @param {ReportDescriptor} descriptor ESLint report descriptor
-     * @returns {void}
-     */
-    public report(descriptor: ReportDescriptor): void {
-        if (this.commentDirectives.isEnabled(this.context.id, descriptor)) {
-            this.context.report(descriptor)
-        }
-    }
+  }
 }
 
 /**
@@ -286,9 +285,9 @@ export class CommentDirectivesReporter {
  * @returns {CommentDirectives} the comment directives context
  */
 export function createCommentDirectives(
-    styleContexts: StyleContext[],
+  styleContexts: StyleContext[]
 ): CommentDirectives {
-    return new CommentDirectives(styleContexts)
+  return new CommentDirectives(styleContexts);
 }
 
 /**
@@ -298,10 +297,10 @@ export function createCommentDirectives(
  * @returns {CommentDirectivesReporter} the comment directives
  */
 export function createCommentDirectivesReporter(
-    context: RuleContext,
-    commentDirectives: CommentDirectives,
+  context: RuleContext,
+  commentDirectives: CommentDirectives
 ): CommentDirectivesReporter {
-    return new CommentDirectivesReporter(context, commentDirectives)
+  return new CommentDirectivesReporter(context, commentDirectives);
 }
 
 /**
@@ -310,12 +309,12 @@ export function createCommentDirectivesReporter(
  * @param {*} b The second value
  */
 function compare(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
-    a: any,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
-    b: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
+  a: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
+  b: any
 ) {
-    return a === b ? 0 : a > b ? 1 : -1
+  return a === b ? 0 : a > b ? 1 : -1;
 }
 
 /**
@@ -324,18 +323,18 @@ function compare(
  * @param {*} b The second value
  */
 function compareLoc(a: LineAndColumnData, b: LineAndColumnData) {
-    const lc = compare(a.line, b.line)
-    if (lc !== 0) {
-        return lc
-    }
-    return compare(a.column, b.column)
+  const lc = compare(a.line, b.line);
+  if (lc !== 0) {
+    return lc;
+  }
+  return compare(a.column, b.column);
 }
 
 /**
  * Checks whether the given descriptor has loc property
  */
 function hasSourceLocation(
-    descriptor: ReportDescriptor,
+  descriptor: ReportDescriptor
 ): descriptor is ReportDescriptor & ReportDescriptorSourceLocation {
-    return (descriptor as ReportDescriptorSourceLocation).loc != null
+  return (descriptor as ReportDescriptorSourceLocation).loc != null;
 }
