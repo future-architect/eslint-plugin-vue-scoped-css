@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install --save-dev eslint eslint-plugin-vue-scoped-css
+npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 ```
 
 ::: tip Requirements
