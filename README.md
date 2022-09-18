@@ -36,7 +36,7 @@ See [documents](https://future-architect.github.io/eslint-plugin-vue-scoped-css/
 ## Installation
 
 ```bash
-npm install --save-dev eslint eslint-plugin-vue-scoped-css
+npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 ```
 
 > **Requirements**
