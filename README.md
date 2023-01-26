@@ -145,6 +145,9 @@ For example:
 |:--------|:------------|:---|
 | [vue-scoped-css/no-deprecated-v-enter-v-leave-class](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-deprecated-v-enter-v-leave-class.html) | disallow v-enter and v-leave classes. |  |
 | [vue-scoped-css/require-selector-used-inside](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-selector-used-inside.html) | disallow selectors defined that is not used inside `<template>` |  |
+| [vue-scoped-css/v-deep-pseudo-style](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/v-deep-pseudo-style.html) | enforce `:deep()`/`::v-deep()` style | :wrench: |
+| [vue-scoped-css/v-global-pseudo-style](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/v-global-pseudo-style.html) | enforce `:global()`/`::v-global()` style | :wrench: |
+| [vue-scoped-css/v-slotted-pseudo-style](https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/v-slotted-pseudo-style.html) | enforce `:slotted()`/`::v-slotted()` style | :wrench: |
 
 ## Deprecated
 

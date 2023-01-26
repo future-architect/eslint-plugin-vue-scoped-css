@@ -61,6 +61,21 @@ const baseRules = [
     ruleName: "require-v-slotted-argument",
     ruleId: "vue-scoped-css/require-v-slotted-argument",
   },
+  {
+    rule: require("../rules/v-deep-pseudo-style"),
+    ruleName: "v-deep-pseudo-style",
+    ruleId: "vue-scoped-css/v-deep-pseudo-style",
+  },
+  {
+    rule: require("../rules/v-global-pseudo-style"),
+    ruleName: "v-global-pseudo-style",
+    ruleId: "vue-scoped-css/v-global-pseudo-style",
+  },
+  {
+    rule: require("../rules/v-slotted-pseudo-style"),
+    ruleName: "v-slotted-pseudo-style",
+    ruleId: "vue-scoped-css/v-slotted-pseudo-style",
+  },
 ];
 
 export const rules = baseRules.map((obj) => {
