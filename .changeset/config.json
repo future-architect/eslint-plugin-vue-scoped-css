@@ -1,14 +1,14 @@
 {
   "$schema": "https://unpkg.com/@changesets/config/schema.json",
   "changelog": [
-    "@changesets/changelog-github",
+    "@svitejs/changesets-changelog-github-compact",
     {
       "repo": "future-architect/eslint-plugin-vue-scoped-css"
     }
   ],
   "commit": false,
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
