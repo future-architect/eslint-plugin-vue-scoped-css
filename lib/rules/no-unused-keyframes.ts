@@ -24,13 +24,24 @@ module.exports = {
     messages: {
       unused: "The @keyframes `{{params}}` is unused.",
     },
-    schema: [],
+    schema: [
+      {
+        type: "object",
+        properties: {
+          checkUnscoped: {
+            type: "boolean",
+          },
+        },
+        additionalProperties: false,
+      },
+    ],
     type: "suggestion", // "problem",
   },
   create(context: RuleContext) {
+    const checkUnscoped = Boolean(context.options[0]?.checkUnscoped);
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
-      .filter((style) => style.scoped);
+      .filter((style) => style.scoped || checkUnscoped);
     if (!styles.length) {
       return {};
     }

@@ -102,6 +102,9 @@ module.exports = {
             minItems: 0,
             uniqueItems: true,
           },
+          checkUnscoped: {
+            type: "boolean",
+          },
         },
         additionalProperties: false,
       },
@@ -112,9 +115,10 @@ module.exports = {
     if (!hasTemplateBlock(context)) {
       return {};
     }
+    const checkUnscoped = Boolean(context.options[0]?.checkUnscoped);
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
-      .filter((style) => style.scoped);
+      .filter((style) => style.scoped || checkUnscoped);
     if (!styles.length) {
       return {};
     }

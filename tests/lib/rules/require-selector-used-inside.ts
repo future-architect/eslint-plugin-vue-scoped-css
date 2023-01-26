@@ -313,13 +313,13 @@ tester.run("require-selector-used-inside", rule as any, {
         `,
     // not scoped
     `
-        <template>
-            <div></div>
-        </template>
-        <style>
-        input {}
-        </style>
-        `,
+    <template>
+        <div></div>
+    </template>
+    <style>
+    input {}
+    </style>
+    `,
 
     // deep
     `
@@ -908,6 +908,18 @@ tester.run("require-selector-used-inside", rule as any, {
         "The selector `div>.item` is unused in the template.",
         "The selector `div>h3>` is unused in the template.",
       ],
+    },
+    {
+      code: `
+      <template>
+          <div></div>
+      </template>
+      <style>
+      input {}
+      </style>
+      `,
+      options: [{ checkUnscoped: true }],
+      errors: ["The selector `input` is unused in the template."],
     },
   ],
 });
