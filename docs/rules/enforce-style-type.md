@@ -37,7 +37,7 @@ Default is set to `{ allows: ['scoped'] }`.
 
 ```json
 {
-  "vue-scoped-css/enforce-style-type": ["error", { allows: ['scoped'] }]
+  "vue-scoped-css/enforce-style-type": ["error", { "allows": ["scoped"] }]
 }
 ```
 

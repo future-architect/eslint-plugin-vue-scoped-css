@@ -83,9 +83,13 @@ export function normalizePseudoParams(
   return results;
 }
 
-export type VDeepPseudo = VCSSSelectorPseudo & { value: "::v-deep" };
-export type VSlottedPseudo = VCSSSelectorPseudo & { value: "::v-slotted" };
-export type VGlobalPseudo = VCSSSelectorPseudo & { value: "::v-global" };
+export type VDeepPseudo = VCSSSelectorPseudo & { value: "::v-deep" | ":deep" };
+export type VSlottedPseudo = VCSSSelectorPseudo & {
+  value: "::v-slotted" | ":slotted";
+};
+export type VGlobalPseudo = VCSSSelectorPseudo & {
+  value: "::v-global" | ":global";
+};
 
 /**
  * Checks whether the given node is ::v-deep or ::v-slotted or ::v-global pseudo

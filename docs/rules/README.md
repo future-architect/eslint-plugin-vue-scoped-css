@@ -64,6 +64,9 @@ For example:
 |:--------|:------------|:---|
 | [vue-scoped-css/no-deprecated-v-enter-v-leave-class](./no-deprecated-v-enter-v-leave-class.md) | disallow v-enter and v-leave classes. |  |
 | [vue-scoped-css/require-selector-used-inside](./require-selector-used-inside.md) | disallow selectors defined that is not used inside `<template>` |  |
+| [vue-scoped-css/v-deep-pseudo-style](./v-deep-pseudo-style.md) | enforce `:deep()`/`::v-deep()` style | :wrench: |
+| [vue-scoped-css/v-global-pseudo-style](./v-global-pseudo-style.md) | enforce `:global()`/`::v-global()` style | :wrench: |
+| [vue-scoped-css/v-slotted-pseudo-style](./v-slotted-pseudo-style.md) | enforce `:slotted()`/`::v-slotted()` style | :wrench: |
 
 ## Deprecated
 
