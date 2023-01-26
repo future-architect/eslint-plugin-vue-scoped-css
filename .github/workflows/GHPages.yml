@@ -31,9 +31,7 @@ jobs:
       - name: Install Packages
         run: npm install
       - name: Build docs
-        run: |+
-          export NODE_OPTIONS=--openssl-legacy-provider
-          npm run docs:build
+        run: npm run docs:build
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact

@@ -204,8 +204,8 @@ export class CSSParser {
   protected parseInternal(css: string): postcss.Root {
     try {
       return postcss.parse(css);
-    } catch (e: any) {
-      this.addError(e);
+    } catch (e: unknown) {
+      this.addError(e as Error);
       return postcssSafeParser(css);
     }
   }

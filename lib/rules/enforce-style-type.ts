@@ -11,7 +11,7 @@ declare const module: {
 };
 
 const styleTypesAttrs = ["scoped", "module"] as const;
-type StyleTypes = "plain" | typeof styleTypesAttrs[number];
+type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];
 type AllowsOption = StyleTypes[];
 
 module.exports = {
@@ -170,7 +170,7 @@ module.exports = {
       const forbiddenAttrs = node.startTag.attributes.filter(
         (attr) =>
           styleTypesAttrs.includes(
-            attr.key.name as typeof styleTypesAttrs[number]
+            attr.key.name as (typeof styleTypesAttrs)[number]
           ) && !allows.includes(attr.key.name as StyleTypes)
       );
 
