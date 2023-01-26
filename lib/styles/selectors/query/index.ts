@@ -29,17 +29,15 @@ import type {
 } from "../../ast";
 import type { AST, RuleContext, ASTNode } from "../../../types";
 import type { ParsedQueryOptions } from "../../../options";
-import type { ReferenceExpressions } from "./attribute-tracker";
-import {
-  getAttributeValueNodes,
-  getReferenceExpressions,
-} from "./attribute-tracker";
+import { getAttributeValueNodes } from "./attribute-tracker";
 import type { ValidStyleContext } from "../../context";
 import { getVueComponentContext, getStyleContexts } from "../../context";
 import { getStringFromNode } from "../../utils/nodes";
 import { Template } from "../../template";
 import { isVElement, isTransitionElement } from "../../../utils/templates";
 import { isValidStyleContext } from "../../context/style";
+import type { ReferenceExpressions } from "./reference-expression";
+import { getReferenceExpressions } from "./reference-expression";
 
 const TRANSITION_CLASS_BASES = [
   "enter",
@@ -926,27 +924,19 @@ function matchClassNameForArrayExpression(
   document: VueDocumentQueryContext
 ): boolean {
   for (const e of expression.elements) {
-    if (e.type === "Identifier") {
-      if (withinTemplate(e, document)) {
-        const expressions = getReferenceExpressions(e, document.context);
-        if (expressions) {
-          for (const e2 of expressions) {
-            if (matchClassNameExpression(e2, className, document)) {
-              return true;
-            }
-          }
-        }
-      } else {
-        if (matchClassNameExpression(e, className, document)) {
-          return true;
-        }
-      }
-    } else if (e.type === "SpreadElement") {
+    if (e.type === "SpreadElement") {
       if (matchClassNameExpression(e.argument, className, document)) {
         return true;
       }
-    } else if (matchClassNameExpression(e, className, document)) {
-      return true;
+    } else {
+      const expressions = getReferenceExpressions(e, document.context);
+      if (expressions) {
+        for (const e2 of expressions) {
+          if (matchClassNameExpression(e2, className, document)) {
+            return true;
+          }
+        }
+      }
     }
   }
   return false;
@@ -1010,18 +1000,6 @@ function includesClassName(
     return value.split(/\s+/u).some((s) => className.matchString(s));
   }
   return value.divide(/\s+/u).some((s) => className.match(s));
-}
-
-/**
- * Checks whether the given node within `<template>`
- */
-function withinTemplate(
-  expr: AST.ESLintIdentifier,
-  document: VueDocumentQueryContext
-) {
-  const templateBody = document.context.getSourceCode().ast.templateBody;
-  const templateRange = templateBody?.range ?? [0, 0];
-  return templateRange[0] <= expr.range[0] && expr.range[1] <= templateRange[1];
 }
 
 /**

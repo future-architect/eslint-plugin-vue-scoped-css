@@ -1,0 +1,11 @@
+{
+    ".foo": [
+        "ul>li#a.{a ? 'foo' : 'bar'}",
+        "ul>li#c.{[c ? 'foo' : bar]}",
+        "ul>li#d.{[b ? foo : 'a']}"
+    ],
+    ".bar": [
+        "ul>li#a.{a ? 'foo' : 'bar'}",
+        "ul>li#c.{[c ? 'foo' : bar]}"
+    ]
+}

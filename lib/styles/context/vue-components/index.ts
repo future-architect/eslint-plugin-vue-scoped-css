@@ -9,18 +9,16 @@ const traverseNodes = vueAST.traverseNodes;
 
 const UNKNOWN = Symbol("unknown");
 
-type DataPropertyNode = AST.ESLintExpression | AST.ESLintPattern;
-type ComputedPropertyNode = AST.ESLintExpression | AST.ESLintPattern;
 type Properties = {
   data:
     | {
-        [key: string]: DataPropertyNode[];
+        [key: string]: AST.ESLintExpression[];
         [UNKNOWN]?: true;
       }
     | typeof UNKNOWN;
   computed:
     | {
-        [key: string]: ComputedPropertyNode[];
+        [key: string]: AST.ESLintExpression[];
         [UNKNOWN]?: true;
       }
     | typeof UNKNOWN;
@@ -44,14 +42,13 @@ export class VueComponentContext {
    * @param {string} name property name
    * @returns {ASTNode[]} the Vue component property value nodes
    */
-  public findVueComponentProperty(
-    name: string
-  ):
-    | (AST.ESLintBlockStatement | AST.ESLintExpression | AST.ESLintPattern)[]
-    | null {
+  public findVueComponentProperty(name: string): AST.ESLintExpression[] | null {
     const properties =
       this.properties ||
-      (this.properties = extractVueComponentPropertes(this.node, this.context));
+      (this.properties = extractVueComponentProperties(
+        this.node,
+        this.context
+      ));
 
     if (properties[UNKNOWN]) {
       return null;
@@ -108,7 +105,7 @@ export function createVueComponentContext(
 /**
  *  Extract properties and properties value nodes, of Vue component.
  */
-function extractVueComponentPropertes(
+function extractVueComponentProperties(
   vueNode: AST.ESLintObjectExpression,
   context: RuleContext
 ): Properties {
@@ -123,9 +120,15 @@ function extractVueComponentPropertes(
     }
     const keyName = getPropertyOrIdentifierName(p);
     if (keyName === "data") {
-      result.data = extractVueComponentData(p.value, context);
+      result.data = extractVueComponentData(
+        p.value as AST.ESLintExpression,
+        context
+      );
     } else if (keyName === "computed") {
-      result.computed = extractVueComponentComputed(p.value, context);
+      result.computed = extractVueComponentComputed(
+        p.value as AST.ESLintExpression,
+        context
+      );
     }
   }
   return result;
@@ -135,11 +138,11 @@ function extractVueComponentPropertes(
  *  Extract data, of Vue component.
  */
 function extractVueComponentData(
-  dataNode: AST.ESLintExpression | AST.ESLintPattern,
+  dataNode: AST.ESLintExpression,
   context: RuleContext
 ):
   | {
-      [key: string]: DataPropertyNode[];
+      [key: string]: AST.ESLintExpression[];
       [UNKNOWN]?: true;
     }
   | typeof UNKNOWN {
@@ -171,7 +174,7 @@ function extractVueComponentData(
     return UNKNOWN;
   }
   const data: {
-    [key: string]: DataPropertyNode[];
+    [key: string]: AST.ESLintExpression[];
     [UNKNOWN]?: true;
   } = {};
   for (const dataObj of dataNodes) {
@@ -188,7 +191,7 @@ function extractVueComponentData(
           data[UNKNOWN] = true;
         } else {
           const values = data[keyName] || (data[keyName] = []);
-          values.push(prop.value);
+          values.push(prop.value as AST.ESLintExpression);
         }
       } else {
         // Can not identify the key name.
@@ -203,11 +206,11 @@ function extractVueComponentData(
  *  Extract computed properties, of Vue component.
  */
 function extractVueComponentComputed(
-  computedNode: AST.ESLintExpression | AST.ESLintPattern,
+  computedNode: AST.ESLintExpression,
   context: RuleContext
 ):
   | {
-      [key: string]: ComputedPropertyNode[];
+      [key: string]: AST.ESLintExpression[];
       [UNKNOWN]?: true;
     }
   | typeof UNKNOWN {
@@ -217,7 +220,7 @@ function extractVueComponentComputed(
   }
 
   const computed: {
-    [key: string]: ComputedPropertyNode[];
+    [key: string]: AST.ESLintExpression[];
     [UNKNOWN]?: true;
   } = {};
   for (const p of computedNode.properties) {
@@ -233,15 +236,15 @@ function extractVueComponentComputed(
       continue;
     }
     const values = computed[keyName] || (computed[keyName] = []);
-    const { value } = p;
-    let func: AST.ESLintExpression | AST.ESLintPattern = value;
+    const value = p.value as AST.ESLintExpression;
+    let func: AST.ESLintExpression = value;
 
     if (value.type === "ObjectExpression") {
       const get = value.properties
         .filter(isProperty)
         .find((prop) => getPropertyOrIdentifierName(prop) === "get");
       if (get) {
-        func = get.value;
+        func = get.value as AST.ESLintExpression;
       }
     }
     if (
