@@ -1,0 +1,12 @@
+{
+    ".foo": [
+        "ul>li#a.{a || 'foo'}",
+        "ul>li#d.{d && foo}",
+        "ul>li#e.{[foo || bar]}"
+    ],
+    ".bar": [
+        "ul>li#b.{b && 'bar'}",
+        "ul>li#e.{[foo || bar]}",
+        "ul>li#f.{[bar && 'b']}"
+    ]
+}

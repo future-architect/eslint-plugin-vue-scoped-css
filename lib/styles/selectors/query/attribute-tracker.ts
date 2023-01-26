@@ -1,6 +1,7 @@
-import { getVueComponentContext } from "../../context";
 import type { RuleContext, AST } from "../../../types";
 import { isVDirective, isVBind, getArgument } from "../../../utils/templates";
+import type { ReferenceExpressions } from "./reference-expression";
+import { getReferenceExpressions } from "./reference-expression";
 
 /**
  * Gets the value nodes of attribute of given name as Array. Returns `null` If the given name can not be identified.
@@ -58,44 +59,5 @@ export function getAttributeValueNodes(
   }
   return results;
 }
-
-/**
- * Gets the reference expressions to the given expression.
- * @param {ASTNode} expression expression to track
- * @param {RuleContext} context ESLint rule context
- * @returns {ASTNode[]} reference expressions.
- */
-export function getReferenceExpressions(
-  expression: AttrExpressions,
-  context: RuleContext
-): ReferenceExpressions[] | null {
-  if (expression.type !== "Identifier") {
-    return [expression];
-  }
-  const vueComponent = getVueComponentContext(context);
-  if (!vueComponent) {
-    return null;
-  }
-  // Identify expression references from Vue's `data` and `computed`.
-  const props = vueComponent.findVueComponentProperty(expression.name);
-  if (props == null) {
-    // Property not found.
-    return null;
-  }
-  return props;
-}
-
-export type ReferenceExpressions =
-  | AST.ESLintBlockStatement
-  | AST.ESLintExpression
-  | AST.ESLintPattern
-  | AttrExpressions;
-
-type AttrExpressions =
-  | AST.ESLintExpression
-  | AST.VFilterSequenceExpression
-  | AST.VForExpression
-  | AST.VOnExpression
-  | AST.VSlotScopeExpression;
 
 export type AttributeValueExpressions = ReferenceExpressions | AST.VLiteral;

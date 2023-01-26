@@ -1123,5 +1123,61 @@ tester.run("no-unused-selector", rule as any, {
       options: [{ checkUnscoped: true }],
       errors: ["The selector `input` is unused."],
     },
+    {
+      code: `
+        <template>
+            <div><div :class="b ? 'foo' : ''"/></div>
+        </template>
+        <style scoped>
+        .foo {}
+        .bar {}
+        </style>
+        <script>
+        export default {
+            data () {
+                return {
+                    b: true
+                }
+            }
+        }
+        </script>
+        `,
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".bar" },
+          line: 7,
+          column: 9,
+        },
+      ],
+    },
+    {
+      code: `
+        <template>
+            <div><div :class="[b ? 'foo' : '']"/></div>
+        </template>
+        <style scoped>
+        .foo {}
+        .bar {}
+        </style>
+        <script>
+        export default {
+            data () {
+                return {
+                    b: true
+                }
+            }
+        }
+        </script>
+        `,
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".bar" },
+          line: 7,
+          column: 9,
+        },
+      ],
+    },
   ],
 });

@@ -96,7 +96,6 @@ export class Template {
     node:
       | AST.ESLintBlockStatement
       | AST.ESLintExpression
-      | AST.ESLintPattern
       | AST.ESLintPrivateIdentifier
       | AST.VLiteral
       | AST.VFilterSequenceExpression
