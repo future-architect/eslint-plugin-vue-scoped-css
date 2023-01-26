@@ -1,4 +1,4 @@
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import type { VCSSParsingError } from "../styles/ast";
 import type { InvalidStyleContext } from "../styles/context";
 import {
@@ -6,11 +6,7 @@ import {
   getCommentDirectivesReporter,
 } from "../styles/context";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "disallow parsing errors in `<style>`",
@@ -19,11 +15,11 @@ module.exports = {
       url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-parsing-error.html",
     },
     fixable: null,
-    messages: {},
+    messages: { parsingError: "Parsing error: {{message}}." },
     schema: [],
     type: "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context);
     if (!styles.length) {
       return {};
@@ -38,7 +34,7 @@ module.exports = {
       reporter.report({
         node,
         loc: node.loc.start,
-        message: "Parsing error: {{message}}.",
+        messageId: "parsingError",
         data: {
           message: node.message.endsWith(".")
             ? node.message.slice(0, -1)
@@ -55,7 +51,7 @@ module.exports = {
       reporter.report({
         node: style.styleElement,
         loc: style.invalid.loc,
-        message: "Parsing error: {{message}}.",
+        messageId: "parsingError",
         data: {
           message: style.invalid.message,
         },

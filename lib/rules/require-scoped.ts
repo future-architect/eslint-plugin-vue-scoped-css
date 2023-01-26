@@ -1,15 +1,17 @@
-import type { RuleContext, AST, TokenStore, Rule, RuleFixer } from "../types";
+import type {
+  RuleContext,
+  AST,
+  TokenStore,
+  RuleFixer,
+  RuleListener,
+} from "../types";
 import {
   getStyleContexts,
   isValidStyleContext,
   getCommentDirectivesReporter,
 } from "../styles/context";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     deprecated: true,
     docs: {
@@ -31,7 +33,7 @@ module.exports = {
     type: "suggestion",
     hasSuggestions: true,
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const always = context.options[0] !== "never";
     const styles = getStyleContexts(context).filter(isValidStyleContext);
     if (!styles.length) {

@@ -20,7 +20,7 @@ import {
 import type { QueryContext } from "../styles/selectors/query";
 import { createQueryContext } from "../styles/selectors/query";
 import { isRootElement } from "../styles/selectors/query/elements";
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import { parseQueryOptions } from "../options";
 import type { ValidStyleContext } from "../styles/context";
 import {
@@ -29,10 +29,6 @@ import {
 } from "../styles/context";
 import { hasTemplateBlock, isDefined } from "../utils/utils";
 import { isValidStyleContext } from "../styles/context/style";
-
-declare const module: {
-  exports: Rule;
-};
 
 /**
  * Gets scoped selectors.
@@ -94,7 +90,7 @@ function getScopedSelector(
   return results.reverse();
 }
 
-module.exports = {
+export = {
   meta: {
     docs: {
       description:
@@ -133,7 +129,7 @@ module.exports = {
     ],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     if (!hasTemplateBlock(context)) {
       return {};
     }

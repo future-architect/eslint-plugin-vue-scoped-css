@@ -7,7 +7,7 @@ import type { Rule } from "eslint";
 export { AST };
 
 // type RuleListener = { [key: string]: (node: never) => void }
-interface RuleListener {
+export interface RuleListener {
   [key: string]: ((node: never) => void) | undefined;
 }
 
@@ -118,6 +118,7 @@ export interface RuleFixer {
 }
 
 export type ReportSuggestion = ({ messageId: string } | { desc: string }) & {
+  data?: { [key: string]: string };
   fix?(fixer: RuleFixer): null | Fix | Fix[] | IterableIterator<Fix>;
 };
 export type ReportDescriptorNodeLocation = { node: AST.HasLocation };

@@ -5,14 +5,10 @@ import {
   isValidStyleContext,
 } from "../styles/context";
 import type { VCSSSelectorCombinator } from "../styles/ast";
-import type { RuleContext, Rule, Range } from "../types";
+import type { RuleContext, Range, RuleListener } from "../types";
 import { isDeepCombinator } from "../styles/utils/selectors";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "disallow using deprecated deep combinators",
@@ -27,7 +23,7 @@ module.exports = {
     schema: [],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
       .filter((style) => style.scoped);

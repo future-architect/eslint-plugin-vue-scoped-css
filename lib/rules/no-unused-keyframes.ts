@@ -1,5 +1,5 @@
 import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast";
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import { Template } from "../styles/template";
 import type { ValidStyleContext } from "../styles/context";
 import {
@@ -8,11 +8,7 @@ import {
 } from "../styles/context";
 import { isValidStyleContext } from "../styles/context/style";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "disallow `@keyframes` which don't use in Scoped CSS",
@@ -37,7 +33,7 @@ module.exports = {
     ],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const checkUnscoped = Boolean(context.options[0]?.checkUnscoped);
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)

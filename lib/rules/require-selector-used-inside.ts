@@ -16,7 +16,7 @@ import {
 import type { QueryContext } from "../styles/selectors/query";
 import { createQueryContext } from "../styles/selectors/query";
 import type { VCSSSelectorNode } from "../styles/ast";
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import type { ValidStyleContext } from "../styles/context";
 import {
   getStyleContexts,
@@ -25,10 +25,6 @@ import {
 import { hasTemplateBlock, isDefined } from "../utils/utils";
 import { parseQueryOptions } from "../options";
 import { isValidStyleContext } from "../styles/context/style";
-
-declare const module: {
-  exports: Rule;
-};
 
 /**
  * Gets scoped selectors.
@@ -72,7 +68,7 @@ function getScopedSelector(
   return [...selector];
 }
 
-module.exports = {
+export = {
   meta: {
     docs: {
       description:
@@ -111,7 +107,7 @@ module.exports = {
     ],
     type: "suggestion",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     if (!hasTemplateBlock(context)) {
       return {};
     }

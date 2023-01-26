@@ -4,18 +4,14 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import type { VGlobalPseudo } from "../styles/utils/selectors";
 import {
   isPseudoEmptyArguments,
   isVGlobalPseudo,
 } from "../styles/utils/selectors";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "require selector argument to be passed to `::v-global()`",
@@ -31,7 +27,7 @@ module.exports = {
     schema: [],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
       .filter((style) => style.scoped);

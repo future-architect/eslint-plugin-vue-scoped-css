@@ -1,20 +1,22 @@
 import lodash from "lodash";
-import type { RuleContext, AST, TokenStore, Rule, RuleFixer } from "../types";
+import type {
+  RuleContext,
+  AST,
+  TokenStore,
+  RuleListener,
+  RuleFixer,
+} from "../types";
 import {
   getStyleContexts,
   isValidStyleContext,
   getCommentDirectivesReporter,
 } from "../styles/context";
 
-declare const module: {
-  exports: Rule;
-};
-
 const styleTypesAttrs = ["scoped", "module"] as const;
 type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];
 type AllowsOption = StyleTypes[];
 
-module.exports = {
+export = {
   meta: {
     docs: {
       description:
@@ -55,7 +57,7 @@ module.exports = {
     type: "suggestion",
     hasSuggestions: true,
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context).filter(isValidStyleContext);
     if (!styles.length) {
       return {};

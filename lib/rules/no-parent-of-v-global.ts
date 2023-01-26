@@ -5,14 +5,10 @@ import {
   isValidStyleContext,
 } from "../styles/context";
 import type { VCSSSelectorNode } from "../styles/ast";
-import type { RuleContext, Rule } from "../types";
+import type { RuleContext, RuleListener } from "../types";
 import { isVGlobalPseudo } from "../styles/utils/selectors";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "disallow parent selector for `::v-global` pseudo-element",
@@ -28,7 +24,7 @@ module.exports = {
     schema: [],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
       .filter((style) => style.scoped);

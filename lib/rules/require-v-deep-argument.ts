@@ -4,7 +4,7 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { RuleContext, Rule, Range } from "../types";
+import type { RuleContext, Range, RuleListener } from "../types";
 import type { VDeepPseudo } from "../styles/utils/selectors";
 import {
   isVDeepPseudoV2,
@@ -23,11 +23,7 @@ import {
   isVCSSComment,
 } from "../styles/utils/css-nodes";
 
-declare const module: {
-  exports: Rule;
-};
-
-module.exports = {
+export = {
   meta: {
     docs: {
       description: "require selector argument to be passed to `::v-deep()`",
@@ -43,7 +39,7 @@ module.exports = {
     schema: [],
     type: "suggestion", // "problem",
   },
-  create(context: RuleContext) {
+  create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
       .filter(isValidStyleContext)
       .filter((style) => style.scoped);
