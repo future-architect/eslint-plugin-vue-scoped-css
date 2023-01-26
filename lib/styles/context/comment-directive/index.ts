@@ -17,13 +17,22 @@ type ParsingResult = { type: string; rules: string[] };
 type BlockData = { loc: LineAndColumnData; disable: boolean };
 
 /**
+ * Remove the ignored part from a given directive comment and trim it.
+ * @param {string} value The comment text to strip.
+ * @returns {string} The stripped text.
+ */
+function stripDirectiveComment(value: string) {
+  return value.split(/\s-{2,}\s/u)[0];
+}
+
+/**
  * Parse a given comment.
  * @param {RegExp} pattern The RegExp pattern to parse.
  * @param {string} comment The comment value to parse.
  * @returns {({type:string,rules:string[]})|null} The parsing result.
  */
 function parse(pattern: RegExp, comment: string): ParsingResult | null {
-  const match = pattern.exec(comment);
+  const match = pattern.exec(stripDirectiveComment(comment));
   if (match == null) {
     return null;
   }

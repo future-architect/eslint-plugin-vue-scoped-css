@@ -40,6 +40,25 @@ tester.run("no-unused-selector-comment-directives", rule as any, {
                 </ul></div>
             </template>
             <style scoped>
+            /* eslint-disable-next-line -- description */
+            div {
+                & > .foo,
+                & > li.foo {/* eslint-disable-line -- description */
+                } 
+                & > li.bar {}
+            }
+            </style>
+            `,
+      errors: [{ messageId: "unused", data: { selector: ".foo" } }],
+    },
+    {
+      code: `
+            <template>
+                <div><ul>
+                    <li class="bar"/>
+                </ul></div>
+            </template>
+            <style scoped>
             /* eslint-disable-next-line no-unused-selector-comment-directives */
             div {
                 & > .foo,
