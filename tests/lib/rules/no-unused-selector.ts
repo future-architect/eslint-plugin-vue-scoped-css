@@ -385,13 +385,13 @@ tester.run("no-unused-selector", rule as any, {
         `,
     // not scoped
     `
-        <template>
-            <div></div>
-        </template>
-        <style>
-        input {}
-        </style>
-        `,
+    <template>
+        <div></div>
+    </template>
+    <style>
+    input {}
+    </style>
+    `,
 
     // deep
     `
@@ -1110,6 +1110,18 @@ tester.run("no-unused-selector", rule as any, {
             </script>
             `,
       errors: ["The selector `.bar` is unused."],
+    },
+    {
+      code: `
+      <template>
+          <div></div>
+      </template>
+      <style>
+      input {}
+      </style>
+      `,
+      options: [{ checkUnscoped: true }],
+      errors: ["The selector `input` is unused."],
     },
   ],
 });

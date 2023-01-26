@@ -109,6 +109,16 @@ tester.run("no-unused-keyframes", rule as any, {
         }
         </style>
         `,
+    `
+    <template><a/></template>
+    <style>
+    .item {
+        animation-name: slidein;
+    }
+    @keyframes unused {
+    }
+    </style>
+    `,
   ],
   invalid: [
     {
@@ -174,6 +184,26 @@ tester.run("no-unused-keyframes", rule as any, {
           column: 24,
           endLine: 7,
           endColumn: 30,
+        },
+      ],
+    },
+    {
+      code: `
+      <template><a/></template>
+      <style>
+      .item {
+          animation-name: slidein;
+      }
+      @keyframes unused {
+      }
+      </style>
+      `,
+      options: [{ checkUnscoped: true }],
+      errors: [
+        {
+          message: "The @keyframes `unused` is unused.",
+          line: 7,
+          column: 18,
         },
       ],
     },

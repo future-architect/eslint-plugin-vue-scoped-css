@@ -89,13 +89,15 @@ This is a limitation of this rule. Without this limitation, the root element can
 {
   "vue-scoped-css/no-unused-selector": ["error", {
     "ignoreBEMModifier": false,
-    "captureClassesFromDoc": []
+    "captureClassesFromDoc": [],
+    "checkUnscoped": false,
   }]
 }
 ```
 
 - `ignoreBEMModifier` ... Set `true` if you want to ignore the `BEM` modifier. Default is false.
 - `captureClassesFromDoc` ... Specifies the regexp that extracts the class name from the documentation in the comments. Even if there is no matching element, no error is reported if the document of a class name exists in the comments.
+- `checkUnscoped` ... The rule only checks `<style scoped>` by default, but if set to `true` it will also check `<style>` without the scoped attribute. If you set it to `true`, be very careful that the warned CSS may actually be used outside the `.vue` file.
 
 ### `"ignoreBEMModifier": true`
 

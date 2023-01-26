@@ -36,7 +36,15 @@ This rule reports `@keyframes` is not used in Scoped CSS.
 
 ## :wrench: Options
 
-Nothing.
+```json
+{
+  "vue-scoped-css/no-unused-keyframes": ["error", {
+    "checkUnscoped": false
+  }]
+}
+```
+
+- `checkUnscoped` ... The rule only checks `<style scoped>` by default, but if set to `true` it will also check `<style>` without the scoped attribute. If you set it to `true`, be very careful that the warned CSS may actually be used outside the `.vue` file.
 
 ## Implementation
 
