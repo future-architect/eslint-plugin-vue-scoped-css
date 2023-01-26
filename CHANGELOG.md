@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.4.0
+
+### Minor Changes
+
+- feat: improved tracking of js expression values ([#260](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/260))
+
 ## 2.3.0
 
 ### Minor Changes
