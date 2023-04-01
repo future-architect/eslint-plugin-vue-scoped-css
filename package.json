@@ -80,7 +80,7 @@
     "pack": "^2.2.0",
     "prettier": "^2.0.5",
     "raw-loader": "^4.0.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.0.0",
     "semver": "^7.3.2",
     "stylelint": "^15.0.0",
     "stylelint-config-recommended-vue": "^1.1.0",
