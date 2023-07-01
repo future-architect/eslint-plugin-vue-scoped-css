@@ -55,6 +55,11 @@ function getVueComponentObject(
   return null;
 }
 
+const vueComponentCache = new WeakMap<
+  RuleContext,
+  { component: AST.ESLintObjectExpression | null; cachedAt: number }
+>();
+
 /**
  * Find Vue component of the current file.
  * @param {RuleContext} context The ESLint rule context object.
@@ -63,6 +68,11 @@ function getVueComponentObject(
 function findVueComponent(
   context: RuleContext
 ): AST.ESLintObjectExpression | null {
+  const cached = vueComponentCache.get(context);
+  if (cached !== undefined && cached.cachedAt > Date.now() - 1000) {
+    return cached.component;
+  }
+
   const sourceCode = context.getSourceCode();
   const componentComments = sourceCode
     .getAllComments()
@@ -117,6 +127,11 @@ function findVueComponent(
     leaveNode() {
       // noop
     },
+  });
+
+  vueComponentCache.set(context, {
+    component: result,
+    cachedAt: Date.now(),
   });
   return result;
 }
