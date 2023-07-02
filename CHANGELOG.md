@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.5.0
+
+### Minor Changes
+
+- Improve `no-unused-selector` performance ([#285](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/285))
+
 ## 2.4.0
 
 ### Minor Changes
