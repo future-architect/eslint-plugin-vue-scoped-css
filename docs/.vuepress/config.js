@@ -18,11 +18,11 @@ module.exports = {
         alias: {
           esquery: path.resolve(
             __dirname,
-            "../../node_modules/esquery/dist/esquery.min.js"
+            "../../node_modules/esquery/dist/esquery.min.js",
           ),
           "@eslint/eslintrc/universal": path.resolve(
             __dirname,
-            "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs"
+            "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs",
           ),
           eslint$: require.resolve("./shim/eslint"),
           // eslint-disable-next-line node/no-extraneous-require -- demo
@@ -32,7 +32,7 @@ module.exports = {
           module: require.resolve("./shim/module"),
           postcss$: path.resolve(
             __dirname,
-            "../../node_modules/postcss/lib/postcss.mjs"
+            "../../node_modules/postcss/lib/postcss.mjs",
           ),
         },
       },
@@ -80,7 +80,7 @@ module.exports = {
                 meta: {
                   docs: { ruleId, ruleName },
                 },
-              }) => [`/rules/${ruleName}`, ruleId]
+              }) => [`/rules/${ruleName}`, ruleId],
             ),
           }))
           .filter((menu) => Boolean(menu.children.length)),

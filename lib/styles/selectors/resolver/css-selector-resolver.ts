@@ -46,7 +46,7 @@ export class ResolvedSelectors {
    */
   public constructor(
     container: (VCSSAtRule & { selectors: VCSSSelectorNode[] }) | VCSSStyleRule,
-    parent: ResolvedSelectors | null
+    parent: ResolvedSelectors | null,
   ) {
     this.container = container;
     this.parent = parent;
@@ -88,7 +88,7 @@ export class CSSSelectorResolver {
    */
   private resolveNodesSelectors(
     nodes: VCSSNode[],
-    parentSelector: ResolvedSelectors | null
+    parentSelector: ResolvedSelectors | null,
   ): ResolvedSelectors[] {
     const results: ResolvedSelectors[] = [];
     for (const node of nodes) {
@@ -101,7 +101,7 @@ export class CSSSelectorResolver {
       } else {
         if (isVCSSContainerNode(node)) {
           results.push(
-            ...this.resolveNodesSelectors(node.nodes, parentSelector)
+            ...this.resolveNodesSelectors(node.nodes, parentSelector),
           );
         }
       }
@@ -118,15 +118,15 @@ export class CSSSelectorResolver {
     node:
       | (VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] })
       | VCSSStyleRule,
-    parentSelector: ResolvedSelectors | null
+    parentSelector: ResolvedSelectors | null,
   ): ResolvedSelectors {
     const selectorNodes = node.selectors.filter(hasNodesSelector);
     const resolved = new ResolvedSelectors(node, parentSelector);
     if (!parentSelector) {
       resolved.selectors.push(
         ...selectorNodes.map(
-          (selectorNode) => new ResolvedSelector(resolved, selectorNode.nodes)
-        )
+          (selectorNode) => new ResolvedSelector(resolved, selectorNode.nodes),
+        ),
       );
     } else {
       for (const selectorNode of selectorNodes.filter(hasNodesSelector)) {
@@ -135,15 +135,15 @@ export class CSSSelectorResolver {
             resolved,
             selectorNode.nodes,
             parentSelector,
-            node
-          )
+            node,
+          ),
         );
       }
     }
 
     if (isVCSSContainerNode(node)) {
       resolved.children.push(
-        ...this.resolveNodesSelectors(node.nodes, resolved)
+        ...this.resolveNodesSelectors(node.nodes, resolved),
       );
     }
     return resolved;
@@ -166,7 +166,7 @@ export class CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorNode[],
     parentSelectors: ResolvedSelectors | null,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (isNestingAtRule(container)) {
       return this.resolveSelectorForNestContaining(
@@ -174,7 +174,7 @@ export class CSSSelectorResolver {
         selectorNodes,
         findNestingSelector(selectorNodes),
         parentSelectors,
-        container
+        container,
       );
     }
     const nestingIndex = selectorNodes.findIndex(isNestingSelector);
@@ -184,7 +184,7 @@ export class CSSSelectorResolver {
         owner,
         selectorNodes,
         parentSelectors,
-        container
+        container,
       );
     }
     return [new ResolvedSelector(owner, selectorNodes)];
@@ -201,7 +201,7 @@ export class CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorNode[],
     parentSelectors: ResolvedSelectors | null,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (!selectorNodes.length || !isNestingSelector(selectorNodes[0])) {
       // To be nest-prefixed, a nesting selector must be the first simple selector in the first compound selector of the selector.
@@ -213,7 +213,7 @@ export class CSSSelectorResolver {
       owner,
       after,
       parentSelectors,
-      container
+      container,
     );
   }
 
@@ -228,7 +228,7 @@ export class CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorNode[],
     parentSelectors: ResolvedSelectors | null,
-    _container: VCSSAtRule | VCSSStyleRule
+    _container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (!parentSelectors) {
       const nodes = [...selectorNodes];
@@ -274,7 +274,7 @@ export class CSSSelectorResolver {
     selectorNodes: VCSSSelectorNode[],
     nestingInfo: NestingInfo | null,
     parentSelectors: ResolvedSelectors | null,
-    _container: VCSSAtRule | VCSSStyleRule
+    _container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (!nestingInfo) {
       // Must be nest-containing, which means it contains a nesting selector in it somewhere.
@@ -320,8 +320,8 @@ export class CSSSelectorResolver {
               before.pop() as VCSSSelectorValueNode,
               parentSelector.shift() as VCSSTypeSelector,
               after.shift() as VCSSTypeSelector,
-              nestingNode
-            )
+              nestingNode,
+            ),
           );
         } else {
           if (needJoinLeft) {
@@ -330,8 +330,8 @@ export class CSSSelectorResolver {
               newNestingConcatLeftSelectorNodes(
                 before.pop() as VCSSSelectorValueNode,
                 parentSelector.shift() as VCSSTypeSelector,
-                nestingNode
-              )
+                nestingNode,
+              ),
             );
           }
           if (needJoinRight) {
@@ -340,8 +340,8 @@ export class CSSSelectorResolver {
               newNestingConcatRightSelectorNodes(
                 parentSelector.pop() as VCSSSelectorValueNode,
                 after.shift() as VCSSTypeSelector,
-                nestingNode
-              )
+                nestingNode,
+              ),
             );
           }
         }
@@ -397,7 +397,7 @@ function newNestingConcatBothSelectorNodes(
   left: VCSSSelectorValueNode,
   parent: VCSSTypeSelector,
   right: VCSSTypeSelector,
-  _nesting: VCSSNestingSelector
+  _nesting: VCSSNestingSelector,
 ) {
   const loc = {
     start: left.loc.start,
@@ -420,7 +420,7 @@ function newNestingConcatBothSelectorNodes(
 function newNestingConcatLeftSelectorNodes(
   left: VCSSSelectorValueNode,
   parent: VCSSTypeSelector,
-  nesting: VCSSNestingSelector
+  nesting: VCSSNestingSelector,
 ) {
   const loc = {
     start: left.loc.start,
@@ -442,7 +442,7 @@ function newNestingConcatLeftSelectorNodes(
 function newNestingConcatRightSelectorNodes(
   parent: VCSSSelectorValueNode,
   right: VCSSTypeSelector,
-  nesting: VCSSNestingSelector
+  nesting: VCSSNestingSelector,
 ) {
   const loc = {
     start: nesting.loc.start,

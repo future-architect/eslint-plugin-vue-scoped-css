@@ -59,7 +59,7 @@ class Node<T extends string> {
     loc: SourceLocation,
     start: number,
     end: number,
-    lang: string
+    lang: string,
   ) {
     this.type = type;
     this.loc = loc;
@@ -76,7 +76,7 @@ class Node<T extends string> {
  */
 class HasParentNode<
   T extends string,
-  P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo
+  P extends VCSSContainerNode | VCSSSelector | VCSSSelectorPseudo,
 > extends Node<T> {
   public readonly parent: P;
 
@@ -88,7 +88,7 @@ class HasParentNode<
     end: number,
     props: {
       parent: P;
-    }
+    },
   ) {
     super(node, type, loc, start, end, props.parent.lang);
     this.parent = props.parent;
@@ -117,7 +117,7 @@ export class VCSSParsingError extends Node<"VCSSParsingError"> {
     props: {
       lang: string;
       message: string;
-    }
+    },
   ) {
     super(node, "VCSSParsingError", loc, start, end, props.lang);
     this.message = props.message;
@@ -153,7 +153,7 @@ export class VCSSStyleSheet extends Node<"VCSSStyleSheet"> {
       comments?: VCSSCommentNode[];
       errors?: VCSSParsingError[];
       lang: string;
-    }
+    },
   ) {
     super(node, "VCSSStyleSheet", loc, start, end, props.lang);
     this.nodes = props.nodes ?? [];
@@ -205,7 +205,7 @@ export class VCSSStyleRule extends HasParentNode<
       rawSelectorText: string | null;
       selectors?: VCSSSelectorNode[];
       nodes?: VCSSNode[];
-    }
+    },
   ) {
     super(node, "VCSSStyleRule", loc, start, end, props);
 
@@ -261,7 +261,7 @@ export class VCSSDeclarationProperty extends HasParentNode<
       property?: string;
       important?: boolean;
       value?: string;
-    }
+    },
   ) {
     super(node, "VCSSDeclarationProperty", loc, start, end, props);
 
@@ -320,7 +320,7 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
       rawParamsText: string | null;
       selectors?: VCSSSelectorNode[];
       nodes?: VCSSNode[];
-    }
+    },
   ) {
     super(node, "VCSSAtRule", loc, start, end, props);
     this.node = node;
@@ -377,7 +377,7 @@ export class VCSSUnknown extends HasParentNode<
       parent: VCSSContainerNode;
       nodes?: VCSSNode[];
       unknownType?: string;
-    }
+    },
   ) {
     super(node, "VCSSUnknown", loc, start, end, props);
 
@@ -423,7 +423,7 @@ export class VCSSSelector extends HasParentNode<
     props: {
       parent: VCSSStyleRule | VCSSAtRule | VCSSSelectorPseudo;
       nodes?: VCSSSelectorValueNode[];
-    }
+    },
   ) {
     super(node, "VCSSSelector", loc, start, end, props);
 
@@ -472,7 +472,7 @@ export class VCSSTypeSelector extends HasParentNode<
     props: {
       parent: VCSSSelector;
       value?: string;
-    }
+    },
   ) {
     super(node, "VCSSTypeSelector", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -488,7 +488,7 @@ export class VCSSTypeSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSTypeSelector {
     return copyStdNode(this, props);
   }
@@ -518,7 +518,7 @@ export class VCSSIDSelector extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSSelector; value?: string }
+    props: { parent: VCSSSelector; value?: string },
   ) {
     super(node, "VCSSIDSelector", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -534,7 +534,7 @@ export class VCSSIDSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSIDSelector {
     return copyStdNode(this, props);
   }
@@ -564,7 +564,7 @@ export class VCSSClassSelector extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSSelector; value?: string }
+    props: { parent: VCSSSelector; value?: string },
   ) {
     super(node, "VCSSClassSelector", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -580,7 +580,7 @@ export class VCSSClassSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSClassSelector {
     return copyStdNode(this, props);
   }
@@ -610,7 +610,7 @@ export class VCSSNestingSelector extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSSelector; value?: string }
+    props: { parent: VCSSSelector; value?: string },
   ) {
     super(node, "VCSSNestingSelector", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -626,7 +626,7 @@ export class VCSSNestingSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSNestingSelector {
     return copyStdNode(this, props);
   }
@@ -656,7 +656,7 @@ export class VCSSUniversalSelector extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSSelector; value?: string }
+    props: { parent: VCSSSelector; value?: string },
   ) {
     super(node, "VCSSUniversalSelector", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -672,7 +672,7 @@ export class VCSSUniversalSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSUniversalSelector {
     return copyStdNode(this, props);
   }
@@ -714,7 +714,7 @@ export class VCSSAttributeSelector extends HasParentNode<
       parent: VCSSSelector;
       value?: string;
       insensitiveFlag?: string;
-    }
+    },
   ) {
     super(node, "VCSSAttributeSelector", loc, start, end, props);
 
@@ -765,7 +765,7 @@ export class VCSSAttributeSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSAttributeSelector {
     return copyStdNode(this, props);
   }
@@ -798,7 +798,7 @@ export class VCSSSelectorPseudo extends HasParentNode<
     props: {
       parent: VCSSSelector;
       nodes?: VCSSSelector[];
-    }
+    },
   ) {
     super(node, "VCSSSelectorPseudo", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -815,7 +815,7 @@ export class VCSSSelectorPseudo extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSSelectorPseudo {
     return copyStdNode(this, props);
   }
@@ -854,7 +854,7 @@ export class VCSSSelectorCombinator extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSSelector; value?: string }
+    props: { parent: VCSSSelector; value?: string },
   ) {
     super(node, "VCSSSelectorCombinator", loc, start, end, props);
     this.value = getProp(props, node, "value");
@@ -870,7 +870,7 @@ export class VCSSSelectorCombinator extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSSelectorCombinator {
     return copyStdNode(this, props);
   }
@@ -903,7 +903,7 @@ export class VCSSUnknownSelector extends HasParentNode<
     end: number,
     props: {
       parent: VCSSSelector;
-    }
+    },
   ) {
     super(node, "VCSSUnknownSelector", loc, start, end, props);
     this.value = getProp(props, node, "value") || "";
@@ -919,7 +919,7 @@ export class VCSSUnknownSelector extends HasParentNode<
     props?: CopyProps & {
       parent?: VCSSSelector;
       value?: string;
-    }
+    },
   ): VCSSUnknownSelector {
     return copyStdNode(this, props);
   }
@@ -952,7 +952,7 @@ export class VCSSComment extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSContainerNode | VCSSSelector }
+    props: { parent: VCSSContainerNode | VCSSSelector },
   ) {
     super(node, "VCSSComment", loc, start, end, props);
     this.node = node;
@@ -969,7 +969,7 @@ export class VCSSComment extends HasParentNode<
       parent?: VCSSContainerNode | VCSSSelector;
       node?: PostCSSComment | PostCSSSPCommentNode;
       text?: string;
-    }
+    },
   ): VCSSComment {
     const parent = props?.parent ?? this.parent;
     return new VCSSComment(
@@ -978,7 +978,7 @@ export class VCSSComment extends HasParentNode<
       props?.loc ?? this.loc,
       props?.start ?? this.start,
       props?.end ?? this.end,
-      { ...this, ...props, parent }
+      { ...this, ...props, parent },
     );
   }
 }
@@ -1009,7 +1009,7 @@ export class VCSSInlineComment extends HasParentNode<
     loc: SourceLocation,
     start: number,
     end: number,
-    props: { parent: VCSSContainerNode | VCSSSelector }
+    props: { parent: VCSSContainerNode | VCSSSelector },
   ) {
     super(node, "VCSSInlineComment", loc, start, end, props);
     this.node = node;
@@ -1026,7 +1026,7 @@ export class VCSSInlineComment extends HasParentNode<
       parent?: VCSSContainerNode | VCSSSelector;
       node?: PostCSSComment | PostCSSSPCommentNode;
       text?: string;
-    }
+    },
   ): VCSSInlineComment {
     const parent = props?.parent ?? this.parent;
     return new VCSSInlineComment(
@@ -1035,7 +1035,7 @@ export class VCSSInlineComment extends HasParentNode<
       props?.loc ?? this.loc,
       props?.start ?? this.start,
       props?.end ?? this.end,
-      { ...this, ...props, parent }
+      { ...this, ...props, parent },
     );
   }
 }
@@ -1086,7 +1086,7 @@ function getProp<N extends PostCSSNode | PostCSSSPNode, K extends keyof N>(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
   props: any,
   node: N,
-  name: K
+  name: K,
 ): N[K] {
   if (props?.[name] != null) {
     const v = props[name];
@@ -1102,7 +1102,7 @@ function getProp<N extends PostCSSNode | PostCSSSPNode, K extends keyof N>(
  */
 function copyStdNode<N extends Node<T>, T extends string, CP extends CopyProps>(
   astNode: N,
-  props?: CP
+  props?: CP,
 ): N & Required<CP> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
   const C = astNode.constructor as new (...args: any[]) => N & Required<CP>;
@@ -1111,6 +1111,6 @@ function copyStdNode<N extends Node<T>, T extends string, CP extends CopyProps>(
     props?.loc ?? astNode.loc,
     props?.start ?? astNode.start,
     props?.end ?? astNode.end,
-    { ...astNode, ...props }
+    { ...astNode, ...props },
   );
 }

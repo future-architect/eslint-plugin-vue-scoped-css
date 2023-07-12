@@ -71,7 +71,7 @@ export class CSSParser {
       const rootNode = this._postcssNodeToASTNode(offsetLocation, postcssRoot);
       rootNode.comments = this.commentContainer;
       rootNode.errors.push(
-        ...this.collectErrors(this.anyErrors, offsetLocation)
+        ...this.collectErrors(this.anyErrors, offsetLocation),
       );
 
       return rootNode;
@@ -96,7 +96,7 @@ export class CSSParser {
   private collectErrors(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
     errors: any[],
-    offsetLocation: LineAndColumnData
+    offsetLocation: LineAndColumnData,
   ): VCSSParsingError[] {
     const errorNodes = [];
     const duplicate = new Set<string>();
@@ -125,8 +125,8 @@ export class CSSParser {
           {
             lang: this.lang,
             message,
-          }
-        )
+          },
+        ),
       );
     }
     return errorNodes;
@@ -148,25 +148,25 @@ export class CSSParser {
    */
   private _postcssNodeToASTNode(
     offsetLocation: LineAndColumnData,
-    node: PostCSSRoot
+    node: PostCSSRoot,
   ): VCSSStyleSheet;
 
   private _postcssNodeToASTNode(
     offsetLocation: LineAndColumnData,
     node: PostCSSNode,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null;
 
   private _postcssNodeToASTNode(
     offsetLocation: LineAndColumnData,
     node: PostCSSNode,
-    parent?: VCSSContainerNode
+    parent?: VCSSContainerNode,
   ): VCSSNode | null {
     const { sourceCode } = this;
     const startLoc = getESLintLineAndColumnFromPostCSSNode(
       offsetLocation,
       node,
-      "start"
+      "start",
     ) || { line: 0, column: 1 };
     const start = sourceCode.getIndexFromLoc(startLoc);
     const endLoc =
@@ -174,7 +174,7 @@ export class CSSParser {
       // for node type: `root`
       sourceCode.getLocFromIndex(
         sourceCode.getIndexFromLoc(offsetLocation) +
-          (node as PostCSSRoot).source.input.css.length
+          (node as PostCSSRoot).source.input.css.length,
       );
     const end = sourceCode.getIndexFromLoc(endLoc);
     const loc: SourceLocation = {
@@ -187,7 +187,7 @@ export class CSSParser {
       loc,
       start,
       end,
-      parent as never
+      parent as never,
     );
 
     if (astNode == null) {
@@ -227,7 +227,7 @@ export class CSSParser {
     node: PostCSSRoot,
     loc: SourceLocation,
     start: number,
-    end: number
+    end: number,
   ): VCSSNode | null {
     return new VCSSStyleSheet(node, loc, start, end, { lang: this.lang });
   }
@@ -246,7 +246,7 @@ export class CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     const astNode = new VCSSStyleRule(node, loc, start, end, {
       parent,
@@ -255,7 +255,7 @@ export class CSSParser {
     astNode.selectors = this.selectorParser.parse(
       astNode.rawSelectorText,
       astNode.loc.start,
-      astNode
+      astNode,
     );
 
     if (this.getRaw(node, "between")?.trim()) {
@@ -273,7 +273,7 @@ export class CSSParser {
 
     this._postcssNodeToASTNode(
       this.sourceCode.getLocFromIndex(betweenStart),
-      postcssRoot
+      postcssRoot,
     );
   }
 
@@ -291,7 +291,7 @@ export class CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     const astNode = new VCSSAtRule(node, loc, start, end, {
       parent,
@@ -309,7 +309,7 @@ export class CSSParser {
       astNode.selectors = this.selectorParser.parse(
         astNode.rawParamsText,
         this.sourceCode.getLocFromIndex(paramsStartIndex),
-        astNode
+        astNode,
       );
     }
 
@@ -334,7 +334,7 @@ export class CSSParser {
 
     this._postcssNodeToASTNode(
       this.sourceCode.getLocFromIndex(afterNameStart),
-      postcssRoot
+      postcssRoot,
     );
   }
 
@@ -352,7 +352,7 @@ export class CSSParser {
     const postcssRoot = this.parseInternal(between || "") as PostCSSRoot;
     this._postcssNodeToASTNode(
       this.sourceCode.getLocFromIndex(betweenStart),
-      postcssRoot
+      postcssRoot,
     );
   }
 
@@ -370,7 +370,7 @@ export class CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     // adjust star hack
     // `*color: red`
@@ -405,10 +405,10 @@ export class CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     this.commentContainer.push(
-      new VCSSComment(node, node.text, loc, start, end, { parent })
+      new VCSSComment(node, node.text, loc, start, end, { parent }),
     );
     return null;
   }
@@ -427,7 +427,7 @@ export class CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     return new VCSSUnknown(node, loc, start, end, {
       parent,
@@ -437,7 +437,7 @@ export class CSSParser {
 
   protected getRaw<N extends PostCSSNode, K extends keyof N["raws"] & string>(
     node: N,
-    keyName: K
+    keyName: K,
   ): N["raws"][K] {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
     return (node.raws as any)[keyName];
@@ -452,7 +452,7 @@ export class CSSParser {
  */
 function getESLintLineAndColumnFromPostCSSPosition(
   offsetLocation: LineAndColumnData,
-  loc: PostCSSLoc
+  loc: PostCSSLoc,
 ) {
   let { line } = loc;
   let column = loc.column - 1; // Change to 0 base.
@@ -475,7 +475,7 @@ function getESLintLineAndColumnFromPostCSSPosition(
 function getESLintLineAndColumnFromPostCSSNode(
   offsetLocation: LineAndColumnData,
   node: PostCSSNode,
-  locName: "start" | "end"
+  locName: "start" | "end",
 ): LineAndColumnData | null {
   const sourceLoc = node.source[locName];
   if (!sourceLoc) {
@@ -483,7 +483,7 @@ function getESLintLineAndColumnFromPostCSSNode(
   }
   const { line, column } = getESLintLineAndColumnFromPostCSSPosition(
     offsetLocation,
-    sourceLoc
+    sourceLoc,
   );
   if (locName === "end") {
     // End column is shifted by one.
@@ -511,7 +511,7 @@ const convertNodeTypes: ConvertNodeTypes = {
  * Get convert method name from given type
  */
 function typeToConvertMethodName(
-  type: keyof ConvertNodeTypes
+  type: keyof ConvertNodeTypes,
 ): "convertUnknownTypeNode" | ConvertNodeTypes[keyof ConvertNodeTypes] {
   return convertNodeTypes[type] || "convertUnknownTypeNode";
 }

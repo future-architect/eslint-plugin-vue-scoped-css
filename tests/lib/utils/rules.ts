@@ -32,7 +32,7 @@ describe("Check if the struct of all rules is correct", () => {
         Object.keys(dirRules).length,
       `Did not equal the number of rules. expect:${
         Object.keys(dirRules).length
-      } actual:${Object.keys(collect).length}`
+      } actual:${Object.keys(collect).length}`,
     );
   });
   it("rule count equals (rules)", () => {
@@ -40,7 +40,7 @@ describe("Check if the struct of all rules is correct", () => {
       allRules.length === Object.keys(dirRules).length,
       `Did not equal the number of rules. expect:${
         Object.keys(dirRules).length
-      } actual:${allRules.length}`
+      } actual:${allRules.length}`,
     );
   });
 
@@ -50,7 +50,7 @@ describe("Check if the struct of all rules is correct", () => {
       assert.ok(Boolean(rule.meta.docs.ruleName), "Did not set `ruleName`");
       assert.ok(
         Boolean(dirRules[rule.meta.docs?.ruleId || ""]),
-        "Did not exist rule"
+        "Did not exist rule",
       );
     });
   }

@@ -8,10 +8,13 @@ const configs = {
   all: require("./configs/all"),
 };
 
-const rules = ruleList.reduce((obj, r) => {
-  obj[r.meta.docs?.ruleName || ""] = r;
-  return obj;
-}, {} as { [key: string]: Rule });
+const rules = ruleList.reduce(
+  (obj, r) => {
+    obj[r.meta.docs?.ruleName || ""] = r;
+    return obj;
+  },
+  {} as { [key: string]: Rule },
+);
 
 export = {
   configs,

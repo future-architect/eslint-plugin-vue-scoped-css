@@ -24,18 +24,18 @@ export class SCSSSelectorParser extends CSSSelectorParser {
           regexp: /\/\/[^\n\r\u2028\u2029]*/gu, // inline comment
           replace: (_res, random) => `/*${random}*/`,
         },
-      ]
+      ],
     );
 
     const result: PostCSSSPRootNode = selectorParser().astSync(
-      replaceSelectorContext.cssSelector
+      replaceSelectorContext.cssSelector,
     );
     if (!replaceSelectorContext.hasReplace()) {
       return result;
     }
     return restoreReplacedSelector(
       result,
-      replaceSelectorContext
+      replaceSelectorContext,
     ) as PostCSSSPRootNode;
   }
 
@@ -57,7 +57,7 @@ export class SCSSSelectorParser extends CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     if (node.value.startsWith("//")) {
       // inline comment
@@ -65,7 +65,7 @@ export class SCSSSelectorParser extends CSSSelectorParser {
       this.commentContainer.push(
         new VCSSInlineComment(node, text, loc, start, end, {
           parent,
-        })
+        }),
       );
       return null;
     }

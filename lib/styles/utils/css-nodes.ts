@@ -17,7 +17,7 @@ import { isNestingAtRule } from "./selectors";
  * @param node node to check
  */
 export function isVCSSAtRule(
-  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null
+  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null,
 ): node is VCSSAtRule {
   return node?.type === "VCSSAtRule";
 }
@@ -26,7 +26,7 @@ export function isVCSSAtRule(
  * @param node node to check
  */
 export function isVCSSStyleRule(
-  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null
+  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null,
 ): node is VCSSStyleRule {
   return node?.type === "VCSSStyleRule";
 }
@@ -35,7 +35,7 @@ export function isVCSSStyleRule(
  * @param node node to check
  */
 export function isVCSSStyleSheet(
-  node: VCSSNode | null
+  node: VCSSNode | null,
 ): node is VCSSStyleSheet {
   return node?.type === "VCSSStyleSheet";
 }
@@ -44,7 +44,7 @@ export function isVCSSStyleSheet(
  * @param node node to check
  */
 export function isVCSSDeclarationProperty(
-  node: VCSSNode | null
+  node: VCSSNode | null,
 ): node is VCSSDeclarationProperty {
   return node?.type === "VCSSDeclarationProperty";
 }
@@ -60,7 +60,7 @@ export function isVCSSComment(node: VCSSNode | null): node is VCSSComment {
  * @param node node to check
  */
 export function isVCSSContainerNode(
-  node: VCSSNode | null
+  node: VCSSNode | null,
 ): node is VCSSContainerNode {
   return (
     isVCSSAtRule(node) ||
@@ -74,7 +74,7 @@ export function isVCSSContainerNode(
  * Checks whether the given node has selectors.
  */
 export function hasSelectorNodes(
-  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo
+  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo,
 ): node is
   | (VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] })
   | VCSSStyleRule {

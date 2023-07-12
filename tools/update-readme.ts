@@ -6,7 +6,7 @@ const isWin = os.platform().startsWith("win");
 
 let insertText = `\n${renderRulesTableContent(
   (name) =>
-    `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/${name}.html`
+    `https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/${name}.html`,
 )}\n`;
 if (isWin) {
   insertText = insertText
@@ -20,7 +20,7 @@ const newReadme = fs
   .readFileSync(readmeFilePath, "utf8")
   .replace(
     /<!--RULES_TABLE_START-->[\s\S]*<!--RULES_TABLE_END-->/u,
-    `<!--RULES_TABLE_START-->${insertText}<!--RULES_TABLE_END-->`
+    `<!--RULES_TABLE_START-->${insertText}<!--RULES_TABLE_END-->`,
   );
 fs.writeFileSync(readmeFilePath, newReadme);
 
@@ -32,16 +32,16 @@ fs.writeFileSync(
     .replace("# eslint-plugin-vue-scoped-css\n", "# Introduction\n")
     .replace(
       /<!--RULES_SECTION_START-->[\s\S]*<!--RULES_SECTION_END-->/u,
-      "See [Available Rules](./rules/README.md)."
+      "See [Available Rules](./rules/README.md).",
     )
     .replace(
       /<!--USAGE_SECTION_START-->[\s\S]*<!--USAGE_SECTION_END-->/u,
-      "See [User Guide](./user-guide/README.md)."
+      "See [User Guide](./user-guide/README.md).",
     )
     .replace(/<!--DOCS_IGNORE_START-->[\s\S]*?<!--DOCS_IGNORE_END-->/gu, "")
     .replace(
       /\(https:\/\/future-architect.github.io\/eslint-plugin-vue-scoped-css/gu,
-      "(."
+      "(.",
     )
-    .replace(/\n{3,}/gu, "\n\n")
+    .replace(/\n{3,}/gu, "\n\n"),
 );

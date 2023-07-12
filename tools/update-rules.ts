@@ -16,7 +16,7 @@ const baseRules = [
     ruleName: "${rule.meta.docs.ruleName}",
     ruleId: "${rule.meta.docs.ruleId}",
     },
-    `
+    `,
       )
       .join("")}
 ]

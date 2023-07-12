@@ -78,7 +78,7 @@ export = {
      */
     function removeAttr(
       fixer: RuleFixer,
-      node: AST.VAttribute | AST.VDirective
+      node: AST.VAttribute | AST.VDirective,
     ) {
       const { attributes } = node.parent;
       const prevToken = tokenStore.getTokenBefore(node);
@@ -99,7 +99,7 @@ export = {
      */
     function reportForbiddenStyle(node: AST.VElement, attribute: StyleTypes) {
       const forbiddenAttr = node.startTag.attributes.find(
-        (attr) => attr.key.name === attribute
+        (attr) => attr.key.name === attribute,
       );
       const forbiddenAttrName = forbiddenAttr!.key.name as string;
 
@@ -172,8 +172,8 @@ export = {
       const forbiddenAttrs = node.startTag.attributes.filter(
         (attr) =>
           styleTypesAttrs.includes(
-            attr.key.name as (typeof styleTypesAttrs)[number]
-          ) && !allows.includes(attr.key.name as StyleTypes)
+            attr.key.name as (typeof styleTypesAttrs)[number],
+          ) && !allows.includes(attr.key.name as StyleTypes),
       );
 
       reporter.report({
@@ -200,7 +200,7 @@ export = {
                     },
                     fix(fixer: RuleFixer) {
                       return lodash.flatMap(forbiddenAttrs, (attr) =>
-                        removeAttr(fixer, attr)
+                        removeAttr(fixer, attr),
                       );
                     },
                   },

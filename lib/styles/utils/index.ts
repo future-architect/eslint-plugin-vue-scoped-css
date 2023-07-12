@@ -3,7 +3,7 @@
  * @param lang
  */
 export function isSupportedStyleLang(
-  lang: string
+  lang: string,
 ): lang is "css" | "scss" | "stylus" {
   return lang === "css" || lang === "scss" || lang === "stylus";
 }

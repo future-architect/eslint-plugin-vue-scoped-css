@@ -20,7 +20,7 @@ import type { SourceLocation } from "../../types";
  * @param node node to check
  */
 export function hasNodesSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelector | VCSSSelectorPseudo {
   return (
     node != null &&
@@ -33,7 +33,7 @@ export function hasNodesSelector(
  */
 export function normalizePseudoParams(
   pseudo: VCSSSelectorPseudo,
-  nodes: VCSSSelectorNode[]
+  nodes: VCSSSelectorNode[],
 ): VCSSSelector[] {
   const results: VCSSSelector[] = [];
   let buffer: VCSSSelectorValueNode[] = [];
@@ -55,8 +55,8 @@ export function normalizePseudoParams(
             {
               parent: pseudo,
               nodes: buffer,
-            }
-          )
+            },
+          ),
         );
         buffer = [];
       }
@@ -76,7 +76,7 @@ export function normalizePseudoParams(
       new VCSSSelector(buffer[0] as never, loc, startNode.start, endNode.end, {
         parent: pseudo,
         nodes: buffer,
-      })
+      }),
     );
     buffer = [];
   }
@@ -96,7 +96,7 @@ export type VGlobalPseudo = VCSSSelectorPseudo & {
  * @param node node to check
  */
 export function isVueSpecialPseudo(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VDeepPseudo | VSlottedPseudo | VGlobalPseudo {
   return isVDeepPseudo(node) || isVSlottedPseudo(node) || isVGlobalPseudo(node);
 }
@@ -106,7 +106,7 @@ export function isVueSpecialPseudo(
  * @param node node to check
  */
 export function isVDeepPseudoV2(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VDeepPseudo {
   if (isVDeepPseudo(node)) {
     return node.nodes.length === 0;
@@ -119,7 +119,7 @@ export function isVDeepPseudoV2(
  * @param node node to check
  */
 export function isVDeepPseudo(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VDeepPseudo {
   if (isPseudo(node)) {
     const val = node.value.trim();
@@ -132,7 +132,7 @@ export function isVDeepPseudo(
  * @param node node to check
  */
 export function isVSlottedPseudo(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VSlottedPseudo {
   if (isPseudo(node)) {
     const val = node.value.trim();
@@ -145,7 +145,7 @@ export function isVSlottedPseudo(
  * @param node node to check
  */
 export function isVGlobalPseudo(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VGlobalPseudo {
   if (isPseudo(node)) {
     const val = node.value.trim();
@@ -170,7 +170,7 @@ export function isPseudoEmptyArguments(node: VCSSSelectorPseudo): boolean {
  * @param node node to check
  */
 export function isTypeSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSTypeSelector {
   return node?.type === "VCSSTypeSelector";
 }
@@ -180,7 +180,7 @@ export function isTypeSelector(
  * @param node node to check
  */
 export function isIDSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSIDSelector {
   return node?.type === "VCSSIDSelector";
 }
@@ -190,7 +190,7 @@ export function isIDSelector(
  * @param node node to check
  */
 export function isClassSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSClassSelector {
   return node?.type === "VCSSClassSelector";
 }
@@ -200,7 +200,7 @@ export function isClassSelector(
  * @param node node to check
  */
 export function isUniversalSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSUniversalSelector {
   return node?.type === "VCSSUniversalSelector";
 }
@@ -210,7 +210,7 @@ export function isUniversalSelector(
  * @param node node to check
  */
 export function isNestingSelector(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSNestingSelector {
   return node?.type === "VCSSNestingSelector";
 }
@@ -220,7 +220,7 @@ export function isNestingSelector(
  * @param node node to check
  */
 export function isPseudo(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorPseudo {
   return node?.type === "VCSSSelectorPseudo";
 }
@@ -230,7 +230,7 @@ export function isPseudo(
  * @param node node to check
  */
 export function isSelectorCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator | VDeepPseudo {
   return node?.type === "VCSSSelectorCombinator";
 }
@@ -240,7 +240,7 @@ export function isSelectorCombinator(
  * @param node node to check
  */
 export function isDescendantCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator & { value: " " } {
   return isSelectorCombinator(node) && node.value.trim() === "";
 }
@@ -250,7 +250,7 @@ export function isDescendantCombinator(
  * @param node node to check
  */
 export function isChildCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator & { value: ">" } {
   return isSelectorCombinator(node) && node.value.trim() === ">";
 }
@@ -260,7 +260,7 @@ export function isChildCombinator(
  * @param node node to check
  */
 export function isAdjacentSiblingCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator & { value: "+" } {
   return isSelectorCombinator(node) && node.value.trim() === "+";
 }
@@ -270,7 +270,7 @@ export function isAdjacentSiblingCombinator(
  * @param node node to check
  */
 export function isGeneralSiblingCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator & { value: "~" } {
   return isSelectorCombinator(node) && node.value.trim() === "~";
 }
@@ -280,7 +280,7 @@ export function isGeneralSiblingCombinator(
  * @param node node to check
  */
 export function isDeepCombinator(
-  node: VCSSSelectorNode | null
+  node: VCSSSelectorNode | null,
 ): node is VCSSSelectorCombinator & { value: ">>>" | "/deep/" } {
   if (isSelectorCombinator(node)) {
     const val = node.value.trim();
@@ -294,7 +294,7 @@ export function isDeepCombinator(
  * @param node node to check
  */
 export function isNestingAtRule(
-  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null
+  node: VCSSNode | VCSSSelector | VCSSSelectorPseudo | null,
 ): node is VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] } {
   if (node == null) {
     return false;
@@ -313,7 +313,7 @@ export type NestingInfo = {
  * @returns {IterableIterator<NestingInfo>} nesting selectors info
  */
 export function* findNestingSelectors(
-  nodes: VCSSSelectorNode[]
+  nodes: VCSSSelectorNode[],
 ): IterableIterator<NestingInfo> {
   for (const node of nodes) {
     if (isNestingSelector(node)) {
@@ -333,7 +333,7 @@ export function* findNestingSelectors(
  * Find nesting selector
  */
 export function findNestingSelector(
-  nodes: VCSSSelectorNode[]
+  nodes: VCSSSelectorNode[],
 ): NestingInfo | null {
   for (const nest of findNestingSelectors(nodes)) {
     return nest;

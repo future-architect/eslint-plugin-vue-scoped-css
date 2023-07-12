@@ -59,8 +59,8 @@ export = {
             nodeText.replace(
               /^(\s*)(?::slotted|::v-slotted)(\s*\()/u,
               (_, prefix: string, suffix: string) =>
-                `${prefix}${expected}${suffix}`
-            )
+                `${prefix}${expected}${suffix}`,
+            ),
           );
         },
       });

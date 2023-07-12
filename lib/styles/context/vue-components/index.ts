@@ -47,7 +47,7 @@ export class VueComponentContext {
       this.properties ||
       (this.properties = extractVueComponentProperties(
         this.node,
-        this.context
+        this.context,
       ));
 
     if (properties[UNKNOWN]) {
@@ -76,13 +76,13 @@ export class VueComponentContext {
    */
   public getClassesOperatedByClassList(
     refNames: Template[] | null,
-    isRoot: boolean
+    isRoot: boolean,
   ): (AST.ESLintExpression | AST.ESLintSpreadElement)[] {
     return getClassesOperatedByClassList(
       this.node,
       refNames,
       isRoot,
-      this.context
+      this.context,
     );
   }
 }
@@ -93,7 +93,7 @@ export class VueComponentContext {
  * @returns the component context
  */
 export function createVueComponentContext(
-  context: RuleContext
+  context: RuleContext,
 ): VueComponentContext | null {
   const node = findVueComponent(context);
   if (!node) {
@@ -107,7 +107,7 @@ export function createVueComponentContext(
  */
 function extractVueComponentProperties(
   vueNode: AST.ESLintObjectExpression,
-  context: RuleContext
+  context: RuleContext,
 ): Properties {
   const result: Properties = {
     data: {},
@@ -122,12 +122,12 @@ function extractVueComponentProperties(
     if (keyName === "data") {
       result.data = extractVueComponentData(
         p.value as AST.ESLintExpression,
-        context
+        context,
       );
     } else if (keyName === "computed") {
       result.computed = extractVueComponentComputed(
         p.value as AST.ESLintExpression,
-        context
+        context,
       );
     }
   }
@@ -139,7 +139,7 @@ function extractVueComponentProperties(
  */
 function extractVueComponentData(
   dataNode: AST.ESLintExpression,
-  context: RuleContext
+  context: RuleContext,
 ):
   | {
       [key: string]: AST.ESLintExpression[];
@@ -207,7 +207,7 @@ function extractVueComponentData(
  */
 function extractVueComponentComputed(
   computedNode: AST.ESLintExpression,
-  context: RuleContext
+  context: RuleContext,
 ):
   | {
       [key: string]: AST.ESLintExpression[];
@@ -284,7 +284,7 @@ function getClassesOperatedByClassList(
   vueNode: AST.ESLintObjectExpression,
   refNames: Template[] | null,
   isRoot: boolean,
-  context: RuleContext
+  context: RuleContext,
 ): (AST.ESLintExpression | AST.ESLintSpreadElement)[] {
   const results: (AST.ESLintExpression | AST.ESLintSpreadElement)[] = [];
   traverseNodes(vueNode, {
@@ -342,7 +342,7 @@ function getClassesOperatedByClassList(
  */
 function getReturnStatements(
   body: AST.ESLintBlockStatement,
-  context: RuleContext
+  context: RuleContext,
 ): AST.ESLintReturnStatement[] {
   const returnStatements: AST.ESLintReturnStatement[] = [];
   const skipNodes: (
@@ -423,7 +423,7 @@ function get$RefName(expr: AST.ESLintExpression): string | null {
  * Get the class name arguments for the given node.
  */
 function getClassesArguments(
-  node: AST.ESLintCallExpression
+  node: AST.ESLintCallExpression,
 ): (AST.ESLintExpression | AST.ESLintSpreadElement)[] {
   const methodName = getPropertyOrIdentifierName(node.callee);
   if (methodName === "add" || methodName === "remove") {
@@ -454,7 +454,7 @@ function isProperty(
   node:
     | AST.ESLintProperty
     | AST.ESLintSpreadElement
-    | AST.ESLintLegacySpreadProperty
+    | AST.ESLintLegacySpreadProperty,
 ): node is AST.ESLintProperty {
   return node.type === "Property";
 }

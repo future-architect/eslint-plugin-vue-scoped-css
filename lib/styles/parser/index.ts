@@ -23,7 +23,7 @@ export function parse(
   sourceCode: SourceCode,
   offsetLocation: LineAndColumnData,
   css: string,
-  lang: string
+  lang: string,
 ): VCSSStyleSheet {
   // eslint-disable-next-line @typescript-eslint/naming-convention -- class
   const Parser = isSupportedStyleLang(lang) ? PARSERS[lang] : CSSParser;

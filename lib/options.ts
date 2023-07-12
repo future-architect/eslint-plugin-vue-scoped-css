@@ -14,7 +14,7 @@ export interface ParsedQueryOptions {
  * Parse options
  */
 export function parseQueryOptions(
-  options: QueryOptions | undefined
+  options: QueryOptions | undefined,
 ): ParsedQueryOptions {
   const { ignoreBEMModifier, captureClassesFromDoc } = options || {};
 

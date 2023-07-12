@@ -70,7 +70,7 @@ export = {
      */
     function reportNever(node: AST.VElement) {
       const scopedAttr = node.startTag.attributes.find(
-        (attr) => attr.key.name === "scoped"
+        (attr) => attr.key.name === "scoped",
       );
       reporter.report({
         node: scopedAttr!,

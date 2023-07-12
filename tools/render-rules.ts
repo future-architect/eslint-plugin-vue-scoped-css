@@ -4,10 +4,10 @@ import { rules } from "../lib/utils/rules";
 
 //eslint-disable-next-line require-jsdoc -- tools
 export default function renderRulesTableContent(
-  buildRulePath = (ruleName: string) => `./${ruleName}.md`
+  buildRulePath = (ruleName: string) => `./${ruleName}.md`,
 ): string {
   const uncategorizedRules = rules.filter(
-    (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated
+    (rule) => !rule.meta.docs.categories.length && !rule.meta.deprecated,
   );
   const deprecatedRules = rules.filter((rule) => rule.meta.deprecated);
 
@@ -19,7 +19,7 @@ export default function renderRulesTableContent(
       rule.meta.deprecated ? ":warning:" : ""
     }`;
     const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-      rule.meta.docs.ruleName || ""
+      rule.meta.docs.ruleName || "",
     )})`;
     const description = rule.meta.docs.description || "(no description)";
 
@@ -29,7 +29,7 @@ export default function renderRulesTableContent(
   //eslint-disable-next-line require-jsdoc -- tools
   function toDeprecatedRuleRow(rule: Rule) {
     const link = `[${rule.meta.docs.ruleId}](${buildRulePath(
-      rule.meta.docs.ruleName || ""
+      rule.meta.docs.ruleName || "",
     )})`;
     const replacedRules = rule.meta.docs.replacedBy || [];
     const replacedBy = replacedRules
@@ -58,7 +58,7 @@ ${category.configDescription}
 |:--------|:------------|:---|
 ${category.rules.map(toRuleRow).join("\n")}
 `
-        : ""
+        : "",
     )
     .join("");
 

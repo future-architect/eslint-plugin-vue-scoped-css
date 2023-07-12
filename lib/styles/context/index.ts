@@ -60,11 +60,11 @@ export function getStyleContexts(context: RuleContext): StyleContext[] {
  * @returns {CommentDirectivesReporter} the comment directives
  */
 export function getCommentDirectivesReporter(
-  context: RuleContext
+  context: RuleContext,
 ): CommentDirectivesReporter {
   return createCommentDirectivesReporter(
     context,
-    getCommentDirectives(context)
+    getCommentDirectives(context),
   );
 }
 
@@ -74,7 +74,7 @@ export function getCommentDirectivesReporter(
  * @returns {VueComponentContext} the Vue component context
  */
 export function getVueComponentContext(
-  context: RuleContext
+  context: RuleContext,
 ): VueComponentContext | null {
   const cache = getCache(context);
   if (cache.vueComponent) {

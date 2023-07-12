@@ -14,16 +14,19 @@ const categoryConfigDescriptions = {
 } as { [key: string]: string };
 
 const categoryIds = Object.keys(categoryTitles);
-const categoryRules: { [key: string]: Rule[] } = rules.reduce((obj, rule) => {
-  const categoryNames = rule.meta.docs.categories.length
-    ? rule.meta.docs.categories
-    : ["uncategorized"];
-  for (const cat of categoryNames) {
-    const categories = obj[cat] || (obj[cat] = []);
-    categories.push(rule);
-  }
-  return obj;
-}, {} as { [key: string]: Rule[] });
+const categoryRules: { [key: string]: Rule[] } = rules.reduce(
+  (obj, rule) => {
+    const categoryNames = rule.meta.docs.categories.length
+      ? rule.meta.docs.categories
+      : ["uncategorized"];
+    for (const cat of categoryNames) {
+      const categories = obj[cat] || (obj[cat] = []);
+      categories.push(rule);
+    }
+    return obj;
+  },
+  {} as { [key: string]: Rule[] },
+);
 
 // Throw if no title is defined for a category
 for (const categoryId of Object.keys(categoryRules)) {
@@ -37,7 +40,7 @@ export default categoryIds.map((categoryId) => ({
   title: categoryTitles[categoryId],
   configDescription: categoryConfigDescriptions[categoryId],
   rules: (categoryRules[categoryId] || []).filter(
-    (rule) => !rule.meta.deprecated
+    (rule) => !rule.meta.deprecated,
   ),
 }));
 // .filter(category => category.rules.length >= 1)

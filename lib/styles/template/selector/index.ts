@@ -19,7 +19,7 @@ const BUILDERS = {
  * Returns the template elements that the given selector node define.
  */
 export default function getSelectorTemplateElements(
-  node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector
+  node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector,
 ): (Interpolation | string)[] {
   const templateBuilder = isSupportedStyleLang(node.lang)
     ? BUILDERS[node.lang]

@@ -56,7 +56,7 @@ function parse(pattern: RegExp, comment: string): ParsingResult | null {
 function enable(
   commentDirectives: CommentDirectives,
   loc: LineAndColumnData,
-  rules: string[]
+  rules: string[],
 ) {
   if (rules.length === 0) {
     commentDirectives.enableAll(loc);
@@ -75,7 +75,7 @@ function enable(
 function disable(
   commentDirectives: CommentDirectives,
   loc: LineAndColumnData,
-  rules: string[]
+  rules: string[],
 ) {
   if (rules.length === 0) {
     commentDirectives.disableAll(loc);
@@ -93,7 +93,7 @@ function disable(
  */
 function processBlock(
   commentDirectives: CommentDirectives,
-  comment: VCSSCommentNode
+  comment: VCSSCommentNode,
 ) {
   const parsed = parse(COMMENT_DIRECTIVE_B, comment.text);
   if (parsed != null) {
@@ -114,7 +114,7 @@ function processBlock(
  */
 function processLine(
   commentDirectives: CommentDirectives,
-  comment: VCSSCommentNode
+  comment: VCSSCommentNode,
 ) {
   const parsed = parse(COMMENT_DIRECTIVE_L, comment.text);
   if (parsed != null && comment.loc.start.line === comment.loc.end.line) {
@@ -269,7 +269,7 @@ export class CommentDirectivesReporter {
    */
   public constructor(
     context: RuleContext,
-    commentDirectives: CommentDirectives
+    commentDirectives: CommentDirectives,
   ) {
     this.context = context;
     this.commentDirectives = commentDirectives;
@@ -294,7 +294,7 @@ export class CommentDirectivesReporter {
  * @returns {CommentDirectives} the comment directives context
  */
 export function createCommentDirectives(
-  styleContexts: StyleContext[]
+  styleContexts: StyleContext[],
 ): CommentDirectives {
   return new CommentDirectives(styleContexts);
 }
@@ -307,7 +307,7 @@ export function createCommentDirectives(
  */
 export function createCommentDirectivesReporter(
   context: RuleContext,
-  commentDirectives: CommentDirectives
+  commentDirectives: CommentDirectives,
 ): CommentDirectivesReporter {
   return new CommentDirectivesReporter(context, commentDirectives);
 }
@@ -321,7 +321,7 @@ function compare(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
   a: any,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check compare
-  b: any
+  b: any,
 ) {
   return a === b ? 0 : a > b ? 1 : -1;
 }
@@ -343,7 +343,7 @@ function compareLoc(a: LineAndColumnData, b: LineAndColumnData) {
  * Checks whether the given descriptor has loc property
  */
 function hasSourceLocation(
-  descriptor: ReportDescriptor
+  descriptor: ReportDescriptor,
 ): descriptor is ReportDescriptor & ReportDescriptorSourceLocation {
   return (descriptor as ReportDescriptorSourceLocation).loc != null;
 }

@@ -26,7 +26,7 @@ const config = {
 function executeLint(
   source: string,
   sourcePath: string,
-  _name: string
+  _name: string,
 ): { style: StyleContext; context: RuleContext } {
   const linter = new eslint.Linter();
   let style: StyleContext | null = null;

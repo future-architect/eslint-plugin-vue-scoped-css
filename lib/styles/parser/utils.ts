@@ -9,7 +9,7 @@ import type {
  * Checks if the given node has nodes property.
  */
 export function isPostCSSContainer(
-  node: PostCSSNode
+  node: PostCSSNode,
 ): node is PostCSSContainer {
   return (node as PostCSSContainer).nodes != null;
 }
@@ -18,7 +18,7 @@ export function isPostCSSContainer(
  * Checks if the given node has nodes property.
  */
 export function isPostCSSSPContainer(
-  node: PostCSSSPNode
+  node: PostCSSSPNode,
 ): node is PostCSSSPContainer {
   return (node as PostCSSSPContainer).nodes != null;
 }

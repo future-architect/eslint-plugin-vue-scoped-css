@@ -15,7 +15,7 @@ function assertMessages(actual: LinterMessages[], expected: LinterMessages[]) {
   const expected2: LinterMessages[] = [];
   for (let i = 0; i < length; i++) {
     expected2.push(
-      expected[i] ? { ...actual[i], ...expected[i] } : expected[i]
+      expected[i] ? { ...actual[i], ...expected[i] } : expected[i],
     );
   }
 
@@ -37,11 +37,11 @@ describe("reporter test", () => {
     linter.defineParser("vue-eslint-parser", require("vue-eslint-parser"));
     linter.defineRule(
       "vue-scoped-css/no-unused-selector",
-      plugin.rules["no-unused-selector"] as any
+      plugin.rules["no-unused-selector"] as any,
     );
     linter.defineRule(
       "vue-scoped-css/require-selector-used-inside",
-      plugin.rules["require-selector-used-inside"] as any
+      plugin.rules["require-selector-used-inside"] as any,
     );
 
     const messages = linter.verify(
@@ -49,7 +49,7 @@ describe("reporter test", () => {
       config as any,
       {
         filename: "test.vue",
-      }
+      },
     );
 
     assertMessages(messages, [

@@ -63,7 +63,7 @@ export = {
     function report(
       node: VCSSSelectorNode | AST.VIdentifier | AST.VDirectiveKey,
       messageId: "deprecatedClass" | "deprecatedProps",
-      kind: Kind
+      kind: Kind,
     ) {
       reporter.report({
         node,
@@ -206,7 +206,7 @@ export = {
         for (const transition of getElements(
           context,
           (element) =>
-            isTransitionElement(element) || isTransitionGroupElement(element)
+            isTransitionElement(element) || isTransitionGroupElement(element),
         )) {
           const { hasEnterClass, hasLeaveClass } =
             verifyTransitionElementNode(transition);

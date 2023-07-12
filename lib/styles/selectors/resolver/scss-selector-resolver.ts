@@ -28,7 +28,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorValueNode[],
     parentSelectors: ResolvedSelectors,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (isNestingAtRule(container)) {
       return this.resolveSelectorForNestContaining(
@@ -36,14 +36,14 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         selectorNodes,
         findNestingSelector(selectorNodes),
         parentSelectors,
-        container
+        container,
       );
     }
     return this.resolveSelectorForSCSSNesting(
       owner,
       selectorNodes,
       parentSelectors,
-      container
+      container,
     );
   }
 
@@ -58,7 +58,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorValueNode[],
     parentSelectors: ResolvedSelectors,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     const nesting = findNestingSelector(selectorNodes);
     if (nesting != null) {
@@ -67,7 +67,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         selectorNodes,
         nesting,
         parentSelectors,
-        container
+        container,
       );
 
       let hasNesting = true;
@@ -77,7 +77,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         for (const resolvedSelector of resolvedSelectors) {
           const nextNesting = findNextNestingSelector(
             resolvedSelector,
-            container
+            container,
           );
           if (nextNesting) {
             hasNesting = true;
@@ -87,8 +87,8 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
                 resolvedSelector.selector,
                 nextNesting,
                 parentSelectors,
-                container
-              )
+                container,
+              ),
             );
           }
         }
@@ -107,7 +107,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
         owner,
         selectorNodes,
         parentSelectors,
-        container
+        container,
       );
     }
 
@@ -120,7 +120,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
       },
       first.range[0],
       first.range[0],
-      first.parent as never
+      first.parent as never,
     );
     comb.value = " ";
     comb.selector = " ";
@@ -129,7 +129,7 @@ export class SCSSSelectorResolver extends CSSSelectorResolver {
       owner,
       [comb, ...selectorNodes],
       parentSelectors,
-      container
+      container,
     );
   }
 }
@@ -141,7 +141,7 @@ export { ResolvedSelector };
  */
 export function findNextNestingSelector(
   resolved: ResolvedSelector,
-  container: VCSSAtRule | VCSSStyleRule
+  container: VCSSAtRule | VCSSStyleRule,
 ): NestingInfo | null {
   for (const nest of findNestingSelectors(resolved.selector)) {
     let parent: VCSS = nest.node.parent;

@@ -59,8 +59,8 @@ export = {
             nodeText.replace(
               /^(\s*)(?::global|::v-global)(\s*\()/u,
               (_, prefix: string, suffix: string) =>
-                `${prefix}${expected}${suffix}`
-            )
+                `${prefix}${expected}${suffix}`,
+            ),
           );
         },
       });

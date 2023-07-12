@@ -72,7 +72,7 @@ export class QueryContext {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
     return new ElementsQueryContext(
       queryStep(this.elements, selectorNode, this.document),
-      this.document
+      this.document,
     );
   }
 
@@ -82,12 +82,12 @@ export class QueryContext {
    * @returns {ElementsQueryContext} elements
    */
   public reverseQueryStep(
-    selectorNode: VCSSSelectorNode
+    selectorNode: VCSSSelectorNode,
   ): ElementsQueryContext {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
     return new ElementsQueryContext(
       reverseQueryStep(this.elements, selectorNode, this.document),
-      this.document
+      this.document,
     );
   }
 
@@ -97,12 +97,12 @@ export class QueryContext {
    * @returns {ElementsQueryContext} elements
    */
   public filter<S extends AST.VElement>(
-    predicate: (value: AST.VElement) => value is S
+    predicate: (value: AST.VElement) => value is S,
   ): ElementsQueryContext {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
     return new ElementsQueryContext(
       this.elements.filter(predicate),
-      this.document
+      this.document,
     );
   }
 
@@ -113,7 +113,7 @@ export class QueryContext {
   public split(): ElementsQueryContext[] {
     return this.elements.map(
       // eslint-disable-next-line @typescript-eslint/no-use-before-define -- ignore
-      (e) => new ElementsQueryContext([e], this.document)
+      (e) => new ElementsQueryContext([e], this.document),
     );
   }
 }
@@ -143,7 +143,7 @@ class VueDocumentQueryContext extends QueryContext {
         .filter(isValidStyleContext)
         .filter((style) => style.scoped)
         .map((style) =>
-          extractClassesFromDoc(style, options.captureClassesFromDoc)
+          extractClassesFromDoc(style, options.captureClassesFromDoc),
         )
         .reduce((r, a) => r.concat(a), []);
     } else {
@@ -157,7 +157,7 @@ class VueDocumentQueryContext extends QueryContext {
  */
 function extractClassesFromDoc(
   style: ValidStyleContext,
-  captureClassesFromDoc: RegExp[]
+  captureClassesFromDoc: RegExp[],
 ): string[] {
   const results = new Set<string>();
   for (const comment of style.cssNode.comments) {
@@ -185,7 +185,7 @@ function extractClassesFromDoc(
 class ElementsQueryContext extends QueryContext {
   public constructor(
     elements: AST.VElement[] | IterableIterator<AST.VElement>,
-    document: VueDocumentQueryContext
+    document: VueDocumentQueryContext,
   ) {
     super(document);
     this.elements = [...elements];
@@ -200,7 +200,7 @@ class ElementsQueryContext extends QueryContext {
  */
 export function createQueryContext(
   context: RuleContext,
-  options: ParsedQueryOptions
+  options: ParsedQueryOptions,
 ): QueryContext {
   return new VueDocumentQueryContext(context, options);
 }
@@ -214,7 +214,7 @@ export function createQueryContext(
 function* queryStep(
   elements: AST.VElement[],
   selectorNode: VCSSSelectorNode,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): IterableIterator<AST.VElement> {
   if (isSelectorCombinator(selectorNode)) {
     if (isChildCombinator(selectorNode)) {
@@ -237,14 +237,14 @@ function* queryStep(
     yield* genVDeepElements(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
-      query
+      query,
     );
     return;
   } else if (isVSlottedPseudo(selectorNode)) {
     yield* genVSlottedElements(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
-      query
+      query,
     );
     return;
   } else if (isVGlobalPseudo(selectorNode)) {
@@ -252,7 +252,7 @@ function* queryStep(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
       document,
-      query
+      query,
     );
     return;
   }
@@ -264,14 +264,14 @@ function* queryStep(
     yield* genElementsById(
       elements,
       Template.ofSelector(selectorNode),
-      document
+      document,
     );
     return;
   } else if (isClassSelector(selectorNode)) {
     yield* genElementsByClassName(
       elements,
       Template.ofSelector(selectorNode),
-      document
+      document,
     );
     return;
   } else if (isUniversalSelector(selectorNode)) {
@@ -286,13 +286,13 @@ function* queryStep(
    */
   function query(
     els: AST.VElement[],
-    selList: VCSSSelectorValueNode[]
+    selList: VCSSSelectorValueNode[],
   ): AST.VElement[] {
     return selList.reduce(
       (res: AST.VElement[], sel: VCSSSelectorValueNode): AST.VElement[] => [
         ...queryStep(res, sel, document),
       ],
-      els
+      els,
     );
   }
 }
@@ -306,7 +306,7 @@ function* queryStep(
 function* reverseQueryStep(
   elements: AST.VElement[],
   selectorNode: VCSSSelectorNode,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): IterableIterator<AST.VElement> {
   if (isSelectorCombinator(selectorNode)) {
     if (isChildCombinator(selectorNode)) {
@@ -329,14 +329,14 @@ function* reverseQueryStep(
     yield* genVDeepElements(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
-      query
+      query,
     );
     return;
   } else if (isVSlottedPseudo(selectorNode)) {
     yield* genVSlottedElements(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
-      query
+      query,
     );
     return;
   } else if (isVGlobalPseudo(selectorNode)) {
@@ -344,7 +344,7 @@ function* reverseQueryStep(
       elements,
       normalizePseudoParams(selectorNode, selectorNode.nodes),
       document,
-      query
+      query,
     );
     return;
   }
@@ -355,13 +355,13 @@ function* reverseQueryStep(
    */
   function query(
     els: AST.VElement[],
-    selList: VCSSSelectorValueNode[]
+    selList: VCSSSelectorValueNode[],
   ): AST.VElement[] {
     return selList.reduceRight(
       (res: AST.VElement[], sel: VCSSSelectorValueNode): AST.VElement[] => [
         ...reverseQueryStep(res, sel, document),
       ],
-      els
+      els,
     );
   }
 }
@@ -370,7 +370,7 @@ function* reverseQueryStep(
  * Get the descendant elements.
  */
 function* genDescendantElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   const found = new Set<AST.VElement>();
   for (const e of genChildElements(elements)) {
@@ -391,7 +391,7 @@ function* genDescendantElements(
  * Get the ancestor elements.
  */
 function* genAncestorElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   const found = new Set<AST.VElement>();
   for (const e of genParentElements(elements)) {
@@ -410,7 +410,7 @@ function* genAncestorElements(
  * Get the child elements.
  */
 function* genChildElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   /**
    * Get the child elements.
@@ -440,7 +440,7 @@ function* genChildElements(
  * Get the parent elements.
  */
 function genParentElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -453,7 +453,7 @@ function genParentElements(
  * Get the adjacent sibling elements.
  */
 function genAdjacentSiblingElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -480,7 +480,7 @@ function genAdjacentSiblingElements(
  * Gets the previous adjacent sibling elements.
  */
 function genPrevAdjacentSiblingElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -507,7 +507,7 @@ function genPrevAdjacentSiblingElements(
  * Gets the general sibling elements.
  */
 function genGeneralSiblingElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -532,7 +532,7 @@ function genGeneralSiblingElements(
  * Gets the previous general sibling elements.
  */
 function genPrevGeneralSiblingElements(
-  elements: AST.VElement[]
+  elements: AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -561,8 +561,8 @@ function* genVDeepElements(
   params: VCSSSelector[],
   query: (
     els: AST.VElement[],
-    selList: VCSSSelectorValueNode[]
-  ) => AST.VElement[]
+    selList: VCSSSelectorValueNode[],
+  ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
   if (params.length) {
     yield* iterateUnique(function* () {
@@ -583,8 +583,8 @@ function genVSlottedElements(
   params: VCSSSelector[],
   query: (
     els: AST.VElement[],
-    selList: VCSSSelectorValueNode[]
-  ) => AST.VElement[]
+    selList: VCSSSelectorValueNode[],
+  ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const element of elements) {
@@ -623,8 +623,8 @@ function genVGlobalElements(
   document: VueDocumentQueryContext,
   query: (
     els: AST.VElement[],
-    selList: VCSSSelectorValueNode[]
-  ) => AST.VElement[]
+    selList: VCSSSelectorValueNode[],
+  ) => AST.VElement[],
 ): IterableIterator<AST.VElement> {
   return iterateUnique(function* () {
     for (const node of params) {
@@ -638,7 +638,7 @@ function genVGlobalElements(
  */
 function* genElementsByTagName(
   elements: AST.VElement[],
-  tagName: Template
+  tagName: Template,
 ): IterableIterator<AST.VElement> {
   for (const element of elements) {
     if (element.name === "component" || element.name === "slot") {
@@ -656,7 +656,7 @@ function* genElementsByTagName(
 function* genElementsById(
   elements: AST.VElement[],
   id: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): IterableIterator<AST.VElement> {
   for (const element of elements) {
     if (matchId(element, id, document)) {
@@ -671,7 +671,7 @@ function* genElementsById(
 function* genElementsByClassName(
   elements: AST.VElement[],
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): IterableIterator<AST.VElement> {
   let removeModifierClassName = null;
 
@@ -725,7 +725,7 @@ function* genElementsByClassName(
 function matchId(
   element: AST.VElement,
   id: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   const nodes = getAttributeValueNodes(element, "id", document.context);
   if (nodes == null) {
@@ -750,7 +750,7 @@ function matchId(
 function matchClassName(
   element: AST.VElement,
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   if (isElementWrappedInTransition(element)) {
     const transition = getWrapperTransition(element);
@@ -782,7 +782,7 @@ function matchClassName(
     vueComponent
       .getClassesOperatedByClassList(refNames, isRootElement(element))
       .filter(
-        ((n) => n.type === "Literal") as (n: ASTNode) => n is AST.ESLintLiteral
+        ((n) => n.type === "Literal") as (n: ASTNode) => n is AST.ESLintLiteral,
       )
       .some((n) => matchClassNameExpression(n, className, document))
   ) {
@@ -797,7 +797,7 @@ function matchClassName(
  */
 function getRefNames(
   element: AST.VElement,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): Template[] | null {
   const refNameNodes = getAttributeValueNodes(element, "ref", document.context);
   if (refNameNodes == null) {
@@ -822,7 +822,7 @@ function getRefNames(
 function matchTransitionClassName(
   element: AST.VElement,
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   const classBases = isTransitionElement(element)
     ? TRANSITION_CLASS_BASES
@@ -833,7 +833,7 @@ function matchTransitionClassName(
     const classNameNodes = getAttributeValueNodes(
       element,
       `${classBase}-class`,
-      document.context
+      document.context,
     );
     if (classNameNodes == null) {
       // Unknown attribute are found
@@ -881,7 +881,7 @@ function matchTransitionClassName(
 function matchClassNameExpression(
   expression: ReferenceExpressions,
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   const literal = Template.ofNode(expression);
   if (literal != null) {
@@ -921,7 +921,7 @@ function matchClassNameExpression(
 function matchClassNameForArrayExpression(
   expression: AST.ESLintArrayExpression,
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   for (const e of expression.elements) {
     if (e.type === "SpreadElement") {
@@ -948,7 +948,7 @@ function matchClassNameForArrayExpression(
 function matchClassNameForObjectExpression(
   expression: AST.ESLintObjectExpression,
   className: Template,
-  document: VueDocumentQueryContext
+  document: VueDocumentQueryContext,
 ): boolean {
   for (const prop of expression.properties) {
     if (prop.type !== "Property") {
@@ -994,7 +994,7 @@ function matchClassNameForObjectExpression(
  */
 function includesClassName(
   value: string | Template,
-  className: Template
+  className: Template,
 ): boolean {
   if (typeof value === "string") {
     return value.split(/\s+/u).some((s) => className.matchString(s));
@@ -1006,7 +1006,7 @@ function includesClassName(
  * Iterate unique items
  */
 function* iterateUnique<T>(
-  gen: () => IterableIterator<T | null>
+  gen: () => IterableIterator<T | null>,
 ): IterableIterator<T> {
   const found = new Set<T>();
   for (const e of gen()) {
@@ -1022,7 +1022,7 @@ function* iterateUnique<T>(
  */
 function hasVFor(element: AST.VElement) {
   return element.startTag.attributes.some(
-    (attr) => attr.directive && attr.key.name.name === "for"
+    (attr) => attr.directive && attr.key.name.name === "for",
   );
 }
 

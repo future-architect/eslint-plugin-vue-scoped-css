@@ -46,11 +46,11 @@ function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
  * @returns scoped selector
  */
 function getScopedSelector(
-  resolvedSelector: ResolvedSelector
+  resolvedSelector: ResolvedSelector,
 ): VCSSSelectorNode[] | null {
   const { selector } = resolvedSelector;
   const specialNodeIndex = selector.findIndex(
-    (s) => isDeepCombinator(s) || isVueSpecialPseudo(s)
+    (s) => isDeepCombinator(s) || isVueSpecialPseudo(s),
   );
   let scopedCandidateSelector: VCSSSelectorNode[];
   if (specialNodeIndex >= 0) {
@@ -169,7 +169,7 @@ export = {
      */
     function verifySelector(
       queryContext: QueryContext,
-      scopedSelector: VCSSSelectorNode[]
+      scopedSelector: VCSSSelectorNode[],
     ) {
       const reportSelectorNodes: VCSSSelectorNode[] = [];
       let targetsQueryContext = queryContext;
@@ -203,7 +203,7 @@ export = {
             isTypeSelector(s) ||
             isIDSelector(s) ||
             isUniversalSelector(s) ||
-            isVueSpecialPseudo(s)
+            isVueSpecialPseudo(s),
         );
 
         for (const selectorNode of notClassSelectors) {
@@ -247,7 +247,7 @@ export = {
       "Program:exit"() {
         const queryContext = createQueryContext(
           context,
-          parseQueryOptions(context.options[0])
+          parseQueryOptions(context.options[0]),
         );
 
         for (const style of styles) {
