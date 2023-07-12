@@ -178,22 +178,22 @@ export interface SourceCode {
 
   getFirstToken(
     node: AST.Node,
-    options?: CursorWithSkipOptions
+    options?: CursorWithSkipOptions,
   ): AST.Token | null;
 }
 export interface TokenStore {
   getFirstToken(
     node: AST.Node,
-    options?: CursorWithSkipOptions
+    options?: CursorWithSkipOptions,
   ): AST.Token | null;
   getLastToken(
     node: AST.Node,
-    options?: CursorWithSkipOptions
+    options?: CursorWithSkipOptions,
   ): AST.Token | null;
   getTokens(
     node: AST.Node,
     beforeCount?: number,
-    afterCount?: number
+    afterCount?: number,
   ): AST.Token[];
   getTokenBefore(node: AST.Node): AST.Token;
   getTokenAfter(node: AST.Node): AST.Token;

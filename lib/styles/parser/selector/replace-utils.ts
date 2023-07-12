@@ -143,7 +143,7 @@ interface ReplaceInfo {
   restore?: (
     node: PostCSSSPNode,
     random: string,
-    original: string
+    original: string,
   ) => PostCSSSPNode | null;
 }
 
@@ -185,16 +185,16 @@ class Pattern {
  * Define generator to search patterns.
  */
 export function* definePatternsSearchGenerator<
-  REGS extends { [name: string]: RegExp }
+  REGS extends { [name: string]: RegExp },
 >(
   regexps: REGS,
-  str: string
+  str: string,
 ): Generator<{
   name: keyof REGS & string;
   result: RegExpExecArray;
 }> {
   const patterns = Object.entries(regexps).map(
-    ([name, reg]) => new Pattern(name, reg)
+    ([name, reg]) => new Pattern(name, reg),
   );
   let start = 0;
   while (true) {
@@ -236,7 +236,7 @@ export class ReplaceSelectorContext {
     originalSelector: string,
     remapContext: RemapIndexContext,
     replaces: ReplaceInfo[],
-    comments: ReplaceInfo[]
+    comments: ReplaceInfo[],
   ) {
     this.cssSelector = cssSelector;
     this.remapContext = remapContext;
@@ -259,12 +259,12 @@ export type SelectorReplacer = {
   replace: (
     result: RegExpExecArray,
     random: string,
-    info: { beforeCss: string[] }
+    info: { beforeCss: string[] },
   ) => string;
   restore?: (
     node: PostCSSSPNode,
     random: string,
-    original: string
+    original: string,
   ) => PostCSSSPNode | null;
 };
 /**
@@ -277,7 +277,7 @@ export function replaceSelector(
   selector: string,
   regexps: SelectorReplacer[],
   commentRegexps: SelectorReplacer[] = [],
-  trivialRegexps: SelectorReplacer[] = []
+  trivialRegexps: SelectorReplacer[] = [],
 ): ReplaceSelectorContext {
   const remapContext = new RemapIndexContext();
   const replaces: ReplaceInfo[] = [];
@@ -290,20 +290,29 @@ export function replaceSelector(
       block: /\/\*[\s\S]+?\*\//gu, // block comment
       dstr: /"(?:[^"\\]|\\.)*"/gu, // string
       sstr: /'(?:[^'\\]|\\.)*'/gu, // string
-      ...commentRegexps.reduce((o, r, i) => {
-        o[`${i}comment`] = r.regexp;
-        return o;
-      }, {} as { [name: string]: RegExp }), // inline comment
-      ...regexps.reduce((o, r, i) => {
-        o[`${i}text`] = r.regexp;
-        return o;
-      }, {} as { [name: string]: RegExp }), // interpolation
-      ...trivialRegexps.reduce((o, r, i) => {
-        o[`${i}trivial`] = r.regexp;
-        return o;
-      }, {} as { [name: string]: RegExp }), // trivial
+      ...commentRegexps.reduce(
+        (o, r, i) => {
+          o[`${i}comment`] = r.regexp;
+          return o;
+        },
+        {} as { [name: string]: RegExp },
+      ), // inline comment
+      ...regexps.reduce(
+        (o, r, i) => {
+          o[`${i}text`] = r.regexp;
+          return o;
+        },
+        {} as { [name: string]: RegExp },
+      ), // interpolation
+      ...trivialRegexps.reduce(
+        (o, r, i) => {
+          o[`${i}trivial`] = r.regexp;
+          return o;
+        },
+        {} as { [name: string]: RegExp },
+      ), // trivial
     } as { [name: string]: RegExp },
-    selector
+    selector,
   )) {
     const plain = selector.slice(start, res.index);
     const text = res[0];
@@ -371,7 +380,7 @@ export function replaceSelector(
     selector,
     remapContext,
     replaces,
-    comments
+    comments,
   );
 }
 
@@ -380,7 +389,7 @@ export function replaceSelector(
  */
 export function restoreReplacedSelector(
   orgNode: PostCSSSPNode,
-  replaceSelectorContext: ReplaceSelectorContext
+  replaceSelectorContext: ReplaceSelectorContext,
 ): PostCSSSPNode {
   let node = orgNode;
   const {
@@ -434,7 +443,7 @@ export function restoreReplacedSelector(
     for (let index = 0; index < node.nodes.length; index++) {
       node.nodes[index] = restoreReplacedSelector(
         node.nodes[index],
-        replaceSelectorContext
+        replaceSelectorContext,
       );
     }
   }
@@ -447,7 +456,7 @@ export function restoreReplacedSelector(
 function restoreReplaceds(
   node: PostCSSSPNode,
   replaces: ReplaceInfo[],
-  cssText: string | null
+  cssText: string | null,
 ): PostCSSSPNode | null {
   if (!replaces.length) {
     return null;
@@ -496,7 +505,7 @@ function restoreReplaceds(
 function restoreComments(
   node: PostCSSSPNode,
   comments: ReplaceInfo[],
-  cssText: string | null
+  cssText: string | null,
 ) {
   if (!comments.length) {
     return false;
@@ -535,7 +544,7 @@ function restoreComments(
 function restoreReplaceNodeProp(
   node: PostCSSSPNode,
   prop: string,
-  replaceInfo: ReplaceInfo
+  replaceInfo: ReplaceInfo,
 ): boolean {
   const text = `${lodash.get(node, prop, "") || ""}`;
   if (text.includes(replaceInfo.replace)) {
@@ -554,7 +563,7 @@ function restoreReplaceNodeProp(
  */
 function hasRaws(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check to prop
-  node: any
+  node: any,
 ): node is { raws: { spaces: { after?: string; before?: string } } } {
   return node.raws != null;
 }

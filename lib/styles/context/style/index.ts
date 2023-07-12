@@ -13,7 +13,7 @@ import { isVCSSContainerNode, hasSelectorNodes } from "../../utils/css-nodes";
  */
 function getInvalidEOFError(
   context: RuleContext,
-  style: AST.VElement
+  style: AST.VElement,
 ): {
   inDocumentFragment: boolean;
   error: AST.ParseError;
@@ -41,10 +41,10 @@ function getInvalidEOFError(
         typeof err.code === "string" &&
         err.code.startsWith("eof-") &&
         style.range[0] <= err.index &&
-        err.index < style.range[1]
+        err.index < style.range[1],
     ) ||
     errors.find(
-      (err) => typeof err.code === "string" && err.code.startsWith("eof-")
+      (err) => typeof err.code === "string" && err.code.startsWith("eof-"),
     );
   if (!error) {
     return null;
@@ -159,7 +159,7 @@ export type StyleContext = InvalidStyleContext | ValidStyleContext;
  * Checks whether the given context is valid
  */
 export function isValidStyleContext(
-  context: StyleContext
+  context: StyleContext,
 ): context is ValidStyleContext {
   return !context.invalid;
 }
@@ -224,7 +224,7 @@ export class StyleContextImpl {
         sourceCode,
         startTag.loc.end,
         this.cssText,
-        this.lang
+        this.lang,
       );
     } else {
       this.cssText = null;
@@ -285,7 +285,7 @@ function traverseNodes(node: VCSSNode, visitor: VisitorVCSSNode): void {
  */
 function traverseSelectorNodes(
   node: VCSSSelectorNode,
-  visitor: VisitorVCSSSelectorNode
+  visitor: VisitorVCSSSelectorNode,
 ): void {
   visitor.break = false;
   visitor.enterNode(node);
@@ -317,7 +317,7 @@ export function createStyleContexts(context: RuleContext): StyleContext[] {
   const styles = getStyleElements(context);
 
   return styles.map(
-    (style) => new StyleContextImpl(style, context) as StyleContext
+    (style) => new StyleContextImpl(style, context) as StyleContext,
   );
 }
 
@@ -326,7 +326,7 @@ export function createStyleContexts(context: RuleContext): StyleContext[] {
  * @param node node to check
  */
 function isVElement(
-  node: AST.VElement | AST.VText | AST.VExpressionContainer
+  node: AST.VElement | AST.VText | AST.VExpressionContainer,
 ): node is AST.VElement {
   return node?.type === "VElement";
 }

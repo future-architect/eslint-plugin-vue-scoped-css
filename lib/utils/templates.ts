@@ -10,7 +10,7 @@ import type {
  */
 export function getElements(
   context: RuleContext,
-  predicate: (element: AST.VElement) => boolean
+  predicate: (element: AST.VElement) => boolean,
 ): AST.VElement[] {
   const node = context.getSourceCode().ast;
   const body = node.templateBody;
@@ -40,7 +40,7 @@ export function getElements(
  * @param node node to check
  */
 export function isVElement(
-  node: AST.VElement | AST.VText | AST.VExpressionContainer
+  node: AST.VElement | AST.VText | AST.VExpressionContainer,
 ): node is AST.VElement {
   return node?.type === "VElement";
 }
@@ -51,7 +51,7 @@ export function isVElement(
  * @returns {boolean} `true` if the given element is the `<transition>` element.
  */
 export function isTransitionElement(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): boolean {
   return (
     element.type === "VElement" &&
@@ -65,7 +65,7 @@ export function isTransitionElement(
  * @returns {boolean} `true` if the given element is the `<transition-group>` element.
  */
 export function isTransitionGroupElement(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): boolean {
   return (
     element.type === "VElement" &&
@@ -79,7 +79,7 @@ export function isTransitionGroupElement(
  */
 export function findAttribute(
   node: AST.VElement | AST.VStartTag,
-  name: string
+  name: string,
 ): AST.VAttribute | AST.VDirective | null {
   if (node.type === "VElement") {
     return findAttribute(node.startTag, name);
@@ -103,7 +103,7 @@ export function findAttribute(
  * @param node node to check
  */
 export function isVDirective(
-  node: AST.VAttribute | AST.VDirective
+  node: AST.VAttribute | AST.VDirective,
 ): node is AST.VDirective {
   return node.type === "VAttribute" && node.directive;
 }
@@ -168,7 +168,7 @@ export function getArgument(key: VDirectiveKey): string | null {
  * @param node node to check
  */
 export function isVDirectiveKeyV6(
-  node: VDirectiveKey
+  node: VDirectiveKey,
 ): node is VDirectiveKeyV6 {
   return typeof node.name !== "string";
 }

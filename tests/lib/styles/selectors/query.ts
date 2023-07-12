@@ -42,44 +42,54 @@ function queries(style: StyleContext, context: RuleContext) {
   const selectors = getResolvedSelectors(style as ValidStyleContext);
   return selectors
     .map((r) => r.selector)
-    .reduce((result, selector) => {
-      let q = createQueryContext(context, parseQueryOptions({}));
-      for (const node of selector) {
-        q = q.queryStep(node);
-      }
-      const elementsTexts = q.elements.map((e) => buildElementText(e, context));
-      const selectorText = selector.map((s) => s.selector).join("");
-      result[selectorText] = elementsTexts;
-      return result;
-    }, {} as { [key: string]: string[] });
+    .reduce(
+      (result, selector) => {
+        let q = createQueryContext(context, parseQueryOptions({}));
+        for (const node of selector) {
+          q = q.queryStep(node);
+        }
+        const elementsTexts = q.elements.map((e) =>
+          buildElementText(e, context),
+        );
+        const selectorText = selector.map((s) => s.selector).join("");
+        result[selectorText] = elementsTexts;
+        return result;
+      },
+      {} as { [key: string]: string[] },
+    );
 }
 
 function reverseQueries(style: StyleContext, context: RuleContext) {
   const selectors = getResolvedSelectors(style as ValidStyleContext);
   return selectors
     .map((r) => r.selector)
-    .reduce((result, selector) => {
-      const document = createQueryContext(context, parseQueryOptions({}));
-      const elementQueries = document.split();
-      const elementsTexts = elementQueries
-        .filter((elementQuery) => {
-          // Set dummy document
-          (elementQuery as any).document = elementQuery;
-          (elementQuery as any).context = (document as any).context;
-          (elementQuery as any).options = (document as any).options;
-          (elementQuery as any).docsModifiers = (document as any).docsModifiers;
-          let q = elementQuery;
-          for (let index = selector.length - 1; index >= 0; index--) {
-            q = q.reverseQueryStep(selector[index]);
-          }
-          return Boolean(q.elements.length);
-        })
-        .map((elementQuery) => elementQuery.elements[0])
-        .map((e) => buildElementText(e, context));
-      const selectorText = selector.map((s) => s.selector).join("");
-      result[selectorText] = elementsTexts;
-      return result;
-    }, {} as { [key: string]: string[] });
+    .reduce(
+      (result, selector) => {
+        const document = createQueryContext(context, parseQueryOptions({}));
+        const elementQueries = document.split();
+        const elementsTexts = elementQueries
+          .filter((elementQuery) => {
+            // Set dummy document
+            (elementQuery as any).document = elementQuery;
+            (elementQuery as any).context = (document as any).context;
+            (elementQuery as any).options = (document as any).options;
+            (elementQuery as any).docsModifiers = (
+              document as any
+            ).docsModifiers;
+            let q = elementQuery;
+            for (let index = selector.length - 1; index >= 0; index--) {
+              q = q.reverseQueryStep(selector[index]);
+            }
+            return Boolean(q.elements.length);
+          })
+          .map((elementQuery) => elementQuery.elements[0])
+          .map((e) => buildElementText(e, context));
+        const selectorText = selector.map((s) => s.selector).join("");
+        result[selectorText] = elementsTexts;
+        return result;
+      },
+      {} as { [key: string]: string[] },
+    );
 }
 
 function buildElementText(e: AST.VElement, context: RuleContext): string {
@@ -110,7 +120,7 @@ function buildElementText(e: AST.VElement, context: RuleContext): string {
 function getAttrText(
   element: AST.VElement,
   name: string,
-  context: RuleContext
+  context: RuleContext,
 ) {
   const { startTag } = element;
   for (const attr of startTag.attributes) {
@@ -189,7 +199,7 @@ describe("CSS Query Test.", () => {
         const actual = JSON.stringify(
           reverseQueries(style, context),
           replacer,
-          4
+          4,
         );
         const expectedNormal = fs.readFileSync(resultPathNormal, "utf8");
         if (isExistsPath(resultPathReverse)) {

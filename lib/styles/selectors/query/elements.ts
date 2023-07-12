@@ -10,7 +10,7 @@ import {
  * @returns {boolean} `true` if the given element is the root element.
  */
 export function isRootElement(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): element is AST.VElement & {
   parent: AST.VDocumentFragment;
 } {
@@ -23,7 +23,7 @@ export function isRootElement(
  * @returns {boolean} `true` if the given element is the root `<template>` element.
  */
 function isRootTemplate(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): element is AST.VElement & {
   name: "template";
   parent: AST.VDocumentFragment;
@@ -41,7 +41,7 @@ function isRootTemplate(
  * @returns {boolean} `true` if the given element is the skip element.
  */
 export function isSkipElement(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): boolean {
   return (
     element.type === "VElement" &&
@@ -55,7 +55,7 @@ export function isSkipElement(
  * @returns {boolean} `true` if the given element is the slot element.
  */
 export function isSlotElement(
-  element: AST.VElement | AST.VDocumentFragment
+  element: AST.VElement | AST.VDocumentFragment,
 ): element is AST.VElement & { name: "slot" } {
   return element.type === "VElement" && element.name === "slot";
 }
@@ -66,7 +66,7 @@ export function isSlotElement(
  * @returns {VElement} the wrapper `<transition>` element.
  */
 export function getWrapperTransition(
-  element: AST.VElement
+  element: AST.VElement,
 ): AST.VElement | null {
   let parent: AST.VElement | AST.VDocumentFragment | null = element.parent;
   while (parent.type === "VElement") {

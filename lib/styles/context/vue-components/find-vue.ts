@@ -9,7 +9,7 @@ const traverseNodes = AST.traverseNodes;
  * @param node Node to check
  */
 function getVueComponentObject(
-  node: ASTNode
+  node: ASTNode,
 ): AST.ESLintObjectExpression | null {
   if (node.type !== "ExportDefaultDeclaration") {
     return null;
@@ -66,7 +66,7 @@ const vueComponentCache = new WeakMap<
  * @returns {ASTNode|null} Vue component
  */
 function findVueComponent(
-  context: RuleContext
+  context: RuleContext,
 ): AST.ESLintObjectExpression | null {
   const cached = vueComponentCache.get(context);
   if (cached !== undefined && cached.cachedAt > Date.now() - 1000) {
@@ -107,7 +107,7 @@ function findVueComponent(
       if (node.type === "ObjectExpression") {
         if (
           !componentComments.some(
-            (el) => el.loc.end.line === node.loc.start.line - 1
+            (el) => el.loc.end.line === node.loc.start.line - 1,
           ) ||
           isDuplicateNode(node)
         ) {

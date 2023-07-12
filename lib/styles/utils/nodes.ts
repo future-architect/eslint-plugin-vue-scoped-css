@@ -13,7 +13,7 @@ export function unwrapTypesExpression<
     | AST.ESLintSuper
     | AST.ESLintDeclaration
     | AST.ESLintSpreadElement
-    | TSAsExpression
+    | TSAsExpression,
 >(node: T): T {
   return node?.type === "TSAsExpression" ? (node.expression as T) : node;
 }
@@ -23,11 +23,11 @@ export function unwrapTypesExpression<
  */
 export function getStringFromNode(
   node: AST.ESLintExpression,
-  context: RuleContext
+  context: RuleContext,
 ): string | null {
   const evaluated = eslintUtils.getStaticValue(
     node,
-    getScope(context.getSourceCode().scopeManager, node)
+    getScope(context.getSourceCode().scopeManager, node),
   );
   if (evaluated && typeof evaluated.value === "string") {
     return evaluated.value;
@@ -43,7 +43,7 @@ export function getStringFromNode(
  */
 function getScope(
   scopeManager: ScopeManager,
-  currentNode: AST.ESLintNode
+  currentNode: AST.ESLintNode,
 ): Scope {
   // On Program node, get the outermost scope to avoid return Node.js special function scope or ES modules scope.
   const inner = currentNode.type !== "Program";

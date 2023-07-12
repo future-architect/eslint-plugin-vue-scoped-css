@@ -31,13 +31,13 @@ export class StylusParser extends CSSParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSContainerNode
+    parent: VCSSContainerNode,
   ): VCSSNode | null {
     if (node.raws?.inline) {
       this.commentContainer.push(
         new VCSSInlineComment(node, node.text, loc, start, end, {
           parent,
-        })
+        }),
       );
       return null;
     }
@@ -46,12 +46,12 @@ export class StylusParser extends CSSParser {
 
   protected getRaw<N extends PostCSSNode, K extends keyof N["raws"] & string>(
     node: N,
-    keyName: K
+    keyName: K,
   ): N["raws"][K] {
     if (keyName === "between" || keyName === "before" || keyName === "after") {
       const stylus = super.getRaw(
         node as never,
-        `stylus${keyName[0].toUpperCase()}${keyName.slice(1)}`
+        `stylus${keyName[0].toUpperCase()}${keyName.slice(1)}`,
       );
       if (stylus) {
         return stylus;

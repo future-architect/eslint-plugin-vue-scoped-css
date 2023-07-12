@@ -32,7 +32,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorNode[],
     parentSelectors: ResolvedSelectors | null,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     if (isNestingAtRule(container)) {
       return this.resolveSelectorForNestContaining(
@@ -40,14 +40,14 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         selectorNodes,
         findNestingSelector(selectorNodes),
         parentSelectors,
-        container
+        container,
       );
     }
     return this.resolveSelectorForStylusNesting(
       owner,
       selectorNodes,
       parentSelectors,
-      container
+      container,
     );
   }
 
@@ -62,7 +62,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
     owner: ResolvedSelectors,
     selectorNodes: VCSSSelectorNode[],
     parentSelectors: ResolvedSelectors | null,
-    container: VCSSAtRule | VCSSStyleRule
+    container: VCSSAtRule | VCSSStyleRule,
   ): ResolvedSelector[] {
     const nesting = findNestingSelector(selectorNodes);
     if (nesting != null) {
@@ -74,7 +74,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         selectorNodes,
         nesting,
         nestingParent,
-        container
+        container,
       );
 
       let hasNesting = true;
@@ -84,7 +84,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         for (const resolvedSelector of resolvedSelectors) {
           const nextNesting = findNextNestingSelector(
             resolvedSelector,
-            container
+            container,
           );
           if (nextNesting) {
             hasNesting = true;
@@ -97,8 +97,8 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
                 resolvedSelector.selector,
                 nextNesting,
                 nextNestingParent,
-                container
-              )
+                container,
+              ),
             );
           }
         }
@@ -116,7 +116,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
         owner,
         selectorNodes,
         parentSelectors,
-        container
+        container,
       );
     }
 
@@ -129,7 +129,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
       },
       first.range[0],
       first.range[0],
-      first.parent as never
+      first.parent as never,
     );
     comb.value = " ";
     comb.selector = " ";
@@ -138,7 +138,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
       owner,
       [comb, ...selectorNodes],
       parentSelectors,
-      container
+      container,
     );
   }
 
@@ -147,7 +147,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
    */
   private getNestingParentSelectors(
     parentSelectors: ResolvedSelectors,
-    nesting: NestingInfo
+    nesting: NestingInfo,
   ): ResolvedSelectors | null {
     if (nesting.node.value === "&") {
       // The nestingNode is parent reference. e.g `&`
@@ -161,7 +161,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
       const arrayParentSelectors = toArray(parentSelectors);
       const parsed = parsePartialRefValue(
         partialRefValue,
-        arrayParentSelectors.length
+        arrayParentSelectors.length,
       );
 
       if (!parsed) {
@@ -173,7 +173,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
       }
       // e.g. `^[1..-1]`
       return this.buildRangeResolveNestingSelectors(
-        arrayParentSelectors.slice(parsed.start, parsed.end + 1)
+        arrayParentSelectors.slice(parsed.start, parsed.end + 1),
       );
     }
 
@@ -206,7 +206,7 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
   }
 
   private buildRangeResolveNestingSelectors(
-    range: ResolvedSelectors[]
+    range: ResolvedSelectors[],
   ): ResolvedSelectors {
     const stack = [...range];
 
@@ -215,16 +215,16 @@ export class StylusSelectorResolver extends CSSSelectorResolver {
     while (next != null) {
       const targetResolvedSelectors: ResolvedSelectors = new ResolvedSelectors(
         next.container,
-        resolvedSelectors
+        resolvedSelectors,
       );
       for (const selector of next.container.selectors.filter(
-        hasNodesSelector
+        hasNodesSelector,
       )) {
         const selectors = this.resolveNestingSelectors(
           targetResolvedSelectors,
           selector.nodes,
           resolvedSelectors,
-          next.container
+          next.container,
         );
         targetResolvedSelectors.selectors.push(...selectors);
       }
@@ -243,7 +243,7 @@ export { ResolvedSelector };
  */
 export function findNextNestingSelector(
   resolved: ResolvedSelector,
-  container: VCSSAtRule | VCSSStyleRule
+  container: VCSSAtRule | VCSSStyleRule,
 ): NestingInfo | null {
   for (const nest of findNestingSelectors(resolved.selector)) {
     let parent: VCSS = nest.node.parent;

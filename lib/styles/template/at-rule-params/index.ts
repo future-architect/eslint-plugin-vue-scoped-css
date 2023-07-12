@@ -15,7 +15,7 @@ const BUILDERS = {
  */
 export default function getAtRuleParamsTemplateElements(
   text: string,
-  lang: string
+  lang: string,
 ): (Interpolation | string)[] {
   const templateBuilder = isSupportedStyleLang(lang)
     ? BUILDERS[lang]

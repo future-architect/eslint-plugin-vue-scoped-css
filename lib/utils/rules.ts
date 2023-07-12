@@ -93,13 +93,16 @@ export const rules = baseRules.map((obj) => {
 export function collectRules(category?: "recommended" | "vue3-recommended"): {
   [key: string]: string;
 } {
-  return rules.reduce((obj, rule) => {
-    if (
-      (!category || rule.meta.docs.categories.includes(category)) &&
-      !rule.meta.deprecated
-    ) {
-      obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error";
-    }
-    return obj;
-  }, {} as { [key: string]: string });
+  return rules.reduce(
+    (obj, rule) => {
+      if (
+        (!category || rule.meta.docs.categories.includes(category)) &&
+        !rule.meta.deprecated
+      ) {
+        obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error";
+      }
+      return obj;
+    },
+    {} as { [key: string]: string },
+  );
 }

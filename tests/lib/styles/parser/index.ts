@@ -95,7 +95,7 @@ describe("CSS Nodes Test.", () => {
         const expected = JSON.stringify(
           JSON.parse(fs.readFileSync(resultPath, "utf8")),
           simpleReplacer,
-          4
+          4,
         );
 
         assert.strictEqual(actual, expected);
@@ -117,7 +117,7 @@ describe("CSS Nodes Test.", () => {
 function checkCSSNodeLocations(
   code: string,
   node: VCSSNode | VCSSSelectorNode,
-  lang: string
+  lang: string,
 ) {
   if (node.node) {
     let rangeText = code.slice(...node.range);
@@ -125,7 +125,7 @@ function checkCSSNodeLocations(
     if (node.type === "VCSSSelector" || node.type === "VCSSClassSelector") {
       postcssText = postcssText.replace(
         /\s*\/\*(?![\s\S]*\*\/[\s\S]*\/\*)([\s\S]*?)\*\/\s*$/u,
-        ""
+        "",
       );
       postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\/\s*/u, "");
       postcssText = postcssText.replace(/^\s*\/\/([^\n]*)\s*/u, "");
@@ -134,7 +134,7 @@ function checkCSSNodeLocations(
     } else if (node.type === "VCSSSelectorCombinator") {
       postcssText = postcssText.replace(
         /\/\*(?![\s\S]*\*\/[\s\S]*\/\*)([\s\S]*?)\*\/\s*$/u,
-        ""
+        "",
       );
       postcssText = postcssText.replace(/^\s*\/\*([\s\S]*?)\*\//u, "");
       // eslint-disable-next-line regexp/no-super-linear-backtracking -- for test
@@ -160,7 +160,7 @@ function checkCSSNodeLocations(
     }
     assert.strictEqual(
       `${node.type}:\n${rangeText}`,
-      `${node.type}:\n${postcssText}`
+      `${node.type}:\n${postcssText}`,
     );
   }
   if (node.type === "VCSSStyleSheet") {
@@ -173,7 +173,7 @@ function checkCSSNodeLocations(
     const text = code.slice(...node.range);
     assert.strictEqual(
       text.slice(0, node.rawSelectorText.length),
-      node.rawSelectorText
+      node.rawSelectorText,
     );
     if (lang !== "stylus") {
       assert.strictEqual(text[text.length - 1], "}");
@@ -212,13 +212,13 @@ function checkCSSNodeLocations(
         if (idx >= 0) {
           assert.strictEqual(
             selectorText,
-            rawSelectorText.slice(idx, idx + selectorText.length)
+            rawSelectorText.slice(idx, idx + selectorText.length),
           );
           index = idx + selectorText.length;
         } else {
           assert.strictEqual(
             selectorText,
-            rawSelectorText.slice(index, index + selectorText.length)
+            rawSelectorText.slice(index, index + selectorText.length),
           );
         }
       }

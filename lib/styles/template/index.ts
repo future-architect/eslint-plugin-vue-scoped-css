@@ -33,22 +33,25 @@ export class Template {
     this.elements = elements
       .filter(isDefined)
       .filter((e) => e !== "")
-      .reduce((l, e) => {
-        if (l.length) {
-          const lastIndex = l.length - 1;
-          const last = l[lastIndex];
-          if (typeof e === "string" && typeof last === "string") {
-            l[lastIndex] = last + e;
-            return l;
+      .reduce(
+        (l, e) => {
+          if (l.length) {
+            const lastIndex = l.length - 1;
+            const last = l[lastIndex];
+            if (typeof e === "string" && typeof last === "string") {
+              l[lastIndex] = last + e;
+              return l;
+            }
+            if (typeof e !== "string" && typeof last !== "string") {
+              l[lastIndex] = new Interpolation(last.text + e.text);
+              return l;
+            }
           }
-          if (typeof e !== "string" && typeof last !== "string") {
-            l[lastIndex] = new Interpolation(last.text + e.text);
-            return l;
-          }
-        }
-        l.push(e);
-        return l;
-      }, [] as (Interpolation | string)[]);
+          l.push(e);
+          return l;
+        },
+        [] as (Interpolation | string)[],
+      );
 
     if (this.elements.length === 1) {
       const element = this.elements[0];
@@ -65,14 +68,14 @@ export class Template {
   }
 
   public static ofSelector(
-    node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector
+    node: VCSSIDSelector | VCSSClassSelector | VCSSTypeSelector,
   ): Template {
     return new Template(getSelectorTemplateElements(node));
   }
 
   public static ofParams(node: VCSSAtRule): Template {
     return new Template(
-      getAtRuleParamsTemplateElements(node.paramsText.trim(), node.lang)
+      getAtRuleParamsTemplateElements(node.paramsText.trim(), node.lang),
     );
   }
 
@@ -82,13 +85,13 @@ export class Template {
 
   public static ofDeclValue(
     nodeOrText: VCSSDeclarationProperty | string,
-    lang?: string
+    lang?: string,
   ): Template {
     if (typeof nodeOrText === "string") {
       return new Template(getDeclValueTemplateElements(nodeOrText, lang || ""));
     }
     return new Template(
-      getDeclValueTemplateElements(nodeOrText.value, nodeOrText.lang)
+      getDeclValueTemplateElements(nodeOrText.value, nodeOrText.lang),
     );
   }
 
@@ -101,7 +104,7 @@ export class Template {
       | AST.VFilterSequenceExpression
       | AST.VForExpression
       | AST.VOnExpression
-      | AST.VSlotScopeExpression
+      | AST.VSlotScopeExpression,
   ): Template | null {
     if (node.type === "VLiteral") {
       return Template.of(node.value);
@@ -219,7 +222,7 @@ export class Template {
           return e.toLowerCase();
         }
         return e;
-      })
+      }),
     );
   }
 

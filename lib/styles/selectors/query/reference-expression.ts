@@ -15,7 +15,7 @@ export type ReferenceExpressions =
  */
 export function getReferenceExpressions(
   expression: ReferenceExpressions,
-  context: RuleContext
+  context: RuleContext,
 ): ReferenceExpressions[] | null {
   if (expression.type === "ConditionalExpression") {
     const { consequent, alternate } = expression;

@@ -13,7 +13,7 @@ import { getReferenceExpressions } from "./reference-expression";
 export function getAttributeValueNodes(
   element: AST.VElement,
   name: string,
-  context: RuleContext
+  context: RuleContext,
 ): AttributeValueExpressions[] | null {
   const results: AttributeValueExpressions[] = [];
   const { startTag } = element;

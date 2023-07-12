@@ -16,7 +16,7 @@ import { replaceSelector, restoreReplacedSelector } from "./replace-utils";
  */
 function replaceStylusNesting(
   _result: RegExpExecArray,
-  random: string
+  random: string,
 ): string {
   return `[${random}]`;
 }
@@ -27,7 +27,7 @@ function replaceStylusNesting(
 function restoreStylusNesting(
   attribute: PostCSSSPNode,
   random: string,
-  original: string
+  original: string,
 ): PostCSSSPNestingNode | null {
   if (attribute.type !== "attribute") {
     return null;
@@ -107,18 +107,18 @@ export class StylusSelectorParser extends CSSSelectorParser {
             return `${res[1]},${res[2]}`;
           },
         },
-      ]
+      ],
     );
 
     const result: PostCSSSPRootNode = selectorParser().astSync(
-      replaceSelectorContext.cssSelector
+      replaceSelectorContext.cssSelector,
     );
     if (!replaceSelectorContext.hasReplace()) {
       return result;
     }
     return restoreReplacedSelector(
       result,
-      replaceSelectorContext
+      replaceSelectorContext,
     ) as PostCSSSPRootNode;
   }
 
@@ -140,7 +140,7 @@ export class StylusSelectorParser extends CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     if (node.value.startsWith("//")) {
       // inline comment
@@ -148,7 +148,7 @@ export class StylusSelectorParser extends CSSSelectorParser {
       this.commentContainer.push(
         new VCSSInlineComment(node, text, loc, start, end, {
           parent,
-        })
+        }),
       );
       return null;
     }

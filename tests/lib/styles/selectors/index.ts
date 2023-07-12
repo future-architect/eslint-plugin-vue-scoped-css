@@ -28,10 +28,10 @@ describe("CSS Selectors Test.", () => {
 
         const actual = JSON.stringify(
           getResolvedSelectors(style as ValidStyleContext).map(
-            (r) => r.selector
+            (r) => r.selector,
           ),
           replacer,
-          4
+          4,
         );
 
         try {
@@ -49,10 +49,10 @@ describe("CSS Selectors Test.", () => {
         const actual = JSON.stringify(
           getResolvedSelectors(style as ValidStyleContext).map((r) =>
             // eslint-disable-next-line max-nested-callbacks -- test
-            r.selector.map((s) => s.selector)
+            r.selector.map((s) => s.selector),
           ),
           replacer,
-          4
+          4,
         );
 
         try {

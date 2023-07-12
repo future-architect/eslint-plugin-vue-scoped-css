@@ -17,7 +17,7 @@ function formatItems(items: string[]) {
 //eslint-disable-next-line require-jsdoc -- tools
 function getPresets(categories: string[]) {
   const categoryConfigs = configs.filter((conf) =>
-    categories.includes(conf.name)
+    categories.includes(conf.name),
   );
   if (!categoryConfigs.length) {
     return [];
@@ -25,7 +25,7 @@ function getPresets(categories: string[]) {
 
   const presets = new Set<string>(categoryConfigs.map((cat) => cat.configId));
   const subTargets = configs.filter((conf) =>
-    conf.extends.find((ext) => categories.includes(ext.name))
+    conf.extends.find((ext) => categories.includes(ext.name)),
   );
   for (const name of getPresets(subTargets.map((s) => s.name))) {
     presets.add(name);
@@ -74,26 +74,26 @@ class DocFile {
     if (deprecated) {
       if (replacedBy) {
         const replacedRules = replacedBy.map(
-          (name) => `[vue-scoped-css/${name}](${name}.md) rule`
+          (name) => `[vue-scoped-css/${name}](${name}.md) rule`,
         );
         notes.push(
           `- :warning: This rule was **deprecated** and replaced by ${formatItems(
-            replacedRules
-          )}.`
+            replacedRules,
+          )}.`,
         );
       } else {
         notes.push("- :warning: This rule was **deprecated**.");
       }
     } else {
       const presets = Array.from(
-        new Set(getPresets(categories).concat(["plugin:vue-scoped-css/all"]))
+        new Set(getPresets(categories).concat(["plugin:vue-scoped-css/all"])),
       );
 
       if (presets.length) {
         notes.push(
           `- :gear: This rule is included in ${formatItems(
-            presets.map((c) => `\`"${c}"\``)
-          )}.`
+            presets.map((c) => `\`"${c}"\``),
+          )}.`,
         );
       }
       // const presets = categories
@@ -105,7 +105,7 @@ class DocFile {
     }
     if (fixable) {
       notes.push(
-        "- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule."
+        "- :wrench: The `--fix` option on the [command line](https://eslint.org/docs/user-guide/command-line-interface#fixing-problems) can automatically fix some of the problems reported by this rule.",
       );
     }
 
@@ -147,7 +147,7 @@ class DocFile {
 
     this.content = this.content.replace(
       /<eslint-code-block\s(:?fix\S*)?\s*/gu,
-      `<eslint-code-block ${meta.fixable ? "fix " : ""}`
+      `<eslint-code-block ${meta.fixable ? "fix " : ""}`,
     );
     return this;
   }
@@ -156,11 +156,11 @@ class DocFile {
     // Adjust the necessary blank lines before and after the code block so that GitHub can recognize `.md`.
     this.content = this.content.replace(
       /(<eslint-code-block[\s\S]*?>)\n+```/gu,
-      "$1\n\n```"
+      "$1\n\n```",
     );
     this.content = this.content.replace(
       /```\n+<\/eslint-code-block>/gu,
-      "```\n\n</eslint-code-block>"
+      "```\n\n</eslint-code-block>",
     );
     return this;
   }

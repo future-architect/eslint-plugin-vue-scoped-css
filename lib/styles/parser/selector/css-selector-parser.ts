@@ -64,7 +64,7 @@ export class CSSSelectorParser {
    */
   public constructor(
     sourceCode: SourceCode,
-    commentContainer: VCSSCommentNode[]
+    commentContainer: VCSSCommentNode[],
   ) {
     this.sourceCode = sourceCode;
     this.commentContainer = commentContainer;
@@ -80,14 +80,14 @@ export class CSSSelectorParser {
   public parse(
     rawSelector: string,
     offsetLocation: LineAndColumnData,
-    parent: VCSSStyleRule | VCSSAtRule
+    parent: VCSSStyleRule | VCSSAtRule,
   ): VCSSSelectorNode[] {
     const selectorParserRoot = this.parseInternal(rawSelector);
 
     return this._postcssSelectorParserNodeChiildrenToASTNodes(
       offsetLocation,
       selectorParserRoot,
-      parent
+      parent,
     );
   }
 
@@ -109,25 +109,25 @@ export class CSSSelectorParser {
   private _postcssSelectorParserNodeChiildrenToASTNodes(
     offsetLocation: LineAndColumnData,
     node: PostCSSSPRootNode,
-    parent: VCSSStyleRule | VCSSAtRule
+    parent: VCSSStyleRule | VCSSAtRule,
   ): VCSSSelector[];
 
   private _postcssSelectorParserNodeChiildrenToASTNodes(
     offsetLocation: LineAndColumnData,
     node: PostCSSSPContainer,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorValueNode[];
 
   private _postcssSelectorParserNodeChiildrenToASTNodes(
     offsetLocation: LineAndColumnData,
     node: PostCSSSPPseudoNode,
-    parent: VCSSSelectorPseudo
+    parent: VCSSSelectorPseudo,
   ): VCSSSelector[];
 
   private _postcssSelectorParserNodeChiildrenToASTNodes(
     offsetLocation: LineAndColumnData,
     node: PostCSSSPContainer | PostCSSSPPseudoNode,
-    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo
+    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo,
   ): VCSSSelectorNode[] {
     const astNodes = removeInvalidDescendantCombinator(
       node.nodes
@@ -135,10 +135,10 @@ export class CSSSelectorParser {
           this._postcssSelectorParserNodeToASTNode(
             offsetLocation,
             child,
-            parent
-          )
+            parent,
+          ),
         )
-        .filter(isDefined)
+        .filter(isDefined),
     );
     if (astNodes.length !== node.nodes.length) {
       // adjust locations
@@ -170,7 +170,7 @@ export class CSSSelectorParser {
   private _postcssSelectorParserNodeToASTNode(
     offsetLocation: LineAndColumnData,
     node: PostCSSSPNode,
-    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo
+    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo,
   ): VCSSSelectorNode | null {
     const { sourceCode } = this;
 
@@ -178,12 +178,12 @@ export class CSSSelectorParser {
       start: getESLintLineAndColumnFromPostCSSSelectorParserNode(
         offsetLocation,
         node,
-        "start"
+        "start",
       ),
       end: getESLintLineAndColumnFromPostCSSSelectorParserNode(
         offsetLocation,
         node,
-        "end"
+        "end",
       ),
     };
     const start = sourceCode.getIndexFromLoc(loc.start);
@@ -194,7 +194,7 @@ export class CSSSelectorParser {
       loc,
       start,
       end,
-      parent as never
+      parent as never,
     );
 
     if (astNode == null) {
@@ -210,14 +210,14 @@ export class CSSSelectorParser {
           this._postcssSelectorParserNodeChiildrenToASTNodes(
             offsetLocation,
             node as PostCSSSPPseudoNode,
-            astNode
-          )
+            astNode,
+          ),
         );
       } else if (astNode.type === "VCSSSelector") {
         astNode.nodes = this._postcssSelectorParserNodeChiildrenToASTNodes(
           offsetLocation,
           node,
-          astNode
+          astNode,
         );
       }
     }
@@ -228,7 +228,7 @@ export class CSSSelectorParser {
   protected parseRawsSpaces(
     astNode: VCSSSelectorNode,
     node: PostCSSSPNode,
-    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo
+    parent: VCSSStyleRule | VCSSAtRule | VCSSSelector | VCSSSelectorPseudo,
   ): void {
     if (!hasRaws(node) || !node.raws.spaces) {
       return;
@@ -240,13 +240,13 @@ export class CSSSelectorParser {
         this._postcssSelectorParserNodeToASTNode(
           astNode.loc.end,
           comment,
-          parent
+          parent,
         );
       });
     }
     if (before?.trim()) {
       const startLoc = this.sourceCode.getLocFromIndex(
-        astNode.range[0] - before.length
+        astNode.range[0] - before.length,
       );
       const selectorParserRoot = this.parseCommentsInternal(before);
       selectorParserRoot.walkComments((comment) => {
@@ -269,7 +269,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSNode
+    parent: VCSSNode,
   ): VCSSSelectorNode | null {
     let source = this.sourceCode.text.slice(start, end);
     const beforeSpaces = /^\s+/u.exec(source);
@@ -326,7 +326,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSTypeSelector(node, loc, start, end, {
       parent,
@@ -347,7 +347,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSIDSelector(node, loc, start, end, {
       parent,
@@ -368,7 +368,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSClassSelector(node, loc, start, end, {
       parent,
@@ -389,7 +389,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSNestingSelector(node, loc, start, end, {
       parent,
@@ -410,7 +410,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSUniversalSelector(node, loc, start, end, {
       parent,
@@ -431,7 +431,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSAttributeSelector(node, loc, start, end, {
       parent,
@@ -452,7 +452,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     return new VCSSSelectorPseudo(node, loc, start, end, {
       parent,
@@ -473,7 +473,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     const astNode = new VCSSSelectorCombinator(node, loc, start, end, {
       parent,
@@ -497,7 +497,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     // unknown string
     const astNode = new VCSSUnknownSelector(node, loc, start, end, {
@@ -522,13 +522,13 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSSelectorNode | null {
     const text = node.value.replace(/^\s*\/\*/u, "").replace(/\*\/\s*$/u, "");
     this.commentContainer.push(
       new VCSSComment(node, text, loc, start, end, {
         parent,
-      })
+      }),
     );
 
     return null;
@@ -548,7 +548,7 @@ export class CSSSelectorParser {
     loc: SourceLocation,
     start: number,
     end: number,
-    parent: VCSSSelector
+    parent: VCSSSelector,
   ): VCSSUnknownSelector {
     return new VCSSUnknownSelector(node, loc, start, end, {
       parent,
@@ -566,7 +566,7 @@ export class CSSSelectorParser {
 function getESLintLineAndColumnFromPostCSSSelectorParserNode(
   offsetLocation: LineAndColumnData,
   node: PostCSSSPNode,
-  locName: "start" | "end"
+  locName: "start" | "end",
 ) {
   const sourceLoc = (node.source && node.source[locName]) || {
     line: 0,
@@ -593,7 +593,7 @@ function getESLintLineAndColumnFromPostCSSSelectorParserNode(
 function adjustEndLocation(
   astNode: VCSSSelectorCombinator | VCSSUnknownSelector,
   endIndex: number,
-  sourceCode: SourceCode
+  sourceCode: SourceCode,
 ) {
   if (astNode.range[1] === endIndex) {
     return;
@@ -617,7 +617,7 @@ function adjustEndLocation(
  * Remove invalid descendant combinators
  */
 function removeInvalidDescendantCombinator(
-  nodes: VCSSSelectorNode[]
+  nodes: VCSSSelectorNode[],
 ): VCSSSelectorNode[] {
   const results = [];
 
@@ -643,8 +643,8 @@ function removeInvalidDescendantCombinator(
             node.loc,
             node.start,
             node.end,
-            { parent: node.parent, value: " " }
-          )
+            { parent: node.parent, value: " " },
+          ),
         );
       }
     }
@@ -686,7 +686,7 @@ const convertNodeTypes: ConvertNodeTypes = {
  * Get convert method name from given type
  */
 function typeToConvertMethodName(
-  type: keyof ConvertNodeTypes | "root"
+  type: keyof ConvertNodeTypes | "root",
 ): "convertUnknownTypeNode" | ConvertNodeTypes[keyof ConvertNodeTypes] {
   if (type === "root") {
     return "convertUnknownTypeNode";
@@ -699,7 +699,7 @@ function typeToConvertMethodName(
  */
 function hasRaws(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- check to prop
-  node: any
+  node: any,
 ): node is { raws: { spaces: { after?: string; before?: string } } } {
   return node.raws != null;
 }

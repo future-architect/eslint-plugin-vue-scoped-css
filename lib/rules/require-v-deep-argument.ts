@@ -52,7 +52,7 @@ export = {
      * Find VCSSStyleRule or nest VCSSAtRule
      */
     function findHasSelectorsNode(
-      node: VCSSSelectorNode
+      node: VCSSSelectorNode,
     ):
       | (VCSSAtRule & { name: "nest"; selectors: VCSSSelectorNode[] })
       | VCSSStyleRule
@@ -102,7 +102,7 @@ export = {
           const ruleNode = findHasSelectorsNode(node);
           if (
             !ruleNode?.nodes.every(
-              (n) => isVCSSDeclarationProperty(n) || isVCSSComment(n)
+              (n) => isVCSSDeclarationProperty(n) || isVCSSComment(n),
             )
           ) {
             // Maybe includes nesting

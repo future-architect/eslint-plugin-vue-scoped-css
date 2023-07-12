@@ -20,7 +20,7 @@ const RESOLVERS = {
  * @returns {ResolvedSelectors[]} the selector that resolved the nesting.
  */
 export function getResolvedSelectors(
-  style: ValidStyleContext
+  style: ValidStyleContext,
 ): ResolvedSelector[] {
   const lang = style.lang;
   // eslint-disable-next-line @typescript-eslint/naming-convention -- classes
@@ -36,7 +36,7 @@ export { ResolvedSelector };
  * Extracts the selectors from the given resolved selectors.
  */
 function extractSelectors(
-  resolvedSelectorsList: ResolvedSelectors[]
+  resolvedSelectorsList: ResolvedSelectors[],
 ): ResolvedSelector[] {
   const result: ResolvedSelector[] = [];
   for (const resolvedSelectors of resolvedSelectorsList) {
