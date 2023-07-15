@@ -1,6 +1,6 @@
 const path = require("path");
 const categories = require("./categories");
-// eslint-disable-next-line node/no-extraneous-require -- demo
+// eslint-disable-next-line n/no-extraneous-require -- demo
 const webpack = require("webpack");
 
 module.exports = {
@@ -25,7 +25,7 @@ module.exports = {
             "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs",
           ),
           eslint$: require.resolve("./shim/eslint"),
-          // eslint-disable-next-line node/no-extraneous-require -- demo
+          // eslint-disable-next-line n/no-extraneous-require -- demo
           stylus: require.resolve("stylus/lib/stylus"),
           glob: require.resolve("./shim/glob"),
           "safer-buffer": require.resolve("./shim/safer-buffer"),
