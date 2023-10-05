@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.5.1
+
+### Patch Changes
+
+- fix(deps): bump postcss to 8.4.31 ([#303](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/303))
+
 ## 2.5.0
 
 ### Minor Changes
