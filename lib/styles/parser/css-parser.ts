@@ -485,7 +485,11 @@ function getESLintLineAndColumnFromPostCSSNode(
     offsetLocation,
     sourceLoc,
   );
-  if (locName === "end") {
+  if (
+    locName === "end" &&
+    // The end location of the PostCSS root node has a different position than other nodes.
+    node.type !== "root"
+  ) {
     // End column is shifted by one.
     return { line, column: column + 1 };
   }
