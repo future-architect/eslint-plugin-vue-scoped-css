@@ -24,7 +24,11 @@ module.exports = {
             __dirname,
             "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs",
           ),
+          "eslint/use-at-your-own-risk": path.resolve(
+            "./shim/eslint/use-at-your-own-risk.js",
+          ),
           eslint$: require.resolve("./shim/eslint"),
+          "eslint-visitor-keys": require.resolve("./shim/eslint-visitor-keys"),
           // eslint-disable-next-line n/no-extraneous-require -- demo
           stylus: require.resolve("stylus/lib/stylus"),
           glob: require.resolve("./shim/glob"),
