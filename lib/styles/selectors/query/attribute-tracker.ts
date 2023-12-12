@@ -47,6 +47,7 @@ export function getAttributeValueNodes(
         // empty or syntax error
         continue;
       }
+      if (expression.type === "VGenericExpression") continue;
       const expressions = getReferenceExpressions(expression, context);
       if (!expressions) {
         // Expressions not found.
