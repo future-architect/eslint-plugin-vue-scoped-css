@@ -17,6 +17,7 @@ import {
   VueComponentContext,
   createVueComponentContext,
 } from "./vue-components";
+import { getSourceCode } from "../../utils/compat";
 
 type CacheValue = {
   styles?: StyleContext[];
@@ -32,7 +33,7 @@ const CACHE = new WeakMap<AST.ESLintProgram, CacheValue>();
  * Gets the cache.
  */
 function getCache(context: RuleContext): CacheValue {
-  const sourceCode = context.getSourceCode();
+  const sourceCode = getSourceCode(context);
   const { ast } = sourceCode;
   if (CACHE.has(ast)) {
     return CACHE.get(ast) as CacheValue;

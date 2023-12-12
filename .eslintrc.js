@@ -23,6 +23,55 @@ module.exports = {
     "@typescript-eslint/ban-ts-ignore": "off",
     "eslint-comments/no-unused-disable": "error",
     "@typescript-eslint/no-non-null-assertion": "off",
+    // Repo rule
+    "@typescript-eslint/no-restricted-imports": [
+      "error",
+      {
+        patterns: [
+          {
+            group: ["/regexpp", "/regexpp/*"],
+            message: "Please use `@eslint-community/regexpp` instead.",
+          },
+          {
+            group: ["/eslint-utils", "/eslint-utils/*"],
+            message: "Please use `@eslint-community/eslint-utils` instead.",
+          },
+        ],
+      },
+    ],
+    "no-restricted-properties": [
+      "error",
+      {
+        object: "context",
+        property: "getSourceCode",
+        message: "Use src/utils/compat.ts",
+      },
+      {
+        object: "context",
+        property: "getFilename",
+        message: "Use src/utils/compat.ts",
+      },
+      {
+        object: "context",
+        property: "getPhysicalFilename",
+        message: "Use src/utils/compat.ts",
+      },
+      {
+        object: "context",
+        property: "getCwd",
+        message: "Use src/utils/compat.ts",
+      },
+      {
+        object: "context",
+        property: "getScope",
+        message: "Use src/utils/compat.ts",
+      },
+      {
+        object: "context",
+        property: "parserServices",
+        message: "Use src/utils/compat.ts",
+      },
+    ],
   },
   overrides: [
     {

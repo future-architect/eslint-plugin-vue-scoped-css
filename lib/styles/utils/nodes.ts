@@ -1,6 +1,7 @@
 import type { AST, TSAsExpression, RuleContext } from "../../types";
-import eslintUtils from "eslint-utils";
+import eslintUtils from "@eslint-community/eslint-utils";
 import type { ScopeManager, Scope } from "eslint-scope";
+import { getSourceCode } from "../../utils/compat";
 
 /**
  * Unwrap typescript types like "X as F"
@@ -27,7 +28,7 @@ export function getStringFromNode(
 ): string | null {
   const evaluated = eslintUtils.getStaticValue(
     node,
-    getScope(context.getSourceCode().scopeManager, node),
+    getScope(getSourceCode(context).scopeManager, node),
   );
   if (evaluated && typeof evaluated.value === "string") {
     return evaluated.value;

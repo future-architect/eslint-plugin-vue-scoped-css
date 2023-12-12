@@ -22,6 +22,7 @@ import {
   isVCSSDeclarationProperty,
   isVCSSComment,
 } from "../styles/utils/css-nodes";
+import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -90,8 +91,7 @@ export = {
             nextNode.range[0],
           ];
           if (
-            context
-              .getSourceCode()
+            getSourceCode(context)
               .text.slice(...betweenRange)
               .trim()
           ) {

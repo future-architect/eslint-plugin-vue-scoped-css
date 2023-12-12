@@ -164,6 +164,7 @@ export interface SourceCode {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
   visitorKeys: any;
   scopeManager: ScopeManager;
+  parserServices: ParserServices;
   getAllComments: () => AST.Token[];
 
   getText(node?: AST.Node, beforeCount?: number, afterCount?: number): string;

@@ -1,5 +1,6 @@
 import { getVueComponentContext } from "../../context";
 import type { RuleContext, AST } from "../../../types";
+import { getSourceCode } from "../../../utils/compat";
 
 export type ReferenceExpressions =
   | AST.ESLintExpression
@@ -54,7 +55,7 @@ export function getReferenceExpressions(
  * Checks whether the given node within `<template>`
  */
 function withinTemplate(expr: AST.ESLintIdentifier, context: RuleContext) {
-  const templateBody = context.getSourceCode().ast.templateBody;
+  const templateBody = getSourceCode(context).ast.templateBody;
   const templateRange = templateBody?.range ?? [0, 0];
   return templateRange[0] <= expr.range[0] && expr.range[1] <= templateRange[1];
 }

@@ -11,6 +11,7 @@ import {
   isValidStyleContext,
   getCommentDirectivesReporter,
 } from "../styles/context";
+import { getSourceCode } from "../utils/compat";
 
 const styleTypesAttrs = ["scoped", "module"] as const;
 type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];
@@ -64,8 +65,9 @@ export = {
     }
 
     const reporter = getCommentDirectivesReporter(context);
+    const sourceCode = getSourceCode(context);
     const tokenStore =
-      context.parserServices.getTemplateBodyTokenStore?.() as TokenStore;
+      sourceCode.parserServices.getTemplateBodyTokenStore?.() as TokenStore;
     const { options } = context;
 
     const allows: AllowsOption = options[0]?.allows ?? ["scoped"];
