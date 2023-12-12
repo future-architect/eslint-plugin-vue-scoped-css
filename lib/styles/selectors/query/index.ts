@@ -38,6 +38,7 @@ import { isVElement, isTransitionElement } from "../../../utils/templates";
 import { isValidStyleContext } from "../../context/style";
 import type { ReferenceExpressions } from "./reference-expression";
 import { getReferenceExpressions } from "./reference-expression";
+import { getSourceCode } from "../../../utils/compat";
 
 const TRANSITION_CLASS_BASES = [
   "enter",
@@ -130,7 +131,7 @@ class VueDocumentQueryContext extends QueryContext {
 
   public constructor(context: RuleContext, options: ParsedQueryOptions) {
     super();
-    const sourceCode = context.getSourceCode();
+    const sourceCode = getSourceCode(context);
     const { ast } = sourceCode;
     this.elements = ast.templateBody
       ? [...genDescendantElements([ast.templateBody])]

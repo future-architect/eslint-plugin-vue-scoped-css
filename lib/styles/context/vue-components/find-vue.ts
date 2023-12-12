@@ -1,6 +1,7 @@
 import { AST } from "vue-eslint-parser";
 import type { ASTNode, RuleContext } from "../../../types";
 import { unwrapTypesExpression } from "../../utils/nodes";
+import { getSourceCode } from "../../../utils/compat";
 
 const traverseNodes = AST.traverseNodes;
 
@@ -73,7 +74,7 @@ function findVueComponent(
     return cached.component;
   }
 
-  const sourceCode = context.getSourceCode();
+  const sourceCode = getSourceCode(context);
   const componentComments = sourceCode
     .getAllComments()
     .filter((comment) => comment.value.includes("@vue/component"));

@@ -10,6 +10,7 @@ import {
   isVDeepPseudo,
   isPseudoEmptyArguments,
 } from "../styles/utils/selectors";
+import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -50,7 +51,7 @@ export = {
         loc: node.loc,
         messageId: expected === ":deep" ? "expectedDeep" : "expectedVDeep",
         fix(fixer) {
-          const nodeText = context.getSourceCode().text.slice(...node.range);
+          const nodeText = getSourceCode(context).text.slice(...node.range);
           return fixer.replaceTextRange(
             node.range,
             nodeText.replace(

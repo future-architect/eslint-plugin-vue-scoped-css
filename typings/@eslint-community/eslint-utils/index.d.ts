@@ -1,4 +1,4 @@
-import type { AST } from "../../lib/types";
+import type { AST } from "../../../lib/types";
 import type { Scope } from "eslint-scope";
 
 declare const utils: {
