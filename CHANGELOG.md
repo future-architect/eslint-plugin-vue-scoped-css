@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.6.0
+
+### Minor Changes
+
+- feat: use eslint-compat-utils ([#316](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/316))
+
 ## 2.5.1
 
 ### Patch Changes
