@@ -8,7 +8,6 @@ module.exports = {
   title: "eslint-plugin-vue-scoped-css",
   description: "ESLint plugin for Scoped CSS in Vue.js.",
   serviceWorker: true,
-  evergreen: true,
   configureWebpack(_config, _isServer) {
     return {
       externals: {
@@ -24,11 +23,12 @@ module.exports = {
             __dirname,
             "../../node_modules/@eslint/eslintrc/dist/eslintrc-universal.cjs",
           ),
-          "eslint/use-at-your-own-risk": path.resolve(
-            "./shim/eslint/use-at-your-own-risk.js",
+          "eslint/use-at-your-own-risk": require.resolve(
+            "./shim/eslint/use-at-your-own-risk",
           ),
           eslint$: require.resolve("./shim/eslint"),
           "eslint-visitor-keys": require.resolve("./shim/eslint-visitor-keys"),
+          "eslint-compat-utils": require.resolve("eslint-compat-utils"), // use cjs
           // eslint-disable-next-line n/no-extraneous-require -- demo
           stylus: require.resolve("stylus/lib/stylus"),
           glob: require.resolve("./shim/glob"),
@@ -47,7 +47,34 @@ module.exports = {
       ],
     };
   },
-
+  chainWebpack(config) {
+    const babelTargetModules = [
+      path.resolve(__dirname, "../../node_modules/eslint-plugin-vue"),
+    ];
+    const ignoreModules = [path.resolve(__dirname, "../../node_modules")];
+    const libDir = path.resolve(__dirname, "../..");
+    config.module
+      .rule("js")
+      .exclude.clear()
+      .add((filepath) => {
+        // always transpile js in vue files
+        if (/\.vue\.js$/.test(filepath)) {
+          return false;
+        }
+        if (babelTargetModules.some((m) => filepath.startsWith(m))) {
+          return false;
+        }
+        if (ignoreModules.some((m) => filepath.startsWith(m))) {
+          return true;
+        }
+        if (filepath.startsWith(libDir)) {
+          return false;
+        }
+        return true;
+      })
+      .end()
+      .use("babel-loader");
+  },
   head: [
     // ["link", { rel: "icon", type: "image/png", href: "/logo.png" }]
   ],

@@ -1,4 +1,6 @@
 /* eslint n/no-unsupported-features/es-syntax:0 -- ignore */
 import { Linter } from "eslint/lib/linter";
-export { Linter };
-export default { Linter };
+class CLIEngine {}
+class ESLint {}
+export { Linter, CLIEngine, ESLint };
+export default { Linter, CLIEngine, ESLint };

@@ -42,8 +42,8 @@ for (const config of configs) {
   const extendsList: string[] = !config.config.extends
     ? []
     : Array.isArray(config.config.extends)
-    ? config.config.extends
-    : [config.config.extends];
+      ? config.config.extends
+      : [config.config.extends];
   config.extends = extendsList
     .map((p) => configs.find((c) => c.path === p))
     .filter(isDefined);
