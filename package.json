@@ -70,6 +70,7 @@
     "eslint-plugin-json-schema-validator": "^4.6.1",
     "eslint-plugin-jsonc": "^2.0.0",
     "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-node-dependencies": "^0.11.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-regexp": "^2.0.0",
     "eslint-plugin-vue": "^9.19.2",
@@ -97,7 +98,7 @@
     "eslint-compat-utils": "^0.1.2",
     "lodash": "^4.17.21",
     "postcss": "^8.4.31",
-    "postcss-safe-parser": "^7.0.0",
+    "postcss-safe-parser": "^6.0.0",
     "postcss-scss": "^4.0.3",
     "postcss-selector-parser": "^6.0.9",
     "postcss-styl": "^0.12.0"

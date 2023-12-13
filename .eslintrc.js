@@ -15,6 +15,7 @@ module.exports = {
     "plugin:@ota-meshi/+json",
     "plugin:@ota-meshi/+yaml",
     "plugin:@ota-meshi/+prettier",
+    "plugin:node-dependencies/recommended",
   ],
   rules: {
     "require-jsdoc": "error",
