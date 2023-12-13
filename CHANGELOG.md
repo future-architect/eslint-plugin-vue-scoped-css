@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.6.1
+
+### Patch Changes
+
+- fix: downgrade postcss-safe-parser to v6 ([#319](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/319))
+
 ## 2.6.0
 
 ### Minor Changes
