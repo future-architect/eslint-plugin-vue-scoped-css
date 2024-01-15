@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v4
       - name: Install Target Packages
         run: |+
-          npm i -D eslint@^9.0.0-0 -f
+          npm i -D eslint@^9.0.0-0 --legacy-peer-deps
           npx rimraf node_modules
           npm install -f
       - name: Test
