@@ -89,15 +89,16 @@ export = {
   );
   fs.writeFileSync(
     testFile,
-    `import { RuleTester } from "eslint"
+    `import { RuleTester } from "../test-lib/eslint-compat"
 import rule = require("../../../lib/rules/${ruleId}")
+import * as vueParser from "vue-eslint-parser";
 
 const tester = new RuleTester({
-    parser: require.resolve("vue-eslint-parser"),
-    parserOptions: {
-        ecmaVersion: 2019,
-        sourceType: "module",
-    },
+  languageOptions: {
+    parser: vueParser,
+    ecmaVersion: 2019,
+    sourceType: "module",
+  },
 })
 
 tester.run("${ruleId}", rule as any, {
