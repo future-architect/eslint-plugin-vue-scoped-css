@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "@eslint-community/eslint-utils": "^4.4.0",
-    "eslint-compat-utils": "^0.1.2",
+    "eslint-compat-utils": "^0.2.0",
     "lodash": "^4.17.21",
     "postcss": "^8.4.31",
     "postcss-safe-parser": "^6.0.0",
