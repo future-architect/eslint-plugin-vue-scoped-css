@@ -1,5 +1,5 @@
 ---
-"eslint-plugin-vue-scoped-css": minor
+"eslint-plugin-vue-scoped-css": patch
 ---
 
-fix(deps): update dependency eslint-compat-utils to ^0.2.0
+fix(deps): update dependency eslint-compat-utils to ^0.3.0

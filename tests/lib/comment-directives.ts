@@ -1,13 +1,9 @@
-import { RuleTester } from "./test-lib/eslint-compat";
-import { Linter } from "eslint";
+import { RuleTester, testRuleIdPrefix } from "./test-lib/eslint-compat";
 import rule = require("../../lib/rules/no-unused-selector");
-import * as semver from "semver";
 
 import * as vueParser from "vue-eslint-parser";
 
-const testRulePrefix = semver.gte(Linter.version, "9.0.0-0")
-  ? "rule-to-test/"
-  : "";
+const testRulePrefix = testRuleIdPrefix;
 
 const tester = new RuleTester({
   languageOptions: {
