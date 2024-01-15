@@ -1,5 +1,7 @@
-import { Linter } from "eslint";
+import { getLinter } from "eslint-compat-utils/linter";
 import plugin = require("../../lib/index");
+// eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
+const Linter = getLinter();
 
 describe("Don't crash even if without vue-eslint-parser.", () => {
   const code = "<style scoped>.a {}</style>";
@@ -10,17 +12,19 @@ describe("Don't crash even if without vue-eslint-parser.", () => {
     it(ruleId, () => {
       const linter = new Linter();
       const config = {
-        parserOptions: {
+        languageOptions: {
           ecmaVersion: 2015,
-          ecmaFeatures: {
-            jsx: true,
+          parserOptions: {
+            ecmaFeatures: {
+              jsx: true,
+            },
           },
         },
+        plugins: { "vue-scoped-css": plugin },
         rules: {
           [ruleId]: "error",
         },
       };
-      linter.defineRule(ruleId, plugin.rules[key] as any);
       linter.verifyAndFix(code, config as any, "test.vue");
     });
   }

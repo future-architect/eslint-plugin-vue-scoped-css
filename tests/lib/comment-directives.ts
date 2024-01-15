@@ -1,9 +1,17 @@
-import { RuleTester } from "eslint";
+import { RuleTester } from "./test-lib/eslint-compat";
+import { Linter } from "eslint";
 import rule = require("../../lib/rules/no-unused-selector");
+import * as semver from "semver";
+
+import * as vueParser from "vue-eslint-parser";
+
+const testRulePrefix = semver.gte(Linter.version, "9.0.0-0")
+  ? "rule-to-test/"
+  : "";
 
 const tester = new RuleTester({
-  parser: require.resolve("vue-eslint-parser"),
-  parserOptions: {
+  languageOptions: {
+    parser: vueParser,
     ecmaVersion: 2019,
     sourceType: "module",
   },
@@ -59,10 +67,10 @@ tester.run("no-unused-selector-comment-directives", rule as any, {
                 </ul></div>
             </template>
             <style scoped>
-            /* eslint-disable-next-line no-unused-selector-comment-directives */
+            /* eslint-disable-next-line ${testRulePrefix}no-unused-selector-comment-directives */
             div {
                 & > .foo,
-                & > li.foo {/* eslint-disable-line no-unused-selector-comment-directives */
+                & > li.foo {/* eslint-disable-line ${testRulePrefix}no-unused-selector-comment-directives */
                 } 
                 & > li.bar {}
             }
@@ -120,10 +128,10 @@ tester.run("no-unused-selector-comment-directives", rule as any, {
                 </ul></div>
             </template>
             <style scoped>
-            /* eslint-disable no-unused-selector-comment-directives */
+            /* eslint-disable ${testRulePrefix}no-unused-selector-comment-directives */
             div {
                 & > .foo,
-                /* eslint-enable no-unused-selector-comment-directives */ & > li.foo {
+                /* eslint-enable ${testRulePrefix}no-unused-selector-comment-directives */ & > li.foo {
                 } 
                 & > li.bar {}
             }

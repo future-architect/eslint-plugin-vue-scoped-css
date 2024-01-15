@@ -1,9 +1,10 @@
-import { RuleTester } from "eslint";
+import { RuleTester } from "../test-lib/eslint-compat";
 import rule = require("../../../lib/rules/v-slotted-pseudo-style");
+import * as vueParser from "vue-eslint-parser";
 
 const tester = new RuleTester({
-  parser: require.resolve("vue-eslint-parser"),
-  parserOptions: {
+  languageOptions: {
+    parser: vueParser,
     ecmaVersion: 2019,
     sourceType: "module",
   },

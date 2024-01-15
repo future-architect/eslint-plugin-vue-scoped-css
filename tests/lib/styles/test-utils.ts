@@ -1,4 +1,4 @@
-import eslint from "eslint";
+import { getLinter } from "eslint-compat-utils/linter";
 
 import fs from "fs";
 import path from "path";
@@ -6,16 +6,21 @@ import path from "path";
 import type { RuleContext } from "../../../lib/types";
 import type { StyleContext } from "../../../lib/styles/context";
 import { getStyleContexts } from "../../../lib/styles/context";
+import * as vueParser from "vue-eslint-parser";
 
+// eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
+const Linter = getLinter();
 const ROOT = path.join(__dirname, "./fixtures/index");
 
-const ruleId = "test";
-
 const config = {
-  parser: "vue-eslint-parser",
-  parserOptions: { ecmaVersion: 2019, sourceType: "module" },
+  files: ["*", "*.vue", "**/*.vue"],
+  languageOptions: {
+    parser: vueParser,
+    ecmaVersion: 2019,
+    sourceType: "module",
+  },
   rules: {
-    [ruleId]: "error",
+    "test/test": "error",
   },
 };
 
@@ -28,23 +33,34 @@ function executeLint(
   sourcePath: string,
   _name: string,
 ): { style: StyleContext; context: RuleContext } {
-  const linter = new eslint.Linter();
+  const linter = new Linter();
   let style: StyleContext | null = null;
   let context: RuleContext | null = null;
   let err = null;
-  linter.defineParser("vue-eslint-parser", require("vue-eslint-parser"));
-  linter.defineRule(ruleId, {
-    create(ctx: RuleContext) {
-      try {
-        context = ctx;
-        style = getStyleContexts(ctx)[0];
-      } catch (e) {
-        err = e;
-      }
-      return {};
-    },
-  } as any);
-  linter.verifyAndFix(source, config as any, sourcePath);
+  linter.verifyAndFix(
+    source,
+    {
+      ...config,
+      plugins: {
+        test: {
+          rules: {
+            test: {
+              create(ctx: RuleContext) {
+                try {
+                  context = ctx;
+                  style = getStyleContexts(ctx)[0];
+                } catch (e) {
+                  err = e;
+                }
+                return {};
+              },
+            },
+          },
+        },
+      },
+    } as any,
+    sourcePath,
+  );
   if (err) {
     throw err;
   }
