@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.7.1
+
+### Patch Changes
+
+- fix(deps): update dependency eslint-compat-utils to ^0.3.0 ([#328](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/328))
+
 ## 2.7.0
 
 ### Minor Changes
