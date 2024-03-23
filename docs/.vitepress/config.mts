@@ -54,6 +54,8 @@ export default async (): Promise<UserConfig<DefaultTheme.Config>> => {
       },
       define: {
         "process.env.NODE_DEBUG": "false",
+        "process.platform": JSON.stringify(process.platform),
+        "process.version": JSON.stringify(process.version),
       },
       optimizeDeps: {
         // exclude: ["vue-eslint-parser"],

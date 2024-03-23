@@ -20,6 +20,7 @@
     "predocs:watch": "npm run build",
     "docs:watch": "vitepress dev docs",
     "docs:build": "npm run build && vitepress build docs",
+    "docs:open-dist": "cd ./docs/.vitepress/dist && npx -y http-server --open http://localhost:8080/eslint-plugin-vue-scoped-css/",
     "preversion": "npm test && npm run update && git add .",
     "version": "npm run lint -- --fix && git add .",
     "version:ci": "npm run update && changeset version",
