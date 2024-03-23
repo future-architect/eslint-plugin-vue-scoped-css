@@ -106,6 +106,16 @@ tester.run("require-scoped", rule as any, {
                 column: 25,
                 endLine: 4,
                 endColumn: 34,
+                suggestions: [
+                  {
+                    desc: "Add `scoped` attribute.",
+                    output: `
+                        <script>
+                        </script>
+                        <style  scoped/>
+                        `,
+                  },
+                ],
               },
             ],
           },
