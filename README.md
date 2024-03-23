@@ -40,7 +40,7 @@ npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 ```
 
 > **Requirements**
-> 
+>
 > - ESLint v6.0.0 and above
 > - Node.js v12.22.x, v14.17.x, v16.x and above
 
@@ -49,8 +49,32 @@ npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 ## Usage
 
 <!--USAGE_SECTION_START-->
+<!--USAGE_GUIDE_START-->
 
-Create `.eslintrc.*` file to configure rules. See also: [http://eslint.org/docs/user-guide/configuring](http://eslint.org/docs/user-guide/configuring).
+### New (ESLint>=v9) Config (Flat Config)
+
+Use `eslint.config.js` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/configuration-files-new>.
+
+Example **eslint.config.js**:
+
+```mjs
+import eslintPluginVueScopedCSS from 'eslint-plugin-vue-scoped-css';
+export default [
+  // add more generic rule sets here, such as:
+  // js.configs.recommended,
+  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      // 'vue-scoped-css/no-unused-selector': 'error'
+    }
+  }
+];
+```
+
+### Legacy Config (ESLint<v9)
+
+Use `.eslintrc.*` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/>.
 
 Example **.eslintrc.js**:
 
@@ -72,11 +96,21 @@ module.exports = {
 
 This plugin provides some predefined configs:
 
+### New (ESLint>=v9) Config (Flat Config)
+
+- `*.configs['flat/base']` - Settings and rules to enable this plugin
+- `*.configs['flat/recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
+- `*.configs['flat/vue2-recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
+- `*.configs['flat/all']` - All rules of this plugin are included
+
+### Legacy Config (ESLint<v9)
+
 - `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
 - `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
 - `plugin:vue-scoped-css/vue3-recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
 
+<!--USAGE_GUIDE_END-->
 <!--USAGE_SECTION_END-->
 
 ## Rules
@@ -91,9 +125,17 @@ The `--fix` option on the [command line](https://eslint.org/docs/user-guide/comm
 
 Enforce all the rules in this category with:
 
+```js
+export default [
+  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+]
+```
+
+or
+
 ```json
 {
-  "extends": "plugin:vue-scoped-css/vue3-recommended"
+  "extends": ["plugin:vue-scoped-css/vue3-recommended"]
 }
 ```
 
@@ -113,9 +155,17 @@ Enforce all the rules in this category with:
 
 Enforce all the rules in this category with:
 
+```js
+export default [
+  ...eslintPluginVueScopedCSS.configs['flat/vue2-recommended'],
+]
+```
+
+or
+
 ```json
 {
-  "extends": "plugin:vue-scoped-css/recommended"
+  "extends": ["plugin:vue-scoped-css/recommended"]
 }
 ```
 

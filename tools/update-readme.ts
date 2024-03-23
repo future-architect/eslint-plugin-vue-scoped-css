@@ -45,3 +45,25 @@ fs.writeFileSync(
     )
     .replace(/\n{3,}/gu, "\n\n"),
 );
+
+const docsUserGuideFilePath = path.resolve(
+  __dirname,
+  "../docs/user-guide/README.md",
+);
+const docsUserGuide = fs.readFileSync(docsUserGuideFilePath, "utf8");
+
+fs.writeFileSync(
+  docsUserGuideFilePath,
+  docsUserGuide
+    .replace(
+      /<!--USAGE_GUIDE_START-->[\s\S]*<!--USAGE_GUIDE_END-->/u,
+      /<!--USAGE_GUIDE_START-->[\s\S]*<!--USAGE_GUIDE_END-->/u.exec(
+        newReadme,
+      )![0],
+    )
+    .replace(
+      /\(https:\/\/ota-meshi.github.io\/eslint-plugin-json-schema-validator(.*?)\)/gu,
+      (_s, c: string) => `(..${c.endsWith("/") ? `${c}README.md` : c})`,
+    ),
+  "utf8",
+);

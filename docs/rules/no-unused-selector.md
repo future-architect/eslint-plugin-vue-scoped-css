@@ -8,7 +8,7 @@ description: "disallow selectors defined in Scoped CSS that don't use in `<templ
 
 > disallow selectors defined in Scoped CSS that don't use in `<template>`
 
-- :gear: This rule is included in all of `"plugin:vue-scoped-css/recommended"`, `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in all of `"plugin:vue-scoped-css/all"`, `"plugin:vue-scoped-css/recommended"` and `"plugin:vue-scoped-css/vue3-recommended"`.
 
 ## :book: Rule Details
 

@@ -16,7 +16,7 @@ export type Rule = {
   meta: {
     docs: {
       description: string;
-      categories: ("recommended" | "vue3-recommended")[];
+      categories: ("vue2-recommended" | "vue3-recommended")[];
       ruleId?: string;
       ruleName?: string;
       default?: string;
