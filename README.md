@@ -57,7 +57,7 @@ Use `eslint.config.js` file to configure rules. See also: <https://eslint.org/do
 
 Example **eslint.config.js**:
 
-```mjs
+```js
 import eslintPluginVueScopedCSS from 'eslint-plugin-vue-scoped-css';
 export default [
   // add more generic rule sets here, such as:
