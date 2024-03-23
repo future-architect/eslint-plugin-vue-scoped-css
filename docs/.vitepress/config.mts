@@ -7,7 +7,9 @@ import { viteCommonjs } from "./vite-plugin.mjs";
 
 import "./build-system/build.mts";
 
-type RuleModule = {meta:{docs:{ruleId:string,ruleName:string},deprecated?:boolean}};
+type RuleModule = {
+  meta: { docs: { ruleId: string; ruleName: string }; deprecated?: boolean };
+};
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -41,10 +43,13 @@ export default async (): Promise<UserConfig<DefaultTheme.Config>> => {
             "./build-system/shim/vue-eslint-parser.mjs",
           ),
           module: path.join(dirname, "./shim/module.mjs"),
-          'safer-buffer': path.join(dirname, "./shim/module.mjs"),
-          'sax': path.join(dirname, "./shim/sax.mjs"),
+          "safer-buffer": path.join(dirname, "./shim/module.mjs"),
+          sax: path.join(dirname, "./shim/sax.mjs"),
           events: path.join(dirname, "./build-system/shim/events.mjs"),
-          stylus: path.join(dirname, "../../node_modules/stylus/lib/browserify.js"),
+          stylus: path.join(
+            dirname,
+            "../../node_modules/stylus/lib/browserify.js",
+          ),
         },
       },
       define: {
@@ -89,10 +94,7 @@ export default async (): Promise<UserConfig<DefaultTheme.Config>> => {
             text: "Vue Scoped CSS Rules",
             collapsed: false,
             items: rules
-              .filter(
-                (rule) =>
-                  !rule.meta.deprecated,
-              )
+              .filter((rule) => !rule.meta.deprecated)
               .map(ruleToSidebarItem),
           },
 

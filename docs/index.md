@@ -37,6 +37,6 @@ See [Available Rules](./rules/index.md).
 
 ## License
 
-See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
+See the [LICENSE](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/LICENSE) file for license rights and limitations (MIT).
 
 [Scoped CSS in Vue.js]: https://vue-loader.vuejs.org/guide/scoped-css.html

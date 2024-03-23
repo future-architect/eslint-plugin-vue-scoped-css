@@ -76,7 +76,7 @@ This plugin provides some predefined configs:
 
 <!--USAGE_GUIDE_END-->
 
-See [the rule list](../rules/README.md) to get the `rules` that this plugin provides.
+See [the rule list](../rules/index.md) to get the `rules` that this plugin provides.
 
 ### Running ESLint from command line
 
