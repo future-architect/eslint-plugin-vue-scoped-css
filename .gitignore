@@ -1,5 +1,7 @@
 /node_modules
-/docs/.vuepress/dist
+/docs/.vitepress/dist
+/docs/.vitepress/cache
+/docs/.vitepress/build-system/shim
 /dist
 /.nyc_output
 /coverage

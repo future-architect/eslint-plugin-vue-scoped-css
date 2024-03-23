@@ -3,10 +3,12 @@
 /dist
 /node_modules
 /assets
-/docs/.vuepress/dist
+!/docs/.vitepress
+/docs/.vitepress/dist
+/docs/.vitepress/cache
+/docs/.vitepress/build-system/shim
 /fixtures
 /tests/lib/styles/fixtures
 /package-lock.json
 !/.github
 !/.vscode
-!/docs/.vuepress

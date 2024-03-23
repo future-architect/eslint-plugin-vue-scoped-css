@@ -76,7 +76,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ["*.ts"],
+      files: ["*.ts", "*.mts"],
       parser: "@typescript-eslint/parser",
       rules: {
         "@typescript-eslint/no-require-imports": "off",
@@ -148,12 +148,12 @@ module.exports = {
       },
     },
     {
-      files: ["docs/.vuepress/**"],
+      files: ["docs/.vitepress/**"],
       parserOptions: {
         sourceType: "module",
         ecmaVersion: 2020,
       },
-      extends: ["plugin:@ota-meshi/+vue2", "plugin:@ota-meshi/+prettier"],
+      extends: ["plugin:@ota-meshi/+vue3", "plugin:@ota-meshi/+prettier"],
       globals: {
         window: true,
       },
@@ -162,6 +162,17 @@ module.exports = {
         "n/no-unsupported-features/es-syntax": "off",
         "n/no-missing-import": "off",
         "n/no-missing-require": "off",
+        "n/file-extension-in-import": "off",
+        "n/no-extraneous-import": "off",
+      },
+    },
+    {
+      files: ["docs/.vitepress/**/*.mts", "docs/.vitepress/**/*.ts"],
+      parser: "@typescript-eslint/parser",
+      parserOptions: {
+        sourceType: "module",
+        ecmaVersion: 2020,
+        project: null,
       },
     },
   ],

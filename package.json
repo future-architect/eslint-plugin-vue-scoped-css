@@ -17,9 +17,9 @@
     "test:watch": "npm run test:base -- --watch",
     "update": "ts-node ./tools/update.ts && npm run eslint-fix && npm run test:nyc",
     "new": "ts-node ./tools/new-rule.ts",
-    "docs:watch": "npm run vuepress -- dev --debug docs",
-    "docs:build": "npm run build && npm run vuepress -- build docs --no-cache",
-    "vuepress": "node --openssl-legacy-provider ./node_modules/vuepress/cli.js",
+    "predocs:watch": "npm run build",
+    "docs:watch": "vitepress dev docs",
+    "docs:build": "npm run build && vitepress build docs",
     "preversion": "npm test && npm run update && git add .",
     "version": "npm run lint -- --fix && git add .",
     "version:ci": "npm run update && changeset version",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "@changesets/cli": "^2.24.2",
     "@ota-meshi/eslint-plugin": "^0.15.1",
+    "@ota-meshi/site-kit-eslint-editor-vue": "^0.1.2",
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
     "@types/eslint": "^8.56.6",
     "@types/eslint-visitor-keys": "^1.0.0",
@@ -86,12 +87,13 @@
     "stylelint": "^16.0.0",
     "stylelint-config-recommended-vue": "^1.1.0",
     "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-vue": "^1.0.0",
     "stylelint-stylus": "^1.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0",
-    "vue-eslint-editor": "^1.1.0",
-    "vue-eslint-parser": "^9.0.0",
-    "vuepress": "^1.8.2"
+    "typescript": "~5.4.3",
+    "vite-plugin-eslint4b": "^0.2.3",
+    "vitepress": "^1.0.1",
+    "vue-eslint-parser": "^9.0.0"
   },
   "dependencies": {
     "@eslint-community/eslint-utils": "^4.4.0",

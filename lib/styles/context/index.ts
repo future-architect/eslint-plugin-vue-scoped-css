@@ -1,9 +1,9 @@
 import {
   createStyleContexts,
-  StyleContext,
+  type StyleContext,
   isValidStyleContext,
-  ValidStyleContext,
-  InvalidStyleContext,
+  type ValidStyleContext,
+  type InvalidStyleContext,
 } from "./style";
 import type { CommentDirectives } from "./comment-directive";
 import {
