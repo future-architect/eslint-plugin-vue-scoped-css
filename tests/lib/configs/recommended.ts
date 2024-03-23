@@ -7,7 +7,7 @@ describe("`recommended` config", () => {
   it("legacy `recommended` config should work. ", async () => {
     const linter = new LegacyESLint({
       plugins: {
-        toml: plugin as never,
+        "vue-scoped-css": plugin as never,
       },
       baseConfig: {
         parserOptions: {
