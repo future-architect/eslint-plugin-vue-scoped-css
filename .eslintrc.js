@@ -153,7 +153,11 @@ module.exports = {
         sourceType: "module",
         ecmaVersion: 2020,
       },
-      extends: ["plugin:@ota-meshi/+vue3", "plugin:@ota-meshi/+prettier"],
+      extends: [
+        "plugin:@ota-meshi/+vue3",
+        "plugin:@ota-meshi/+prettier",
+        "plugin:@typescript-eslint/disable-type-checked",
+      ],
       globals: {
         window: true,
       },

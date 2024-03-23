@@ -1,19 +1,3 @@
-// if (typeof globalThis !== "undefined") {
-//   if (typeof require === "undefined") {
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
-//     (window.globalThis as any).require = () => {
-//       const e = new Error("require is not defined");
-//       // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
-//       (e as any).code = "MODULE_NOT_FOUND";
-//       throw e;
-//     };
-//   }
-// }
-if (typeof window !== "undefined") {
-  if (typeof window.global === "undefined") {
-    (window.global as any) = {};
-  }
-}
 import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme";
 import ESLintCodeBlock from "./components/eslint-code-block.vue";
