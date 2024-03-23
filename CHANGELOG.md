@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.8.0
+
+### Minor Changes
+
+- feat: add support for flat config ([#338](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/338))
+
 ## 2.7.2
 
 ### Patch Changes
