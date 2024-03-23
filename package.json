@@ -54,7 +54,7 @@
     "@changesets/cli": "^2.24.2",
     "@ota-meshi/eslint-plugin": "^0.15.1",
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
-    "@types/eslint": "^8.0.0",
+    "@types/eslint": "^8.56.6",
     "@types/eslint-visitor-keys": "^1.0.0",
     "@types/estree": "^1.0.0",
     "@types/lodash": "^4.14.158",

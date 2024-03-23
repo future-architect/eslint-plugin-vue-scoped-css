@@ -34,7 +34,7 @@ export const rules = baseRules.map(obj => {
  * @returns {Array} rules
  */
 export function collectRules(
-    category?: "recommended" | "vue3-recommended",
+    category?: "vue2-recommended" | "vue3-recommended",
 ): { [key: string]: string } {
     return rules.reduce((obj, rule) => {
         if (

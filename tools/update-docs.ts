@@ -15,20 +15,25 @@ function formatItems(items: string[]) {
 }
 
 //eslint-disable-next-line require-jsdoc -- tools
-function getPresets(categories: string[]) {
-  const categoryConfigs = configs.filter((conf) =>
-    categories.includes(conf.name),
+function getPresets(ruleId: string) {
+  const categoryConfigs = configs.filter(
+    (conf) => conf.config?.rules?.[ruleId] != null,
   );
   if (!categoryConfigs.length) {
     return [];
   }
 
   const presets = new Set<string>(categoryConfigs.map((cat) => cat.configId));
-  const subTargets = configs.filter((conf) =>
-    conf.extends.find((ext) => categories.includes(ext.name)),
-  );
-  for (const name of getPresets(subTargets.map((s) => s.name))) {
-    presets.add(name);
+  for (;;) {
+    const extendsPreset = configs.filter(
+      (conf) =>
+        !presets.has(conf.configId) &&
+        [conf.config?.extends].flat().some((e) => e && presets.has(e)),
+    );
+    if (!extendsPreset.length) break;
+    for (const e of extendsPreset) {
+      presets.add(e.configId);
+    }
   }
   return [...presets];
 }
@@ -65,7 +70,7 @@ class DocFile {
       meta: {
         fixable,
         deprecated,
-        docs: { ruleId, description, categories, replacedBy },
+        docs: { ruleId, description, replacedBy },
       },
     } = this.rule;
     const title = `# ${ruleId}\n\n> ${description}`;
@@ -86,7 +91,7 @@ class DocFile {
       }
     } else {
       const presets = Array.from(
-        new Set(getPresets(categories).concat(["plugin:vue-scoped-css/all"])),
+        new Set(getPresets(ruleId!).concat(["plugin:vue-scoped-css/all"])),
       );
 
       if (presets.length) {

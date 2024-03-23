@@ -5,8 +5,7 @@ import { isDefined } from "../../lib/utils/utils";
 type Config = {
   name: string;
   configId: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- tools
-  config: any;
+  config: { rules?: Record<string, unknown>; extends?: string | string[] };
   path: string;
   extends: Config[];
 };
@@ -17,12 +16,13 @@ type Config = {
  */
 function readConfigs(): Config[] {
   const configsRoot = path.resolve(__dirname, "../../lib/configs");
-  const result = fs.readdirSync(configsRoot);
+  const result = fs.readdirSync(configsRoot, { withFileTypes: true });
   const configs = [];
-  for (const name of result) {
-    const configName = name.replace(/\.ts$/u, "");
+  for (const dirent of result) {
+    if (!dirent.isFile()) continue;
+    const configName = dirent.name.replace(/\.ts$/u, "");
     const configId = `plugin:vue-scoped-css/${configName}`;
-    const configPath = require.resolve(path.join(configsRoot, name));
+    const configPath = require.resolve(path.join(configsRoot, dirent.name));
 
     const config = require(configPath);
     configs.push({

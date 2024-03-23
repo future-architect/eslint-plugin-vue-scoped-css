@@ -17,7 +17,7 @@ export = {
     deprecated: true,
     docs: {
       description: "enforce the `<style>` tags to has the `scoped` attribute",
-      categories: ["recommended", "vue3-recommended"],
+      categories: ["vue2-recommended", "vue3-recommended"],
       default: "warn",
       url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/require-scoped.html",
       suggestion: true,

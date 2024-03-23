@@ -8,7 +8,7 @@ description: "require selector argument to be passed to `::v-global()`"
 
 > require selector argument to be passed to `::v-global()`
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/vue3-recommended"` and `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in `"plugin:vue-scoped-css/all"` and `"plugin:vue-scoped-css/vue3-recommended"`.
 
 ## :book: Rule Details
 

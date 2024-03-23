@@ -1,4 +1,4 @@
-import categories from "./lib/categories";
+import categories, { FLAT_PRESETS, LEGACY_PRESETS } from "./lib/categories";
 import type { Rule } from "../lib/types";
 import { rules } from "../lib/utils/rules";
 
@@ -48,9 +48,17 @@ export default function renderRulesTableContent(
 
 ${category.configDescription}
 
+\`\`\`js
+export default [
+  ...eslintPluginVueScopedCSS.configs['${FLAT_PRESETS[category.categoryId]}'],
+]
+\`\`\`
+
+or
+
 \`\`\`json
 {
-  "extends": "plugin:vue-scoped-css/${category.categoryId}"
+  "extends": [${JSON.stringify(LEGACY_PRESETS[category.categoryId])}]
 }
 \`\`\`
 

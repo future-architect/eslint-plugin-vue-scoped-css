@@ -13,9 +13,32 @@ npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 
 ## Usage
 
-### Configuration
+<!--USAGE_GUIDE_START-->
 
-Use `.eslintrc.*` file to configure rules. See also: [https://eslint.org/docs/user-guide/configuring](https://eslint.org/docs/user-guide/configuring).
+### New (ESLint>=v9) Config (Flat Config)
+
+Use `eslint.config.js` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/configuration-files-new>.
+
+Example **eslint.config.js**:
+
+```mjs
+import eslintPluginVueScopedCSS from 'eslint-plugin-vue-scoped-css';
+export default [
+  // add more generic rule sets here, such as:
+  // js.configs.recommended,
+  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+  {
+    rules: {
+      // override/add rules settings here, such as:
+      // 'vue-scoped-css/no-unused-selector': 'error'
+    }
+  }
+];
+```
+
+### Legacy Config (ESLint<v9)
+
+Use `.eslintrc.*` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/>.
 
 Example **.eslintrc.js**:
 
@@ -33,12 +56,25 @@ module.exports = {
 }
 ```
 
+## Configs
+
 This plugin provides some predefined configs:
+
+### New (ESLint>=v9) Config (Flat Config)
+
+- `*.configs['flat/base']` - Settings and rules to enable this plugin
+- `*.configs['flat/recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
+- `*.configs['flat/vue2-recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
+- `*.configs['flat/all']` - All rules of this plugin are included
+
+### Legacy Config (ESLint<v9)
 
 - `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
 - `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
 - `plugin:vue-scoped-css/vue3-recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
 - `plugin:vue-scoped-css/all` - All rules of this plugin are included
+
+<!--USAGE_GUIDE_END-->
 
 See [the rule list](../rules/README.md) to get the `rules` that this plugin provides.
 

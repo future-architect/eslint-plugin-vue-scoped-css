@@ -95,7 +95,7 @@ export = {
     docs: {
       description:
         "disallow selectors defined in Scoped CSS that don't use in `<template>`",
-      categories: ["recommended", "vue3-recommended"],
+      categories: ["vue2-recommended", "vue3-recommended"],
       default: "warn",
       url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/no-unused-selector.html",
     },

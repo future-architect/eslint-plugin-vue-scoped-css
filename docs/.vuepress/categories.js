@@ -14,18 +14,18 @@ const isCategoryTest = {
   recommended: ({ deprecated, docs: { categories } }) =>
     !deprecated &&
     categories.length &&
-    categories.some((cat) => cat === "recommended") &&
+    categories.some((cat) => cat === "vue2-recommended") &&
     categories.some((cat) => cat === "vue3-recommended"),
   "vue2-recommended": ({ deprecated, docs: { categories } }) =>
     !deprecated &&
     categories.length &&
-    categories.some((cat) => cat === "recommended") &&
+    categories.some((cat) => cat === "vue2-recommended") &&
     categories.every((cat) => cat !== "vue3-recommended"),
   "vue3-recommended": ({ deprecated, docs: { categories } }) =>
     !deprecated &&
     categories.length &&
     categories.some((cat) => cat === "vue3-recommended") &&
-    categories.every((cat) => cat !== "recommended"),
+    categories.every((cat) => cat !== "vue2-recommended"),
   uncategorized: ({ deprecated, docs: { categories } }) =>
     !deprecated && !categories.length,
   deprecated: ({ deprecated }) => deprecated,

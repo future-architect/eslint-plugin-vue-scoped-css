@@ -10,9 +10,17 @@ sidebarDepth: 0
 
 Enforce all the rules in this category with:
 
+```js
+export default [
+  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+]
+```
+
+or
+
 ```json
 {
-  "extends": "plugin:vue-scoped-css/vue3-recommended"
+  "extends": ["plugin:vue-scoped-css/vue3-recommended"]
 }
 ```
 
@@ -32,9 +40,17 @@ Enforce all the rules in this category with:
 
 Enforce all the rules in this category with:
 
+```js
+export default [
+  ...eslintPluginVueScopedCSS.configs['flat/vue2-recommended'],
+]
+```
+
+or
+
 ```json
 {
-  "extends": "plugin:vue-scoped-css/recommended"
+  "extends": ["plugin:vue-scoped-css/recommended"]
 }
 ```
 

@@ -42,7 +42,7 @@ function getCategory({ deprecated, docs: { categories } }) {
   if (deprecated) {
     return "deprecated";
   }
-  const v2 = categories.some((cat) => cat === "recommended");
+  const v2 = categories.some((cat) => cat === "vue2-recommended");
   const v3 = categories.some((cat) => cat === "vue3-recommended");
   if (v2) {
     return v3 ? "recommended" : "vue2-recommended";
