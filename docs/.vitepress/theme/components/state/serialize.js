@@ -25,7 +25,7 @@ export function serializeState(state) {
     rules: state.rules ? getEnabledRules(state.rules) : undefined,
   };
   const jsonString = JSON.stringify(saveData);
-  const compressedString = pako.deflate(jsonString, { to: "string" });
+  const compressedString = String.fromCharCode(...pako.deflate(jsonString));
   const base64 =
     (typeof window !== "undefined" && window.btoa(compressedString)) ||
     compressedString;
