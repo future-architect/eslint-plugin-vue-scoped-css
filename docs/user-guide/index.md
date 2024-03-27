@@ -15,7 +15,7 @@ npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 
 <!--USAGE_GUIDE_START-->
 
-### New (ESLint>=v9) Config (Flat Config)
+### New Config (`eslint.config.js`)
 
 Use `eslint.config.js` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/configuration-files-new>.
 
@@ -36,7 +36,7 @@ export default [
 ];
 ```
 
-### Legacy Config (ESLint<v9)
+### Legacy Config (`.eslintrc`)
 
 Use `.eslintrc.*` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/>.
 
@@ -60,14 +60,14 @@ module.exports = {
 
 This plugin provides some predefined configs:
 
-### New (ESLint>=v9) Config (Flat Config)
+### New Config (`eslint.config.js`)
 
 - `*.configs['flat/base']` - Settings and rules to enable this plugin
 - `*.configs['flat/recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
 - `*.configs['flat/vue2-recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
 - `*.configs['flat/all']` - All rules of this plugin are included
 
-### Legacy Config (ESLint<v9)
+### Legacy Config (`.eslintrc`)
 
 - `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
 - `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
