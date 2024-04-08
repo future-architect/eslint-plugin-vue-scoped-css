@@ -94,7 +94,7 @@
     "stylelint-stylus": "^1.0.0",
     "ts-node": "^10.9.1",
     "typescript": "~5.0.0",
-    "vite-plugin-eslint4b": "^0.2.3",
+    "vite-plugin-eslint4b": "^0.3.0",
     "vitepress": "^1.0.1",
     "vue-eslint-parser": "^9.0.0"
   },
