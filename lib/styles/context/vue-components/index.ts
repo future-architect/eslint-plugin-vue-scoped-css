@@ -156,10 +156,17 @@ function extractVueComponentData(
     // `data: () => { return ...}
     // `data() { return ...}
     // `data: function () { return ...}
-    for (const returnStatement of getReturnStatements(dataNode.body, context)) {
-      if (returnStatement.argument) {
-        dataNodes.push(returnStatement.argument);
+    if (dataNode.body.type === "BlockStatement") {
+      for (const returnStatement of getReturnStatements(
+        dataNode.body,
+        context,
+      )) {
+        if (returnStatement.argument) {
+          dataNodes.push(returnStatement.argument);
+        }
       }
+    } else {
+      dataNodes.push(dataNode.body);
     }
   } else if (
     dataNode.type === "ArrowFunctionExpression" &&
@@ -256,10 +263,14 @@ function extractVueComponentComputed(
       // `prop: () => { return ...}
       // `prop() { return ...}
       // `prop: function () { return ...}
-      const exprs = getReturnStatements(func.body, context)
-        .map((r) => r.argument)
-        .filter(isDefined);
-      values.push(...exprs);
+      if (func.body.type === "BlockStatement") {
+        const exprs = getReturnStatements(func.body, context)
+          .map((r) => r.argument)
+          .filter(isDefined);
+        values.push(...exprs);
+      } else {
+        values.push(func.body);
+      }
     } else if (
       func.type === "ArrowFunctionExpression" &&
       func.body.type !== "BlockStatement"

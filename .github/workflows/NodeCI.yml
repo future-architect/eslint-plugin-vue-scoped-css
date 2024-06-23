@@ -12,8 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version: 16
       - name: Install Packages
         run: npm install
       - name: Lint
@@ -22,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [18, 20, 22]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
@@ -35,17 +33,22 @@ jobs:
         run: npm run build
       - name: Test
         run: npm test
-  test-with-eslint9:
+  test-with-eslint8:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Install Target Packages
         run: |+
-          npm i -D eslint@^9.0.0-0 --legacy-peer-deps
+          npm i -D eslint@^8.0.0
           npx rimraf node_modules
-          npm install -f
+          npm install
       - name: Test
         run: npm test
   test-with-eslint6:
@@ -96,6 +99,6 @@ jobs:
       - name: Install Coveralls
         run: npm i -D coveralls
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@643bc377ffa44ace6394b2b5d0d3950076de9f63 # v2.3.0
+        uses: coverallsapp/github-action@v2.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

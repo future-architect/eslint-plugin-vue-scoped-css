@@ -271,7 +271,9 @@ export class CSSSelectorParser {
     end: number,
     parent: VCSSNode,
   ): VCSSSelectorNode | null {
-    let source = this.sourceCode.text.slice(start, end);
+    const sourceCode = this.sourceCode;
+    const code = sourceCode.text;
+    let source = code.slice(start, end);
     const beforeSpaces = /^\s+/u.exec(source);
     if (beforeSpaces?.[0]) {
       // adjust before spaces
@@ -292,24 +294,69 @@ export class CSSSelectorParser {
       loc.end = this.sourceCode.getLocFromIndex(end);
       source = source.slice(0, -afterSpaces[0].length);
     }
-    const beforeTrivials = /^\(\s*/u.exec(source);
-    const afterTrivials = /\s*\)$/u.exec(source);
-    if (beforeTrivials?.[0] && afterTrivials?.[0]) {
-      // adjust before trivial tokens
-      // `:not(.bar)`
-      //      ^    ^
 
-      // eslint-disable-next-line no-param-reassign -- ignore
-      start = start + beforeTrivials[0].length;
-      loc.start = this.sourceCode.getLocFromIndex(start);
-      // eslint-disable-next-line no-param-reassign -- ignore
-      end = end - afterTrivials[0].length;
-      loc.end = this.sourceCode.getLocFromIndex(end);
-      source = source.slice(beforeTrivials[0].length, -afterTrivials[0].length);
-    }
+    adjustBeforeParenLocation();
+    adjustAfterParenLocation();
+
     return new VCSSSelector(node, loc, start, end, {
       parent: parent as VCSSStyleRule | VCSSAtRule,
     });
+
+    /**
+     * Adjust before paren token
+     * `:not(.bar)`
+     *      ^
+     */
+    function adjustBeforeParenLocation() {
+      const beforeTrivials = /^\(\s*/u.exec(source);
+      if (!beforeTrivials?.[0]) return;
+      let withinParen = false;
+
+      for (
+        // Search from `end - 1` since it may be in the current source.
+        let index = end - 1;
+        index < code.length;
+        index++
+      ) {
+        const ch = code[index];
+        if (ch === ")") {
+          withinParen = true;
+          break;
+        } else if (ch?.trim() && index !== end - 1) {
+          return;
+        }
+      }
+      if (!withinParen) return;
+      // eslint-disable-next-line no-param-reassign -- ignore
+      start = start + beforeTrivials[0].length;
+      loc.start = sourceCode.getLocFromIndex(start);
+      source = source.slice(beforeTrivials[0].length);
+    }
+
+    /**
+     * Adjust after paren token
+     * `:not(.bar)`
+     *           ^
+     */
+    function adjustAfterParenLocation() {
+      const afterTrivials = /\s*\)$/u.exec(source);
+      if (!afterTrivials?.[0]) return;
+      let withinParen = false;
+      for (let index = start - 1; index >= 0; index--) {
+        const ch = code[index];
+        if (ch === "(") {
+          withinParen = true;
+          break;
+        } else if (ch?.trim()) {
+          return;
+        }
+      }
+      if (!withinParen) return;
+      // eslint-disable-next-line no-param-reassign -- ignore
+      end = end - afterTrivials[0].length;
+      loc.end = sourceCode.getLocFromIndex(end);
+      source = source.slice(0, -afterTrivials[0].length);
+    }
   }
 
   /**
