@@ -4,7 +4,7 @@ import { rules } from "../lib/utils/rules";
 import { configs } from "./lib/load-configs";
 import type { Rule } from "../lib/types";
 
-//eslint-disable-next-line require-jsdoc -- tools
+//eslint-disable-next-line jsdoc/require-jsdoc -- tools
 function formatItems(items: string[]) {
   if (items.length <= 2) {
     return items.join(" and ");
@@ -14,7 +14,7 @@ function formatItems(items: string[]) {
   }`;
 }
 
-//eslint-disable-next-line require-jsdoc -- tools
+//eslint-disable-next-line jsdoc/require-jsdoc -- tools
 function getPresets(ruleId: string) {
   const categoryConfigs = configs.filter(
     (conf) => conf.config?.rules?.[ruleId] != null,
@@ -38,7 +38,7 @@ function getPresets(ruleId: string) {
   return [...presets];
 }
 
-//eslint-disable-next-line require-jsdoc, @typescript-eslint/no-explicit-any -- tools
+//eslint-disable-next-line jsdoc/require-jsdoc, @typescript-eslint/no-explicit-any -- tools
 function yamlValue(val: any) {
   if (typeof val === "string") {
     return `"${val.replace(/"/gu, '\\"')}"`;
