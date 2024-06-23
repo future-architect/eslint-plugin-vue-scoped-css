@@ -311,7 +311,13 @@ export class CSSSelectorParser {
       const beforeTrivials = /^\(\s*/u.exec(source);
       if (!beforeTrivials?.[0]) return;
       let withinParen = false;
-      for (let index = end - 1; index < code.length; index++) {
+
+      for (
+        // Search from `end - 1` since it may be in the current source.
+        let index = end - 1;
+        index < code.length;
+        index++
+      ) {
         const ch = code[index];
         if (ch === ")") {
           withinParen = true;
@@ -336,12 +342,12 @@ export class CSSSelectorParser {
       const afterTrivials = /\s*\)$/u.exec(source);
       if (!afterTrivials?.[0]) return;
       let withinParen = false;
-      for (let index = start; index >= 0; index--) {
+      for (let index = start - 1; index >= 0; index--) {
         const ch = code[index];
         if (ch === "(") {
           withinParen = true;
           break;
-        } else if (ch?.trim() && index !== start) {
+        } else if (ch?.trim()) {
           return;
         }
       }
