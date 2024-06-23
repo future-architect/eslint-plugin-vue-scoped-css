@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.8.1
+
+### Patch Changes
+
+- fix: vcssselector location ([#358](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/358))
+
 ## 2.8.0
 
 ### Minor Changes
