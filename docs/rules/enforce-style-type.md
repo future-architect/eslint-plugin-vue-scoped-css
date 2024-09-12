@@ -108,4 +108,4 @@ Only allow plain styles; no `scoped` or `module` attributes.
 ## Implementation
 
 - [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/enforce-style-type.ts)
-- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/enforce-style-type.js)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/enforce-style-type.ts)

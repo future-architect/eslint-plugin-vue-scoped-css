@@ -50,4 +50,4 @@ This rule enforces deep pseudo style which you should use `:deep()` or `::v-deep
 ## Implementation
 
 - [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/v-deep-pseudo-style.ts)
-- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/v-deep-pseudo-style.js)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/v-deep-pseudo-style.ts)

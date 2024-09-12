@@ -50,4 +50,4 @@ This rule enforces slotted pseudo style which you should use `:slotted()` or `::
 ## Implementation
 
 - [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/v-slotted-pseudo-style.ts)
-- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/v-slotted-pseudo-style.js)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/v-slotted-pseudo-style.ts)
