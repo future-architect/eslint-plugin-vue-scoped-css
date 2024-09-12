@@ -49,4 +49,4 @@ This rule reports `@keyframes` is not used in Scoped CSS.
 ## Implementation
 
 - [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/no-unused-keyframes.ts)
-- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/no-unused-keyframes.js)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/no-unused-keyframes.ts)
