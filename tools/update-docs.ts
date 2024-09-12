@@ -136,7 +136,7 @@ class DocFile {
     const footer = `## Implementation
 
 - [Rule source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/lib/rules/${ruleName}.ts)
-- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/${ruleName}.js)
+- [Test source](https://github.com/future-architect/eslint-plugin-vue-scoped-css/blob/master/tests/lib/rules/${ruleName}.ts)
 `;
     if (footerPattern.test(this.content)) {
       this.content = this.content.replace(footerPattern, footer);
