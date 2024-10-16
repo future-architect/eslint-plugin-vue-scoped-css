@@ -99,6 +99,6 @@ jobs:
       - name: Install Coveralls
         run: npm i -D coveralls
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2.3.2
+        uses: coverallsapp/github-action@v2.3.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
