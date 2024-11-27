@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.9.0
+
+### Minor Changes
+
+- fix: Add name field to flat configs ([#380](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/380))
+
 ## 2.8.1
 
 ### Patch Changes
