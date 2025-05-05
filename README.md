@@ -39,6 +39,11 @@ See [documents](https://future-architect.github.io/eslint-plugin-vue-scoped-css/
 npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 ```
 
+If you use SCSS or STYLUS in your project, you also need to run:
+
+* SCSS: `npm install --save-dev postcss-scss`
+* Stylus: `npm install --save-dev postcss-styl`
+
 > **Requirements**
 >
 > - ESLint v6.0.0 and above
