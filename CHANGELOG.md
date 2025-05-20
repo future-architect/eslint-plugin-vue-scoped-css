@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.9.01
+
+### Minor Changes
+
+- feat: Add TS declarations to bundle ([#394](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/394))
+
 ## 2.9.0
 
 ### Minor Changes
