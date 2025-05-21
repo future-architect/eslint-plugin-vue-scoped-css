@@ -3,6 +3,7 @@
   "version": "2.9.0",
   "description": "ESLint plugin for Scoped CSS in Vue.js",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "prebuild": "npm run -s clean",
     "build": "tsc --project ./tsconfig.build.json",
@@ -49,7 +50,8 @@
     "css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "dist/index.d.ts"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.5",
