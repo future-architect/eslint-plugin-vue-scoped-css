@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.10.0
+
+### Minor Changes
+
+- feat(TS): add types so that rules can be used in TS eslint.config files ([#394](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/394))
+
 ## 2.9.0
 
 ### Minor Changes
