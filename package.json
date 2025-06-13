@@ -59,7 +59,7 @@
     "@ota-meshi/eslint-plugin": "^0.17.4",
     "@ota-meshi/site-kit-eslint-editor-vue": "^0.2.1",
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
-    "@types/eslint": "^8.56.10",
+    "@types/eslint": "^9.0.0",
     "@types/estree": "^1.0.5",
     "@types/lodash": "^4.17.5",
     "@types/mocha": "^10.0.7",
