@@ -13,7 +13,7 @@ const Linter = getLinter();
 const ROOT = path.join(__dirname, "./fixtures/index");
 
 const config = {
-  files: ["*", "*.vue", "**/*.vue"],
+  files: ["*", "*.vue", "**/*.vue", "**"],
   languageOptions: {
     parser: vueParser,
     ecmaVersion: 2019,
@@ -37,7 +37,7 @@ function executeLint(
   let style: StyleContext | null = null;
   let context: RuleContext | null = null;
   let err = null;
-  linter.verifyAndFix(
+  const lintResult = linter.verifyAndFix(
     source,
     {
       ...config,
@@ -64,8 +64,19 @@ function executeLint(
   if (err) {
     throw err;
   }
-  if (!style || !context) {
-    throw new Error("invalid state");
+  if (lintResult.messages.length) {
+    lintResult.messages.forEach((message) => {
+      console.error(
+        `[${message.ruleId}] ${message.message} (${message.line}:${message.column})`,
+      );
+    });
+    throw new Error(`Linting errors found in ${sourcePath}`);
+  }
+  if (!style) {
+    throw new Error("invalid state: style is null");
+  }
+  if (!context) {
+    throw new Error("invalid state: context is null");
   }
   return { style, context };
 }

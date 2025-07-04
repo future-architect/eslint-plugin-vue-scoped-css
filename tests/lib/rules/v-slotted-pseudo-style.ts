@@ -1,5 +1,5 @@
 import { RuleTester } from "../test-lib/eslint-compat";
-import rule = require("../../../lib/rules/v-slotted-pseudo-style");
+import rule from "../../../lib/rules/v-slotted-pseudo-style";
 import * as vueParser from "vue-eslint-parser";
 
 const tester = new RuleTester({

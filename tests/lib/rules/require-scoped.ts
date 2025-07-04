@@ -1,6 +1,6 @@
 import { RuleTester } from "../test-lib/eslint-compat";
 import semver from "semver";
-import rule = require("../../../lib/rules/require-scoped");
+import rule from "../../../lib/rules/require-scoped";
 
 const parserVersion = require("vue-eslint-parser/package.json").version;
 

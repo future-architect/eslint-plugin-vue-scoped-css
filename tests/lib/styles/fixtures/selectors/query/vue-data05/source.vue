@@ -1,6 +1,5 @@
 <script>
 export default {
-    // eslint-disable-next-line @mysticatea/vue/no-shared-component-data
     data: {
         classData: { bar: false },
         classData2: { foo: true }

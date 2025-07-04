@@ -46,7 +46,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Target Packages
         run: |+
-          npm i -D eslint@^8.0.0
+          npm i -D eslint@^8.0.0 vue-eslint-parser@^9
           npx rimraf node_modules
           npm install
       - name: Test
