@@ -86,6 +86,7 @@ export default {
 
 <style scoped lang="postcss">
 .sns-bar .sns {
+  color-scheme: initial;
   display: flex;
   align-items: flex-start;
 }
