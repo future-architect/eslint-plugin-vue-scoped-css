@@ -174,6 +174,21 @@ export class CSSSelectorParser {
   ): VCSSSelectorNode | null {
     const { sourceCode } = this;
 
+    /**
+     * Get index from location
+     */
+    function getIndexFromLoc(loc: LineAndColumnData): number {
+      if (loc.column >= 0) {
+        return sourceCode.getIndexFromLoc(loc);
+      }
+      // A column index can be negative if the starting position contains a newline.
+      const index = sourceCode.getIndexFromLoc({
+        line: loc.line,
+        column: 0,
+      });
+      return index + loc.column;
+    }
+
     const loc = {
       start: getESLintLineAndColumnFromPostCSSSelectorParserNode(
         offsetLocation,
@@ -186,8 +201,8 @@ export class CSSSelectorParser {
         "end",
       ),
     };
-    const start = sourceCode.getIndexFromLoc(loc.start);
-    const end = sourceCode.getIndexFromLoc(loc.end);
+    const start = getIndexFromLoc(loc.start);
+    const end = getIndexFromLoc(loc.end);
 
     const astNode = this[typeToConvertMethodName(node.type)](
       node as never,
