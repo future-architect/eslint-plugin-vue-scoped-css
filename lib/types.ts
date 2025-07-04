@@ -1,4 +1,4 @@
-import type AST from "vue-eslint-parser/ast";
+import type { AST } from "vue-eslint-parser";
 import type * as postcss from "postcss";
 import type selectorParser from "postcss-selector-parser";
 import type { ScopeManager } from "eslint-scope";
