@@ -37,7 +37,6 @@ describe("`recommended` config", () => {
   });
   it("`flat/recommended` config should work. ", async () => {
     const linter = new ESLint({
-      // @ts-expect-error -- typing bug
       overrideConfigFile: true,
       // @ts-expect-error -- typing bug
       overrideConfig: [...plugin.configs["flat/recommended"]],
@@ -62,7 +61,6 @@ describe("`recommended` config", () => {
   });
   it("`flat/recommended` config with *.js should work. ", async () => {
     const linter = new ESLint({
-      // @ts-expect-error -- typing bug
       overrideConfigFile: true,
       // @ts-expect-error -- typing bug
       overrideConfig: [...plugin.configs["flat/recommended"]],

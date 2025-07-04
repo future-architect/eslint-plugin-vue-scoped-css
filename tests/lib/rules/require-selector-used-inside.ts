@@ -1,5 +1,5 @@
 import { RuleTester } from "../test-lib/eslint-compat";
-import rule = require("../../../lib/rules/require-selector-used-inside");
+import rule from "../../../lib/rules/require-selector-used-inside";
 
 import * as vueParser from "vue-eslint-parser";
 

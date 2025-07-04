@@ -1,5 +1,5 @@
 import { RuleTester } from "../test-lib/eslint-compat";
-import rule = require("../../../lib/rules/v-global-pseudo-style");
+import rule from "../../../lib/rules/v-global-pseudo-style";
 
 import * as vueParser from "vue-eslint-parser";
 

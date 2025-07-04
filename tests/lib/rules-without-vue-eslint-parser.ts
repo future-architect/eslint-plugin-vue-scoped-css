@@ -1,5 +1,5 @@
 import { getLinter } from "eslint-compat-utils/linter";
-import plugin = require("../../lib/index");
+import plugin from "../../lib/index";
 // eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
 const Linter = getLinter();
 

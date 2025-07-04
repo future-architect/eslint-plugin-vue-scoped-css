@@ -1,5 +1,5 @@
 import { RuleTester } from "../test-lib/eslint-compat";
-import rule = require("../../../lib/rules/enforce-style-type");
+import rule from "../../../lib/rules/enforce-style-type";
 
 import * as vueParser from "vue-eslint-parser";
 
