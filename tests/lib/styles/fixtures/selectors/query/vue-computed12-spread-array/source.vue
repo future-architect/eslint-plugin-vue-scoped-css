@@ -6,7 +6,6 @@ export default {
             return [...CLASS_NAME] // TODO supports
         },
         classComp2() {
-            // eslint-disable-next-line @mysticatea/no-useless-rest-spread
             return [...(["foo"])] // TODO supports
         },
     },
