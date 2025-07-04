@@ -1,5 +1,15 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.11.0
+
+### Minor Changes
+
+- fix(deps): update dependency postcss-selector-parser to v7 ([#372](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/372))
+
+### Patch Changes
+
+- fix: error when using ESLint v9.30.0 or later ([#400](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/400))
+
 ## 2.10.0
 
 ### Minor Changes
