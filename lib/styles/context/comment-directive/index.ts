@@ -120,7 +120,7 @@ function processLine(
   if (parsed != null && comment.loc.start.line === comment.loc.end.line) {
     const line =
       comment.loc.start.line + (parsed.type === "eslint-disable-line" ? 0 : 1);
-    const column = -1;
+    const column = 0;
     if (!parsed.rules.length) {
       commentDirectives.disableLineAll({ line, column });
     } else {
