@@ -473,7 +473,7 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
-    // customClassAttributes option
+    // extraClassAttributes option
     {
       code: `
         <template>
@@ -483,7 +483,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo {}
         </style>
         `,
-      options: [{ customClassAttributes: ["hover-class"] }],
+      options: [{ extraClassAttributes: ["hover-class"] }],
     },
     {
       code: `
@@ -503,7 +503,7 @@ tester.run("no-unused-selector", rule as any, {
         }
         </script>
         `,
-      options: [{ customClassAttributes: ["hover-class"] }],
+      options: [{ extraClassAttributes: ["hover-class"] }],
     },
     {
       code: `
@@ -515,9 +515,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-      options: [
-        { customClassAttributes: ["hover-class", "placeholder-class"] },
-      ],
+      options: [{ extraClassAttributes: ["hover-class", "placeholder-class"] }],
     },
     {
       code: `
@@ -530,9 +528,7 @@ tester.run("no-unused-selector", rule as any, {
         .baz {}
         </style>
         `,
-      options: [
-        { customClassAttributes: ["hover-class", "placeholder-class"] },
-      ],
+      options: [{ extraClassAttributes: ["hover-class", "placeholder-class"] }],
     },
     {
       code: `
@@ -543,7 +539,7 @@ tester.run("no-unused-selector", rule as any, {
         .foo {}
         </style>
         `,
-      options: [{ customClassAttributes: ["data-class"] }],
+      options: [{ extraClassAttributes: ["data-class"] }],
     },
     {
       code: `
@@ -563,7 +559,7 @@ tester.run("no-unused-selector", rule as any, {
         }
         </script>
         `,
-      options: [{ customClassAttributes: ["data-class"] }],
+      options: [{ extraClassAttributes: ["data-class"] }],
     },
     {
       code: `
@@ -575,7 +571,7 @@ tester.run("no-unused-selector", rule as any, {
         .bar {}
         </style>
         `,
-      options: [{ customClassAttributes: ["hover-class"] }],
+      options: [{ extraClassAttributes: ["hover-class"] }],
     },
   ],
   invalid: [

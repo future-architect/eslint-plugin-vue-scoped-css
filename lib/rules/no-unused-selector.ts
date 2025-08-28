@@ -123,7 +123,7 @@ export = {
           checkUnscoped: {
             type: "boolean",
           },
-          customClassAttributes: {
+          extraClassAttributes: {
             type: "array",
             items: {
               type: "string",
