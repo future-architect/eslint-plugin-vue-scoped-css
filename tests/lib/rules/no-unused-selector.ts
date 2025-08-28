@@ -326,7 +326,7 @@ tester.run("no-unused-selector", rule as any, {
             </template>
             <style scoped lang="scss">
             /* ✓ GOOD */
-            
+
             // A button suitable for giving a star to someone.
             //
             // :hover             - Subtle hover highlight.
@@ -473,6 +473,110 @@ tester.run("no-unused-selector", rule as any, {
         }
         </style>
         `,
+    // customClassAttributes option
+    {
+      code: `
+        <template>
+            <div hover-class="foo"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        `,
+      options: [{ customClassAttributes: ["hover-class"] }],
+    },
+    {
+      code: `
+        <template>
+            <div :hover-class="dynamicClass"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        <script>
+        export default {
+            data () {
+                return {
+                    dynamicClass: 'foo'
+                }
+            }
+        }
+        </script>
+        `,
+      options: [{ customClassAttributes: ["hover-class"] }],
+    },
+    {
+      code: `
+        <template>
+            <div hover-class="foo" placeholder-class="bar"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        .bar {}
+        </style>
+        `,
+      options: [
+        { customClassAttributes: ["hover-class", "placeholder-class"] },
+      ],
+    },
+    {
+      code: `
+        <template>
+            <div :hover-class="['foo', 'bar']" :placeholder-class="{baz: true}"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        .bar {}
+        .baz {}
+        </style>
+        `,
+      options: [
+        { customClassAttributes: ["hover-class", "placeholder-class"] },
+      ],
+    },
+    {
+      code: `
+        <template>
+            <div data-class="foo"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        `,
+      options: [{ customClassAttributes: ["data-class"] }],
+    },
+    {
+      code: `
+        <template>
+            <div v-bind:data-class="dynamicClass"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        </style>
+        <script>
+        export default {
+            data () {
+                return {
+                    dynamicClass: 'foo'
+                }
+            }
+        }
+        </script>
+        `,
+      options: [{ customClassAttributes: ["data-class"] }],
+    },
+    {
+      code: `
+        <template>
+            <div class="foo" hover-class="bar"></div>
+        </template>
+        <style scoped>
+        .foo {}
+        .bar {}
+        </style>
+        `,
+      options: [{ customClassAttributes: ["hover-class"] }],
+    },
   ],
   invalid: [
     {
@@ -756,7 +860,7 @@ tester.run("no-unused-selector", rule as any, {
             </template>
             <style scoped lang="scss">
             /* ✓ GOOD */
-            
+
             // A button suitable for giving a star to someone.
             //
             // :hover             - Subtle hover highlight.
