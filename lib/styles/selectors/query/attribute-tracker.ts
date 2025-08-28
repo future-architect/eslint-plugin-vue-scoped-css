@@ -16,6 +16,7 @@ export function getAttributeValueNodes(
   context: RuleContext,
 ): AttributeValueExpressions[] | null {
   const results: AttributeValueExpressions[] = [];
+  const lowedName = name.toLowerCase();
   const { startTag } = element;
   for (const attr of startTag.attributes) {
     if (!isVDirective(attr)) {
@@ -23,7 +24,7 @@ export function getAttributeValueNodes(
       if (value == null) {
         continue;
       }
-      if (key.name === name) {
+      if (key.name === lowedName) {
         results.push(value);
       }
     } else {
@@ -39,7 +40,7 @@ export function getAttributeValueNodes(
         // bind name is unknown.
         return null;
       }
-      if (bindArg !== name) {
+      if (bindArg !== lowedName) {
         continue;
       }
       const { expression } = value;
