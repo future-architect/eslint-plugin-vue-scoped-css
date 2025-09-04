@@ -183,6 +183,8 @@ export default {
 </script>
 ```
 
+</eslint-code-block>
+
 ## :books: Further reading
 
 - [vue-scoped-css/require-selector-used-inside]
