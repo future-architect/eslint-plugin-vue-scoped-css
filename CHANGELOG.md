@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 2.12.0
+
+### Minor Changes
+
+- Add `extraClassAttributes` option to match additional class-like attributes in templates, to `vue-scoped-css/no-unused-selector` rule ([#413](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/413))
+
 ## 2.11.0
 
 ### Minor Changes
