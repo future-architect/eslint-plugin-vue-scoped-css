@@ -123,6 +123,14 @@ export = {
           checkUnscoped: {
             type: "boolean",
           },
+          extraClassAttributes: {
+            type: "array",
+            items: {
+              type: "string",
+            },
+            minItems: 0,
+            uniqueItems: true,
+          },
         },
         additionalProperties: false,
       },

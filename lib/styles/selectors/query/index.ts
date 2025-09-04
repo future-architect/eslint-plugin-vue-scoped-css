@@ -1,3 +1,4 @@
+import lodash from "lodash";
 import {
   isTypeSelector,
   isIDSelector,
@@ -762,16 +763,13 @@ function matchClassName(
       return true;
     }
   }
-  const nodes = getAttributeValueNodes(element, "class", document.context);
-  if (nodes == null) {
-    return true;
-  }
-  for (const node of nodes) {
-    if (node.type === "VLiteral") {
-      if (includesClassName(node.value, className)) {
-        return true;
-      }
-    } else if (matchClassNameExpression(node, className, document)) {
+
+  const uniquedAttrs = lodash.uniq([
+    "class",
+    ...document.options.extraClassAttributes,
+  ]);
+  for (const attrName of uniquedAttrs) {
+    if (matchClassNameForAttribute(element, attrName, className, document)) {
       return true;
     }
   }
@@ -790,6 +788,31 @@ function matchClassName(
     return true;
   }
 
+  return false;
+}
+
+/**
+ * Checks whether the given element matches the given class name for a specific attribute.
+ */
+function matchClassNameForAttribute(
+  element: AST.VElement,
+  attrName: string,
+  className: Template,
+  document: VueDocumentQueryContext,
+): boolean {
+  const nodes = getAttributeValueNodes(element, attrName, document.context);
+  if (nodes == null) {
+    return true;
+  }
+  for (const node of nodes) {
+    if (node.type === "VLiteral") {
+      if (includesClassName(node.value, className)) {
+        return true;
+      }
+    } else if (matchClassNameExpression(node, className, document)) {
+      return true;
+    }
+  }
   return false;
 }
 
