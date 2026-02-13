@@ -71,7 +71,7 @@
     "esbuild": "^0.27.0",
     "eslint": "^9.30.1",
     "eslint-config-prettier": "^10.0.0",
-    "eslint-plugin-eslint-plugin": "^6.1.0",
+    "eslint-plugin-eslint-plugin": "^7.0.0",
     "eslint-plugin-jsdoc": "^62.0.0",
     "eslint-plugin-json-schema-validator": "^6.0.0",
     "eslint-plugin-jsonc": "^2.20.1",
