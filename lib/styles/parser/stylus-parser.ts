@@ -20,9 +20,9 @@ export class StylusParser extends CSSParser {
 
   public constructor(sourceCode: SourceCode, lang: string) {
     super(sourceCode, lang);
-    this.#postcssStyl =
-      loadOptionalDep<typeof postcssStylType>("postcss-styl");
+    this.#postcssStyl = loadOptionalDep<typeof postcssStylType>("postcss-styl");
   }
+
   protected parseInternal(css: string): postcss.Root {
     if (!this.#postcssStyl) {
       throw new Error(

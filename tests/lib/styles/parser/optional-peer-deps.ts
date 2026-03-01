@@ -18,7 +18,7 @@
 import assert from "node:assert";
 import Module from "node:module";
 
-import { CSSParser } from "../../../../lib/styles/parser/css-parser.ts";
+import type { CSSParser } from "../../../../lib/styles/parser/css-parser.ts";
 import { SCSSParser } from "../../../../lib/styles/parser/scss-parser.ts";
 import { StylusParser } from "../../../../lib/styles/parser/stylus-parser.ts";
 import type { VCSSStyleSheet } from "../../../../lib/styles/ast.ts";
@@ -27,9 +27,10 @@ import type { SourceCode } from "../../../../lib/types.ts";
 /** Minimal SourceCode mock sufficient for the error-path in CSSParser.parse */
 const mockSourceCode = {
   getIndexFromLoc: (_loc: Parameters<SourceCode["getIndexFromLoc"]>[0]) => 0,
-  getLocFromIndex: (
-    _idx: Parameters<SourceCode["getLocFromIndex"]>[0],
-  ) => ({ line: 1, column: 0 }),
+  getLocFromIndex: (_idx: Parameters<SourceCode["getLocFromIndex"]>[0]) => ({
+    line: 1,
+    column: 0,
+  }),
 } as unknown as SourceCode;
 
 function makeModuleNotFoundError(depName: string): NodeJS.ErrnoException {
@@ -71,13 +72,24 @@ function createParserWithMissingDep(
 describe("Optional peer dependency – postcss-scss", () => {
   it("SCSSParser loads without throwing when postcss-scss is not installed", () => {
     // If construction threw, this line would not be reached.
-    const parser = createParserWithMissingDep(SCSSParser, "scss", "postcss-scss");
+    const parser = createParserWithMissingDep(
+      SCSSParser,
+      "scss",
+      "postcss-scss",
+    );
     assert.ok(parser instanceof SCSSParser);
   });
 
   it("returns a descriptive error when parsing SCSS without postcss-scss", () => {
-    const parser = createParserWithMissingDep(SCSSParser, "scss", "postcss-scss");
-    const result: VCSSStyleSheet = parser.parse(".foo {}", { line: 1, column: 0 });
+    const parser = createParserWithMissingDep(
+      SCSSParser,
+      "scss",
+      "postcss-scss",
+    );
+    const result: VCSSStyleSheet = parser.parse(".foo {}", {
+      line: 1,
+      column: 0,
+    });
 
     assert.ok(
       result.errors.length > 0,
@@ -111,7 +123,10 @@ describe("Optional peer dependency – postcss-styl", () => {
       "stylus",
       "postcss-styl",
     );
-    const result: VCSSStyleSheet = parser.parse(".foo {}", { line: 1, column: 0 });
+    const result: VCSSStyleSheet = parser.parse(".foo {}", {
+      line: 1,
+      column: 0,
+    });
 
     assert.ok(
       result.errors.length > 0,

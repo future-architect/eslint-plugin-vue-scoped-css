@@ -20,9 +20,9 @@ export class SCSSParser extends CSSParser {
 
   public constructor(sourceCode: SourceCode, lang: string) {
     super(sourceCode, lang);
-    this.#postcssScss =
-      loadOptionalDep<typeof postcssScssType>("postcss-scss");
+    this.#postcssScss = loadOptionalDep<typeof postcssScssType>("postcss-scss");
   }
+
   protected parseInternal(css: string): postcss.Root {
     if (!this.#postcssScss) {
       throw new Error(
