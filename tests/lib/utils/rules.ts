@@ -34,7 +34,7 @@ describe("Check if the struct of all rules is correct", () => {
       Object.keys(collect).length + deprecatedRules.length === dirRules.length,
       `Did not equal the number of rules. expect:${dirRules.length} actual:${
         Object.keys(collect).length
-      }`,
+      } (deprecated:${deprecatedRules.length})`,
     );
   });
   it("rule count equals (rules)", () => {
