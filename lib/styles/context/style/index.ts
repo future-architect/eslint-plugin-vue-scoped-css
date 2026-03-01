@@ -7,7 +7,6 @@ import type {
 } from "../../../types";
 import type { VCSSStyleSheet, VCSSNode, VCSSSelectorNode } from "../../ast";
 import { isVCSSContainerNode, hasSelectorNodes } from "../../utils/css-nodes";
-import { getSourceCode } from "../../../utils/compat";
 
 /**
  * Check whether the program has invalid EOF or not.
@@ -19,12 +18,12 @@ function getInvalidEOFError(
   inDocumentFragment: boolean;
   error: AST.ParseError;
 } | null {
-  const node = getSourceCode(context).ast;
+  const node = context.sourceCode.ast;
   const body = node.templateBody;
   let errors = body?.errors;
   let inDocumentFragment = false;
   if (errors == null) {
-    const sourceCode = getSourceCode(context);
+    const sourceCode = context.sourceCode;
     /* istanbul ignore if */
     if (!sourceCode.parserServices.getDocumentFragment) {
       return null;
@@ -64,7 +63,7 @@ function getInvalidEOFError(
  */
 function getStyleElements(context: RuleContext): AST.VElement[] {
   let document: AST.VDocumentFragment | null = null;
-  const sourceCode = getSourceCode(context);
+  const sourceCode = context.sourceCode;
   if (sourceCode.parserServices.getDocumentFragment) {
     // vue-eslint-parser v7.0.0
     document = sourceCode.parserServices.getDocumentFragment();
@@ -191,7 +190,7 @@ export class StyleContextImpl {
   public readonly cssNode: VCSSStyleSheet | null;
 
   public constructor(style: AST.VElement, context: RuleContext) {
-    const sourceCode = getSourceCode(context);
+    const sourceCode = context.sourceCode;
     this.styleElement = style;
     this.sourceCode = sourceCode;
 

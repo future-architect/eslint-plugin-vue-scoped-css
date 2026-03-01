@@ -7,7 +7,6 @@ import {
 import type { VCSSSelectorCombinator } from "../styles/ast";
 import type { RuleContext, Range, RuleListener } from "../types";
 import { isDeepCombinator } from "../styles/utils/selectors";
-import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -46,7 +45,7 @@ export = {
           value: node.value.trim(),
         },
         fix(fixer) {
-          const sourceCodeText = getSourceCode(context).text;
+          const sourceCodeText = context.sourceCode.text;
           const range = [...node.range] as Range;
           let newText = "::v-deep";
           if (sourceCodeText[range[0] - 1]?.trim()) {

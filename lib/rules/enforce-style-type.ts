@@ -11,7 +11,6 @@ import {
   isValidStyleContext,
   getCommentDirectivesReporter,
 } from "../styles/context";
-import { getSourceCode } from "../utils/compat";
 
 const styleTypesAttrs = ["scoped", "module"] as const;
 type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];
@@ -65,7 +64,7 @@ export = {
     }
 
     const reporter = getCommentDirectivesReporter(context);
-    const sourceCode = getSourceCode(context);
+    const sourceCode = context.sourceCode;
     const tokenStore =
       sourceCode.parserServices.getTemplateBodyTokenStore?.() as TokenStore;
     const { options } = context;

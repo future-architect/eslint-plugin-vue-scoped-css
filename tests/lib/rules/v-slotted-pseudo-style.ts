@@ -1,4 +1,4 @@
-import { RuleTester } from "../test-lib/eslint-compat";
+import { RuleTester } from "eslint";
 import rule from "../../../lib/rules/v-slotted-pseudo-style";
 import * as vueParser from "vue-eslint-parser";
 

@@ -1,9 +1,9 @@
-import { RuleTester, testRuleIdPrefix } from "./test-lib/eslint-compat";
+import { RuleTester } from "eslint";
 import rule from "../../lib/rules/no-unused-selector";
 
 import * as vueParser from "vue-eslint-parser";
 
-const testRulePrefix = testRuleIdPrefix;
+const testRulePrefix = "rule-to-test/";
 
 const tester = new RuleTester({
   languageOptions: {

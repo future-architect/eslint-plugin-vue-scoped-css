@@ -1,4 +1,4 @@
-import { RuleTester } from "../test-lib/eslint-compat";
+import { RuleTester } from "eslint";
 import rule from "../../../lib/rules/no-parent-of-v-global";
 
 import * as vueParser from "vue-eslint-parser";

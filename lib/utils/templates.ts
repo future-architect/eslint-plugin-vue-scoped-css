@@ -4,7 +4,6 @@ import type {
   VDirectiveKey,
   VDirectiveKeyV6,
 } from "../types";
-import { getSourceCode } from "./compat";
 
 /**
  * Get VElements
@@ -13,7 +12,7 @@ export function getElements(
   context: RuleContext,
   predicate: (element: AST.VElement) => boolean,
 ): AST.VElement[] {
-  const node = getSourceCode(context).ast;
+  const node = context.sourceCode.ast;
   const body = node.templateBody;
   if (!body) {
     return [];

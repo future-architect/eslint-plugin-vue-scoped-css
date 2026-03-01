@@ -10,7 +10,6 @@ import {
   isValidStyleContext,
   getCommentDirectivesReporter,
 } from "../styles/context";
-import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -41,7 +40,7 @@ export = {
       return {};
     }
     const reporter = getCommentDirectivesReporter(context);
-    const sourceCode = getSourceCode(context);
+    const sourceCode = context.sourceCode;
     const tokenStore =
       sourceCode.parserServices.getTemplateBodyTokenStore?.() as TokenStore;
 

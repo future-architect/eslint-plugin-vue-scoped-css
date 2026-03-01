@@ -1,4 +1,4 @@
-import { RuleTester } from "../test-lib/eslint-compat";
+import { RuleTester } from "eslint";
 import semver from "semver";
 import rule from "../../../lib/rules/no-parsing-error";
 const parserVersion = require("vue-eslint-parser/package.json").version;
