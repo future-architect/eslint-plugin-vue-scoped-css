@@ -4,12 +4,12 @@ import type {
   PostCSSSPCommentNode,
   PostCSSSPNode,
   PostCSSSPNestingNode,
-} from "../../../types";
-import { CSSSelectorParser } from "./css-selector-parser";
+} from "../../../types.ts";
+import { CSSSelectorParser } from "./css-selector-parser.ts";
 import selectorParser from "postcss-selector-parser";
-import type { VCSSSelectorNode, VCSSSelector } from "../../ast";
-import { VCSSInlineComment } from "../../ast";
-import { replaceSelector, restoreReplacedSelector } from "./replace-utils";
+import type { VCSSSelectorNode, VCSSSelector } from "../../ast.ts";
+import { VCSSInlineComment } from "../../ast.ts";
+import { replaceSelector, restoreReplacedSelector } from "./replace-utils.ts";
 
 /**
  * Replace stylus nesting node

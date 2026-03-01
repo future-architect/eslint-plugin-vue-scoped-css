@@ -1,9 +1,9 @@
-import assert from "assert";
+import assert from "node:assert";
 
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
-import { getStyleFixtureResults, writeFixture } from "../test-utils";
+import { getStyleFixtureResults, writeFixture } from "../test-utils.ts";
 import { getResolvedSelectors } from "../../../../lib/styles/selectors";
 import type { ValidStyleContext } from "../../../../lib/styles/context";
 

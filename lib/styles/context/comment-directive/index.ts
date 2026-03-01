@@ -4,9 +4,9 @@ import type {
   RuleContext,
   SourceLocation,
   ReportDescriptorSourceLocation,
-} from "../../../types";
+} from "../../../types.ts";
 import type { StyleContext } from "../style";
-import type { VCSSCommentNode } from "../../ast";
+import type { VCSSCommentNode } from "../../ast.ts";
 
 const COMMENT_DIRECTIVE_B =
   /^\s*(eslint-(?:en|dis)able)(?:\s+(\S|\S[\s\S]*\S))?\s*$/u;

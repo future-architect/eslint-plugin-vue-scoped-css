@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint";
-import rule from "../../../lib/rules/require-v-deep-argument";
+import rule from "../../../lib/rules/require-v-deep-argument.ts";
 
 import * as vueParser from "vue-eslint-parser";
 

@@ -1,10 +1,10 @@
-import path from "path";
-import fs from "fs";
-import os from "os";
-import { fileURLToPath } from "url";
-import { rules } from "../lib/utils/rules";
-import { configs } from "./lib/load-configs";
-import type { Rule } from "../lib/types";
+import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
+import { fileURLToPath } from "node:url";
+import { rules } from "../lib/utils/rules.ts";
+import { configs } from "./lib/load-configs.ts";
+import type { Rule } from "../lib/types.ts";
 
 const _dirname = path.dirname(fileURLToPath(import.meta.url));
 

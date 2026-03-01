@@ -1,9 +1,9 @@
 import { Linter } from "eslint";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-import type { RuleContext } from "../../../lib/types";
+import type { RuleContext } from "../../../lib/types.ts";
 import type { StyleContext } from "../../../lib/styles/context";
 import { getStyleContexts } from "../../../lib/styles/context";
 import * as vueParser from "vue-eslint-parser";

@@ -1,7 +1,11 @@
-import type { RuleContext, AST } from "../../../types";
-import { isVDirective, isVBind, getArgument } from "../../../utils/templates";
-import type { ReferenceExpressions } from "./reference-expression";
-import { getReferenceExpressions } from "./reference-expression";
+import type { RuleContext, AST } from "../../../types.ts";
+import {
+  isVDirective,
+  isVBind,
+  getArgument,
+} from "../../../utils/templates.ts";
+import type { ReferenceExpressions } from "./reference-expression.ts";
+import { getReferenceExpressions } from "./reference-expression.ts";
 
 /**
  * Gets the value nodes of attribute of given name as Array. Returns `null` If the given name can not be identified.

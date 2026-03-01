@@ -1,9 +1,9 @@
-import { rules as ruleList } from "./utils/rules";
-import type { Rule } from "./types";
-import flatBase from "./configs/flat/base";
-import flatRecommended from "./configs/flat/recommended";
-import flatVue2Recommended from "./configs/flat/vue2-recommended";
-import flatAll from "./configs/flat/all";
+import { rules as ruleList } from "./utils/rules.ts";
+import type { Rule } from "./types.ts";
+import flatBase from "./configs/flat/base.ts";
+import flatRecommended from "./configs/flat/recommended.ts";
+import flatVue2Recommended from "./configs/flat/vue2-recommended.ts";
+import flatAll from "./configs/flat/all.ts";
 
 const configs = {
   base: flatBase,

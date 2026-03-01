@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint";
-import rule from "../../../lib/rules/no-unused-keyframes";
+import rule from "../../../lib/rules/no-unused-keyframes.ts";
 
 import * as vueParser from "vue-eslint-parser";
 

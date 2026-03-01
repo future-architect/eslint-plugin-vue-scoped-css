@@ -4,9 +4,9 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { VCSSSelectorCombinator } from "../styles/ast";
-import type { RuleContext, Range, RuleListener } from "../types";
-import { isDeepCombinator } from "../styles/utils/selectors";
+import type { VCSSSelectorCombinator } from "../styles/ast.ts";
+import type { RuleContext, Range, RuleListener } from "../types.ts";
+import { isDeepCombinator } from "../styles/utils/selectors.ts";
 
 export default {
   meta: {

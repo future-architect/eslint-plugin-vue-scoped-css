@@ -1,8 +1,8 @@
-import { CSSParser } from "./css-parser";
-import { SCSSParser } from "./scss-parser";
-import { StylusParser } from "./stylus-parser";
-import type { SourceCode, LineAndColumnData } from "../../types";
-import type { VCSSStyleSheet } from "../ast";
+import { CSSParser } from "./css-parser.ts";
+import { SCSSParser } from "./scss-parser.ts";
+import { StylusParser } from "./stylus-parser.ts";
+import type { SourceCode, LineAndColumnData } from "../../types.ts";
+import type { VCSSStyleSheet } from "../ast.ts";
 import { isSupportedStyleLang } from "../utils";
 
 const PARSERS = {
@@ -25,7 +25,6 @@ export function parse(
   css: string,
   lang: string,
 ): VCSSStyleSheet {
-  // eslint-disable-next-line @typescript-eslint/naming-convention -- class
   const Parser = isSupportedStyleLang(lang) ? PARSERS[lang] : CSSParser;
   const parser = new Parser(sourceCode, lang);
   return parser.parse(css, offsetLocation);

@@ -4,9 +4,12 @@ import type {
   SourceCode,
   RuleContext,
   LineAndColumnData,
-} from "../../../types";
-import type { VCSSStyleSheet, VCSSNode, VCSSSelectorNode } from "../../ast";
-import { isVCSSContainerNode, hasSelectorNodes } from "../../utils/css-nodes";
+} from "../../../types.ts";
+import type { VCSSStyleSheet, VCSSNode, VCSSSelectorNode } from "../../ast.ts";
+import {
+  isVCSSContainerNode,
+  hasSelectorNodes,
+} from "../../utils/css-nodes.ts";
 
 /**
  * Check whether the program has invalid EOF or not.

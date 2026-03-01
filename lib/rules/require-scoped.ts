@@ -4,7 +4,7 @@ import type {
   TokenStore,
   RuleFixer,
   RuleListener,
-} from "../types";
+} from "../types.ts";
 import {
   getStyleContexts,
   isValidStyleContext,

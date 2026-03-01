@@ -1,7 +1,7 @@
 import type { DefaultTheme, UserConfig } from "vitepress";
 import { defineConfig } from "vitepress";
-import path from "path";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import eslint4b from "vite-plugin-eslint4b";
 import { viteCommonjs } from "./vite-plugin.mjs";
 
@@ -43,6 +43,7 @@ export default async (): Promise<UserConfig<DefaultTheme.Config>> => {
             "./build-system/shim/vue-eslint-parser.mjs",
           ),
           module: path.join(dirname, "./shim/module.mjs"),
+          "node:module": path.join(dirname, "./shim/module.mjs"),
           "safer-buffer": path.join(dirname, "./shim/module.mjs"),
           sax: path.join(dirname, "./shim/sax.mjs"),
           events: path.join(dirname, "./build-system/shim/events.mjs"),
