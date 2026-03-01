@@ -2,12 +2,12 @@ import type {
   PostCSSSPRootNode,
   SourceLocation,
   PostCSSSPCommentNode,
-} from "../../../types";
-import { CSSSelectorParser } from "./css-selector-parser";
+} from "../../../types.ts";
+import { CSSSelectorParser } from "./css-selector-parser.ts";
 import selectorParser from "postcss-selector-parser";
-import type { VCSSSelectorNode, VCSSSelector } from "../../ast";
-import { VCSSInlineComment } from "../../ast";
-import { replaceSelector, restoreReplacedSelector } from "./replace-utils";
+import type { VCSSSelectorNode, VCSSSelector } from "../../ast.ts";
+import { VCSSInlineComment } from "../../ast.ts";
+import { replaceSelector, restoreReplacedSelector } from "./replace-utils.ts";
 
 export class SCSSSelectorParser extends CSSSelectorParser {
   protected parseInternal(selector: string): PostCSSSPRootNode {

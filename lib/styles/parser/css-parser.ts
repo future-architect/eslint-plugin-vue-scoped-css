@@ -1,7 +1,7 @@
 import * as postcss from "postcss";
 import postcssSafeParser from "postcss-safe-parser";
-import { CSSSelectorParser } from "./selector/css-selector-parser";
-import type { VCSSCommentNode, VCSSNode, VCSSContainerNode } from "../ast";
+import { CSSSelectorParser } from "./selector/css-selector-parser.ts";
+import type { VCSSCommentNode, VCSSNode, VCSSContainerNode } from "../ast.ts";
 import {
   VCSSStyleSheet,
   VCSSStyleRule,
@@ -10,7 +10,7 @@ import {
   VCSSComment,
   VCSSParsingError,
   VCSSUnknown,
-} from "../ast";
+} from "../ast.ts";
 import type {
   SourceCode,
   LineAndColumnData,
@@ -22,10 +22,10 @@ import type {
   PostCSSAtRule,
   PostCSSDeclaration,
   PostCSSComment,
-} from "../../types";
-import { isPostCSSContainer } from "./utils";
-import { isVCSSContainerNode } from "../utils/css-nodes";
-import { isDefined } from "../../utils/utils";
+} from "../../types.ts";
+import { isPostCSSContainer } from "./utils.ts";
+import { isVCSSContainerNode } from "../utils/css-nodes.ts";
+import { isDefined } from "../../utils/utils.ts";
 
 /**
  * CSS Parser

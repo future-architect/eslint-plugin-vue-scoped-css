@@ -1,5 +1,5 @@
-import { collectRules } from "../../utils/rules";
-import base from "./base";
+import { collectRules } from "../../utils/rules.ts";
+import base from "./base.ts";
 
 export default [
   ...base,

@@ -17,7 +17,7 @@ import type {
   PostCSSComment,
   PostCSSSPCommentNode,
   PostCSSRoot,
-} from "../types";
+} from "../types.ts";
 
 type CopyProps = {
   node?: PostCSSNode | PostCSSSPNode;

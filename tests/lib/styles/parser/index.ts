@@ -1,18 +1,18 @@
-import assert from "assert";
+import assert from "node:assert";
 
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 import css from "postcss";
 import scss from "postcss-scss";
 import stylus from "postcss-styl";
 
-import { getStyleFixtureResults, writeFixture } from "../test-utils";
+import { getStyleFixtureResults, writeFixture } from "../test-utils.ts";
 import type {
   VCSSNode,
   VCSSSelectorNode,
   VCSSAtRule,
-} from "../../../../lib/styles/ast";
+} from "../../../../lib/styles/ast.ts";
 
 // function stringify(node: any, stringifier: any) {
 //     let semicolon = true

@@ -1,6 +1,9 @@
 import type { ResolvedSelector } from "../styles/selectors";
 import { getResolvedSelectors } from "../styles/selectors";
-import type { VCSSSelectorNode, VCSSSelectorCombinator } from "../styles/ast";
+import type {
+  VCSSSelectorNode,
+  VCSSSelectorCombinator,
+} from "../styles/ast.ts";
 import {
   isTypeSelector,
   isIDSelector,
@@ -16,18 +19,18 @@ import {
   isVSlottedPseudo,
   isVGlobalPseudo,
   isDescendantCombinator,
-} from "../styles/utils/selectors";
+} from "../styles/utils/selectors.ts";
 import type { QueryContext } from "../styles/selectors/query";
 import { createQueryContext } from "../styles/selectors/query";
-import { isRootElement } from "../styles/selectors/query/elements";
-import type { RuleContext, RuleListener } from "../types";
-import { parseQueryOptions } from "../options";
+import { isRootElement } from "../styles/selectors/query/elements.ts";
+import type { RuleContext, RuleListener } from "../types.ts";
+import { parseQueryOptions } from "../options.ts";
 import type { ValidStyleContext } from "../styles/context";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
 } from "../styles/context";
-import { hasTemplateBlock, isDefined } from "../utils/utils";
+import { hasTemplateBlock, isDefined } from "../utils/utils.ts";
 import { isValidStyleContext } from "../styles/context/style";
 
 /**

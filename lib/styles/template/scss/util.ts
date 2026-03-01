@@ -1,4 +1,4 @@
-import { Interpolation } from "../interpolation";
+import { Interpolation } from "../interpolation.ts";
 
 /**
  * Returns the template elements that the given text.

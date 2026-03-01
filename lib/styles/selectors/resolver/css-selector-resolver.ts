@@ -1,4 +1,4 @@
-import type { NestingInfo } from "../../utils/selectors";
+import type { NestingInfo } from "../../utils/selectors.ts";
 import {
   isNestingSelector,
   isNestingAtRule,
@@ -7,7 +7,7 @@ import {
   isSelectorCombinator,
   findNestingSelector,
   isDescendantCombinator,
-} from "../../utils/selectors";
+} from "../../utils/selectors.ts";
 import type {
   VCSSStyleSheet,
   VCSSNode,
@@ -19,12 +19,12 @@ import type {
   VCSSStyleRule,
   VCSSSelector,
   VCSSSelectorPseudo,
-} from "../../ast";
+} from "../../ast.ts";
 import {
   isVCSSAtRule,
   isVCSSContainerNode,
   hasSelectorNodes,
-} from "../../utils/css-nodes";
+} from "../../utils/css-nodes.ts";
 
 export class ResolvedSelectors {
   public readonly container:

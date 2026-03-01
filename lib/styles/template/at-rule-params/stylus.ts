@@ -1,5 +1,5 @@
-import type { Interpolation } from "../interpolation";
-import { processText } from "../stylus/util";
+import type { Interpolation } from "../interpolation.ts";
+import { processText } from "../stylus/util.ts";
 
 /**
  * Returns the template elements that the given atrule params.

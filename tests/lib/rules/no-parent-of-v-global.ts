@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint";
-import rule from "../../../lib/rules/no-parent-of-v-global";
+import rule from "../../../lib/rules/no-parent-of-v-global.ts";
 
 import * as vueParser from "vue-eslint-parser";
 

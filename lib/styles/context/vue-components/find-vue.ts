@@ -1,6 +1,6 @@
 import { AST } from "vue-eslint-parser";
-import type { ASTNode, RuleContext } from "../../../types";
-import { unwrapTypesExpression } from "../../utils/nodes";
+import type { ASTNode, RuleContext } from "../../../types.ts";
+import { unwrapTypesExpression } from "../../utils/nodes.ts";
 
 const traverseNodes = AST.traverseNodes;
 

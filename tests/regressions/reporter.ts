@@ -1,6 +1,6 @@
 import { Linter } from "eslint";
-import assert from "assert";
-import plugin from "../../lib/index";
+import assert from "node:assert";
+import plugin from "../../lib/index.ts";
 import type * as eslint from "eslint";
 import * as vueParser from "vue-eslint-parser";
 type LinterMessages = Partial<eslint.Linter.LintMessage>;

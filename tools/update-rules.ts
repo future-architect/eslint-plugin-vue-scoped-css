@@ -1,9 +1,9 @@
-import path from "path";
-import fs from "fs";
-import os from "os";
-import { fileURLToPath } from "url";
+import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
+import { fileURLToPath } from "node:url";
 // import eslint from "eslint"
-import { rules } from "./lib/load-rules";
+import { rules } from "./lib/load-rules.ts";
 const isWin = os.platform().startsWith("win");
 
 /**
@@ -14,17 +14,21 @@ function toCamelCase(name: string): string {
 }
 
 let content = `
-import type { Rule } from "../types";
+import type { Rule } from "../types.ts";
 ${rules
   .map(
     (rule) =>
       `import ${toCamelCase(rule.meta.docs.ruleName)} from "../rules/${
         rule.meta.docs.ruleName
-      }";`,
+      }.ts";`,
   )
   .join("\n")}
 
-const baseRules = [
+const baseRules: {
+  rule: unknown;
+  ruleName: string;
+  ruleId: string;
+}[] = [
     ${rules
       .map(
         (rule) => `{
@@ -38,10 +42,10 @@ const baseRules = [
 ]
 
 export const rules = baseRules.map(obj => {
-    const rule = obj.rule
+    const rule = obj.rule as Rule
     rule.meta.docs.ruleName = obj.ruleName
     rule.meta.docs.ruleId = obj.ruleId
-    return rule as Rule
+    return rule
 })
 
 /**

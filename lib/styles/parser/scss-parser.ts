@@ -1,10 +1,14 @@
 import postcssScss from "postcss-scss";
 import type * as postcss from "postcss";
-import { CSSParser } from "./css-parser";
-import type { VCSSContainerNode, VCSSNode } from "../ast";
-import { VCSSInlineComment } from "../ast";
-import type { SourceLocation, PostCSSComment, PostCSSNode } from "../../types";
-import { SCSSSelectorParser } from "./selector/scss-selector-parser";
+import { CSSParser } from "./css-parser.ts";
+import type { VCSSContainerNode, VCSSNode } from "../ast.ts";
+import { VCSSInlineComment } from "../ast.ts";
+import type {
+  SourceLocation,
+  PostCSSComment,
+  PostCSSNode,
+} from "../../types.ts";
+import { SCSSSelectorParser } from "./selector/scss-selector-parser.ts";
 /**
  * SCSS Parser
  */

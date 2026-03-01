@@ -1,4 +1,4 @@
-import plugin from "../../lib/index";
+import plugin from "../../lib/index.ts";
 
 type Config = {
   name: string;

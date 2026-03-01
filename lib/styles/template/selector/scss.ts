@@ -2,9 +2,9 @@ import type {
   VCSSIDSelector,
   VCSSClassSelector,
   VCSSTypeSelector,
-} from "../../ast";
-import type { Interpolation } from "../interpolation";
-import { processText } from "../scss/util";
+} from "../../ast.ts";
+import type { Interpolation } from "../interpolation.ts";
+import { processText } from "../scss/util.ts";
 
 /**
  * Returns the template elements that the given selector node define.

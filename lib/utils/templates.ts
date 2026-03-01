@@ -3,7 +3,7 @@ import type {
   RuleContext,
   VDirectiveKey,
   VDirectiveKeyV6,
-} from "../types";
+} from "../types.ts";
 
 /**
  * Get VElements

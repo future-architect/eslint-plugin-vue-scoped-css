@@ -1,6 +1,6 @@
-import categories, { FLAT_PRESETS } from "./lib/categories";
-import type { Rule } from "../lib/types";
-import { rules } from "../lib/utils/rules";
+import categories, { FLAT_PRESETS } from "./lib/categories.ts";
+import type { Rule } from "../lib/types.ts";
+import { rules } from "../lib/utils/rules.ts";
 
 //eslint-disable-next-line jsdoc/require-jsdoc -- tools
 export default function renderRulesTableContent(
