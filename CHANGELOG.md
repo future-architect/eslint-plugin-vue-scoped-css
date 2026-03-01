@@ -1,5 +1,27 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.0.0
+
+### Major Changes
+
+- Drop support for legacy config (eslintrc). The flat configs are now exported under the primary namespace (`base`, `recommended`, `vue2-recommended`, `all`). The `flat/*` prefixed configs are kept as backward-compatible aliases. ([#453](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/453))
+
+- Drop support for older Node.js versions. The new supported versions are `^20.19.0 || ^22.13.0 || >=24`. ([#451](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/451))
+
+- Drop support for older ESLint versions. The new minimum supported version is `>=9.38.0`. ([#448](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/448))
+
+- feat!: enable `v-deep-pseudo-style`, `v-global-pseudo-style`, and `v-slotted-pseudo-style` rules in `recommended` config ([#458](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/458))
+
+- Change to ESM-only package. Use tsdown to bundle and provide the package. ([#454](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/454))
+
+- fix(deps): update dependency postcss-safe-parser to v7 ([#320](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/320))
+
+- feat!: move preprocessor deps to peerDependencies ([#393](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/393))
+
+### Minor Changes
+
+- feat: make `postcss-scss` and `postcss-styl` optional peer dependencies ([#468](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/468))
+
 ## 2.12.0
 
 ### Minor Changes
