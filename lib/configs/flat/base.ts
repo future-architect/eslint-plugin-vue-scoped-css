@@ -8,13 +8,13 @@ export default [
         return require("../../index");
       },
     },
-    name: "vue-scoped-css/flat/base/plugins",
+    name: "vue-scoped-css/base/plugins",
   },
   {
     files: ["*.vue", "**/*.vue"],
     languageOptions: {
       parser: vueParser,
     },
-    name: "vue-scoped-css/flat/base/options",
+    name: "vue-scoped-css/base/options",
   },
 ];

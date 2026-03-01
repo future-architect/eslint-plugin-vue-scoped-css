@@ -8,7 +8,7 @@ description: "disallow v-enter and v-leave classes."
 
 > disallow v-enter and v-leave classes.
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in `"all"`.
 
 ## :book: Rule Details
 

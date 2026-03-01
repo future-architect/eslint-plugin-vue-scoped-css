@@ -2,15 +2,9 @@ import { rules } from "../../lib/utils/rules";
 import type { Rule } from "../../lib/types";
 
 export const FLAT_PRESETS = {
-  "vue2-recommended": "flat/vue2-recommended",
-  "vue3-recommended": "flat/recommended",
-  base: "flat/base",
-  uncategorized: null,
-};
-export const LEGACY_PRESETS = {
-  "vue2-recommended": "plugin:vue-scoped-css/recommended",
-  "vue3-recommended": "plugin:vue-scoped-css/vue3-recommended",
-  base: "plugin:vue-scoped-css/base",
+  "vue2-recommended": "vue2-recommended",
+  "vue3-recommended": "recommended",
+  base: "base",
   uncategorized: null,
 };
 

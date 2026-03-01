@@ -8,7 +8,7 @@ description: "disallow parent selector for `::v-global` pseudo-element"
 
 > disallow parent selector for `::v-global` pseudo-element
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/all"` and `"plugin:vue-scoped-css/vue3-recommended"`.
+- :gear: This rule is included in `"recommended"` and `"all"`.
 
 ## :book: Rule Details
 

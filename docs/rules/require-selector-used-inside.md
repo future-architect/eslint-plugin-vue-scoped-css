@@ -8,7 +8,7 @@ description: "disallow selectors defined that is not used inside `<template>`"
 
 > disallow selectors defined that is not used inside `<template>`
 
-- :gear: This rule is included in `"plugin:vue-scoped-css/all"`.
+- :gear: This rule is included in `"all"`.
 
 ## :book: Rule Details
 

@@ -6,13 +6,17 @@ import flatVue2Recommended from "./configs/flat/vue2-recommended";
 import flatAll from "./configs/flat/all";
 
 const configs = {
-  base: require("./configs/base"),
-  recommended: require("./configs/recommended"),
-  "vue3-recommended": require("./configs/vue3-recommended"),
-  all: require("./configs/all"),
+  base: flatBase,
+  recommended: flatRecommended,
+  "vue2-recommended": flatVue2Recommended,
+  all: flatAll,
+  /** @deprecated Use `base` instead. */
   "flat/base": flatBase,
+  /** @deprecated Use `recommended` instead. */
   "flat/recommended": flatRecommended,
+  /** @deprecated Use `vue2-recommended` instead. */
   "flat/vue2-recommended": flatVue2Recommended,
+  /** @deprecated Use `all` instead. */
   "flat/all": flatAll,
 };
 

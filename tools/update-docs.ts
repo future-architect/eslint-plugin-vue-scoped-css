@@ -23,19 +23,7 @@ function getPresets(ruleId: string) {
     return [];
   }
 
-  const presets = new Set<string>(categoryConfigs.map((cat) => cat.configId));
-  for (;;) {
-    const extendsPreset = configs.filter(
-      (conf) =>
-        !presets.has(conf.configId) &&
-        [conf.config?.extends].flat().some((e) => e && presets.has(e)),
-    );
-    if (!extendsPreset.length) break;
-    for (const e of extendsPreset) {
-      presets.add(e.configId);
-    }
-  }
-  return [...presets];
+  return categoryConfigs.map((cat) => cat.configId);
 }
 
 //eslint-disable-next-line jsdoc/require-jsdoc, @typescript-eslint/no-explicit-any -- tools
@@ -90,9 +78,7 @@ class DocFile {
         notes.push("- :warning: This rule was **deprecated**.");
       }
     } else {
-      const presets = Array.from(
-        new Set(getPresets(ruleId!).concat(["plugin:vue-scoped-css/all"])),
-      );
+      const presets = Array.from(new Set(getPresets(ruleId!).concat(["all"])));
 
       if (presets.length) {
         notes.push(
