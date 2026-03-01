@@ -14,7 +14,7 @@ import {
   isVSlottedPseudo,
   isVGlobalPseudo,
   normalizePseudoParams,
-} from "../../utils/selectors";
+} from "../../utils/selectors.ts";
 import {
   getParentElement,
   isSkipElement,
@@ -22,23 +22,23 @@ import {
   getWrapperTransition,
   isRootElement,
   isSlotElement,
-} from "./elements";
+} from "./elements.ts";
 import type {
   VCSSSelectorNode,
   VCSSSelector,
   VCSSSelectorValueNode,
-} from "../../ast";
-import type { AST, RuleContext, ASTNode } from "../../../types";
-import type { ParsedQueryOptions } from "../../../options";
-import { getAttributeValueNodes } from "./attribute-tracker";
+} from "../../ast.ts";
+import type { AST, RuleContext, ASTNode } from "../../../types.ts";
+import type { ParsedQueryOptions } from "../../../options.ts";
+import { getAttributeValueNodes } from "./attribute-tracker.ts";
 import type { ValidStyleContext } from "../../context";
 import { getVueComponentContext, getStyleContexts } from "../../context";
-import { getStringFromNode } from "../../utils/nodes";
+import { getStringFromNode } from "../../utils/nodes.ts";
 import { Template } from "../../template";
-import { isVElement, isTransitionElement } from "../../../utils/templates";
+import { isVElement, isTransitionElement } from "../../../utils/templates.ts";
 import { isValidStyleContext } from "../../context/style";
-import type { ReferenceExpressions } from "./reference-expression";
-import { getReferenceExpressions } from "./reference-expression";
+import type { ReferenceExpressions } from "./reference-expression.ts";
+import { getReferenceExpressions } from "./reference-expression.ts";
 
 const TRANSITION_CLASS_BASES = [
   "enter",

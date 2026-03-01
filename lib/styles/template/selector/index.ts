@@ -1,12 +1,12 @@
-import getCSSTemplateElements from "./css";
-import getSCSSTemplateElements from "./scss";
-import getStylusTemplateElements from "./stylus";
+import getCSSTemplateElements from "./css.ts";
+import getSCSSTemplateElements from "./scss.ts";
+import getStylusTemplateElements from "./stylus.ts";
 import type {
   VCSSIDSelector,
   VCSSTypeSelector,
   VCSSClassSelector,
-} from "../../ast";
-import type { Interpolation } from "../interpolation";
+} from "../../ast.ts";
+import type { Interpolation } from "../interpolation.ts";
 import { isSupportedStyleLang } from "../../utils";
 
 const BUILDERS = {

@@ -1,8 +1,8 @@
-import type { AST } from "../../../types";
+import type { AST } from "../../../types.ts";
 import {
   isTransitionElement,
   isTransitionGroupElement,
-} from "../../../utils/templates";
+} from "../../../utils/templates.ts";
 
 /**
  * Checks whether the given element is the root element.

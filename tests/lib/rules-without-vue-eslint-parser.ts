@@ -1,5 +1,5 @@
 import { Linter } from "eslint";
-import plugin from "../../lib/index";
+import plugin from "../../lib/index.ts";
 
 describe("Don't crash even if without vue-eslint-parser.", () => {
   const code = "<style scoped>.a {}</style>";

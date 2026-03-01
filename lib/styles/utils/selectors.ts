@@ -10,10 +10,10 @@ import type {
   VCSSTypeSelector,
   VCSSSelectorPseudo,
   VCSSSelectorValueNode,
-} from "../ast";
-import { VCSSSelector } from "../ast";
-import { isVCSSAtRule } from "./css-nodes";
-import type { SourceLocation } from "../../types";
+} from "../ast.ts";
+import { VCSSSelector } from "../ast.ts";
+import { isVCSSAtRule } from "./css-nodes.ts";
+import type { SourceLocation } from "../../types.ts";
 
 /**
  * Checks whether the given node is VCSSTypeSelector

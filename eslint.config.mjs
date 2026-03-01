@@ -1,6 +1,7 @@
 import myPlugin from "@ota-meshi/eslint-plugin";
 import tseslint from "typescript-eslint";
 import vueScopedCss from "eslint-plugin-vue-scoped-css";
+import n from "eslint-plugin-n";
 
 export default [
   {
@@ -83,6 +84,22 @@ export default [
     files: ["**/*.{ts,mts,mjs}"],
     languageOptions: {
       sourceType: "module",
+    },
+  },
+  {
+    plugins: {
+      n,
+    },
+    files: ["**/*.{js,ts,mjc,mts,cjs,cts,vue}"],
+    rules: {
+      "n/prefer-node-protocol": "error",
+      "n/file-extension-in-import": ["error", "always"],
+      "@typescript-eslint/naming-convention": "off",
+    },
+    settings: {
+      n: {
+        typescriptExtensionMap: [],
+      },
     },
   },
   {

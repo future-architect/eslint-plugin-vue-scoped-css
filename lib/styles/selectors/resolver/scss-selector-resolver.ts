@@ -1,20 +1,23 @@
-import type { NestingInfo } from "../../utils/selectors";
+import type { NestingInfo } from "../../utils/selectors.ts";
 import {
   isNestingAtRule,
   findNestingSelectors,
   isSelectorCombinator,
   findNestingSelector,
-} from "../../utils/selectors";
+} from "../../utils/selectors.ts";
 import type {
   VCSSSelectorValueNode,
   VCSSStyleRule,
   VCSSAtRule,
   VCSS,
-} from "../../ast";
-import { VCSSSelectorCombinator } from "../../ast";
-import type { ResolvedSelectors } from "./css-selector-resolver";
-import { CSSSelectorResolver, ResolvedSelector } from "./css-selector-resolver";
-import type { PostCSSSPCombinatorNode } from "../../../types";
+} from "../../ast.ts";
+import { VCSSSelectorCombinator } from "../../ast.ts";
+import type { ResolvedSelectors } from "./css-selector-resolver.ts";
+import {
+  CSSSelectorResolver,
+  ResolvedSelector,
+} from "./css-selector-resolver.ts";
+import type { PostCSSSPCombinatorNode } from "../../../types.ts";
 
 export class SCSSSelectorResolver extends CSSSelectorResolver {
   /**

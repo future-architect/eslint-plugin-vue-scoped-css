@@ -1,5 +1,5 @@
-import { rules } from "../../lib/utils/rules";
-import type { Rule } from "../../lib/types";
+import { rules } from "../../lib/utils/rules.ts";
+import type { Rule } from "../../lib/types.ts";
 
 export const FLAT_PRESETS = {
   "vue2-recommended": "vue2-recommended",

@@ -4,12 +4,12 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { RuleContext, RuleListener } from "../types";
-import type { VGlobalPseudo } from "../styles/utils/selectors";
+import type { RuleContext, RuleListener } from "../types.ts";
+import type { VGlobalPseudo } from "../styles/utils/selectors.ts";
 import {
   isPseudoEmptyArguments,
   isVGlobalPseudo,
-} from "../styles/utils/selectors";
+} from "../styles/utils/selectors.ts";
 
 export default {
   meta: {

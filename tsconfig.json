@@ -20,6 +20,8 @@
       "*": ["typings/*"]
     },
     "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
 
     "skipLibCheck": true
   },

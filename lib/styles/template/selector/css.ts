@@ -2,7 +2,7 @@ import type {
   VCSSIDSelector,
   VCSSTypeSelector,
   VCSSClassSelector,
-} from "../../ast";
+} from "../../ast.ts";
 
 /**
  * Returns the template elements that the given selector node define.

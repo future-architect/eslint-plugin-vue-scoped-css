@@ -1,4 +1,4 @@
-import type { RuleContext } from "../types";
+import type { RuleContext } from "../types.ts";
 
 /**
  * Checks whether the given context has template block

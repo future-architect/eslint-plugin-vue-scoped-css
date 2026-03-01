@@ -1,5 +1,5 @@
 import { getVueComponentContext } from "../../context";
-import type { RuleContext, AST } from "../../../types";
+import type { RuleContext, AST } from "../../../types.ts";
 
 export type ReferenceExpressions =
   | AST.ESLintExpression

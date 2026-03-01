@@ -4,24 +4,24 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { RuleContext, Range, RuleListener } from "../types";
-import type { VDeepPseudo } from "../styles/utils/selectors";
+import type { RuleContext, Range, RuleListener } from "../types.ts";
+import type { VDeepPseudo } from "../styles/utils/selectors.ts";
 import {
   isVDeepPseudoV2,
   isVDeepPseudo,
   isPseudoEmptyArguments,
-} from "../styles/utils/selectors";
+} from "../styles/utils/selectors.ts";
 import type {
   VCSSSelectorNode,
   VCSSAtRule,
   VCSSStyleRule,
-} from "../styles/ast";
+} from "../styles/ast.ts";
 import {
   hasSelectorNodes,
   isVCSSAtRule,
   isVCSSDeclarationProperty,
   isVCSSComment,
-} from "../styles/utils/css-nodes";
+} from "../styles/utils/css-nodes.ts";
 
 export default {
   meta: {

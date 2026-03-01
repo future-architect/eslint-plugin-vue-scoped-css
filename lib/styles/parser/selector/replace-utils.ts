@@ -1,6 +1,6 @@
 import lodash from "lodash";
-import type { LineAndColumnData, PostCSSSPNode } from "../../../types";
-import { isPostCSSSPContainer } from "../utils";
+import type { LineAndColumnData, PostCSSSPNode } from "../../../types.ts";
+import { isPostCSSSPContainer } from "../utils.ts";
 
 class SourceCodeLocationResolver {
   private readonly text: string;

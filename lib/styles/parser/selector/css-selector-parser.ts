@@ -7,7 +7,7 @@ import type {
   VCSSNode,
   VCSSContainerNode,
   VCSSSelectorValueNode,
-} from "../../ast";
+} from "../../ast.ts";
 import {
   VCSSSelector,
   VCSSTypeSelector,
@@ -20,14 +20,14 @@ import {
   VCSSSelectorCombinator,
   VCSSUnknownSelector,
   VCSSComment,
-} from "../../ast";
+} from "../../ast.ts";
 import {
   isSelectorCombinator,
   isDescendantCombinator,
   isVueSpecialPseudo,
   normalizePseudoParams,
   isVDeepPseudoV2,
-} from "../../utils/selectors";
+} from "../../utils/selectors.ts";
 import type {
   SourceCode,
   LineAndColumnData,
@@ -46,9 +46,9 @@ import type {
   PostCSSSPCommentNode,
   PostCSSSPIDNode,
   PostCSSSPRootNode,
-} from "../../../types";
-import { isPostCSSSPContainer } from "../utils";
-import { isDefined } from "../../../utils/utils";
+} from "../../../types.ts";
+import { isPostCSSSPContainer } from "../utils.ts";
+import { isDefined } from "../../../utils/utils.ts";
 
 export class CSSSelectorParser {
   private readonly sourceCode: SourceCode;

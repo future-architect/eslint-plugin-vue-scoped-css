@@ -1,4 +1,4 @@
-import { toRegExp } from "./utils/regexp";
+import { toRegExp } from "./utils/regexp.ts";
 
 export interface QueryOptions {
   ignoreBEMModifier?: boolean;

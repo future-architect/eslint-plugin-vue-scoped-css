@@ -1,5 +1,5 @@
-import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast";
-import type { RuleContext, RuleListener } from "../types";
+import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast.ts";
+import type { RuleContext, RuleListener } from "../types.ts";
 import { Template } from "../styles/template";
 import type { ValidStyleContext } from "../styles/context";
 import {

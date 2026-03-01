@@ -4,9 +4,9 @@ import {
   getCommentDirectivesReporter,
   isValidStyleContext,
 } from "../styles/context";
-import type { VCSSSelectorNode } from "../styles/ast";
-import type { RuleContext, RuleListener } from "../types";
-import { isVGlobalPseudo } from "../styles/utils/selectors";
+import type { VCSSSelectorNode } from "../styles/ast.ts";
+import type { RuleContext, RuleListener } from "../types.ts";
+import { isVGlobalPseudo } from "../styles/utils/selectors.ts";
 
 export default {
   meta: {

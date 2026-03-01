@@ -1,9 +1,9 @@
 import { AST as vueAST } from "vue-eslint-parser";
 
-import findVueComponent from "./find-vue";
-import type { RuleContext, ASTNode, AST } from "../../../types";
+import findVueComponent from "./find-vue.ts";
+import type { RuleContext, ASTNode, AST } from "../../../types.ts";
 import type { Template } from "../../template";
-import { isDefined } from "../../../utils/utils";
+import { isDefined } from "../../../utils/utils.ts";
 
 const traverseNodes = vueAST.traverseNodes;
 

@@ -1,5 +1,5 @@
-import type { RuleContext, RuleListener } from "../types";
-import type { VCSSParsingError } from "../styles/ast";
+import type { RuleContext, RuleListener } from "../types.ts";
+import type { VCSSParsingError } from "../styles/ast.ts";
 import type { InvalidStyleContext } from "../styles/context";
 import {
   getStyleContexts,

@@ -12,18 +12,18 @@ import {
   isDescendantCombinator,
   isVSlottedPseudo,
   isVGlobalPseudo,
-} from "../styles/utils/selectors";
+} from "../styles/utils/selectors.ts";
 import type { QueryContext } from "../styles/selectors/query";
 import { createQueryContext } from "../styles/selectors/query";
-import type { VCSSSelectorNode } from "../styles/ast";
-import type { RuleContext, RuleListener } from "../types";
+import type { VCSSSelectorNode } from "../styles/ast.ts";
+import type { RuleContext, RuleListener } from "../types.ts";
 import type { ValidStyleContext } from "../styles/context";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
 } from "../styles/context";
-import { hasTemplateBlock, isDefined } from "../utils/utils";
-import { parseQueryOptions } from "../options";
+import { hasTemplateBlock, isDefined } from "../utils/utils.ts";
+import { parseQueryOptions } from "../options.ts";
 import { isValidStyleContext } from "../styles/context/style";
 
 /**

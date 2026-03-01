@@ -7,21 +7,21 @@ import type {
   VCSSSelectorNode,
   VCSSNode,
   VCSSClassSelector,
-} from "../styles/ast";
-import type { RuleContext, AST, RuleListener } from "../types";
+} from "../styles/ast.ts";
+import type { RuleContext, AST, RuleListener } from "../types.ts";
 import {
   getElements,
   isTransitionElement,
   isTransitionGroupElement,
   findAttribute,
-} from "../utils/templates";
-import { getAttributeValueNodes } from "../styles/selectors/query/attribute-tracker";
+} from "../utils/templates.ts";
+import { getAttributeValueNodes } from "../styles/selectors/query/attribute-tracker.ts";
 import { Template } from "../styles/template";
 import {
   isDeepCombinator,
   isVueSpecialPseudo,
-} from "../styles/utils/selectors";
-import { isVCSSAtRule } from "../styles/utils/css-nodes";
+} from "../styles/utils/selectors.ts";
+import { isVCSSAtRule } from "../styles/utils/css-nodes.ts";
 
 export default {
   meta: {

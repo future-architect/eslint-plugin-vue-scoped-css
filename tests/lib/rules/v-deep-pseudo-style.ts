@@ -1,5 +1,5 @@
 import { RuleTester } from "eslint";
-import rule from "../../../lib/rules/v-deep-pseudo-style";
+import rule from "../../../lib/rules/v-deep-pseudo-style.ts";
 
 import * as vueParser from "vue-eslint-parser";
 

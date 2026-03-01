@@ -1,9 +1,9 @@
-import assert from "assert";
-import path from "path";
-import fs from "fs";
-import { fileURLToPath } from "url";
+import assert from "node:assert";
+import path from "node:path";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
-import { collectRules, rules as allRules } from "../../../lib/utils/rules";
+import { collectRules, rules as allRules } from "../../../lib/utils/rules.ts";
 
 /**
  * @returns {Array} Get the list of rule IDs placed in the directory.

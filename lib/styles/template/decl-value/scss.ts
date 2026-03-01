@@ -1,5 +1,5 @@
-import type { Interpolation } from "../interpolation";
-import { processValue } from "../scss/util";
+import type { Interpolation } from "../interpolation.ts";
+import { processValue } from "../scss/util.ts";
 
 /**
  * Returns the template elements that the given decl value.

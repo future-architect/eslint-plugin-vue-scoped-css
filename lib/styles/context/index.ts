@@ -11,7 +11,7 @@ import {
   createCommentDirectivesReporter,
   createCommentDirectives,
 } from "./comment-directive";
-import type { RuleContext } from "../../types";
+import type { RuleContext } from "../../types.ts";
 import type { AST } from "vue-eslint-parser";
 import {
   VueComponentContext,

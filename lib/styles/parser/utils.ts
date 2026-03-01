@@ -3,7 +3,7 @@ import type {
   PostCSSContainer,
   PostCSSSPNode,
   PostCSSSPContainer,
-} from "../../types";
+} from "../../types.ts";
 
 /**
  * Checks if the given node has nodes property.

@@ -1,10 +1,9 @@
 import type { ESLint } from "eslint";
 import * as vueParser from "vue-eslint-parser";
-import * as index from "../../index";
+import * as index from "../../index.ts";
 export default [
   {
     plugins: {
-      // eslint-disable-next-line @typescript-eslint/naming-convention -- plugin name
       get "vue-scoped-css"(): ESLint.Plugin {
         return index.default as unknown as ESLint.Plugin;
       },

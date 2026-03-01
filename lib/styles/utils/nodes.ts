@@ -1,4 +1,4 @@
-import type { AST, TSAsExpression, RuleContext } from "../../types";
+import type { AST, TSAsExpression, RuleContext } from "../../types.ts";
 import eslintUtils from "@eslint-community/eslint-utils";
 import type { ScopeManager, Scope } from "eslint-scope";
 

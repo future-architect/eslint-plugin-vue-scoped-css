@@ -1,7 +1,7 @@
 import { RuleTester } from "eslint";
 import semver from "semver";
-import rule from "../../../lib/rules/no-parsing-error";
-import { createRequire } from "module";
+import rule from "../../../lib/rules/no-parsing-error.ts";
+import { createRequire } from "node:module";
 const _require = createRequire(import.meta.url);
 const parserVersion = _require("vue-eslint-parser/package.json").version;
 

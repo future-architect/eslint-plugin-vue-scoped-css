@@ -1,17 +1,17 @@
 import { escapeRegExp } from "../utils";
-import type { AST } from "../../types";
-import { Interpolation } from "./interpolation";
+import type { AST } from "../../types.ts";
+import { Interpolation } from "./interpolation.ts";
 import type {
   VCSSIDSelector,
   VCSSClassSelector,
   VCSSTypeSelector,
   VCSSAtRule,
   VCSSDeclarationProperty,
-} from "../ast";
+} from "../ast.ts";
 import getSelectorTemplateElements from "./selector";
 import getAtRuleParamsTemplateElements from "./at-rule-params";
 import getDeclValueTemplateElements from "./decl-value";
-import { isDefined } from "../../utils/utils";
+import { isDefined } from "../../utils/utils.ts";
 
 export { Interpolation };
 

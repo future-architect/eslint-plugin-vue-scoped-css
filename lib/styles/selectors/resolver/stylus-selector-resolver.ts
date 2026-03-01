@@ -1,24 +1,24 @@
-import type { NestingInfo } from "../../utils/selectors";
+import type { NestingInfo } from "../../utils/selectors.ts";
 import {
   isNestingAtRule,
   findNestingSelectors,
   findNestingSelector,
   hasNodesSelector,
   isSelectorCombinator,
-} from "../../utils/selectors";
+} from "../../utils/selectors.ts";
 import type {
   VCSSStyleRule,
   VCSSAtRule,
   VCSS,
   VCSSSelectorNode,
-} from "../../ast";
-import { VCSSSelectorCombinator } from "../../ast";
+} from "../../ast.ts";
+import { VCSSSelectorCombinator } from "../../ast.ts";
 import {
   CSSSelectorResolver,
   ResolvedSelector,
   ResolvedSelectors,
-} from "./css-selector-resolver";
-import type { PostCSSSPCombinatorNode } from "../../../types";
+} from "./css-selector-resolver.ts";
+import type { PostCSSSPCombinatorNode } from "../../../types.ts";
 
 export class StylusSelectorResolver extends CSSSelectorResolver {
   /**

@@ -9,8 +9,8 @@ import type {
   VCSSSelectorPseudo,
   VCSSDeclarationProperty,
   VCSSComment,
-} from "../ast";
-import { isNestingAtRule } from "./selectors";
+} from "../ast.ts";
+import { isNestingAtRule } from "./selectors.ts";
 
 /**
  * Checks whether the given node is VCSSAtRule

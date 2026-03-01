@@ -1,20 +1,19 @@
-
-import type { Rule } from "../types";
-import enforceStyleType from "../rules/enforce-style-type";
-import noDeprecatedDeepCombinator from "../rules/no-deprecated-deep-combinator";
-import noDeprecatedVEnterVLeaveClass from "../rules/no-deprecated-v-enter-v-leave-class";
-import noParentOfVGlobal from "../rules/no-parent-of-v-global";
-import noParsingError from "../rules/no-parsing-error";
-import noUnusedKeyframes from "../rules/no-unused-keyframes";
-import noUnusedSelector from "../rules/no-unused-selector";
-import requireScoped from "../rules/require-scoped";
-import requireSelectorUsedInside from "../rules/require-selector-used-inside";
-import requireVDeepArgument from "../rules/require-v-deep-argument";
-import requireVGlobalArgument from "../rules/require-v-global-argument";
-import requireVSlottedArgument from "../rules/require-v-slotted-argument";
-import vDeepPseudoStyle from "../rules/v-deep-pseudo-style";
-import vGlobalPseudoStyle from "../rules/v-global-pseudo-style";
-import vSlottedPseudoStyle from "../rules/v-slotted-pseudo-style";
+import type { Rule } from "../types.ts";
+import enforceStyleType from "../rules/enforce-style-type.ts";
+import noDeprecatedDeepCombinator from "../rules/no-deprecated-deep-combinator.ts";
+import noDeprecatedVEnterVLeaveClass from "../rules/no-deprecated-v-enter-v-leave-class.ts";
+import noParentOfVGlobal from "../rules/no-parent-of-v-global.ts";
+import noParsingError from "../rules/no-parsing-error.ts";
+import noUnusedKeyframes from "../rules/no-unused-keyframes.ts";
+import noUnusedSelector from "../rules/no-unused-selector.ts";
+import requireScoped from "../rules/require-scoped.ts";
+import requireSelectorUsedInside from "../rules/require-selector-used-inside.ts";
+import requireVDeepArgument from "../rules/require-v-deep-argument.ts";
+import requireVGlobalArgument from "../rules/require-v-global-argument.ts";
+import requireVSlottedArgument from "../rules/require-v-slotted-argument.ts";
+import vDeepPseudoStyle from "../rules/v-deep-pseudo-style.ts";
+import vGlobalPseudoStyle from "../rules/v-global-pseudo-style.ts";
+import vSlottedPseudoStyle from "../rules/v-slotted-pseudo-style.ts";
 
 const baseRules = [
     {

@@ -1,8 +1,8 @@
-import assert from "assert";
+import assert from "node:assert";
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { createQueryContext } from "../../../../lib/styles/selectors/query";
 import { getResolvedSelectors } from "../../../../lib/styles/selectors";
@@ -12,17 +12,17 @@ import {
   writeFixture,
   deleteFixture,
   isExistsPath,
-} from "../test-utils";
-import type { AST, RuleContext, VDirectiveKey } from "../../../../lib/types";
+} from "../test-utils.ts";
+import type { AST, RuleContext, VDirectiveKey } from "../../../../lib/types.ts";
 import type {
   StyleContext,
   ValidStyleContext,
 } from "../../../../lib/styles/context";
-import { parseQueryOptions } from "../../../../lib/options";
+import { parseQueryOptions } from "../../../../lib/options.ts";
 import {
   isVDirective,
   isVDirectiveKeyV6,
-} from "../../../../lib/utils/templates";
+} from "../../../../lib/utils/templates.ts";
 
 const ROOT = path.join(
   path.dirname(fileURLToPath(import.meta.url)),

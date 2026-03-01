@@ -1,5 +1,5 @@
-import type { Interpolation } from "../interpolation";
-import { processText } from "../scss/util";
+import type { Interpolation } from "../interpolation.ts";
+import { processText } from "../scss/util.ts";
 
 /**
  * Returns the template elements that the given atrule params.
