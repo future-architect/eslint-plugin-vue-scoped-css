@@ -1,4 +1,5 @@
-import plugin from "./plugin";
+import { rules as ruleList } from "./utils/rules";
+import type { Rule } from "./types";
 import flatBase from "./configs/flat/base";
 import flatRecommended from "./configs/flat/recommended";
 import flatVue2Recommended from "./configs/flat/vue2-recommended";
@@ -19,7 +20,15 @@ const configs = {
   "flat/all": flatAll,
 };
 
+const rules = ruleList.reduce(
+  (obj, r) => {
+    obj[r.meta.docs?.ruleName || ""] = r;
+    return obj;
+  },
+  {} as { [key: string]: Rule },
+);
+
 export default {
   configs,
-  rules: plugin.rules,
+  rules,
 };

@@ -15,7 +15,11 @@ import vDeepPseudoStyle from "../rules/v-deep-pseudo-style";
 import vGlobalPseudoStyle from "../rules/v-global-pseudo-style";
 import vSlottedPseudoStyle from "../rules/v-slotted-pseudo-style";
 
-const baseRules = [
+const baseRules: {
+  rule: unknown;
+  ruleName: string;
+  ruleId: string;
+}[] = [
   {
     rule: enforceStyleType,
     ruleName: "enforce-style-type",
@@ -94,10 +98,10 @@ const baseRules = [
 ];
 
 export const rules = baseRules.map((obj) => {
-  const rule = obj.rule;
+  const rule = obj.rule as Rule;
   rule.meta.docs.ruleName = obj.ruleName;
   rule.meta.docs.ruleId = obj.ruleId;
-  return rule as Rule;
+  return rule;
 });
 
 /**

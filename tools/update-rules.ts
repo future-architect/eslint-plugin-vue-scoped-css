@@ -6,12 +6,23 @@ import { fileURLToPath } from "url";
 import { rules } from "./lib/load-rules";
 const isWin = os.platform().startsWith("win");
 
-const toCamelCase = (name: string) =>
-  name.replace(/-([a-z])/gu, (_, c) => c.toUpperCase());
+/**
+ * Convert kebab-case to camelCase
+ */
+function toCamelCase(name: string): string {
+  return name.replace(/-([a-z])/gu, (_, c) => c.toUpperCase());
+}
 
 let content = `
 import type { Rule } from "../types";
-${rules.map((rule) => `import ${toCamelCase(rule.meta.docs.ruleName)} from "../rules/${rule.meta.docs.ruleName}";`).join("\n")}
+${rules
+  .map(
+    (rule) =>
+      `import ${toCamelCase(rule.meta.docs.ruleName)} from "../rules/${
+        rule.meta.docs.ruleName
+      }";`,
+  )
+  .join("\n")}
 
 const baseRules = [
     ${rules
