@@ -18,15 +18,19 @@
 import assert from "node:assert";
 import Module from "node:module";
 
+import { CSSParser } from "../../../../lib/styles/parser/css-parser.ts";
 import { SCSSParser } from "../../../../lib/styles/parser/scss-parser.ts";
 import { StylusParser } from "../../../../lib/styles/parser/stylus-parser.ts";
 import type { VCSSStyleSheet } from "../../../../lib/styles/ast.ts";
+import type { SourceCode } from "../../../../lib/types.ts";
 
 /** Minimal SourceCode mock sufficient for the error-path in CSSParser.parse */
 const mockSourceCode = {
-  getIndexFromLoc: (_loc: unknown) => 0,
-  getLocFromIndex: (_idx: unknown) => ({ line: 1, column: 0 }),
-};
+  getIndexFromLoc: (_loc: Parameters<SourceCode["getIndexFromLoc"]>[0]) => 0,
+  getLocFromIndex: (
+    _idx: Parameters<SourceCode["getLocFromIndex"]>[0],
+  ) => ({ line: 1, column: 0 }),
+} as unknown as SourceCode;
 
 function makeModuleNotFoundError(depName: string): NodeJS.ErrnoException {
   const err: NodeJS.ErrnoException = new Error(
@@ -41,11 +45,11 @@ function makeModuleNotFoundError(depName: string): NodeJS.ErrnoException {
  * The `Module._load` mock is active only during construction; after that it is
  * restored so normal parsing (used by other tests) is not affected.
  */
-function createParserWithMissingDep<T>(
-  ParserClass: new (sourceCode: unknown, lang: string) => T,
+function createParserWithMissingDep(
+  ParserClass: new (sourceCode: SourceCode, lang: string) => CSSParser,
   lang: string,
   missingDep: string,
-): T {
+): CSSParser {
   const orig = (Module as any)._load; // `_load` is a Node.js internal not in @types/node
   (Module as any)._load = function (
     request: string,
