@@ -23,6 +23,7 @@ export function viteCommonjs() {
         });
         return transformed.code;
       } catch (e) {
+        // eslint-disable-next-line no-console -- For debugging
         console.error(`Transform error. base code:\n${base}`, e);
       }
       return undefined;
