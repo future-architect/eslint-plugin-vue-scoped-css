@@ -2,22 +2,32 @@
   "name": "eslint-plugin-vue-scoped-css",
   "version": "2.12.0",
   "description": "ESLint plugin for Scoped CSS in Vue.js",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "dist/index.mjs",
+  "types": "dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  },
   "scripts": {
     "prebuild": "npm run -s clean",
-    "build": "tsc --project ./tsconfig.build.json",
+    "build": "tsdown",
     "clean": "rimraf .nyc_output dist coverage",
-    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck && eslint .",
     "eslint-fix": "eslint . --fix",
     "pretest": "npm run build",
-    "test:base": "mocha --require ts-node/register \"tests/**/*.ts\" --reporter dot --timeout 60000",
-    "test": "npm run test:nyc",
-    "test:nyc": "nyc --reporter=lcov npm run test:base",
-    "test:debug": "mocha --require ts-node/register/transpile-only \"tests/**/*.ts\" --reporter dot",
+    "test:base": "node --import @oxc-node/core/register ./node_modules/mocha/bin/mocha.js \"tests/**/*.ts\" --reporter dot --timeout 60000",
+    "test:coverage": "c8 --reporter=lcov npm run test:base",
+    "test": "npm run test:base",
+    "test:debug": "node --import @oxc-node/core/register ./node_modules/mocha/bin/mocha.js \"tests/**/*.ts\" --reporter dot",
     "test:watch": "npm run test:base -- --watch",
-    "update": "ts-node ./tools/update.ts && npm run eslint-fix && npm run test:nyc",
-    "new": "ts-node ./tools/new-rule.ts",
+    "update": "node --import @oxc-node/core/register ./tools/update.ts && npm run eslint-fix",
+    "new": "node --import @oxc-node/core/register ./tools/new-rule.ts",
     "predocs:watch": "npm run build",
     "docs:watch": "vitepress dev docs",
     "docs:build": "npm run build && vitepress build docs",
@@ -50,14 +60,14 @@
     "css"
   ],
   "files": [
-    "dist",
-    "dist/index.d.ts"
+    "dist"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.5",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.3.0",
     "@ota-meshi/eslint-plugin": "^0.19.0",
     "@ota-meshi/site-kit-eslint-editor-vue": "^0.2.1",
+    "@oxc-node/core": "^0.0.35",
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
     "@types/estree": "^1.0.5",
     "@types/lodash": "^4.17.5",
@@ -67,6 +77,7 @@
     "@typescript-eslint/eslint-plugin": "^8.35.1",
     "@typescript-eslint/parser": "^8.35.1",
     "assert": "^2.1.0",
+    "c8": "^11.0.0",
     "cross-env": "^10.0.0",
     "esbuild": "^0.27.0",
     "eslint": "^9.38.0",
@@ -85,7 +96,6 @@
     "espree": "^11.0.0",
     "events": "^3.3.0",
     "mocha": "^11.0.0",
-    "nyc": "^18.0.0",
     "pako": "^2.1.0",
     "prettier": "^3.1.0",
     "rimraf": "^6.0.0",
@@ -95,7 +105,7 @@
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-vue": "^1.0.0",
     "stylelint-stylus": "^1.0.0",
-    "ts-node": "^10.9.1",
+    "tsdown": "^0.21.0-beta.2",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.35.1",
     "vite-plugin-eslint4b": "^0.6.0",
@@ -114,22 +124,6 @@
     "postcss-scss": "^4.0.3",
     "postcss-styl": "^0.12.0",
     "vue-eslint-parser": ">=7.1.0"
-  },
-  "nyc": {
-    "include": [
-      "lib/*.ts",
-      "lib/**/*.ts"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "exclude": [
-      "**/*.spec.js",
-      "tests/**/*.js"
-    ]
   },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"

@@ -16,7 +16,7 @@ const styleTypesAttrs = ["scoped", "module"] as const;
 type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];
 type AllowsOption = StyleTypes[];
 
-export = {
+export default {
   meta: {
     docs: {
       description:

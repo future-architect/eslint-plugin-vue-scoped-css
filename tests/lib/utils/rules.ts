@@ -1,23 +1,26 @@
 import assert from "assert";
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
 
 import { collectRules, rules as allRules } from "../../../lib/utils/rules";
 
 /**
- * @returns {Array} Get the list of rules placed in the directory.
+ * @returns {Array} Get the list of rule IDs placed in the directory.
  */
 function getDirRules() {
-  const rulesRoot = path.resolve(__dirname, "../../../lib/rules");
+  const rulesRoot = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../../lib/rules",
+  );
   const result = fs.readdirSync(rulesRoot);
-  const rules: { [key: string]: any } = {};
+  const ruleIds: string[] = [];
   for (const name of result) {
     const ruleName = name.replace(/\.ts$/u, "");
     const ruleId = `vue-scoped-css/${ruleName}`;
-    const rule = require(path.join(rulesRoot, name));
-    rules[ruleId] = rule;
+    ruleIds.push(ruleId);
   }
-  return rules;
+  return ruleIds;
 }
 
 const dirRules = getDirRules();
@@ -28,19 +31,16 @@ describe("Check if the struct of all rules is correct", () => {
 
     const deprecatedRules = allRules.filter((r) => r.meta.deprecated);
     assert.ok(
-      Object.keys(collect).length + deprecatedRules.length ===
-        Object.keys(dirRules).length,
-      `Did not equal the number of rules. expect:${
-        Object.keys(dirRules).length
-      } actual:${Object.keys(collect).length}`,
+      Object.keys(collect).length + deprecatedRules.length === dirRules.length,
+      `Did not equal the number of rules. expect:${dirRules.length} actual:${
+        Object.keys(collect).length
+      } (deprecated:${deprecatedRules.length})`,
     );
   });
   it("rule count equals (rules)", () => {
     assert.ok(
-      allRules.length === Object.keys(dirRules).length,
-      `Did not equal the number of rules. expect:${
-        Object.keys(dirRules).length
-      } actual:${allRules.length}`,
+      allRules.length === dirRules.length,
+      `Did not equal the number of rules. expect:${dirRules.length} actual:${allRules.length}`,
     );
   });
 
@@ -49,7 +49,7 @@ describe("Check if the struct of all rules is correct", () => {
       assert.ok(Boolean(rule.meta.docs.ruleId), "Did not set `ruleId`");
       assert.ok(Boolean(rule.meta.docs.ruleName), "Did not set `ruleName`");
       assert.ok(
-        Boolean(dirRules[rule.meta.docs?.ruleId || ""]),
+        dirRules.includes(rule.meta.docs?.ruleId || ""),
         "Did not exist rule",
       );
     });

@@ -68,7 +68,7 @@ function getScopedSelector(
   return [...selector];
 }
 
-export = {
+export default {
   meta: {
     docs: {
       description:

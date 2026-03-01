@@ -1,88 +1,107 @@
 import type { Rule } from "../types";
+import enforceStyleType from "../rules/enforce-style-type";
+import noDeprecatedDeepCombinator from "../rules/no-deprecated-deep-combinator";
+import noDeprecatedVEnterVLeaveClass from "../rules/no-deprecated-v-enter-v-leave-class";
+import noParentOfVGlobal from "../rules/no-parent-of-v-global";
+import noParsingError from "../rules/no-parsing-error";
+import noUnusedKeyframes from "../rules/no-unused-keyframes";
+import noUnusedSelector from "../rules/no-unused-selector";
+import requireScoped from "../rules/require-scoped";
+import requireSelectorUsedInside from "../rules/require-selector-used-inside";
+import requireVDeepArgument from "../rules/require-v-deep-argument";
+import requireVGlobalArgument from "../rules/require-v-global-argument";
+import requireVSlottedArgument from "../rules/require-v-slotted-argument";
+import vDeepPseudoStyle from "../rules/v-deep-pseudo-style";
+import vGlobalPseudoStyle from "../rules/v-global-pseudo-style";
+import vSlottedPseudoStyle from "../rules/v-slotted-pseudo-style";
 
-const baseRules = [
+const baseRules: {
+  rule: unknown;
+  ruleName: string;
+  ruleId: string;
+}[] = [
   {
-    rule: require("../rules/enforce-style-type"),
+    rule: enforceStyleType,
     ruleName: "enforce-style-type",
     ruleId: "vue-scoped-css/enforce-style-type",
   },
   {
-    rule: require("../rules/no-deprecated-deep-combinator"),
+    rule: noDeprecatedDeepCombinator,
     ruleName: "no-deprecated-deep-combinator",
     ruleId: "vue-scoped-css/no-deprecated-deep-combinator",
   },
   {
-    rule: require("../rules/no-deprecated-v-enter-v-leave-class"),
+    rule: noDeprecatedVEnterVLeaveClass,
     ruleName: "no-deprecated-v-enter-v-leave-class",
     ruleId: "vue-scoped-css/no-deprecated-v-enter-v-leave-class",
   },
   {
-    rule: require("../rules/no-parent-of-v-global"),
+    rule: noParentOfVGlobal,
     ruleName: "no-parent-of-v-global",
     ruleId: "vue-scoped-css/no-parent-of-v-global",
   },
   {
-    rule: require("../rules/no-parsing-error"),
+    rule: noParsingError,
     ruleName: "no-parsing-error",
     ruleId: "vue-scoped-css/no-parsing-error",
   },
   {
-    rule: require("../rules/no-unused-keyframes"),
+    rule: noUnusedKeyframes,
     ruleName: "no-unused-keyframes",
     ruleId: "vue-scoped-css/no-unused-keyframes",
   },
   {
-    rule: require("../rules/no-unused-selector"),
+    rule: noUnusedSelector,
     ruleName: "no-unused-selector",
     ruleId: "vue-scoped-css/no-unused-selector",
   },
   {
-    rule: require("../rules/require-scoped"),
+    rule: requireScoped,
     ruleName: "require-scoped",
     ruleId: "vue-scoped-css/require-scoped",
   },
   {
-    rule: require("../rules/require-selector-used-inside"),
+    rule: requireSelectorUsedInside,
     ruleName: "require-selector-used-inside",
     ruleId: "vue-scoped-css/require-selector-used-inside",
   },
   {
-    rule: require("../rules/require-v-deep-argument"),
+    rule: requireVDeepArgument,
     ruleName: "require-v-deep-argument",
     ruleId: "vue-scoped-css/require-v-deep-argument",
   },
   {
-    rule: require("../rules/require-v-global-argument"),
+    rule: requireVGlobalArgument,
     ruleName: "require-v-global-argument",
     ruleId: "vue-scoped-css/require-v-global-argument",
   },
   {
-    rule: require("../rules/require-v-slotted-argument"),
+    rule: requireVSlottedArgument,
     ruleName: "require-v-slotted-argument",
     ruleId: "vue-scoped-css/require-v-slotted-argument",
   },
   {
-    rule: require("../rules/v-deep-pseudo-style"),
+    rule: vDeepPseudoStyle,
     ruleName: "v-deep-pseudo-style",
     ruleId: "vue-scoped-css/v-deep-pseudo-style",
   },
   {
-    rule: require("../rules/v-global-pseudo-style"),
+    rule: vGlobalPseudoStyle,
     ruleName: "v-global-pseudo-style",
     ruleId: "vue-scoped-css/v-global-pseudo-style",
   },
   {
-    rule: require("../rules/v-slotted-pseudo-style"),
+    rule: vSlottedPseudoStyle,
     ruleName: "v-slotted-pseudo-style",
     ruleId: "vue-scoped-css/v-slotted-pseudo-style",
   },
 ];
 
 export const rules = baseRules.map((obj) => {
-  const rule = obj.rule;
+  const rule = obj.rule as Rule;
   rule.meta.docs.ruleName = obj.ruleName;
   rule.meta.docs.ruleId = obj.ruleId;
-  return rule as Rule;
+  return rule;
 });
 
 /**

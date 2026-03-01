@@ -28,7 +28,7 @@ const rules = ruleList.reduce(
   {} as { [key: string]: Rule },
 );
 
-export = {
+export default {
   configs,
   rules,
 };

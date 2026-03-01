@@ -1,18 +1,34 @@
 import path from "path";
 import fs from "fs";
 import os from "os";
+import { fileURLToPath } from "url";
 // import eslint from "eslint"
 import { rules } from "./lib/load-rules";
 const isWin = os.platform().startsWith("win");
 
+/**
+ * Convert kebab-case to camelCase
+ */
+function toCamelCase(name: string): string {
+  return name.replace(/-([a-z])/gu, (_, c) => c.toUpperCase());
+}
+
 let content = `
-import type { Rule } from "../types"
+import type { Rule } from "../types";
+${rules
+  .map(
+    (rule) =>
+      `import ${toCamelCase(rule.meta.docs.ruleName)} from "../rules/${
+        rule.meta.docs.ruleName
+      }";`,
+  )
+  .join("\n")}
 
 const baseRules = [
     ${rules
       .map(
         (rule) => `{
-    rule: require("../rules/${rule.meta.docs.ruleName}"),
+    rule: ${toCamelCase(rule.meta.docs.ruleName)},
     ruleName: "${rule.meta.docs.ruleName}",
     ruleId: "${rule.meta.docs.ruleId}",
     },
@@ -48,7 +64,10 @@ export function collectRules(
 }
 `;
 
-const filePath = path.resolve(__dirname, "../lib/utils/rules.ts");
+const filePath = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../lib/utils/rules.ts",
+);
 
 if (isWin) {
   content = content

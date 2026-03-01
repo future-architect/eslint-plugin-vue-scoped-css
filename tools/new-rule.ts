@@ -1,7 +1,10 @@
 import path from "path";
 import fs from "fs";
 import cp from "child_process";
+import { fileURLToPath } from "url";
 const logger = console;
+
+const _dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // main
 ((ruleId) => {
@@ -16,9 +19,9 @@ const logger = console;
     return;
   }
 
-  const ruleFile = path.resolve(__dirname, `../lib/rules/${ruleId}.ts`);
-  const testFile = path.resolve(__dirname, `../tests/lib/rules/${ruleId}.ts`);
-  const docFile = path.resolve(__dirname, `../docs/rules/${ruleId}.md`);
+  const ruleFile = path.resolve(_dirname, `../lib/rules/${ruleId}.ts`);
+  const testFile = path.resolve(_dirname, `../tests/lib/rules/${ruleId}.ts`);
+  const docFile = path.resolve(_dirname, `../docs/rules/${ruleId}.md`);
 
   fs.writeFileSync(
     ruleFile,
@@ -31,7 +34,7 @@ import {
 import type { VCSSSelectorNode } from "../styles/ast"
 import type { RuleContext, RuleListener } from "../types"
 
-export = {
+export default {
     meta: {
         docs: {
             description: "",
@@ -89,8 +92,8 @@ export = {
   );
   fs.writeFileSync(
     testFile,
-    `import { RuleTester } from "../test-lib/eslint-compat"
-import rule = require("../../../lib/rules/${ruleId}")
+    `import { RuleTester } from "eslint"
+import rule from "../../../lib/rules/${ruleId}"
 import * as vueParser from "vue-eslint-parser";
 
 const tester = new RuleTester({

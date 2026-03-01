@@ -11,7 +11,7 @@ import {
   isPseudoEmptyArguments,
 } from "../styles/utils/selectors";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "enforce `:deep()`/`::v-deep()` style",

@@ -177,13 +177,13 @@ export class VCSSStyleRule extends HasParentNode<
   "VCSSStyleRule",
   VCSSContainerNode
 > {
-  public nodes: VCSSNode[];
-
   public readonly selectorText: string;
 
   public readonly rawSelectorText: string;
 
   public selectors: VCSSSelectorNode[];
+
+  public nodes: VCSSNode[];
 
   /**
    * constructor.
@@ -283,8 +283,6 @@ export class VCSSDeclarationProperty extends HasParentNode<
  * The CSS At(@) Rule node.
  */
 export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
-  public nodes: VCSSNode[];
-
   public readonly name: string;
 
   public readonly identifier: string;
@@ -298,6 +296,8 @@ export class VCSSAtRule extends HasParentNode<"VCSSAtRule", VCSSContainerNode> {
   public selectors?: VCSSSelectorNode[];
 
   public readonly node: PostCSSAtRule;
+
+  public nodes: VCSSNode[];
 
   /**
    * constructor.
@@ -684,11 +684,11 @@ export class VCSSAttributeSelector extends HasParentNode<
   "VCSSAttributeSelector",
   VCSSSelector
 > {
-  public readonly value: string | null;
-
   public readonly attribute: string;
 
   public readonly operator: string | null;
+
+  public readonly value: string | null;
 
   public readonly quoteMark: string | null;
 

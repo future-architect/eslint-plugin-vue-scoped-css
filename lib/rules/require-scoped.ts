@@ -11,7 +11,7 @@ import {
   getCommentDirectivesReporter,
 } from "../styles/context";
 
-export = {
+export default {
   meta: {
     deprecated: true,
     docs: {

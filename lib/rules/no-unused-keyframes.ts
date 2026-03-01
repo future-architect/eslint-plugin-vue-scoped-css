@@ -8,7 +8,7 @@ import {
 } from "../styles/context";
 import { isValidStyleContext } from "../styles/context/style";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "disallow `@keyframes` which don't use in Scoped CSS",

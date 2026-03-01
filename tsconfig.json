@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "node16",
+    "target": "es2020",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "useDefineForClassFields": false,
     "allowJs": true,
     "checkJs": true,
     "outDir": "./dist",
@@ -21,5 +23,5 @@
 
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "tests/**/*", "tools/**/*"]
+  "include": ["lib/**/*", "tests/**/*", "tools/**/*", "tsdown.config.ts"]
 }
