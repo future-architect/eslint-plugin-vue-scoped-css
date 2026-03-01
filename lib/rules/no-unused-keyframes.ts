@@ -7,7 +7,6 @@ import {
   getCommentDirectivesReporter,
 } from "../styles/context";
 import { isValidStyleContext } from "../styles/context/style";
-import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -43,7 +42,7 @@ export = {
       return {};
     }
     const reporter = getCommentDirectivesReporter(context);
-    const sourceCode = getSourceCode(context);
+    const sourceCode = context.sourceCode;
 
     /**
      * Reports the given node

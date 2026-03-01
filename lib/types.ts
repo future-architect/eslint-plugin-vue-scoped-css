@@ -84,11 +84,13 @@ interface ParserServices {
 }
 export interface RuleContext {
   id: string;
-  getSourceCode: () => SourceCode;
+  sourceCode: SourceCode;
   report: (descriptor: ReportDescriptor) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ignore
   options: any[];
-  getFilename: () => string;
+  filename: string;
+  physicalFilename: string;
+  cwd: string;
   parserServices: ParserServices;
 }
 

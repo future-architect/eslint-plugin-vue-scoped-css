@@ -4,7 +4,6 @@ import findVueComponent from "./find-vue";
 import type { RuleContext, ASTNode, AST } from "../../../types";
 import type { Template } from "../../template";
 import { isDefined } from "../../../utils/utils";
-import { getSourceCode } from "../../../utils/compat";
 
 const traverseNodes = vueAST.traverseNodes;
 
@@ -300,7 +299,7 @@ function getClassesOperatedByClassList(
 ): (AST.ESLintExpression | AST.ESLintSpreadElement)[] {
   const results: (AST.ESLintExpression | AST.ESLintSpreadElement)[] = [];
   traverseNodes(vueNode, {
-    visitorKeys: getSourceCode(context).visitorKeys,
+    visitorKeys: context.sourceCode.visitorKeys,
     enterNode(node) {
       if (
         node.type !== "CallExpression" ||
@@ -363,7 +362,7 @@ function getReturnStatements(
     | AST.ESLintFunctionDeclaration
   )[] = [];
   traverseNodes(body, {
-    visitorKeys: getSourceCode(context).visitorKeys,
+    visitorKeys: context.sourceCode.visitorKeys,
     enterNode(node) {
       if (skipNodes.length) {
         return;

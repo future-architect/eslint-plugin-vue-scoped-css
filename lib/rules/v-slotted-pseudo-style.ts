@@ -10,7 +10,6 @@ import {
   isVSlottedPseudo,
   isPseudoEmptyArguments,
 } from "../styles/utils/selectors";
-import { getSourceCode } from "../utils/compat";
 
 export = {
   meta: {
@@ -54,7 +53,7 @@ export = {
         messageId:
           expected === ":slotted" ? "expectedSlotted" : "expectedVSlotted",
         fix(fixer) {
-          const nodeText = getSourceCode(context).text.slice(...node.range);
+          const nodeText = context.sourceCode.text.slice(...node.range);
           return fixer.replaceTextRange(
             node.range,
             nodeText.replace(

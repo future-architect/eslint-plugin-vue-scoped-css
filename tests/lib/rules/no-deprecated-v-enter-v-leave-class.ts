@@ -1,4 +1,4 @@
-import { RuleTester } from "../test-lib/eslint-compat";
+import { RuleTester } from "eslint";
 import rule from "../../../lib/rules/no-deprecated-v-enter-v-leave-class";
 
 import * as vueParser from "vue-eslint-parser";

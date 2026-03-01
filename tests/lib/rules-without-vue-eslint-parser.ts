@@ -1,7 +1,5 @@
-import { getLinter } from "eslint-compat-utils/linter";
+import { Linter } from "eslint";
 import plugin from "../../lib/index";
-// eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
-const Linter = getLinter();
 
 describe("Don't crash even if without vue-eslint-parser.", () => {
   const code = "<style scoped>.a {}</style>";

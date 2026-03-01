@@ -1,11 +1,10 @@
 import type { RuleContext } from "../types";
-import { getSourceCode } from "./compat";
 
 /**
  * Checks whether the given context has template block
  */
 export function hasTemplateBlock(context: RuleContext): boolean {
-  const sourceCode = getSourceCode(context);
+  const sourceCode = context.sourceCode;
   const { ast } = sourceCode;
   return Boolean(ast.templateBody);
 }
