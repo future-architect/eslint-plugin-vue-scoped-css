@@ -15,91 +15,94 @@ import vDeepPseudoStyle from "../rules/v-deep-pseudo-style.ts";
 import vGlobalPseudoStyle from "../rules/v-global-pseudo-style.ts";
 import vSlottedPseudoStyle from "../rules/v-slotted-pseudo-style.ts";
 
-const baseRules = [
-    {
+const baseRules: {
+  rule: unknown;
+  ruleName: string;
+  ruleId: string;
+}[] = [
+  {
     rule: enforceStyleType,
     ruleName: "enforce-style-type",
     ruleId: "vue-scoped-css/enforce-style-type",
-    },
-    {
+  },
+  {
     rule: noDeprecatedDeepCombinator,
     ruleName: "no-deprecated-deep-combinator",
     ruleId: "vue-scoped-css/no-deprecated-deep-combinator",
-    },
-    {
+  },
+  {
     rule: noDeprecatedVEnterVLeaveClass,
     ruleName: "no-deprecated-v-enter-v-leave-class",
     ruleId: "vue-scoped-css/no-deprecated-v-enter-v-leave-class",
-    },
-    {
+  },
+  {
     rule: noParentOfVGlobal,
     ruleName: "no-parent-of-v-global",
     ruleId: "vue-scoped-css/no-parent-of-v-global",
-    },
-    {
+  },
+  {
     rule: noParsingError,
     ruleName: "no-parsing-error",
     ruleId: "vue-scoped-css/no-parsing-error",
-    },
-    {
+  },
+  {
     rule: noUnusedKeyframes,
     ruleName: "no-unused-keyframes",
     ruleId: "vue-scoped-css/no-unused-keyframes",
-    },
-    {
+  },
+  {
     rule: noUnusedSelector,
     ruleName: "no-unused-selector",
     ruleId: "vue-scoped-css/no-unused-selector",
-    },
-    {
+  },
+  {
     rule: requireScoped,
     ruleName: "require-scoped",
     ruleId: "vue-scoped-css/require-scoped",
-    },
-    {
+  },
+  {
     rule: requireSelectorUsedInside,
     ruleName: "require-selector-used-inside",
     ruleId: "vue-scoped-css/require-selector-used-inside",
-    },
-    {
+  },
+  {
     rule: requireVDeepArgument,
     ruleName: "require-v-deep-argument",
     ruleId: "vue-scoped-css/require-v-deep-argument",
-    },
-    {
+  },
+  {
     rule: requireVGlobalArgument,
     ruleName: "require-v-global-argument",
     ruleId: "vue-scoped-css/require-v-global-argument",
-    },
-    {
+  },
+  {
     rule: requireVSlottedArgument,
     ruleName: "require-v-slotted-argument",
     ruleId: "vue-scoped-css/require-v-slotted-argument",
-    },
-    {
+  },
+  {
     rule: vDeepPseudoStyle,
     ruleName: "v-deep-pseudo-style",
     ruleId: "vue-scoped-css/v-deep-pseudo-style",
-    },
-    {
+  },
+  {
     rule: vGlobalPseudoStyle,
     ruleName: "v-global-pseudo-style",
     ruleId: "vue-scoped-css/v-global-pseudo-style",
-    },
-    {
+  },
+  {
     rule: vSlottedPseudoStyle,
     ruleName: "v-slotted-pseudo-style",
     ruleId: "vue-scoped-css/v-slotted-pseudo-style",
-    },
-    
-]
+  },
+];
 
-export const rules = baseRules.map(obj => {
-    const rule = obj.rule
-    rule.meta.docs.ruleName = obj.ruleName
-    rule.meta.docs.ruleId = obj.ruleId
-    return rule as Rule
-})
+export const rules = baseRules.map((obj) => {
+  const rule = obj.rule as Rule;
+  rule.meta.docs.ruleName = obj.ruleName;
+  rule.meta.docs.ruleId = obj.ruleId;
+  return rule;
+});
 
 /**
  * Collect the rules
@@ -107,15 +110,18 @@ export const rules = baseRules.map(obj => {
  * @returns {Array} rules
  */
 export function collectRules(
-    category?: "vue2-recommended" | "vue3-recommended",
+  category?: "vue2-recommended" | "vue3-recommended",
 ): { [key: string]: string } {
-    return rules.reduce((obj, rule) => {
-        if (
-            (!category || rule.meta.docs.categories.includes(category)) &&
-            !rule.meta.deprecated
-        ) {
-            obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error"
-        }
-        return obj
-    }, {} as { [key: string]: string })
+  return rules.reduce(
+    (obj, rule) => {
+      if (
+        (!category || rule.meta.docs.categories.includes(category)) &&
+        !rule.meta.deprecated
+      ) {
+        obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error";
+      }
+      return obj;
+    },
+    {} as { [key: string]: string },
+  );
 }
