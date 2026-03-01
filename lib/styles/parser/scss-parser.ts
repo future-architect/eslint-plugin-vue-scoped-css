@@ -1,5 +1,6 @@
-import postcssScss from "postcss-scss";
 import type * as postcss from "postcss";
+import type * as postcssScssType from "postcss-scss";
+import { loadOptionalDep } from "./load-optional-dep.ts";
 import { CSSParser } from "./css-parser.ts";
 import type { VCSSContainerNode, VCSSNode } from "../ast.ts";
 import { VCSSInlineComment } from "../ast.ts";
@@ -7,14 +8,28 @@ import type {
   SourceLocation,
   PostCSSComment,
   PostCSSNode,
+  SourceCode,
 } from "../../types.ts";
 import { SCSSSelectorParser } from "./selector/scss-selector-parser.ts";
+
 /**
  * SCSS Parser
  */
 export class SCSSParser extends CSSParser {
+  readonly #postcssScss: typeof postcssScssType | null;
+
+  public constructor(sourceCode: SourceCode, lang: string) {
+    super(sourceCode, lang);
+    this.#postcssScss = loadOptionalDep<typeof postcssScssType>("postcss-scss");
+  }
+
   protected parseInternal(css: string): postcss.Root {
-    return postcssScss.parse(css) as postcss.Root;
+    if (!this.#postcssScss) {
+      throw new Error(
+        "postcss-scss is required to parse SCSS. Please install it: npm install --save-dev postcss-scss",
+      );
+    }
+    return this.#postcssScss.parse(css) as postcss.Root;
   }
 
   protected createSelectorParser(): SCSSSelectorParser {

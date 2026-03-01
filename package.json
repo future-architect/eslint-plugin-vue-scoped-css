@@ -125,6 +125,14 @@
     "postcss-styl": "^0.12.0",
     "vue-eslint-parser": ">=7.1.0"
   },
+  "peerDependenciesMeta": {
+    "postcss-scss": {
+      "optional": true
+    },
+    "postcss-styl": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
