@@ -106,7 +106,7 @@
     "@eslint-community/eslint-utils": "^4.4.0",
     "lodash": "^4.17.21",
     "postcss": "^8.4.31",
-    "postcss-safe-parser": "^6.0.0",
+    "postcss-safe-parser": "^7.0.0",
     "postcss-selector-parser": "^7.0.0"
   },
   "peerDependencies": {
