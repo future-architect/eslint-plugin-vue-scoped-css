@@ -5,6 +5,6 @@ export default [
   ...base,
   {
     rules: collectRules(),
-    name: "vue-scoped-css/flat/all",
+    name: "vue-scoped-css/all",
   },
 ];

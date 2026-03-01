@@ -91,7 +91,7 @@ class DocFile {
       }
     } else {
       const presets = Array.from(
-        new Set(getPresets(ruleId!).concat(["plugin:vue-scoped-css/all"])),
+        new Set(getPresets(ruleId!).concat(["all"])),
       );
 
       if (presets.length) {

@@ -26,7 +26,7 @@ import eslintPluginVueScopedCSS from 'eslint-plugin-vue-scoped-css';
 export default [
   // add more generic rule sets here, such as:
   // js.configs.recommended,
-  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+  ...eslintPluginVueScopedCSS.configs['recommended'],
   {
     rules: {
       // override/add rules settings here, such as:
@@ -36,43 +36,23 @@ export default [
 ];
 ```
 
-### Legacy Config (`.eslintrc`)
-
-Use `.eslintrc.*` file to configure rules. See also: <https://eslint.org/docs/latest/use/configure/>.
-
-Example **.eslintrc.js**:
-
-```js
-module.exports = {
-  extends: [
-    // add more generic rulesets here, such as:
-    // 'eslint:recommended',
-    'plugin:vue-scoped-css/vue3-recommended'
-  ],
-  rules: {
-    // override/add rules settings here, such as:
-    // 'vue-scoped-css/no-unused-selector': 'error'
-  }
-}
-```
-
 ## Configs
 
 This plugin provides some predefined configs:
 
-### New Config (`eslint.config.js`)
+- `*.configs['base']` - Settings and rules to enable this plugin
+- `*.configs['recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
+- `*.configs['vue2-recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
+- `*.configs['all']` - All rules of this plugin are included
 
-- `*.configs['flat/base']` - Settings and rules to enable this plugin
-- `*.configs['flat/recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
-- `*.configs['flat/vue2-recommended']` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
-- `*.configs['flat/all']` - All rules of this plugin are included
+### Backward-compatible aliases
 
-### Legacy Config (`.eslintrc`)
+The following `flat/*` aliases are kept for backward compatibility:
 
-- `plugin:vue-scoped-css/base` - Settings and rules to enable this plugin
-- `plugin:vue-scoped-css/recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 2.x
-- `plugin:vue-scoped-css/vue3-recommended` - `/base`, plus rules for better ways to help you avoid problems for Vue.js 3.x
-- `plugin:vue-scoped-css/all` - All rules of this plugin are included
+- `*.configs['flat/base']` → `*.configs['base']`
+- `*.configs['flat/recommended']` → `*.configs['recommended']`
+- `*.configs['flat/vue2-recommended']` → `*.configs['vue2-recommended']`
+- `*.configs['flat/all']` → `*.configs['all']`
 
 <!--USAGE_GUIDE_END-->
 
@@ -195,26 +175,11 @@ read more: [JetBrains - ESLint](https://www.jetbrains.com/help/idea/eslint.html)
 
 The most rules of `eslint-plugin-vue-scoped-css` require `vue-eslint-parser` to check `<template>` ASTs.
 
-Make sure you have one of the following settings in your **.eslintrc**:
+Make sure you have one of the following settings in your **eslint.config.js**:
 
-- `"extends": ["plugin:vue-scoped-css/vue3-recommended"]`
-- `"extends": ["plugin:vue-scoped-css/recommended"]`
-- `"extends": ["plugin:vue-scoped-css/base"]`
-- `"extends": ["plugin:vue/recommended"]`
-- `"extends": ["plugin:vue/base"]`
-
-If you already use other parser (e.g. `"parser": "babel-eslint"`), please move it into `parserOptions`, so it doesn't collide with the `vue-eslint-parser` used by this plugin's configuration:
-
-```diff
-- "parser": "babel-eslint",
-  "parserOptions": {
-+     "parser": "babel-eslint",
-      "ecmaVersion": 2017,
-      "sourceType": "module"
-  }
-```
-
-See also: "[How to use custom parser?](#how-to-use-custom-parser)" section.
+- `...eslintPluginVueScopedCSS.configs['recommended']`
+- `...eslintPluginVueScopedCSS.configs['vue2-recommended']`
+- `...eslintPluginVueScopedCSS.configs['base']`
 
 ### Why doesn't it work on .vue file?
 

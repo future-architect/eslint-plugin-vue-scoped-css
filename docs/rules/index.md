@@ -12,16 +12,8 @@ Enforce all the rules in this category with:
 
 ```js
 export default [
-  ...eslintPluginVueScopedCSS.configs['flat/recommended'],
+  ...eslintPluginVueScopedCSS.configs['recommended'],
 ]
-```
-
-or
-
-```json
-{
-  "extends": ["plugin:vue-scoped-css/vue3-recommended"]
-}
 ```
 
 | Rule ID | Description |    |
@@ -42,16 +34,8 @@ Enforce all the rules in this category with:
 
 ```js
 export default [
-  ...eslintPluginVueScopedCSS.configs['flat/vue2-recommended'],
+  ...eslintPluginVueScopedCSS.configs['vue2-recommended'],
 ]
-```
-
-or
-
-```json
-{
-  "extends": ["plugin:vue-scoped-css/recommended"]
-}
 ```
 
 | Rule ID | Description |    |

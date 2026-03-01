@@ -1,4 +1,4 @@
-import categories, { FLAT_PRESETS, LEGACY_PRESETS } from "./lib/categories";
+import categories, { FLAT_PRESETS } from "./lib/categories";
 import type { Rule } from "../lib/types";
 import { rules } from "../lib/utils/rules";
 
@@ -52,14 +52,6 @@ ${category.configDescription}
 export default [
   ...eslintPluginVueScopedCSS.configs['${FLAT_PRESETS[category.categoryId]}'],
 ]
-\`\`\`
-
-or
-
-\`\`\`json
-{
-  "extends": [${JSON.stringify(LEGACY_PRESETS[category.categoryId])}]
-}
 \`\`\`
 
 | Rule ID | Description |    |
