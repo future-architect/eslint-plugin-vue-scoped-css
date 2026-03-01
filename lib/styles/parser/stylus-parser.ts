@@ -1,5 +1,6 @@
-import postcssStyl from "postcss-styl";
+import { createRequire } from "node:module";
 import type * as postcss from "postcss";
+import type * as postcssStylType from "postcss-styl";
 import { CSSParser } from "./css-parser.ts";
 import type { VCSSContainerNode, VCSSNode } from "../ast.ts";
 import { VCSSInlineComment } from "../ast.ts";
@@ -9,12 +10,28 @@ import type {
   PostCSSNode,
 } from "../../types.ts";
 import { StylusSelectorParser } from "./selector/stylus-selector-parser.ts";
+
+const _require = createRequire(import.meta.url);
+let _postcssStyl: typeof postcssStylType | null = null;
+try {
+  _postcssStyl = _require("postcss-styl") as typeof postcssStylType;
+} catch (e) {
+  if ((e as NodeJS.ErrnoException).code !== "MODULE_NOT_FOUND") {
+    throw e;
+  }
+  // postcss-styl is an optional peer dependency
+}
 /**
  * Stylus Parser
  */
 export class StylusParser extends CSSParser {
   protected parseInternal(css: string): postcss.Root {
-    return postcssStyl.parse(css) as postcss.Root;
+    if (!_postcssStyl) {
+      throw new Error(
+        "postcss-styl is required to parse Stylus. Please install it: npm install --save-dev postcss-styl",
+      );
+    }
+    return _postcssStyl.parse(css) as postcss.Root;
   }
 
   protected createSelectorParser(): StylusSelectorParser {
