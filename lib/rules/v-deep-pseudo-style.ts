@@ -15,10 +15,7 @@ export default {
   meta: {
     docs: {
       description: "enforce `:deep()`/`::v-deep()` style",
-      categories: [
-        // TODO: enable in next major version
-        // "vue3-recommended"
-      ],
+      categories: ["vue3-recommended"],
       default: "warn",
       url: "https://future-architect.github.io/eslint-plugin-vue-scoped-css/rules/v-deep-pseudo-style.html",
     },
