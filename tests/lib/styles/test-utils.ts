@@ -1,13 +1,17 @@
 import { Linter } from "eslint";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import type { RuleContext } from "../../../lib/types";
 import type { StyleContext } from "../../../lib/styles/context";
 import { getStyleContexts } from "../../../lib/styles/context";
 import * as vueParser from "vue-eslint-parser";
 
-const ROOT = path.join(__dirname, "./fixtures/index");
+const ROOT = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "./fixtures/index",
+);
 
 const config = {
   files: ["*", "*.vue", "**/*.vue", "**"],

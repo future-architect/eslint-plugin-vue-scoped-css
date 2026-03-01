@@ -90,7 +90,7 @@ function getScopedSelector(
   return results.reverse();
 }
 
-export = {
+export default {
   meta: {
     docs: {
       description:

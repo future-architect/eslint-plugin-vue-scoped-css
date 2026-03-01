@@ -6,7 +6,7 @@ import {
   getCommentDirectivesReporter,
 } from "../styles/context";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "disallow parsing errors in `<style>`",

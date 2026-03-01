@@ -1,9 +1,13 @@
 import path from "path";
 import fs from "fs";
+import { fileURLToPath } from "url";
 import renderRulesTableContent from "./render-rules";
 
 // -----------------------------------------------------------------------------
-const readmeFilePath = path.resolve(__dirname, "../docs/rules/index.md");
+const readmeFilePath = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../docs/rules/index.md",
+);
 fs.writeFileSync(
   readmeFilePath,
   `---

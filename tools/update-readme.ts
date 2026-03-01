@@ -1,8 +1,11 @@
 import path from "path";
 import fs from "fs";
 import os from "os";
+import { fileURLToPath } from "url";
 import renderRulesTableContent from "./render-rules";
 const isWin = os.platform().startsWith("win");
+
+const _dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let insertText = `\n${renderRulesTableContent(
   (name) =>
@@ -15,7 +18,7 @@ if (isWin) {
     .replace(/\n/gu, "\r\n");
 }
 
-const readmeFilePath = path.resolve(__dirname, "../README.md");
+const readmeFilePath = path.resolve(_dirname, "../README.md");
 const newReadme = fs
   .readFileSync(readmeFilePath, "utf8")
   .replace(
@@ -24,7 +27,7 @@ const newReadme = fs
   );
 fs.writeFileSync(readmeFilePath, newReadme);
 
-const docsReadmeFilePath = path.resolve(__dirname, "../docs/index.md");
+const docsReadmeFilePath = path.resolve(_dirname, "../docs/index.md");
 
 fs.writeFileSync(
   docsReadmeFilePath,
@@ -51,7 +54,7 @@ fs.writeFileSync(
 );
 
 const docsUserGuideFilePath = path.resolve(
-  __dirname,
+  _dirname,
   "../docs/user-guide/index.md",
 );
 const docsUserGuide = fs.readFileSync(docsUserGuideFilePath, "utf8");

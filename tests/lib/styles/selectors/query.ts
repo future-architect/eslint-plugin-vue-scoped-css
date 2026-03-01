@@ -2,6 +2,7 @@ import assert from "assert";
 
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import { createQueryContext } from "../../../../lib/styles/selectors/query";
 import { getResolvedSelectors } from "../../../../lib/styles/selectors";
@@ -23,7 +24,10 @@ import {
   isVDirectiveKeyV6,
 } from "../../../../lib/utils/templates";
 
-const ROOT = path.join(__dirname, "../fixtures/selectors/query");
+const ROOT = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../fixtures/selectors/query",
+);
 
 /**
  * Remove `parent` properties from the given AST.

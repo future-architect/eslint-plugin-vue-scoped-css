@@ -23,7 +23,7 @@ import {
 } from "../styles/utils/selectors";
 import { isVCSSAtRule } from "../styles/utils/css-nodes";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "disallow v-enter and v-leave classes.",

@@ -8,7 +8,7 @@ import type { VCSSSelectorNode } from "../styles/ast";
 import type { RuleContext, RuleListener } from "../types";
 import { isVGlobalPseudo } from "../styles/utils/selectors";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "disallow parent selector for `::v-global` pseudo-element",

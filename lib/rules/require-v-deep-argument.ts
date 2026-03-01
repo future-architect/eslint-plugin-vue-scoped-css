@@ -23,7 +23,7 @@ import {
   isVCSSComment,
 } from "../styles/utils/css-nodes";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "require selector argument to be passed to `::v-deep()`",

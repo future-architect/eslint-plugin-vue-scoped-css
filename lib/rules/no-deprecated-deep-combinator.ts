@@ -8,7 +8,7 @@ import type { VCSSSelectorCombinator } from "../styles/ast";
 import type { RuleContext, Range, RuleListener } from "../types";
 import { isDeepCombinator } from "../styles/utils/selectors";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "disallow using deprecated deep combinators",

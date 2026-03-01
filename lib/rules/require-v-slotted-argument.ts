@@ -11,7 +11,7 @@ import {
   isVSlottedPseudo,
 } from "../styles/utils/selectors";
 
-export = {
+export default {
   meta: {
     docs: {
       description: "require selector argument to be passed to `::v-slotted()`",

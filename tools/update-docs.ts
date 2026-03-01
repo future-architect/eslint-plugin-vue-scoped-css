@@ -1,8 +1,12 @@
 import path from "path";
 import fs from "fs";
+import os from "os";
+import { fileURLToPath } from "url";
 import { rules } from "../lib/utils/rules";
 import { configs } from "./lib/load-configs";
 import type { Rule } from "../lib/types";
+
+const _dirname = path.dirname(fileURLToPath(import.meta.url));
 
 //eslint-disable-next-line jsdoc/require-jsdoc -- tools
 function formatItems(items: string[]) {
@@ -34,7 +38,7 @@ function yamlValue(val: any) {
   return val;
 }
 
-const ROOT = path.resolve(__dirname, "../docs/rules");
+const ROOT = path.resolve(_dirname, "../docs/rules");
 
 class DocFile {
   private readonly rule: Rule;
@@ -182,7 +186,7 @@ class DocFile {
   }
 
   public write() {
-    const isWin = require("os").platform().startsWith("win");
+    const isWin = os.platform().startsWith("win");
 
     this.content = this.content.replace(/\r?\n/gu, isWin ? "\r\n" : "\n");
 
