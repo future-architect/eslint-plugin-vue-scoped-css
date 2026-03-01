@@ -133,7 +133,7 @@
     ]
   },
   "engines": {
-    "node": "^12.22 || ^14.17 || >=16"
+    "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "publishConfig": {
     "access": "public"
