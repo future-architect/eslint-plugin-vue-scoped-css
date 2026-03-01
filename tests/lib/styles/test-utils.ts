@@ -1,5 +1,4 @@
-import { getLinter } from "eslint-compat-utils/linter";
-
+import { Linter } from "eslint";
 import fs from "fs";
 import path from "path";
 
@@ -8,8 +7,6 @@ import type { StyleContext } from "../../../lib/styles/context";
 import { getStyleContexts } from "../../../lib/styles/context";
 import * as vueParser from "vue-eslint-parser";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
-const Linter = getLinter();
 const ROOT = path.join(__dirname, "./fixtures/index");
 
 const config = {
@@ -65,7 +62,7 @@ function executeLint(
     throw err;
   }
   if (lintResult.messages.length) {
-    lintResult.messages.forEach((message) => {
+    lintResult.messages.forEach((message: Linter.LintMessage) => {
       console.error(
         `[${message.ruleId}] ${message.message} (${message.line}:${message.column})`,
       );

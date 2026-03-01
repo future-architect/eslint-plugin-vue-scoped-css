@@ -1,11 +1,8 @@
-import { getLinter } from "eslint-compat-utils/linter";
+import { Linter } from "eslint";
 import assert from "assert";
 import plugin from "../../lib/index";
 import type * as eslint from "eslint";
 import * as vueParser from "vue-eslint-parser";
-
-// eslint-disable-next-line @typescript-eslint/naming-convention -- Class name
-const Linter = getLinter();
 type LinterMessages = Partial<eslint.Linter.LintMessage>;
 
 /**
