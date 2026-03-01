@@ -96,6 +96,8 @@
     "stylelint-config-standard-vue": "^1.0.0",
     "stylelint-stylus": "^1.0.0",
     "ts-node": "^10.9.1",
+    "tsdown": "^0.21.0-beta.2",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.35.1",
     "vite-plugin-eslint4b": "^0.6.0",
