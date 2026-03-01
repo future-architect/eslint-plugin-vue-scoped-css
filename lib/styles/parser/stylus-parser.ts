@@ -1,6 +1,6 @@
-import { createRequire } from "node:module";
 import type * as postcss from "postcss";
 import type * as postcssStylType from "postcss-styl";
+import { loadOptionalDep } from "./load-optional-dep.ts";
 import { CSSParser } from "./css-parser.ts";
 import type { VCSSContainerNode, VCSSNode } from "../ast.ts";
 import { VCSSInlineComment } from "../ast.ts";
@@ -8,30 +8,28 @@ import type {
   SourceLocation,
   PostCSSComment,
   PostCSSNode,
+  SourceCode,
 } from "../../types.ts";
 import { StylusSelectorParser } from "./selector/stylus-selector-parser.ts";
 
-const _require = createRequire(import.meta.url);
-let _postcssStyl: typeof postcssStylType | null = null;
-try {
-  _postcssStyl = _require("postcss-styl") as typeof postcssStylType;
-} catch (e) {
-  if ((e as NodeJS.ErrnoException).code !== "MODULE_NOT_FOUND") {
-    throw e;
-  }
-  // postcss-styl is an optional peer dependency
-}
 /**
  * Stylus Parser
  */
 export class StylusParser extends CSSParser {
+  readonly #postcssStyl: typeof postcssStylType | null;
+
+  public constructor(sourceCode: SourceCode, lang: string) {
+    super(sourceCode, lang);
+    this.#postcssStyl =
+      loadOptionalDep<typeof postcssStylType>("postcss-styl");
+  }
   protected parseInternal(css: string): postcss.Root {
-    if (!_postcssStyl) {
+    if (!this.#postcssStyl) {
       throw new Error(
         "postcss-styl is required to parse Stylus. Please install it: npm install --save-dev postcss-styl",
       );
     }
-    return _postcssStyl.parse(css) as postcss.Root;
+    return this.#postcssStyl.parse(css) as postcss.Root;
   }
 
   protected createSelectorParser(): StylusSelectorParser {
