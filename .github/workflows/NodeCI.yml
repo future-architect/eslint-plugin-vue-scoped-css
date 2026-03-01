@@ -28,6 +28,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20, 22, 24]
+        eslint-version: [9, 10]
     steps:
       - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
@@ -36,7 +37,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: npm install
-      - name: build
+      - name: Install ESLint ${{ matrix.eslint-version }}
+        run: npm install eslint@${{ matrix.eslint-version }}
+      - name: Build
         run: npm run build
       - name: Test
         run: npm test
