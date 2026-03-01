@@ -22,7 +22,7 @@
     "eslint-fix": "eslint . --fix",
     "pretest": "npm run build",
     "test:base": "node --import @oxc-node/core/register ./node_modules/.bin/mocha \"tests/**/*.ts\" --reporter dot --timeout 60000",
-    "test:coverage": "c8 npm run test:base",
+    "test:coverage": "c8 --reporter=lcov npm run test:base",
     "test": "npm run test:base",
     "test:debug": "node --import @oxc-node/core/register ./node_modules/.bin/mocha \"tests/**/*.ts\" --reporter dot",
     "test:watch": "npm run test:base -- --watch",
