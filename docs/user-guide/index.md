@@ -8,7 +8,7 @@ npm install --save-dev eslint eslint-plugin-vue-scoped-css vue-eslint-parser
 
 ::: tip Requirements
 - ESLint v9.38.0 and above
-- Node.js v18.18.x and above
+- Node.js v20.19.x, v22.13.x, v24.x and above
 :::
 
 ## Usage
