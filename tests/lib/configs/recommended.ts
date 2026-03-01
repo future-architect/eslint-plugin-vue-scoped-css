@@ -8,7 +8,7 @@ describe("`recommended` config", () => {
     const linter = new ESLint({
       overrideConfigFile: true,
       // @ts-expect-error -- typing bug
-      overrideConfig: [...plugin.configs["recommended"]],
+      overrideConfig: [...plugin.configs.recommended],
     });
     const result = await linter.lintText(code, { filePath: "test.vue" });
     const messages = result[0].messages;
@@ -32,7 +32,7 @@ describe("`recommended` config", () => {
     const linter = new ESLint({
       overrideConfigFile: true,
       // @ts-expect-error -- typing bug
-      overrideConfig: [...plugin.configs["recommended"]],
+      overrideConfig: [...plugin.configs.recommended],
     });
 
     const result = await linter.lintText(";", { filePath: "test.js" });

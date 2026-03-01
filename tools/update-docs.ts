@@ -90,9 +90,7 @@ class DocFile {
         notes.push("- :warning: This rule was **deprecated**.");
       }
     } else {
-      const presets = Array.from(
-        new Set(getPresets(ruleId!).concat(["all"])),
-      );
+      const presets = Array.from(new Set(getPresets(ruleId!).concat(["all"])));
 
       if (presets.length) {
         notes.push(
