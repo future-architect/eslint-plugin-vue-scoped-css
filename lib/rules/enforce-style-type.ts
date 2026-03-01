@@ -10,7 +10,7 @@ import {
   getStyleContexts,
   isValidStyleContext,
   getCommentDirectivesReporter,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 
 const styleTypesAttrs = ["scoped", "module"] as const;
 type StyleTypes = "plain" | (typeof styleTypesAttrs)[number];

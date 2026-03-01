@@ -4,8 +4,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { RuleContext } from "../../../lib/types.ts";
-import type { StyleContext } from "../../../lib/styles/context";
-import { getStyleContexts } from "../../../lib/styles/context";
+import type { StyleContext } from "../../../lib/styles/context/index.ts";
+import { getStyleContexts } from "../../../lib/styles/context/index.ts";
 import * as vueParser from "vue-eslint-parser";
 
 const ROOT = path.join(

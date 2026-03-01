@@ -1,9 +1,9 @@
-import type { ValidStyleContext } from "../styles/context";
+import type { ValidStyleContext } from "../styles/context/index.ts";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
   isValidStyleContext,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 import type { VCSSSelectorCombinator } from "../styles/ast.ts";
 import type { RuleContext, Range, RuleListener } from "../types.ts";
 import { isDeepCombinator } from "../styles/utils/selectors.ts";

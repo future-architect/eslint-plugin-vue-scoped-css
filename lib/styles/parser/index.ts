@@ -3,7 +3,7 @@ import { SCSSParser } from "./scss-parser.ts";
 import { StylusParser } from "./stylus-parser.ts";
 import type { SourceCode, LineAndColumnData } from "../../types.ts";
 import type { VCSSStyleSheet } from "../ast.ts";
-import { isSupportedStyleLang } from "../utils";
+import { isSupportedStyleLang } from "../utils/index.ts";
 
 const PARSERS = {
   scss: SCSSParser,

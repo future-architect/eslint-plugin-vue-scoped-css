@@ -1,10 +1,10 @@
 import type { RuleContext, RuleListener } from "../types.ts";
 import type { VCSSParsingError } from "../styles/ast.ts";
-import type { InvalidStyleContext } from "../styles/context";
+import type { InvalidStyleContext } from "../styles/context/index.ts";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 
 export default {
   meta: {

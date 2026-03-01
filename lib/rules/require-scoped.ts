@@ -9,7 +9,7 @@ import {
   getStyleContexts,
   isValidStyleContext,
   getCommentDirectivesReporter,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 
 export default {
   meta: {

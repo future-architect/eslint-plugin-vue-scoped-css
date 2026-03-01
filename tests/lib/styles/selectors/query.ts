@@ -4,8 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { createQueryContext } from "../../../../lib/styles/selectors/query";
-import { getResolvedSelectors } from "../../../../lib/styles/selectors";
+import { createQueryContext } from "../../../../lib/styles/selectors/query/index.ts";
+import { getResolvedSelectors } from "../../../../lib/styles/selectors/index.ts";
 
 import {
   getStyleFixtureResults,
@@ -17,7 +17,7 @@ import type { AST, RuleContext, VDirectiveKey } from "../../../../lib/types.ts";
 import type {
   StyleContext,
   ValidStyleContext,
-} from "../../../../lib/styles/context";
+} from "../../../../lib/styles/context/index.ts";
 import { parseQueryOptions } from "../../../../lib/options.ts";
 import {
   isVDirective,

@@ -1,9 +1,9 @@
-import type { ValidStyleContext } from "../styles/context";
+import type { ValidStyleContext } from "../styles/context/index.ts";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
   isValidStyleContext,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 import type { RuleContext, RuleListener } from "../types.ts";
 import type { VGlobalPseudo } from "../styles/utils/selectors.ts";
 import {

@@ -2,7 +2,7 @@ import {
   getStyleContexts,
   getCommentDirectivesReporter,
   isValidStyleContext,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 import type {
   VCSSSelectorNode,
   VCSSNode,
@@ -16,7 +16,7 @@ import {
   findAttribute,
 } from "../utils/templates.ts";
 import { getAttributeValueNodes } from "../styles/selectors/query/attribute-tracker.ts";
-import { Template } from "../styles/template";
+import { Template } from "../styles/template/index.ts";
 import {
   isDeepCombinator,
   isVueSpecialPseudo,

@@ -4,19 +4,19 @@ import {
   isValidStyleContext,
   type ValidStyleContext,
   type InvalidStyleContext,
-} from "./style";
-import type { CommentDirectives } from "./comment-directive";
-import {
+} from "./style/index.ts";
+import type {
+  CommentDirectives,
   CommentDirectivesReporter,
+} from "./comment-directive/index.ts";
+import {
   createCommentDirectivesReporter,
   createCommentDirectives,
-} from "./comment-directive";
+} from "./comment-directive/index.ts";
 import type { RuleContext } from "../../types.ts";
 import type { AST } from "vue-eslint-parser";
-import {
-  VueComponentContext,
-  createVueComponentContext,
-} from "./vue-components";
+import type { VueComponentContext } from "./vue-components/index.ts";
+import { createVueComponentContext } from "./vue-components/index.ts";
 
 type CacheValue = {
   styles?: StyleContext[];
@@ -82,13 +82,13 @@ export function getVueComponentContext(
   }
   return (cache.vueComponent = createVueComponentContext(context));
 }
-export {
+export { isValidStyleContext };
+export type {
   StyleContext,
   ValidStyleContext,
   InvalidStyleContext,
   CommentDirectivesReporter,
   VueComponentContext,
-  isValidStyleContext,
 };
 
 /**

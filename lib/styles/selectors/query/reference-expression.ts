@@ -1,4 +1,4 @@
-import { getVueComponentContext } from "../../context";
+import { getVueComponentContext } from "../../context/index.ts";
 import type { RuleContext, AST } from "../../../types.ts";
 
 export type ReferenceExpressions =

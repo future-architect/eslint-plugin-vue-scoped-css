@@ -31,12 +31,15 @@ import type {
 import type { AST, RuleContext, ASTNode } from "../../../types.ts";
 import type { ParsedQueryOptions } from "../../../options.ts";
 import { getAttributeValueNodes } from "./attribute-tracker.ts";
-import type { ValidStyleContext } from "../../context";
-import { getVueComponentContext, getStyleContexts } from "../../context";
+import type { ValidStyleContext } from "../../context/index.ts";
+import {
+  getVueComponentContext,
+  getStyleContexts,
+} from "../../context/index.ts";
 import { getStringFromNode } from "../../utils/nodes.ts";
-import { Template } from "../../template";
+import { Template } from "../../template/index.ts";
 import { isVElement, isTransitionElement } from "../../../utils/templates.ts";
-import { isValidStyleContext } from "../../context/style";
+import { isValidStyleContext } from "../../context/style/index.ts";
 import type { ReferenceExpressions } from "./reference-expression.ts";
 import { getReferenceExpressions } from "./reference-expression.ts";
 

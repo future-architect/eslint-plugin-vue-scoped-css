@@ -1,5 +1,5 @@
-import type { ResolvedSelector } from "../styles/selectors";
-import { getResolvedSelectors } from "../styles/selectors";
+import type { ResolvedSelector } from "../styles/selectors/index.ts";
+import { getResolvedSelectors } from "../styles/selectors/index.ts";
 import {
   isTypeSelector,
   isIDSelector,
@@ -13,18 +13,18 @@ import {
   isVSlottedPseudo,
   isVGlobalPseudo,
 } from "../styles/utils/selectors.ts";
-import type { QueryContext } from "../styles/selectors/query";
-import { createQueryContext } from "../styles/selectors/query";
+import type { QueryContext } from "../styles/selectors/query/index.ts";
+import { createQueryContext } from "../styles/selectors/query/index.ts";
 import type { VCSSSelectorNode } from "../styles/ast.ts";
 import type { RuleContext, RuleListener } from "../types.ts";
-import type { ValidStyleContext } from "../styles/context";
+import type { ValidStyleContext } from "../styles/context/index.ts";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
-} from "../styles/context";
+} from "../styles/context/index.ts";
 import { hasTemplateBlock, isDefined } from "../utils/utils.ts";
 import { parseQueryOptions } from "../options.ts";
-import { isValidStyleContext } from "../styles/context/style";
+import { isValidStyleContext } from "../styles/context/style/index.ts";
 
 /**
  * Gets scoped selectors.

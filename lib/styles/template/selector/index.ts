@@ -7,7 +7,7 @@ import type {
   VCSSClassSelector,
 } from "../../ast.ts";
 import type { Interpolation } from "../interpolation.ts";
-import { isSupportedStyleLang } from "../../utils";
+import { isSupportedStyleLang } from "../../utils/index.ts";
 
 const BUILDERS = {
   css: getCSSTemplateElements,

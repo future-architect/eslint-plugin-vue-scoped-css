@@ -4,8 +4,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { getStyleFixtureResults, writeFixture } from "../test-utils.ts";
-import { getResolvedSelectors } from "../../../../lib/styles/selectors";
-import type { ValidStyleContext } from "../../../../lib/styles/context";
+import { getResolvedSelectors } from "../../../../lib/styles/selectors/index.ts";
+import type { ValidStyleContext } from "../../../../lib/styles/context/index.ts";
 
 /**
  * Remove `parent` proeprties from the given AST.

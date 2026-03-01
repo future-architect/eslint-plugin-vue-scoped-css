@@ -1,4 +1,4 @@
-import { escapeRegExp } from "../utils";
+import { escapeRegExp } from "../utils/index.ts";
 import type { AST } from "../../types.ts";
 import { Interpolation } from "./interpolation.ts";
 import type {
@@ -8,9 +8,9 @@ import type {
   VCSSAtRule,
   VCSSDeclarationProperty,
 } from "../ast.ts";
-import getSelectorTemplateElements from "./selector";
-import getAtRuleParamsTemplateElements from "./at-rule-params";
-import getDeclValueTemplateElements from "./decl-value";
+import getSelectorTemplateElements from "./selector/index.ts";
+import getAtRuleParamsTemplateElements from "./at-rule-params/index.ts";
+import getDeclValueTemplateElements from "./decl-value/index.ts";
 import { isDefined } from "../../utils/utils.ts";
 
 export { Interpolation };

@@ -1,12 +1,12 @@
 import type { VCSSAtRule, VCSSDeclarationProperty } from "../styles/ast.ts";
 import type { RuleContext, RuleListener } from "../types.ts";
-import { Template } from "../styles/template";
-import type { ValidStyleContext } from "../styles/context";
+import { Template } from "../styles/template/index.ts";
+import type { ValidStyleContext } from "../styles/context/index.ts";
 import {
   getStyleContexts,
   getCommentDirectivesReporter,
-} from "../styles/context";
-import { isValidStyleContext } from "../styles/context/style";
+} from "../styles/context/index.ts";
+import { isValidStyleContext } from "../styles/context/style/index.ts";
 
 export default {
   meta: {

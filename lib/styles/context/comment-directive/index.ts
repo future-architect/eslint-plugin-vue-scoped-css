@@ -5,7 +5,7 @@ import type {
   SourceLocation,
   ReportDescriptorSourceLocation,
 } from "../../../types.ts";
-import type { StyleContext } from "../style";
+import type { StyleContext } from "../style/index.ts";
 import type { VCSSCommentNode } from "../../ast.ts";
 
 const COMMENT_DIRECTIVE_B =

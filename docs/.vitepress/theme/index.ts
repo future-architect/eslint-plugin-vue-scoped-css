@@ -4,6 +4,10 @@ import ESLintCodeBlock from "./components/eslint-code-block.vue";
 import PlaygroundBlock from "./components/playground-block.vue";
 import "./style.css";
 
+if (typeof process !== "undefined" && !process.cwd) {
+  process.cwd = () => "/";
+}
+
 const theme: Theme = {
   extends: DefaultTheme,
   enhanceApp(ctx) {

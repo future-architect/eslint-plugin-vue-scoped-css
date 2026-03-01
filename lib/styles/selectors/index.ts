@@ -1,4 +1,4 @@
-import type { ValidStyleContext } from "../context";
+import type { ValidStyleContext } from "../context/index.ts";
 import type { ResolvedSelectors } from "./resolver/css-selector-resolver.ts";
 import {
   CSSSelectorResolver,
@@ -6,7 +6,7 @@ import {
 } from "./resolver/css-selector-resolver.ts";
 import { SCSSSelectorResolver } from "./resolver/scss-selector-resolver.ts";
 import { StylusSelectorResolver } from "./resolver/stylus-selector-resolver.ts";
-import { isSupportedStyleLang } from "../utils";
+import { isSupportedStyleLang } from "../utils/index.ts";
 
 const RESOLVERS = {
   scss: SCSSSelectorResolver,

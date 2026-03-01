@@ -25,7 +25,7 @@ function ruleToSidebarItem({
 }
 
 export default async (): Promise<UserConfig<DefaultTheme.Config>> => {
-  const a = "../../dist/utils/rules.js";
+  const a = "../../lib/utils/rules.ts";
   const { rules } = (await import(a)) as { rules: RuleModule[] };
   return defineConfig({
     base: "/eslint-plugin-vue-scoped-css/",
