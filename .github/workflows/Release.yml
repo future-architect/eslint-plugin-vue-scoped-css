@@ -12,6 +12,12 @@ concurrency:
 
 jobs:
   release:
+    # prevents this action from running on forks
+    if: github.repository == 'future-architect/eslint-plugin-vue-scoped-css'
+    permissions:
+      id-token: write # Required for OIDC
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
     name: Release
     runs-on: ubuntu-latest
     steps:
@@ -20,15 +26,14 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
-
       - name: Setup Node.js
         uses: actions/setup-node@v6
-
+        with:
+          node-version: "lts/*"
       - name: Install Dependencies
         run: npm install
       - name: Build
         run: npm run build
-
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
@@ -41,4 +46,3 @@ jobs:
           title: "chore: release eslint-plugin-vue-scoped-css"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
