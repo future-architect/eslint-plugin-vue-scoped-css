@@ -23,7 +23,6 @@ import {
   isVDirectiveKeyV6,
 } from "../../../../lib/utils/templates";
 
-
 const ROOT = path.join(__dirname, "../fixtures/selectors/query");
 
 /**

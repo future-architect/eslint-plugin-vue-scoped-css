@@ -89,11 +89,7 @@ export = {
             node.range[0] + node.value.length,
             nextNode.range[0],
           ];
-          if (
-            context.sourceCode
-              .text.slice(...betweenRange)
-              .trim()
-          ) {
+          if (context.sourceCode.text.slice(...betweenRange).trim()) {
             // ::v-deep /* comment */ .foo
             return null;
           }
