@@ -3,6 +3,7 @@
     "target": "es2020",
     "module": "preserve",
     "moduleResolution": "bundler",
+    "useDefineForClassFields": false,
     "allowJs": true,
     "checkJs": true,
     "outDir": "./dist",

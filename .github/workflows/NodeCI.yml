@@ -42,8 +42,8 @@ jobs:
       - uses: actions/setup-node@v4
       - name: Install Packages
         run: npm install
-      - name: Test
-        run: npm test
+      - name: Test and Coverage
+        run: npm run test:coverage
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2
         with:
