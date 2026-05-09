@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.1.0
+
+### Minor Changes
+
+- refactor: replace lodash with es-toolkit and vanilla js ([#492](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/492))
+
 ## 3.0.0
 
 ### Major Changes
