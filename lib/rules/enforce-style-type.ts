@@ -1,4 +1,3 @@
-import lodash from "lodash";
 import type {
   RuleContext,
   AST,
@@ -200,7 +199,7 @@ export default {
                         .join(", "),
                     },
                     fix(fixer: RuleFixer) {
-                      return lodash.flatMap(forbiddenAttrs, (attr) =>
+                      return forbiddenAttrs.flatMap((attr) =>
                         removeAttr(fixer, attr),
                       );
                     },

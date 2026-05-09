@@ -1,4 +1,3 @@
-import lodash from "lodash";
 import {
   isTypeSelector,
   isIDSelector,
@@ -766,10 +765,9 @@ function matchClassName(
     }
   }
 
-  const uniquedAttrs = lodash.uniq([
-    "class",
-    ...document.options.extraClassAttributes,
-  ]);
+  const uniquedAttrs = [
+    ...new Set(["class", ...document.options.extraClassAttributes]),
+  ];
   for (const attrName of uniquedAttrs) {
     if (matchClassNameForAttribute(element, attrName, className, document)) {
       return true;

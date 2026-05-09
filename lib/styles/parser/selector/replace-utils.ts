@@ -1,4 +1,8 @@
-import lodash from "lodash";
+import {
+  get as getPath,
+  set as setPath,
+  sortedLastIndex,
+} from "es-toolkit/compat";
 import type { LineAndColumnData, PostCSSSPNode } from "../../../types.ts";
 import { isPostCSSSPContainer } from "../utils.ts";
 
@@ -36,7 +40,7 @@ class SourceCodeLocationResolver {
         column: index - lineStartIndices[lineStartIndices.length - 1],
       };
     }
-    const lineNumber = lodash.sortedLastIndex(lineStartIndices, index);
+    const lineNumber = sortedLastIndex(lineStartIndices, index);
 
     return {
       line: lineNumber,
@@ -546,12 +550,12 @@ function restoreReplaceNodeProp(
   prop: string,
   replaceInfo: ReplaceInfo,
 ): boolean {
-  const text = `${lodash.get(node, prop, "") || ""}`;
+  const text = `${getPath(node, prop, "") || ""}`;
   if (text.includes(replaceInfo.replace)) {
     const newText = text.replace(replaceInfo.replace, replaceInfo.original);
-    lodash.set(node, prop, newText);
+    setPath(node, prop, newText);
     if (!prop.startsWith("raws")) {
-      lodash.set(node, `raws.${prop}`, newText);
+      setPath(node, `raws.${prop}`, newText);
     }
     return true;
   }

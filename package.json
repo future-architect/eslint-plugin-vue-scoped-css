@@ -70,7 +70,6 @@
     "@oxc-node/core": "^0.1.0",
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
     "@types/estree": "^1.0.5",
-    "@types/lodash": "^4.17.5",
     "@types/mocha": "^10.0.7",
     "@types/node": "^24.0.0",
     "@types/semver": "^7.5.8",
@@ -114,7 +113,7 @@
   },
   "dependencies": {
     "@eslint-community/eslint-utils": "^4.4.0",
-    "lodash": "^4.17.21",
+    "es-toolkit": "^1.46.1",
     "postcss": "^8.4.31",
     "postcss-safe-parser": "^7.0.0",
     "postcss-selector-parser": "^7.0.0"
