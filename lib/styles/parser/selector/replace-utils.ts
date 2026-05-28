@@ -289,7 +289,9 @@ export function replaceSelector(
 
   const cssSelector: string[] = [];
   let start = 0;
-  for (const { name, result: res } of definePatternsSearchGenerator(
+  for (const { name, result: res } of definePatternsSearchGenerator<{
+    [name: string]: RegExp;
+  }>(
     {
       block: /\/\*[\s\S]+?\*\//gu, // block comment
       dstr: /"(?:[^"\\]|\\.)*"/gu, // string
