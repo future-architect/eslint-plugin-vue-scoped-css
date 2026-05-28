@@ -163,6 +163,19 @@ export default {
             isUniversalSelector(s) ||
             isVueSpecialPseudo(s),
         );
+      // Combinators adjacent to ignored selectors cannot be verified on their own.
+      while (
+        selectorNodes.length > 0 &&
+        isSelectorCombinator(selectorNodes[0])
+      ) {
+        selectorNodes.shift();
+      }
+      while (
+        selectorNodes.length > 0 &&
+        isSelectorCombinator(selectorNodes[selectorNodes.length - 1])
+      ) {
+        selectorNodes.pop();
+      }
 
       for (let index = 0; index < selectorNodes.length; index++) {
         const selectorNode = selectorNodes[index];

@@ -170,6 +170,15 @@ tester.run("require-selector-used-inside", rule as any, {
         :not(.a) {}
         </style>
         `,
+    // ancestor pseudo-class
+    `
+        <template>
+            <div class="test">Hello</div>
+        </template>
+        <style scoped>
+        :has(div) .test {}
+        </style>
+        `,
     // transition
     `
         <template>
@@ -607,6 +616,22 @@ tester.run("require-selector-used-inside", rule as any, {
           column: 13,
           endLine: 8,
           endColumn: 24,
+        },
+      ],
+    },
+    {
+      code: `
+            <template>
+                <div class="test">Hello</div>
+            </template>
+            <style scoped>
+            :has(div) .unused {}
+            </style>
+            `,
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".unused" },
         },
       ],
     },
