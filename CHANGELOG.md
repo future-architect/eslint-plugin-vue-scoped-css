@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.1.1
+
+### Patch Changes
+
+- Fix false positives in `vue-scoped-css/require-selector-used-inside` for selectors that start with ignored pseudo-classes such as `:has(...)`. ([#496](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/496))
+
 ## 3.1.0
 
 ### Minor Changes
