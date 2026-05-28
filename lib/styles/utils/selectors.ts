@@ -318,7 +318,7 @@ export function* findNestingSelectors(
   for (const node of nodes) {
     if (isNestingSelector(node)) {
       yield {
-        nestingIndex: nodes.indexOf(node as never),
+        nestingIndex: nodes.indexOf(node),
         node,
         nodes,
       };

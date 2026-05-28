@@ -315,7 +315,7 @@ export function replaceSelector(
         },
         {} as { [name: string]: RegExp },
       ), // trivial
-    } as { [name: string]: RegExp },
+    },
     selector,
   )) {
     const plain = selector.slice(start, res.index);

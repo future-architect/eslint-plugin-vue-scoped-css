@@ -275,7 +275,7 @@ function extractVueComponentComputed(
       func.body.type !== "BlockStatement"
     ) {
       // `prop: () => ({...})
-      values.push(func.body as never);
+      values.push(func.body);
     } else {
       // Unknown computed property.
       computed[UNKNOWN] = true;
