@@ -40,7 +40,14 @@ import { isValidStyleContext } from "../styles/context/style/index.ts";
  */
 function getScopedSelectors(style: ValidStyleContext): VCSSSelectorNode[][] {
   const resolvedSelectors = getResolvedSelectors(style);
-  return resolvedSelectors.map(getScopedSelector).filter(isDefined);
+  return resolvedSelectors
+    .filter(
+      ({ selector }) =>
+        style.lang !== "scss" ||
+        !selector.some((node) => node.selector.startsWith("%")),
+    )
+    .map(getScopedSelector)
+    .filter(isDefined);
 }
 
 /**
