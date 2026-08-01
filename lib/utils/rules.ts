@@ -1,4 +1,5 @@
 import type { Rule } from "../types.ts";
+import type { Linter } from "eslint";
 import enforceStyleType from "../rules/enforce-style-type.ts";
 import noDeprecatedDeepCombinator from "../rules/no-deprecated-deep-combinator.ts";
 import noDeprecatedVEnterVLeaveClass from "../rules/no-deprecated-v-enter-v-leave-class.ts";
@@ -111,17 +112,14 @@ export const rules = baseRules.map((obj) => {
  */
 export function collectRules(
   category?: "vue2-recommended" | "vue3-recommended",
-): { [key: string]: string } {
-  return rules.reduce(
-    (obj, rule) => {
-      if (
-        (!category || rule.meta.docs.categories.includes(category)) &&
-        !rule.meta.deprecated
-      ) {
-        obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error";
-      }
-      return obj;
-    },
-    {} as { [key: string]: string },
-  );
+): Linter.RulesRecord {
+  return rules.reduce<Linter.RulesRecord>((obj, rule) => {
+    if (
+      (!category || rule.meta.docs.categories.includes(category)) &&
+      !rule.meta.deprecated
+    ) {
+      obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error";
+    }
+    return obj;
+  }, {});
 }
