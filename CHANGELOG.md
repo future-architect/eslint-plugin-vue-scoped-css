@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.1.2
+
+### Patch Changes
+
+- Improved type definitions for compatibility with `defineConfig` ([#513](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/513))
+
 ## 3.1.1
 
 ### Patch Changes
