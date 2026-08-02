@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.1.3
+
+### Patch Changes
+
+- Fixed generated rule configurations to retain ESLint-compatible types. ([#517](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/517))
+
 ## 3.1.2
 
 ### Patch Changes
