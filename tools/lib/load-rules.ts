@@ -15,7 +15,10 @@ function readRules() {
     path.dirname(fileURLToPath(import.meta.url)),
     "../../lib/rules",
   );
-  const result = fs.readdirSync(rulesLibRoot);
+  const result = fs
+    .readdirSync(rulesLibRoot)
+    .filter((name) => name.endsWith(".ts"))
+    .sort();
   const rules = [];
   for (const name of result) {
     const ruleName = name.replace(/\.ts$/u, "");

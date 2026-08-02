@@ -18,7 +18,13 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
       - name: Install Packages
-        run: npm install
+        run: npm ci
+      - name: Check Generated Files
+        run: |
+          npm run update
+          git diff --exit-code
+          git status --short
+          test -z "$(git status --porcelain)"
       - name: Build
         run: npm run build
       - name: Lint
