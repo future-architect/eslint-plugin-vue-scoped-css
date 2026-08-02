@@ -15,6 +15,7 @@ function toCamelCase(name: string): string {
 
 let content = `
 import type { Rule } from "../types.ts";
+import type { Linter } from "eslint";
 ${rules
   .map(
     (rule) =>
@@ -55,8 +56,8 @@ export const rules = baseRules.map(obj => {
  */
 export function collectRules(
     category?: "vue2-recommended" | "vue3-recommended",
-): { [key: string]: string } {
-    return rules.reduce((obj, rule) => {
+): Linter.RulesRecord {
+    return rules.reduce<Linter.RulesRecord>((obj, rule) => {
         if (
             (!category || rule.meta.docs.categories.includes(category)) &&
             !rule.meta.deprecated
@@ -64,7 +65,7 @@ export function collectRules(
             obj[rule.meta.docs.ruleId || ""] = rule.meta.docs.default || "error"
         }
         return obj
-    }, {} as { [key: string]: string })
+    }, {})
 }
 `;
 
