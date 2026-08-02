@@ -2,7 +2,7 @@ import type { AST } from "vue-eslint-parser";
 import type * as postcss from "postcss";
 import type selectorParser from "postcss-selector-parser";
 import type { ScopeManager } from "eslint-scope";
-import type { Rule } from "eslint";
+import type { Linter, Rule } from "eslint";
 
 export { AST };
 
@@ -19,7 +19,7 @@ export type Rule = {
       categories: ("vue2-recommended" | "vue3-recommended")[];
       ruleId?: string;
       ruleName?: string;
-      default?: string;
+      default?: Linter.RuleSeverity;
       replacedBy?: string[];
       url: string;
       suggestion?: true;

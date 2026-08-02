@@ -1,13 +1,17 @@
 import assert from "node:assert";
 import plugin from "../../../lib/index.ts";
+import { defineConfig } from "eslint/config";
 import { ESLint } from "eslint";
 
 const code = `<template><div class="foo"/></template> <script> ; </script> <style> bar {} </style>`;
 describe("`recommended` config", () => {
+  it("is compatible with `defineConfig`", () => {
+    void defineConfig(...plugin.configs.recommended);
+  });
+
   it("`recommended` config should work. ", async () => {
     const linter = new ESLint({
       overrideConfigFile: true,
-      // @ts-expect-error -- typing bug
       overrideConfig: [...plugin.configs.recommended],
     });
     const result = await linter.lintText(code, { filePath: "test.vue" });
@@ -31,7 +35,6 @@ describe("`recommended` config", () => {
   it("`recommended` config with *.js should work. ", async () => {
     const linter = new ESLint({
       overrideConfigFile: true,
-      // @ts-expect-error -- typing bug
       overrideConfig: [...plugin.configs.recommended],
     });
 
@@ -50,7 +53,6 @@ describe("`recommended` config", () => {
   it("`flat/recommended` backward-compat alias should work. ", async () => {
     const linter = new ESLint({
       overrideConfigFile: true,
-      // @ts-expect-error -- typing bug
       overrideConfig: [...plugin.configs["flat/recommended"]],
     });
     const result = await linter.lintText(code, { filePath: "test.vue" });
