@@ -33,6 +33,20 @@ tester.run("no-unused-selector", rule as any, {
         `,
     `
         <template>
+            <h1 class="eng-title">hello</h1>
+        </template>
+        <style scoped lang="scss">
+        %title {
+          font-size: 2rem;
+        }
+
+        .eng-title {
+          @extend %title;
+        }
+        </style>
+        `,
+    `
+        <template>
             <div><div class="foo"/></div>
         </template>
         <style scoped lang="stylus">
