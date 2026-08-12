@@ -63,7 +63,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.27.5",
+    "@changesets/cli": "^3.0.0",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.6.0",
     "@ota-meshi/eslint-plugin": "^0.20.0",
     "@ota-meshi/site-kit-eslint-editor-vue": "^0.2.1",
