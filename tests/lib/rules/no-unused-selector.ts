@@ -1047,7 +1047,6 @@ tester.run("no-unused-selector", rule as any, {
     // Vue.js 3.x
     {
       code: `
-            <template>
                 <div>
                     <ul class="list">
                         <slot/>
@@ -1292,6 +1291,28 @@ tester.run("no-unused-selector", rule as any, {
           data: { selector: ".bar" },
           line: 7,
           column: 9,
+        },
+      ],
+    },
+    {
+      code: `
+        <template>
+            <h1 class="eng-title">hello</h1>
+        </template>
+        <style scoped lang="scss">
+        %title, .x {
+          font-size: 2rem;
+        }
+
+        .eng-title {
+          @extend %title;
+        }
+        </style>
+        `,
+      errors: [
+        {
+          messageId: "unused",
+          data: { selector: ".x" },
         },
       ],
     },
