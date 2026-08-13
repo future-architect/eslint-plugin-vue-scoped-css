@@ -1047,6 +1047,7 @@ tester.run("no-unused-selector", rule as any, {
     // Vue.js 3.x
     {
       code: `
+            <template>
                 <div>
                     <ul class="list">
                         <slot/>
