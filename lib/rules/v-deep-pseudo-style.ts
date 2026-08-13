@@ -24,8 +24,14 @@ export default {
       expectedDeep: "Expected ':deep()' instead of '::v-deep()'.",
       expectedVDeep: "Expected '::v-deep()' instead of ':deep()'.",
     },
-    schema: [{ enum: [":deep", "::v-deep"] }],
+    schema: [
+      {
+        description: "The syntax to enforce for deep selectors.",
+        enum: [":deep", "::v-deep"],
+      },
+    ],
     type: "suggestion",
+    defaultOptions: [":deep"],
   },
   create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)

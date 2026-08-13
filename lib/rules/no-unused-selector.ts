@@ -111,9 +111,12 @@ export default {
         type: "object",
         properties: {
           ignoreBEMModifier: {
+            description: "Whether to ignore BEM modifiers.",
             type: "boolean",
           },
           captureClassesFromDoc: {
+            description:
+              "Regular expressions that extract class names from comments.",
             type: "array",
             items: [
               {
@@ -124,9 +127,12 @@ export default {
             uniqueItems: true,
           },
           checkUnscoped: {
+            description:
+              "Whether to check `<style>` tags without the `scoped` attribute.",
             type: "boolean",
           },
           extraClassAttributes: {
+            description: "Additional attribute names to check for class names.",
             type: "array",
             items: {
               type: "string",
@@ -139,6 +145,14 @@ export default {
       },
     ],
     type: "suggestion", // "problem",
+    defaultOptions: [
+      {
+        ignoreBEMModifier: false,
+        captureClassesFromDoc: [],
+        checkUnscoped: false,
+        extraClassAttributes: [],
+      },
+    ],
   },
   create(context: RuleContext): RuleListener {
     if (!hasTemplateBlock(context)) {

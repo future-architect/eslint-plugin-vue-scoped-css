@@ -24,8 +24,14 @@ export default {
       expectedSlotted: "Expected ':slotted()' instead of '::v-slotted()'.",
       expectedVSlotted: "Expected '::v-slotted()' instead of ':slotted()'.",
     },
-    schema: [{ enum: [":slotted", "::v-slotted"] }],
+    schema: [
+      {
+        description: "The syntax to enforce for slotted selectors.",
+        enum: [":slotted", "::v-slotted"],
+      },
+    ],
     type: "suggestion",
+    defaultOptions: [":slotted"],
   },
   create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
