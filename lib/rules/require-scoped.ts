@@ -29,8 +29,14 @@ export default {
       add: "Add `scoped` attribute.",
       remove: "Remove `scoped` attribute.",
     },
-    schema: [{ enum: ["always", "never"] }],
+    schema: [
+      {
+        description: "Whether to require or disallow the `scoped` attribute.",
+        enum: ["always", "never"],
+      },
+    ],
     type: "suggestion",
+    defaultOptions: ["always"],
     hasSuggestions: true,
   },
   create(context: RuleContext): RuleListener {

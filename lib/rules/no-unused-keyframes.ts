@@ -25,6 +25,8 @@ export default {
         type: "object",
         properties: {
           checkUnscoped: {
+            description:
+              "Whether to check `<style>` tags without the `scoped` attribute.",
             type: "boolean",
           },
         },
@@ -32,6 +34,7 @@ export default {
       },
     ],
     type: "suggestion", // "problem",
+    defaultOptions: [{ checkUnscoped: false }],
   },
   create(context: RuleContext): RuleListener {
     const checkUnscoped = Boolean(context.options[0]?.checkUnscoped);

@@ -41,6 +41,7 @@ export default {
         type: "object",
         properties: {
           allows: {
+            description: "The allowed types of `<style>` tags.",
             type: "array",
             minItems: 1,
             uniqueItems: true,
@@ -54,6 +55,7 @@ export default {
       },
     ],
     type: "suggestion",
+    defaultOptions: [{ allows: ["scoped"] }],
     hasSuggestions: true,
   },
   create(context: RuleContext): RuleListener {

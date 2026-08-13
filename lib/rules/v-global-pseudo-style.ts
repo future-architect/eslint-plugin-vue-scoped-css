@@ -24,8 +24,14 @@ export default {
       expectedGlobal: "Expected ':global()' instead of '::v-global()'.",
       expectedVGlobal: "Expected '::v-global()' instead of ':global()'.",
     },
-    schema: [{ enum: [":global", "::v-global"] }],
+    schema: [
+      {
+        description: "The syntax to enforce for global selectors.",
+        enum: [":global", "::v-global"],
+      },
+    ],
     type: "suggestion",
+    defaultOptions: [":global"],
   },
   create(context: RuleContext): RuleListener {
     const styles = getStyleContexts(context)
