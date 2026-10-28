@@ -71,7 +71,7 @@
     "@svitejs/changesets-changelog-github-compact": "^1.1.0",
     "@types/estree": "^1.0.5",
     "@types/mocha": "^10.0.7",
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@types/semver": "^7.5.8",
     "@typescript-eslint/eslint-plugin": "^8.60.0",
     "@typescript-eslint/parser": "^8.60.0",
