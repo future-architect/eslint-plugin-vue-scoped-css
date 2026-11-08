@@ -3,11 +3,12 @@ import type * as postcssScssType from "postcss-scss";
 import { loadOptionalDep } from "./load-optional-dep.ts";
 import { CSSParser } from "./css-parser.ts";
 import type { VCSSContainerNode, VCSSNode } from "../ast.ts";
-import { VCSSInlineComment } from "../ast.ts";
+import { VCSSDeclarationProperty, VCSSInlineComment } from "../ast.ts";
 import type {
   SourceLocation,
   PostCSSComment,
   PostCSSNode,
+  PostCSSRule,
   SourceCode,
 } from "../../types.ts";
 import { SCSSSelectorParser } from "./selector/scss-selector-parser.ts";
@@ -34,6 +35,35 @@ export class SCSSParser extends CSSParser {
 
   protected createSelectorParser(): SCSSSelectorParser {
     return new SCSSSelectorParser(this.sourceCode, this.commentContainer);
+  }
+
+  /**
+   * Convert rule Node
+   * @param  {object} node  The node.
+   * @param  {SourceLocation} loc  The location.
+   * @param  {number} start  The index of start.
+   * @param  {number} end  The index of end.
+   * @param  {Node} parent  The parent node.
+   * @returns {VCSSStyleRule | VCSSDeclarationProperty}
+   */
+  protected convertRuleNode(
+    node: PostCSSRule,
+    loc: SourceLocation,
+    start: number,
+    end: number,
+    parent: VCSSContainerNode,
+  ): VCSSNode | null {
+    const selector = node.selector.trimEnd();
+    if (selector.endsWith(":")) {
+      // Nested properties without a value are parsed as rules by postcss-scss.
+      // e.g. `border: { style: solid; }`
+      return new VCSSDeclarationProperty(node as never, loc, start, end, {
+        parent,
+        property: selector.slice(0, -1).trimEnd(),
+        value: "",
+      });
+    }
+    return super.convertRuleNode(node, loc, start, end, parent);
   }
 
   /**
