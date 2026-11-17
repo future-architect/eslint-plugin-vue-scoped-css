@@ -1,5 +1,11 @@
 # eslint-plugin-vue-scoped-css
 
+## 3.1.4
+
+### Patch Changes
+
+- Fixed false parsing errors for SCSS nested properties (e.g. `border: { style: solid; }`). ([#558](https://github.com/future-architect/eslint-plugin-vue-scoped-css/pull/558))
+
 ## 3.1.3
 
 ### Patch Changes
