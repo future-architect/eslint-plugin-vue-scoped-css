@@ -1,0 +1,134 @@
+{
+    "type": "VCSSStyleSheet",
+    "loc": {
+        "start": {
+            "line": 4,
+            "column": 26
+        },
+        "end": {
+            "line": 14,
+            "column": 0
+        }
+    },
+    "start": 61,
+    "end": 187,
+    "range": [
+        61,
+        187
+    ],
+    "nodes": [
+        {
+            "type": "VCSSStyleRule",
+            "loc": {
+                "start": {
+                    "line": 5,
+                    "column": 0
+                },
+                "end": {
+                    "line": 13,
+                    "column": 1
+                }
+            },
+            "start": 62,
+            "end": 186,
+            "range": [
+                62,
+                186
+            ],
+            "selectorText": ".a",
+            "rawSelectorText": ".a",
+            "selectors": [
+                {
+                    "type": "VCSSSelector",
+                    "loc": {
+                        "start": {
+                            "line": 5,
+                            "column": 0
+                        },
+                        "end": {
+                            "line": 5,
+                            "column": 2
+                        }
+                    },
+                    "start": 62,
+                    "end": 64,
+                    "range": [
+                        62,
+                        64
+                    ],
+                    "nodes": [
+                        {
+                            "type": "VCSSClassSelector",
+                            "loc": {
+                                "start": {
+                                    "line": 5,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 5,
+                                    "column": 2
+                                }
+                            },
+                            "start": 62,
+                            "end": 64,
+                            "range": [
+                                62,
+                                64
+                            ],
+                            "value": "a",
+                            "selector": ".a"
+                        }
+                    ]
+                }
+            ],
+            "nodes": [
+                {
+                    "type": "VCSSDeclarationProperty",
+                    "loc": {
+                        "start": {
+                            "line": 6,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 5
+                        }
+                    },
+                    "start": 71,
+                    "end": 128,
+                    "range": [
+                        71,
+                        128
+                    ],
+                    "property": "border",
+                    "value": "",
+                    "important": false
+                },
+                {
+                    "type": "VCSSDeclarationProperty",
+                    "loc": {
+                        "start": {
+                            "line": 10,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 12,
+                            "column": 5
+                        }
+                    },
+                    "start": 133,
+                    "end": 184,
+                    "range": [
+                        133,
+                        184
+                    ],
+                    "property": "font",
+                    "value": "12px/30px",
+                    "important": false
+                }
+            ]
+        }
+    ],
+    "comments": [],
+    "errors": []
+}

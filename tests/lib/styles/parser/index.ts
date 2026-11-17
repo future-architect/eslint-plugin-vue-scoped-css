@@ -185,7 +185,10 @@ function checkCSSNodeLocations(
     const text = code.slice(...node.range);
     assert.ok(text.includes(node.property), "node.property");
     assert.ok(text.includes(node.value), "node.value");
-    if (text.indexOf(node.value) !== text.length - node.value.length) {
+    if ((node.node as any).nodes) {
+      // SCSS nested properties. e.g. `border: { style: solid; }`
+      assert.strictEqual(text[text.length - 1], "}");
+    } else if (text.indexOf(node.value) !== text.length - node.value.length) {
       assert.strictEqual(text[text.length - 1], ";");
     }
   } else if (node.type === "VCSSAtRule") {

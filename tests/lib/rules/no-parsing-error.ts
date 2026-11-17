@@ -30,6 +30,21 @@ tester.run("no-parsing-error", rule as any, {
         <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
         <style scoped/>
         `,
+    // SCSS nested properties
+    `
+        <template><!-- When using vue-eslint-parser@5, a template tag is required.  --></template>
+        <style scoped lang="scss">
+        h1 {
+          border: {
+            style: solid;
+            width: 2px;
+          }
+          font: 12px/30px {
+            family: sans-serif;
+          }
+        }
+        </style>
+        `,
   ],
   invalid: [
     {

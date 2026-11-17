@@ -31,6 +31,23 @@ tester.run("no-unused-selector", rule as any, {
         div {color:red;}
         </style>
         `,
+    // SCSS nested properties
+    `
+        <template>
+            <div><div class="foo"/></div>
+        </template>
+        <style scoped lang="scss">
+        .foo {
+          border: {
+            style: solid;
+            width: 2px;
+          }
+          font: 12px/30px {
+            family: sans-serif;
+          }
+        }
+        </style>
+        `,
     `
         <template>
             <div><div class="foo"/></div>
